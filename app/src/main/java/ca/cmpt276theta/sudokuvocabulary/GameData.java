@@ -51,8 +51,18 @@ public class GameData {
 
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                gridContent[i][j] = "apple";
-                gridContent[i][i] = "kiwi";
+                if puzzle[i][j] != 0 {
+                    for (int k = 0; k < 9; k++){
+                        Pair<Integer, String> temp_pair = mapping_array[k];
+                        int key = temp_pair.first;
+                        if (puzzle[i][j] == key) {
+                            gridContent[i][j] = temp_pair.second();
+                        }
+                    }
+                }
+                else{
+                    gridContent[i][j] = " ";
+                }
             }
         }
     }
