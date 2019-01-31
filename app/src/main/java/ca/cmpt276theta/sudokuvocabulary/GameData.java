@@ -2,6 +2,8 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.util.Pair;
 
+import java.util.Random;
+
 public class GameData {
 
     private Pair<String, String>[][] mGridContent;
@@ -10,32 +12,13 @@ public class GameData {
     private int[][] mPuzzleAnswer;
 
     public GameData() {
-
+        Random random = new Random();
+        int DIFFICULTY = 5;
         mGridContent = new Pair[9][9];
-        mPuzzle = new int[][]{
-                {0, 7, 0, 0, 4, 0, 0, 0, 9},
-                {2, 0, 0, 0, 0, 3, 0, 8, 0},
-                {8, 0, 5, 9, 0, 0, 0, 0, 4},
-                {0, 6, 0, 0, 0, 0, 8, 4, 0},
-                {0, 0, 0, 0, 3, 0, 2, 9, 0},
-                {0, 8, 4, 6, 9, 0, 0, 0, 0},
-                {7, 0, 6, 4, 0, 0, 0, 0, 0},
-                {0, 0, 3, 0, 0, 5, 1, 0, 8},
-                {0, 5, 0, 0, 0, 9, 0, 7, 0}
-        };
+        mPuzzle = new int[9][9];
 
         // Puzzle with the answers
-        mPuzzleAnswer = new int[][]{
-                {6, 7, 1, 2, 4, 8, 3, 5, 9},
-                {2, 4, 9, 5, 7, 3, 6, 8, 1},
-                {8, 3, 5, 9, 1, 6, 7, 2, 4},
-                {9, 6, 2, 1, 5, 7, 8, 4, 3},
-                {5, 1, 7, 8, 3, 4, 2, 9, 6},
-                {3, 8, 4, 6, 9, 2, 5, 1, 7},
-                {7, 2, 6, 4, 8, 1, 9, 3, 5},
-                {4, 9, 3, 7, 2, 5, 1, 6, 8},
-                {1, 5, 8, 3, 6, 9, 4, 7, 2}
-        };
+        mPuzzleAnswer = Generator.generateSolved();
 
         // Pairing the words with numbers
         mMappingArray = new Pair [9];
@@ -48,6 +31,16 @@ public class GameData {
         mMappingArray[6] = new Pair<>("7", "apple");
         mMappingArray[7] = new Pair<>("8", "plum");
         mMappingArray[8] = new Pair<>("9", "peach");
+
+        for(int x = 0; x < mPuzzle.length; x++)
+        {
+            for(int y = 0; y < mPuzzle[x].length; y++)
+            {
+                if(random.nextInt(DIFFICULTY+1) == 0) {
+                    mPuzzle[x][y] = mPuzzleAnswer[x][y];
+                }
+            }
+        }
 
         final Pair<String, String> nullPair = new Pair<>(" ", " ");
 
