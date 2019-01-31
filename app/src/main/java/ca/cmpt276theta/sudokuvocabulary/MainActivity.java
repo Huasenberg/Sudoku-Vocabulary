@@ -1,5 +1,6 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,14 +11,15 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        FrameLayout gameLayout = (FrameLayout) findViewById(R.id.gameLayout);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
-        GameMain gameMain = new GameMain(gameView);
+        final GameMain gameMain = new GameMain(gameView);
+        gameView.setGameData(gameMain.getGameData());
         gameLayout.addView(gameView);
 
         // Set Buttons Bank
@@ -32,30 +34,25 @@ public class MainActivity extends AppCompatActivity {
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
 
-
         // Set Listeners and Tags
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
-            mButtons[i].setTag("3");
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GameMain.fillWord(mButtons[j]);
+                    gameMain.fillWord(mButtons[j]);
                 }
             });
         }
 
         // Set Timer
-        Chronometer ch = (Chronometer) findViewById(R.id.chronometer1);
+        Chronometer ch = findViewById(R.id.chronometer1);
         ch.setBase(SystemClock.elapsedRealtime());
         ch.setFormat("Time: %s");
         ch.start();
-
     }
-
 
     public static void main(String[] args) {
 
-
     }
-};
+}

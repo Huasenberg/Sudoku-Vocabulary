@@ -1,46 +1,47 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.util.Pair;
 import android.widget.Button;
-
 
 public class GameMain {
 
-    private static int positionX;
-    private static int positionY;
-    private static GameView gameView;
+    private int mPositionX;
+    private int mPositionY;
     private GameData mGameData;
+    private GameView mGameView;
 
     public GameMain(GameView view) {
-        mGameData = new GameData(view);
-        gameView = view;
-        positionX = -1;
-        positionY = -1;
+        mGameView = view;
+        mGameData = new GameData();
     }
 
-
-    public static int getPositionX() {
-        return positionX;
+    public GameData getGameData() {
+        return mGameData;
     }
 
-    public static void setPositionX(int x) {
-        positionX = x;
+    public int getPositionX() {
+        return mPositionX;
     }
 
-    public static int getPostionY() {
-        return positionY;
+    public void setPositionX(int x) {
+        mPositionX = x;
     }
 
-    public static void setPositionY(int y) {
-        positionY = y;
+    public int getPostionY() {
+        return mPositionY;
     }
 
-    public static void fillWord(Button button) {
+    public void setPositionY(int y) {
+        mPositionY = y;
+    }
 
-        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
+    public void fillWord(Button button) {
+        Pair<String, String> buttonContent = new Pair<>((String)button.getTag(), (String)button.getText());
+        mPositionX = mGameView.getTouchPositionX();
+        mPositionY = mGameView.getTouchPositionY();
+        if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        GameData.setGridContent((String)button.getText(), positionY, positionX);
-        gameView.invalidate();
+        mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
+        mGameView.invalidate();
     }
-
-
 }
