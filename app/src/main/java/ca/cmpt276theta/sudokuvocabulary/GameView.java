@@ -76,7 +76,7 @@ public class GameView extends View {
     }
 
     private void drawConflict(Canvas canvas) {
-        if(mTouchPositionX != -1 && mGameData.getGridContent(mTouchPositionY, mTouchPositionX).second.equals(" ")) {
+        if(mTouchPositionX != -1 && !mGameData.getGridContent(mTouchPositionY, mTouchPositionX).second.equals(" ")) {
             Paint conflictPaint = new Paint();
             conflictPaint.setColor(getResources().getColor(R.color.conflict));
             for(int i = 0; i < 9; i++) {
