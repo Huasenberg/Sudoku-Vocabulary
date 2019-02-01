@@ -8,4 +8,5 @@
     <color name="subgrid">#424242</color>
     <color name="highlightRec">#3295F0</color>
     <color name="conflict">#E27C7C</color>
+    <color name="preFilledWord">#115199</color>
 </resources>

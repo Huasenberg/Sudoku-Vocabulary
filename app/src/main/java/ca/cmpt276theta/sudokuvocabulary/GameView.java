@@ -21,6 +21,7 @@ public class GameView extends View {
         mTouchPositionY = -1;
     }
 
+
     public void setGameData(GameData gameData) {
         this.mGameData = gameData;
     }
@@ -132,7 +133,6 @@ public class GameView extends View {
 
     private void drawWord(Canvas canvas) {
         Paint wordPaint = new Paint();
-        wordPaint.setColor(getResources().getColor(R.color.border));
         wordPaint.setAntiAlias(true);
         wordPaint.setTextAlign(Paint.Align.CENTER);
         wordPaint.setTextSize(mGridWidth * 0.25f);
@@ -141,11 +141,18 @@ public class GameView extends View {
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 String word = mGameData.getGridContent(i,j).second;
+                wordPaint.setColor(getResources().getColor(R.color.border));
+                wordPaint.setFakeBoldText(false);
                 if(word.length() < 7 && (!word.contains("m")))
                     wordPaint.setTextSize(mGridWidth * 0.29f);
                 else
                     wordPaint.setTextSize(mGridWidth * 0.25f);
-                canvas.drawText(mGameData.getGridContent(i,j).second, mTableMargin + (j * mGridWidth + x), mTableMargin + (i * mGridWidth + y), wordPaint);
+                if(mGameData.getmPuzzle(i,j) != 0) {
+                    wordPaint.setColor(getResources().getColor(R.color.preFilledWord));
+                    wordPaint.setFakeBoldText(true);
+                }
+
+                canvas.drawText(word, mTableMargin + (j * mGridWidth + x), mTableMargin + (i * mGridWidth + y), wordPaint);
             }
         }
     }

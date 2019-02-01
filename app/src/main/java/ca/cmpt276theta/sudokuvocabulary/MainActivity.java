@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
         final GameMain gameMain = new GameMain(gameView);
-        gameMain.setContext(this);
         gameView.setGameData(gameMain.getGameData());
         gameLayout.addView(gameView);
 
@@ -53,7 +52,5 @@ public class MainActivity extends AppCompatActivity {
         ch.start();
     }
 
-    public static void main(String[] args) {
 
-    }
 }
