@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
         final GameMain gameMain = new GameMain(gameView);
+        gameMain.setContext(this);
         gameView.setGameData(gameMain.getGameData());
         gameLayout.addView(gameView);
 

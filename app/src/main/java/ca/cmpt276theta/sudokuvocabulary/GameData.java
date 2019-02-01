@@ -11,6 +11,7 @@ public class GameData {
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
 
+
     public GameData() {
         Random random = new Random();
         int DIFFICULTY = 5;
@@ -61,6 +62,10 @@ public class GameData {
 
     public void setGridContent(Pair<String, String> pair, int i, int j) {
         mGridContent[i][j] = pair;
+    }
+
+    public int getmPuzzle(int i, int j) {
+        return mPuzzle[i][j];
     }
 }
 
