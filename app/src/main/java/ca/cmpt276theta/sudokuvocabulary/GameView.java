@@ -83,27 +83,33 @@ public class GameView extends View {
             mTouchPositionY = -1;
         }
         this.invalidate();
-        GameMain.setPositionX(touchPositionX);
-        GameMain.setPositionY(touchPositionY);
         return super.onTouchEvent(event);
     }
 
     private void drawHighlight(Canvas canvas) {
-        if(touchPositionX != -1) {
+        if(mTouchPositionX != -1) {
             Paint highlightPaint = new Paint();
             highlightPaint.setColor(getResources().getColor(R.color.highlightRec));
             highlightPaint.setAlpha(80);
-            canvas.drawRect(13 + touchPositionX * gridLength, 13, 13 + (touchPositionX + 1) * gridLength,
-                    13 + 9 * gridLength, highlightPaint);
-            canvas.drawRect(13, 13 + touchPositionY * gridLength, 13 + 9 * gridLength,
-                    13 + (touchPositionY + 1) * gridLength, highlightPaint);
+            canvas.drawRect(mTableMargin + mTouchPositionX * mGridWidth, mTableMargin, mTableMargin + (mTouchPositionX + 1) * mGridWidth,
+                    mTableMargin + 9 * mGridWidth, highlightPaint);
+            canvas.drawRect(mTableMargin, mTableMargin + mTouchPositionY * mGridWidth, mTableMargin + 9 * mGridWidth,
+                    mTableMargin + (mTouchPositionY + 1) * mGridWidth, highlightPaint);
         }
     }
 
     private void drawConflict(Canvas canvas) {
-        Paint conflictPaint = new Paint();
-        conflictPaint.setColor(getResources().getColor(R.color.conflict));
-        for(int i = 0; i < 9; i++) {
+        if(mTouchPositionX != -1 && !mGameData.getGridContent(mTouchPositionY, mTouchPositionX).second.equals(" ")) {
+            Paint conflictPaint = new Paint();
+            conflictPaint.setColor(getResources().getColor(R.color.conflict));
+            for(int i = 0; i < 9; i++) {
+                if (mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first.equals(mGameData.getGridContent(i, mTouchPositionX).first) && i != mTouchPositionY)
+                    canvas.drawRect(mTableMargin + mTouchPositionX * mGridWidth, mTableMargin + i * mGridWidth,
+                        mTableMargin + mTouchPositionX * mGridWidth + mGridWidth, mTableMargin + i * mGridWidth + mGridWidth, conflictPaint);
+                if (mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first.equals(mGameData.getGridContent(mTouchPositionY, i).first) && i != mTouchPositionX)
+                    canvas.drawRect(mTableMargin + i * mGridWidth, mTableMargin + mTouchPositionY * mGridWidth,
+                        mTableMargin + i * mGridWidth + mGridWidth, mTableMargin + mTouchPositionY * mGridWidth + mGridWidth, conflictPaint);
+            }
 
             int firstCellOfSubgridX = mTouchPositionX / 3 * 3;
             int firstCellOfSubgridY = mTouchPositionY / 3 * 3;
@@ -121,24 +127,6 @@ public class GameView extends View {
                 }
             }
 
-            if (GameData.getGridContent(touchPositionY, touchPositionX).equals(GameData.getGridContent(touchPositionY, i)) && i !=touchPositionX)
-                canvas.drawRect(13 + i * gridLength, 13 + touchPositionY * gridLength,
-                        13 + i * gridLength + gridLength, 13 + touchPositionY * gridLength + gridLength, conflictPaint);
-        }
-
-        int tempX = touchPositionX / 3 * 3;
-        int tempY = touchPositionY / 3 * 3;
-        for(int i = 0; i < 3; i++) {
-            if (GameData.getGridContent(touchPositionY, touchPositionX).equals(GameData.getGridContent(tempY, tempX + i)) && (tempX + i != touchPositionX) && (tempY != touchPositionY)) {
-                canvas.drawRect(13 + (tempX + i) * gridLength, 13 + tempY * gridLength,
-                        13 + (tempX + i) * gridLength + gridLength, 13 + tempY * gridLength + gridLength, conflictPaint);
-            }
-            if (GameData.getGridContent(touchPositionY, touchPositionX).equals(GameData.getGridContent(tempY + 1, tempX + i)) && (tempX + i != touchPositionX) && (tempY + 1 != touchPositionY))
-                canvas.drawRect(13 + (tempX + i) * gridLength, 13 + (tempY + 1) * gridLength,
-                        13 + (tempX + i) * gridLength + gridLength, 13 + (tempY + 1) * gridLength + gridLength, conflictPaint);
-            if (GameData.getGridContent(touchPositionY, touchPositionX).equals(GameData.getGridContent(tempY + 2, tempX + i)) && (tempX + i != touchPositionX) && (tempY + 2 != touchPositionY))
-                canvas.drawRect(13 + (tempX + i) * gridLength, 13 + (tempY + 2) * gridLength,
-                        13 + (tempX + i) * gridLength + gridLength, 13 + (tempY + 2) * gridLength + gridLength, conflictPaint);
         }
     }
 
@@ -169,7 +157,6 @@ public class GameView extends View {
     private void drawWord(Canvas canvas) {
         Paint wordPaint = new Paint();
         wordPaint.setAntiAlias(true);
-        wordPaint.setTextSize(gridLength * 0.3f);
         wordPaint.setTextAlign(Paint.Align.CENTER);
         wordPaint.setTextSize(mGridWidth * 0.25f);
         float y = mGridWidth / 2 - (wordPaint.getFontMetrics().top + wordPaint.getFontMetrics().bottom) / 2;
