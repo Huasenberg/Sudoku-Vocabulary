@@ -160,5 +160,5 @@
 
 - When a user rotates the screen orientation to landscape, the app will rotate accordingly with readjustments to board and button locations
 
-- Ex. ![GitHub Logo](landscape_sudoku_ex.png)
+- Ex. ![Sudoku Landscape Ex.](landscape_sudoku_ex.png)
 
