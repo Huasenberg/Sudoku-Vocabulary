@@ -5,6 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="border">#050505</color>
     <color name="subgrid">#424242</color>
-    <color name="highlightRec">#003DD8</color>
-    <color name="conflict">#EC6576</color>
+    <color name="highlightRec">#3295F0</color>
+    <color name="conflict">#E27C7C</color>
+    <color name="preFilledWord">#1868C0</color>
+    <color name="hintBubble">#B9002A50</color>
+
 </resources>

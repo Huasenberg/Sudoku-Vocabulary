@@ -2,77 +2,80 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.util.Pair;
 
+import java.util.Random;
+
 public class GameData {
 
-    private static String[][] gridContent;
-    private static GameView gameView;
+    private Pair<Integer, String>[][] mGridContent;
+    private Pair<Integer, String>[] mMappingArray;
+    private Pair<Integer, String>[] mMappingArrayOfButton;
+    private int[][] mPuzzle;
+    private int[][] mPuzzleAnswer;
 
-    public GameData(GameView view) {
-        gameView = view;
-        gridContent = new String[9][9];
-        int[][] puzzle = new int[][]{
-                {0, 7, 0, 0, 4, 0, 0, 0, 9},
-                {2, 0, 0, 0, 0, 3, 0, 8, 0},
-                {8, 0, 5, 9, 0, 0, 0, 0, 4},
-                {0, 6, 0, 0, 0, 0, 8, 4, 0},
-                {0, 0, 0, 0, 3, 0, 2, 9, 0},
-                {0, 8, 4, 6, 9, 0, 0, 0, 0},
-                {7, 0, 6, 4, 0, 0, 0, 0, 0},
-                {0, 0, 3, 0, 0, 5, 1, 0, 8},
-                {0, 5, 0, 0, 0, 9, 0, 7, 0}
-        };
+
+    public GameData() {
+        Random random = new Random();
+        int DIFFICULTY = 5;
+        mGridContent = new Pair[9][9];
+        mPuzzle = new int[9][9];
 
         // Puzzle with the answers
-        int[][] puzzle_answers = new int[][]{
-                {6, 7, 1, 2, 4, 8, 3, 5, 9},
-                {2, 4, 9, 5, 7, 3, 6, 8, 1},
-                {8, 3, 5, 9, 1, 6, 7, 2, 4},
-                {9, 6, 2, 1, 5, 7, 8, 4, 3},
-                {5, 1, 7, 8, 3, 4, 2, 9, 6},
-                {3, 8, 4, 6, 9, 2, 5, 1, 7},
-                {7, 2, 6, 4, 8, 1, 9, 3, 5},
-                {4, 9, 3, 7, 2, 5, 1, 6, 8},
-                {1, 5, 8, 3, 6, 9, 4, 7, 2}
-        };
+        mPuzzleAnswer = Generator.generateSolved();
 
         // Pairing the words with numbers
-        Pair<Integer, String> pair1 = new Pair<>(1, "mangue");
-        Pair<Integer, String> pair2 = new Pair<>(2, "poire");
-        Pair<Integer, String> pair3 = new Pair<>(3, "fraise");
-        Pair<Integer, String> pair4 = new Pair<>(4, "orange");
-        Pair<Integer, String> pair5 = new Pair<>(5, "banane");
-        Pair<Integer, String> pair6 = new Pair<>(6, "kiwi");
-        Pair<Integer, String> pair7 = new Pair<>(7, "prune");
-        Pair<Integer, String> pair8 = new Pair<>(8, "pêche");
-        Pair<Integer, String> pair9 = new Pair<>(9, "cerise");
+        mMappingArray = new Pair[9];
+        mMappingArray[0] = new Pair<>(1, "mango");
+        mMappingArray[1] = new Pair<>(2, "cherry");
+        mMappingArray[2] = new Pair<>(3, "lemon");
+        mMappingArray[3] = new Pair<>(4, "kiwi");
+        mMappingArray[4] = new Pair<>(5, "orange");
+        mMappingArray[5] = new Pair<>(6, "pear");
+        mMappingArray[6] = new Pair<>(7, "apple");
+        mMappingArray[7] = new Pair<>(8, "plum");
+        mMappingArray[8] = new Pair<>(9, "peach");
 
-        Pair mapping_array[] = { pair1, pair2, pair3, pair4, pair5,
-                pair6, pair7, pair8, pair9 };
+        mMappingArrayOfButton = new Pair[9];
+        mMappingArrayOfButton[0] = new Pair<>(1, "mangue");
+        mMappingArrayOfButton[1] = new Pair<>(2, "cerise");
+        mMappingArrayOfButton[2] = new Pair<>(3, "citron");
+        mMappingArrayOfButton[3] = new Pair<>(4, "kiwi");
+        mMappingArrayOfButton[4] = new Pair<>(5, "orange");
+        mMappingArrayOfButton[5] = new Pair<>(6, "poire");
+        mMappingArrayOfButton[6] = new Pair<>(7, "pomme");
+        mMappingArrayOfButton[7] = new Pair<>(8, "prune");
+        mMappingArrayOfButton[8] = new Pair<>(9, "pêche");
+
 
         for(int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (puzzle[i][j] != 0) {
-                    for (int k = 0; k < 9; k++){
-                        Pair<Integer, String> temp_pair = mapping_array[k];
-                        int key = temp_pair.first;
-                        if (puzzle[i][j] == key) {
-                            gridContent[i][j] = temp_pair.second;
-//                            System.out.println(temp_pair.second);
-                        }
-                    }
-                }
-                else{
-                    gridContent[i][j] = " ";
-                }
+            for(int j = 0; j < 9; j++) {
+                if(random.nextInt(DIFFICULTY+1) == 0)
+                    mPuzzle[i][j] = mPuzzleAnswer[i][j];
+                if (mPuzzle[i][j] != 0)
+                    mGridContent[i][j] = mMappingArray[mPuzzle[i][j] - 1];
+                else
+                    mGridContent[i][j] = new Pair<>(-1, " ");
             }
         }
+
     }
 
-    public static String getGridContent(int i, int j) {
-        return gridContent[i][j];
+    public Pair<Integer, String> getGridContent(int i, int j) {
+        return mGridContent[i][j];
     }
 
-    public static void setGridContent(String word, int x, int y) {
-        gridContent[x][y] = word;
+    public void setGridContent(Pair<Integer, String> pair, int i, int j) {
+        mGridContent[i][j] = pair;
+    }
+
+    public int getPuzzle(int i, int j) {
+        return mPuzzle[i][j];
+    }
+
+    public Pair<Integer, String> getMappingArray(int i) {
+        return mMappingArray[i];
+    }
+
+    public Pair<Integer, String> getMappingArrayOfButton(int i) {
+        return mMappingArrayOfButton[i];
     }
 }

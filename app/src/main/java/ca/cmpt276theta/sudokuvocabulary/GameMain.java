@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class GameMain {
@@ -34,12 +35,18 @@ public class GameMain {
         positionY = y;
     }
 
-    public static void fillWord(Button button) {
-
-        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
+    public void fillWord(Button button) {
+        Pair<Integer, String> buttonContent = new Pair<>(Integer.parseInt((String)button.getTag()), (String)button.getText());
+        mPositionX = mGameView.getTouchPositionX();
+        mPositionY = mGameView.getTouchPositionY();
+        if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        GameData.setGridContent((String)button.getText(), positionY, positionX);
-        gameView.invalidate();
+        else if(mGameData.getPuzzle(mPositionY, mPositionX) != 0) {
+            Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
+        mGameView.invalidate();
     }
 
 
