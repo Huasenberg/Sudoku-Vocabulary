@@ -37,12 +37,12 @@ public class GameMain {
     }
 
     public void fillWord(Button button) {
-        Pair<String, String> buttonContent = new Pair<>((String)button.getTag(), (String)button.getText());
+        Pair<Integer, String> buttonContent = new Pair<>(Integer.parseInt((String)button.getTag()), (String)button.getText());
         mPositionX = mGameView.getTouchPositionX();
         mPositionY = mGameView.getTouchPositionY();
         if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        else if(mGameData.getmPuzzle(mPositionY, mPositionX) != 0) {
+        else if(mGameData.getPuzzle(mPositionY, mPositionX) != 0) {
             Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT).show();
             return;
         }
