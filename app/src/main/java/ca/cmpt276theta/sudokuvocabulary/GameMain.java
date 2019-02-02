@@ -1,39 +1,38 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.util.Pair;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 public class GameMain {
 
-    private int mPositionX;
-    private int mPositionY;
+    private static int positionX;
+    private static int positionY;
+    private static GameView gameView;
     private GameData mGameData;
-    private GameView mGameView;
 
     public GameMain(GameView view) {
-        mGameView = view;
-        mGameData = new GameData();
+        mGameData = new GameData(view);
+        gameView = view;
+        positionX = -1;
+        positionY = -1;
     }
 
-    public GameData getGameData() {
-        return mGameData;
+
+    public static int getPositionX() {
+        return positionX;
     }
 
-    public int getPositionX() {
-        return mPositionX;
+    public static void setPositionX(int x) {
+        positionX = x;
     }
 
-    public void setPositionX(int x) {
-        mPositionX = x;
+    public static int getPostionY() {
+        return positionY;
     }
 
-    public int getPostionY() {
-        return mPositionY;
-    }
-
-    public void setPositionY(int y) {
-        mPositionY = y;
+    public static void setPositionY(int y) {
+        positionY = y;
     }
 
     public void fillWord(Button button) {
@@ -49,4 +48,6 @@ public class GameMain {
         mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
         mGameView.invalidate();
     }
+
+
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,19 +17,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="English - Français                          "
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"/>
-
             <Chronometer
                 android:id="@+id/chronometer1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -37,20 +30,18 @@
             android:layout_height="wrap_content">
         </FrameLayout>
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="8dp">
+
             <Button
                 android:id="@+id/button0"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/mangue"
-                android:tag="1" />
+                android:text="@string/mangue" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,30 +54,22 @@
                 android:id="@+id/button1"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/cerise"
-                android:tag="2" />
+                android:text="@string/cerise" />
             <Button
                 android:id="@+id/button2"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/citron"
-                android:tag="3" />
+                android:text="@string/citron" />
             <Button
                 android:id="@+id/button3"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/kiwi"
-                android:tag="4" />
+                android:text="@string/kiwi" />
             <Button
                 android:id="@+id/button4"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/orange"
-                android:tag="5"/>
+                android:text="@string/orange" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,30 +82,26 @@
                 android:id="@+id/button5"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/poire"
-                android:tag="6" />
+                android:text="@string/poire" />
             <Button
                 android:id="@+id/button6"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/pomme"
-                android:tag="7" />
+                android:text="@string/pomme" />
             <Button
                 android:id="@+id/button7"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/prune"
-                android:tag="8" />
+                android:text="@string/prune" />
             <Button
                 android:id="@+id/button8"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:text="@string/pêche"
-                android:tag="9" />
+                android:text="@string/pêche" />
         </LinearLayout>
-    </LinearLayout>
+
+</LinearLayout>
+
+
+
 </android.support.constraint.ConstraintLayout>
