@@ -202,8 +202,8 @@ public class GameView extends View {
             hintPaint.setAntiAlias(true);
             hintPaint.setFakeBoldText(true);
             RectF rec;
-            String hintWord1 = mGameData.getMappingArray(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
-            String hintWord2 = mGameData.getMappingArrayOfButton(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
+            String hintWord1 = mGameData.getLanguageA(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
+            String hintWord2 = mGameData.getLanguageB(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
             float hintWordPositionY1 = mTableMargin + mGridWidth * (mTouchPositionY - 0.93f);
             float hintWordPositionY2 = mTableMargin + mGridWidth * (mTouchPositionY - 0.43f);
             if(mTouchPositionX == 0) {

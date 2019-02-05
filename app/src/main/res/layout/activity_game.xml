@@ -49,7 +49,6 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/mangue"
                 android:tag="1" />
         </LinearLayout>
 
@@ -64,28 +63,24 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/cerise"
                 android:tag="2" />
             <Button
                 android:id="@+id/button2"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/citron"
                 android:tag="3" />
             <Button
                 android:id="@+id/button3"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/kiwi"
                 android:tag="4" />
             <Button
                 android:id="@+id/button4"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/orange"
                 android:tag="5"/>
         </LinearLayout>
 
@@ -100,28 +95,24 @@
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/poire"
                 android:tag="6" />
             <Button
                 android:id="@+id/button6"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/pomme"
                 android:tag="7" />
             <Button
                 android:id="@+id/button7"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/prune"
                 android:tag="8" />
             <Button
                 android:id="@+id/button8"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
-                android:text="@string/pêche"
                 android:tag="9" />
         </LinearLayout>
     </LinearLayout>

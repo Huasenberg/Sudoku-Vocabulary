@@ -13,10 +13,11 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         Button mLanguageAtoLanguageB = findViewById(R.id.languageA_to_languageB);
+        final Intent intent = new Intent(MainMenu.this, MainActivity.class);
         mLanguageAtoLanguageB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, MainActivity.class);
+                intent.putExtra("Mode", 1);
                 startActivity(intent);
             }
         });
@@ -25,7 +26,8 @@ public class MainMenu extends AppCompatActivity {
         mLanguageBtoLanguageA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Does nothing yet, but soon!
+                intent.putExtra("Mode", 2);
+                startActivity(intent);
             }
         });
 

@@ -1,14 +1,5 @@
 <resources>
     <string name="app_name">Sudoku Vocabulary</string>
-    <string name="pomme">pomme</string>
-    <string name="citron">citron</string>
-    <string name="kiwi">kiwi</string>
-    <string name="poire">poire</string>
-    <string name="pêche">pêche</string>
-    <string name="orange">orange</string>
-    <string name="cerise">cerise</string>
-    <string name="mangue">mangue</string>
-    <string name="prune">prune</string>
     <string name="app_name_caps">SUDOKU VOCABULARY</string>
     <string name="languageA_to_languageB">ENGLISH TO FRENCH</string>
     <string name="languageB_to_languageA">FRENCH TO ENGLISH</string>

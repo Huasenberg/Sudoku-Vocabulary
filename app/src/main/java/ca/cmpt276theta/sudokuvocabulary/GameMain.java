@@ -11,9 +11,9 @@ public class GameMain {
     private GameData mGameData;
     private GameView mGameView;
 
-    public GameMain(GameView view) {
+    public GameMain(GameView view, int mode) {
         mGameView = view;
-        mGameData = new GameData();
+        mGameData = new GameData(mode);
     }
 
     public GameData getGameData() {

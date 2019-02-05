@@ -2,7 +2,7 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import java.util.Random;
 
-public class Generator {
+public class GameDataGenerator {
     private static final int UNIT = 3;
     private static final int SIZE = UNIT * UNIT;
     private static final int MAX_SHUFFLE = 20;
