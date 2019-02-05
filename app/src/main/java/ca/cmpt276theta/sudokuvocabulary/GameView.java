@@ -4,21 +4,28 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
+
+import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
 
     private float mGridWidth;
-    private int mTableMargin;
+    private final int mTableMargin;
     private int mTouchPositionX;
     private int mTouchPositionY;
     private GameData mGameData;
     private boolean isLongPress;
+    private boolean isVibrated;
+    private final Vibrator mVibrator;
 
     public GameView(Context context) {
         super(context);
         isLongPress = false;
+        isVibrated = false;
+        mVibrator = (Vibrator) this.getContext().getSystemService(VIBRATOR_SERVICE);
         mTableMargin = 13;
         mTouchPositionX = -1;
         mTouchPositionY = -1;
@@ -69,13 +76,14 @@ public class GameView extends View {
             case MotionEvent.ACTION_MOVE:
                 mTouchPositionX = (int) ((event.getX() - mTableMargin) / mGridWidth);
                 mTouchPositionY = (int) ((event.getY() - mTableMargin) / mGridWidth);
-                if(event.getEventTime() - event.getDownTime() >= 700)
+                if(event.getEventTime() - event.getDownTime() >= 630)
                     isLongPress = true;
                 if(Math.abs(tempX - mTouchPositionX) > 0 || Math.abs(tempY - mTouchPositionY) > 0)
                     isLongPress = false;
                 break;
             case MotionEvent.ACTION_UP:
                 isLongPress = false;
+                isVibrated = false;
                 break;
         }
         if(mTouchPositionX < 0 || mTouchPositionY < 0 || mTouchPositionX > 8 || mTouchPositionY > 8) {
@@ -105,10 +113,10 @@ public class GameView extends View {
             for(int i = 0; i < 9; i++) {
                 if (mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first.equals(mGameData.getGridContent(i, mTouchPositionX).first) && i != mTouchPositionY)
                     canvas.drawRect(mTableMargin + mTouchPositionX * mGridWidth, mTableMargin + i * mGridWidth,
-                        mTableMargin + mTouchPositionX * mGridWidth + mGridWidth, mTableMargin + i * mGridWidth + mGridWidth, conflictPaint);
+                        mTableMargin + (mTouchPositionX + 1) * mGridWidth, mTableMargin + (i + 1) * mGridWidth, conflictPaint);
                 if (mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first.equals(mGameData.getGridContent(mTouchPositionY, i).first) && i != mTouchPositionX)
                     canvas.drawRect(mTableMargin + i * mGridWidth, mTableMargin + mTouchPositionY * mGridWidth,
-                        mTableMargin + i * mGridWidth + mGridWidth, mTableMargin + mTouchPositionY * mGridWidth + mGridWidth, conflictPaint);
+                        mTableMargin + (i + 1) * mGridWidth, mTableMargin + (mTouchPositionY + 1) * mGridWidth, conflictPaint);
             }
 
             int firstCellOfSubgridX = mTouchPositionX / 3 * 3;
@@ -180,6 +188,10 @@ public class GameView extends View {
 
     private void drawHint(Canvas canvas) {
         if(mTouchPositionX != -1 && !mGameData.getGridContent(mTouchPositionY, mTouchPositionX).second.equals(" ")) {
+            if(!isVibrated) {
+                mVibrator.vibrate(65);
+                isVibrated = true;
+            }
             Paint bubblePaint = new Paint();
             bubblePaint.setColor(getResources().getColor(R.color.hintBubble));
             bubblePaint.setAntiAlias(true);
@@ -188,6 +200,7 @@ public class GameView extends View {
             hintPaint.setColor(getResources().getColor(R.color.background));
             hintPaint.setTextSize(mGridWidth * 0.4f);
             hintPaint.setAntiAlias(true);
+            hintPaint.setFakeBoldText(true);
             RectF rec;
             String hintWord1 = mGameData.getMappingArray(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
             String hintWord2 = mGameData.getMappingArrayOfButton(mGameData.getGridContent(mTouchPositionY, mTouchPositionX).first - 1).second;
@@ -198,6 +211,7 @@ public class GameView extends View {
                         mTableMargin + mGridWidth * (mTouchPositionX + 1.8f), mTableMargin + mGridWidth * (mTouchPositionY - 0.2f));
                 canvas.drawRoundRect(rec, 25, 25, bubblePaint);
                 canvas.drawText(hintWord1, mTableMargin + mGridWidth * (mTouchPositionX + 0.9f), hintWordPositionY1, hintPaint);
+                hintPaint.setFakeBoldText(false);
                 canvas.drawText(hintWord2, mTableMargin + mGridWidth * (mTouchPositionX + 0.9f), hintWordPositionY2, hintPaint);
             }
             else if(mTouchPositionX == 8){
@@ -205,6 +219,7 @@ public class GameView extends View {
                         mTableMargin + mGridWidth * 9, mTableMargin + mGridWidth * (mTouchPositionY - 0.2f));
                 canvas.drawRoundRect(rec, 25, 25, bubblePaint);
                 canvas.drawText(hintWord1, mTableMargin + mGridWidth * (mTouchPositionX + 0.15f), hintWordPositionY1, hintPaint);
+                hintPaint.setFakeBoldText(false);
                 canvas.drawText(hintWord2, mTableMargin + mGridWidth * (mTouchPositionX + 0.15f), hintWordPositionY2, hintPaint);
             }
             else {
@@ -212,6 +227,7 @@ public class GameView extends View {
                         mTableMargin + mGridWidth * (mTouchPositionX + 1.4f), mTableMargin + mGridWidth * (mTouchPositionY - 0.2f));
                 canvas.drawRoundRect(rec, 25, 25, bubblePaint);
                 canvas.drawText(hintWord1, mTableMargin + mGridWidth * (mTouchPositionX + 0.5f), hintWordPositionY1, hintPaint);
+                hintPaint.setFakeBoldText(false);
                 canvas.drawText(hintWord2, mTableMargin + mGridWidth * (mTouchPositionX + 0.5f), hintWordPositionY2, hintPaint);
             }
 

@@ -3,9 +3,9 @@ package ca.cmpt276theta.sudokuvocabulary;
 import java.util.Random;
 
 public class Generator {
-    public static final int UNIT = 3;
-    public static final int SIZE = UNIT * UNIT;
-    protected static final int MAX_SHUFFLE = 20;
+    private static final int UNIT = 3;
+    private static final int SIZE = UNIT * UNIT;
+    private static final int MAX_SHUFFLE = 20;
     public static int[][] generateSolved() {
         int[][] array = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) {

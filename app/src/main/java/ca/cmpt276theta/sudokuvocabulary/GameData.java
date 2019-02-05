@@ -15,7 +15,7 @@ public class GameData {
 
     public GameData() {
         Random random = new Random();
-        int DIFFICULTY = 5;
+        int DIFFICULTY = 4;
         mGridContent = new Pair[9][9];
         mPuzzle = new int[9][9];
 
