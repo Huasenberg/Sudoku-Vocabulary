@@ -1,6 +1,8 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.media.MediaPlayer;
 import android.util.Pair;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -10,10 +12,11 @@ public class GameMain {
     private int mPositionY;
     private GameData mGameData;
     private GameView mGameView;
-
+    private final MediaPlayer mp;
     public GameMain(GameView view, int mode) {
         mGameView = view;
         mGameData = new GameData(mode);
+        mp = MediaPlayer.create(view.getContext(), R.raw.tada);
     }
 
     public GameData getGameData() {
