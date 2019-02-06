@@ -11,10 +11,10 @@ public class GameData {
     private Pair<Integer, String>[] mLanguageB;
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
-
+    public static int DIFFICULTY = 4;
     public GameData(int mode) {
         Random random = new Random();
-        int DIFFICULTY = 4;
+
         mGridContent = new Pair[9][9];
         mPuzzle = new int[9][9];
 
@@ -44,15 +44,18 @@ public class GameData {
         wordBank2[7] = new Pair<>(8, "prune");
         wordBank2[8] = new Pair<>(9, "pêche");
         mLanguageB = wordBank2;
+        int numPrefills = 0;
         if(mode==2)
             switchLanguage();
+        while(numPrefills <= DIFFICULTY)
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
-                if(random.nextInt(DIFFICULTY+1) == 0)
+                if(random.nextInt(100) == 0 && mPuzzle[i][j] == 0 && numPrefills <= DIFFICULTY) {
+                    numPrefills++;
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
-                if (mPuzzle[i][j] != 0)
                     mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
-                else
+                }
+                else if(mPuzzle[i][j] == 0)
                     mGridContent[i][j] = new Pair<>(-1, " ");
             }
         }
