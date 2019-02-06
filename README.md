@@ -162,3 +162,13 @@
 
 - Ex. ![Sudoku Landscape Ex.](landscape_sudoku_ex.png)
 
+## 17. Difficulty Settings
+
+### `User Story`
+
+- As a user, I want to be able to choose the difficulty of the Sudoku puzzle, so that I can either challenge myself or make it easier for myself.
+
+### `Test Driven Development`
+
+- When a user opens a board, the app will prompt the user with a seeking bar, so that the user can choose the difficulty of the board.
+
