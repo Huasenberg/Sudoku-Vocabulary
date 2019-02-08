@@ -1,10 +1,12 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameMain {
@@ -39,10 +41,17 @@ public class GameMain {
     }
 
     public void checkGameResult() {
-    Toast not_completed = Toast.makeText(mGameView.getContext(),
-            "You filled in a wrong word or the game is not completed.",
-            Toast.LENGTH_SHORT);
-    not_completed.setGravity(Gravity.CENTER,0,0);
+        Toast not_completed = Toast.makeText(mGameView.getContext(), "You filled in a wrong word or the game is not completed.", Toast.LENGTH_SHORT);
+        not_completed.setGravity(Gravity.CENTER,0,0);
+        View view = not_completed.getView();
+
+        //Sets the colour of the toast
+        view.setBackgroundColor(Color.RED);
+
+        //Sets the colour of the text
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextColor(Color.BLACK);
+
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int currentCell = mGameData.getGridContent()[i][j].first;
@@ -69,10 +78,16 @@ public class GameMain {
                         }
             }
         }
-        Toast success = Toast.makeText(mGameView.getContext(),
-                "Congratulations! You Win!",
-                Toast.LENGTH_SHORT);
+        Toast success = Toast.makeText(mGameView.getContext(), "Congratulations! You Win!", Toast.LENGTH_SHORT);
         success.setGravity(Gravity.CENTER, 0,0);
+        View view2 = success.getView();
+
+        //Sets the colour of the toast
+        view2.setBackgroundColor(Color.GREEN);
+
+        //Sets the colour of the text
+        TextView text2 = view.findViewById(android.R.id.message);
+        text2.setTextColor(Color.BLACK);
         success.show();
         if(mp != null)
             mp.start();
