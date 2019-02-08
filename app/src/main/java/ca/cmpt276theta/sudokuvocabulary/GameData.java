@@ -48,19 +48,18 @@ public class GameData {
         int numPrefills = 0;
         if(mode==2)
             switchLanguage();
-        while(numPrefills <= DIFFICULTY)
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(random.nextInt(100) == 0 && mPuzzle[i][j] == 0 && numPrefills <= DIFFICULTY) {
-                    numPrefills++;
-                    mPuzzle[i][j] = mPuzzleAnswer[i][j];
-                    mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+        while(numPrefills <= DIFFICULTY) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (random.nextInt(100) == 0 && mPuzzle[i][j] == 0 && numPrefills <= DIFFICULTY) {
+                        numPrefills++;
+                        mPuzzle[i][j] = mPuzzleAnswer[i][j];
+                        mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                    } else if (mPuzzle[i][j] == 0)
+                        mGridContent[i][j] = new Pair<>(-1, " ");
                 }
-                else if(mPuzzle[i][j] == 0)
-                    mGridContent[i][j] = new Pair<>(-1, " ");
             }
         }
-
     }
 
    /* public int getEmptyCellCounter() {
