@@ -13,6 +13,7 @@ public class GameData {
     private int[][] mPuzzleAnswer;
     public static int DIFFICULTY = 4;
     public GameData(int mode) {
+        //mEmptyCellCounter = 81;
         Random random = new Random();
 
         mGridContent = new Pair[9][9];
@@ -62,16 +63,20 @@ public class GameData {
 
     }
 
-    public Pair<Integer, String> getGridContent(int i, int j) {
-        return mGridContent[i][j];
+   /* public int getEmptyCellCounter() {
+        return mEmptyCellCounter;
+    }*/
+
+    public Pair<Integer, String>[][] getGridContent() {
+        return mGridContent;
     }
 
     public void setGridContent(Pair<Integer, String> pair, int i, int j) {
         mGridContent[i][j] = pair;
     }
 
-    public int getPuzzle(int i, int j) {
-        return mPuzzle[i][j];
+    public int[][] getPuzzle() {
+        return mPuzzle;
     }
 
     public Pair<Integer, String> getLanguageA(int i) {
