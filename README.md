@@ -70,7 +70,9 @@
 
 ### `Test Driven Development`
 
-- When a user completes the board, the user can click the "check" button and if the board is correct, a victory screen will pop up and a victory sound file will play.
+- When a user completes the board, the user can click the "check" button and if the board is correct, a victory toast will pop up and a victory sound file will play.
+
+- When a user does not complete the board, if the user clicks the "check" button, a toast will prompt the user that the puzzle is not completed
 
 ## 8. APP ICON
 
