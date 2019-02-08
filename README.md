@@ -72,7 +72,9 @@
 
 ### `Test Driven Development`
 
-- When a user selects a Sudoku cell, the translation of that word is momentarily displayed and a vibration will let the user know that the hint is displayed
+- When a user presses and hold a Sudoku cell from the app on the phone, the translation of that word is momentarily displayed and a vibration will let the user know that the hint is displayed
+
+- When user selects a Sudoku cell from the Android Studio Emulator, the users mouse pointer must slightly move within the cell for the hint to popup 
 
 ## 7. FINISH SCREEN
 
@@ -223,3 +225,7 @@
 ### `Test Driven Development`
 
 - When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
+
+## **REFERENCES**
+
+- Code from https://github.com/Subh0m0y/Sudoku/blob/master/src/core/Generator.java by Subh0m0y was referenced when implementing feature three (Unique Puzzles)
