@@ -74,6 +74,7 @@ public class GameMain {
                 Toast.LENGTH_SHORT);
         success.setGravity(Gravity.CENTER, 0,0);
         success.show();
-        //mp.start();
+        if(mp != null)
+            mp.start();
     }
 }
