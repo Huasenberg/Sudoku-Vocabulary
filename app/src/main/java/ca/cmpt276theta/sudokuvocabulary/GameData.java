@@ -11,8 +11,10 @@ public class GameData {
     private Pair<Integer, String>[] mLanguageB;
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
+    //private int mEmptyCellCounter;
 
     public GameData(int mode) {
+        //mEmptyCellCounter = 81;
         Random random = new Random();
         int DIFFICULTY = 4;
         mGridContent = new Pair[9][9];
@@ -44,14 +46,16 @@ public class GameData {
         wordBank2[7] = new Pair<>(8, "prune");
         wordBank2[8] = new Pair<>(9, "pêche");
         mLanguageB = wordBank2;
-        if(mode==2)
+        if(mode == 2)
             switchLanguage();
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 if(random.nextInt(DIFFICULTY+1) == 0)
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
-                if (mPuzzle[i][j] != 0)
+                if (mPuzzle[i][j] != 0) {
                     mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                    //mEmptyCellCounter--;
+                }
                 else
                     mGridContent[i][j] = new Pair<>(-1, " ");
             }
@@ -59,16 +63,20 @@ public class GameData {
 
     }
 
-    public Pair<Integer, String> getGridContent(int i, int j) {
-        return mGridContent[i][j];
+   /* public int getEmptyCellCounter() {
+        return mEmptyCellCounter;
+    }*/
+
+    public Pair<Integer, String>[][] getGridContent() {
+        return mGridContent;
     }
 
     public void setGridContent(Pair<Integer, String> pair, int i, int j) {
         mGridContent[i][j] = pair;
     }
 
-    public int getPuzzle(int i, int j) {
-        return mPuzzle[i][j];
+    public int[][] getPuzzle() {
+        return mPuzzle;
     }
 
     public Pair<Integer, String> getLanguageA(int i) {

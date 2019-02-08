@@ -36,14 +36,13 @@ public class MainActivity extends AppCompatActivity {
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
 
-        // Set Listeners and Text
+        // Set Listeners and Buttons' Text
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
             mButtons[i].setText(gameMain.getGameData().getLanguageB(i).second);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    gameMain.fillWord(mButtons[j]);
+                public void onClick(View v) { gameMain.fillWord(mButtons[j]);
                 }
             });
         }
@@ -54,6 +53,4 @@ public class MainActivity extends AppCompatActivity {
         ch.setFormat("Time: %s");
         ch.start();
     }
-
-
 }
