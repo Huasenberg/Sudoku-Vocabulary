@@ -11,23 +11,41 @@
         android:gravity="center" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:text="English - Français                          "
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"/>
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/languageA_to_languageB"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"/>-->
+                <Button
+                    android:id="@+id/checker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check Game Result"/>
+            </LinearLayout>
 
-            <Chronometer
-                android:id="@+id/chronometer1"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"/>
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical">
+                <Chronometer
+                    android:id="@+id/chronometer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Sudoku Vocabulary</string>
     <string name="app_name_caps">SUDOKU VOCABULARY</string>
-    <string name="languageA_to_languageB">ENGLISH TO FRENCH</string>
-    <string name="languageB_to_languageA">FRENCH TO ENGLISH</string>
+    <string name="languageA_to_languageB">English - Français</string>
+    <string name="languageB_to_languageA">Français - English</string>
     <string name="import_word_list">IMPORT WORD LIST</string>
     <string name="difficulty">Difficulty</string>
 </resources>

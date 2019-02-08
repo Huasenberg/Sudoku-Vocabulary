@@ -35,29 +35,33 @@ public class GameMain {
         }
         mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
         mGameView.invalidate();
-        /*mEmptyCounter--;
-        if(mGameData.getGridContent().)
-            checkGameResult();*/
     }
 
-   /* public void checkGameResult() {
+    public void checkGameResult() {
+
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int currentCell = mGameData.getGridContent()[i][j].first;
                 for (int k = 0; k < 9; k++) {
-                    if (k != j && mGameData.getGridContent()[i][k].first == currentCell)
+                    if (k != j && mGameData.getGridContent()[i][k].first == currentCell) {
+                        Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
                         return;
-                    if (k != i && mGameData.getGridContent()[k][j].first == currentCell)
+                    }
+                    if (k != i && mGameData.getGridContent()[k][j].first == currentCell) {
+                        Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
                         return;
+                    }
                 }
                 int tempRow = i / 3 * 3;
                 int tempCol = j / 3 * 3;
                 for (int row = tempRow; row < tempRow + 3; row++)
                     for (int col = tempCol; col < tempCol + 3; col++)
-                        if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell)
+                        if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell) {
+                            Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
                             return;
+                        }
             }
         }
-        Toast.makeText(mGameView.getContext(), "You Win!", Toast.LENGTH_SHORT).show();
-    }*/
+        Toast.makeText(mGameView.getContext(), "Congratulations! You Win!", Toast.LENGTH_SHORT).show();
+    }
 }
