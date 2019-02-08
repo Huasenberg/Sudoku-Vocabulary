@@ -57,7 +57,7 @@ public class GameMain {
                 for (int row = tempRow; row < tempRow + 3; row++)
                     for (int col = tempCol; col < tempCol + 3; col++)
                         if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell) {
-                            Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mGameView.getContext(), "You filled in the wrong words or the game is not completed.", Toast.LENGTH_SHORT).show();
                             return;
                         }
             }
