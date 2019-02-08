@@ -32,6 +32,7 @@ public class MainMenu extends AppCompatActivity {
         });
 
         Button mImportWordList = findViewById(R.id.import_word_list);
+        mImportWordList.setEnabled(false);
         mImportWordList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
