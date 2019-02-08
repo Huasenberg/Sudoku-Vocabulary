@@ -4,6 +4,8 @@
 
 ## 1. SUDOKU DUPLICATE IDENTIFIER
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a beginner in Sudoku, I want to be able to quickly see if I have inputted duplicate words, so that I can quickly fix the mistake
@@ -13,6 +15,8 @@
 - When a beginner in Sudoku inputs a duplicate entry either in the row or column or the 3x3 box, the duplicates will be highlighted in red.
 
 ## 2. BOLDED PRE-FILLED WORDS
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -24,6 +28,8 @@
 
 ## 3. UNIQUE PUZZLES
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to play a unique game each time so that the games will be different each time
@@ -33,6 +39,8 @@
 - When a user starts a game, a unique Sudoku board will be generated each time the user starts a game
 
 ## 4. MAIN MENU
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -44,6 +52,8 @@
 
 ## 5. TIMER
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to be able to know how long it took me to solve the Sudoku puzzle, so that I can try to improve for next time and see how much time has elapsed
@@ -54,6 +64,8 @@
 
 ## 6. WORD TRANSLATION HINTS
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a language learner, I want to be able to peek at the translation of the pre-filled cell so that I can remind myself what the translation is
@@ -63,6 +75,8 @@
 - When a user selects a Sudoku cell, the translation of that word is momentarily displayed and a vibration will let the user know that the hint is displayed
 
 ## 7. FINISH SCREEN
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -76,6 +90,8 @@
 
 ## 8. APP ICON
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to see a unique icon for the app rather, so that it looks nicer than the default icon
@@ -85,6 +101,8 @@
 - When a user decides to open the app, a unique icon will be displayed rather than the default Android icon
 
 ## 9. Difficulty Settings
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -98,6 +116,8 @@
 
 ## 10. NIGHT MODE
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
@@ -107,6 +127,8 @@
 - When a user clicks the night mode button, the colours of the app will change to a darker scheme
 
 ## 11. LANDSCAPE MODE
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -120,6 +142,8 @@
 
 ## 12. CSV READER
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a teacher, I want to specify a list of word pairs via a CSV file for my students to practice this week
@@ -129,6 +153,8 @@
 - When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the 9 (or 10) pairs of words and prompted to enter the name of the 2 languages. The program will then generate a Sudoku board using the user inputted nine pair of words
 
 ## 13. PAUSE
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -140,6 +166,8 @@
 
 ## 14. BACK (TO MENU) BUTTON
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I want to be able to go back to the menu screen, so that I can go back to the menu to choose other options
@@ -149,6 +177,8 @@
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
 
 ## 15. ERASE BUTTON
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -160,6 +190,8 @@
 
 ## 16. HOW-TO-PLAY BUTTON
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a beginner to Sudoku, I want to know the rules of the game
@@ -170,6 +202,8 @@
 
 ## 17. SAVED BOARDS
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I want to be able to save my progress for the current puzzle for the future and when I return to the main menu
@@ -179,6 +213,8 @@
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
 
 ## 18. BETTER VICTORY DETECTION
+
+### Status: **Not Started**
 
 ### `User Story`
 
