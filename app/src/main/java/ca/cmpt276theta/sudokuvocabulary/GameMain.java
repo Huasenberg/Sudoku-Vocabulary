@@ -2,6 +2,7 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.media.MediaPlayer;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -38,17 +39,22 @@ public class GameMain {
     }
 
     public void checkGameResult() {
-
+    Toast not_completed = Toast.makeText(mGameView.getContext(),
+            "You filled in a wrong word or the game is not completed.",
+            Toast.LENGTH_SHORT);
+    not_completed.setGravity(Gravity.CENTER,0,0);
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int currentCell = mGameData.getGridContent()[i][j].first;
                 for (int k = 0; k < 9; k++) {
                     if (k != j && mGameData.getGridContent()[i][k].first == currentCell) {
-                        Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
+                        not_completed.show();
                         return;
                     }
                     if (k != i && mGameData.getGridContent()[k][j].first == currentCell) {
-                        Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mGameView.getContext(), "You filled in the wrong word or the game is not completed.", Toast.LENGTH_SHORT).show();
+                        not_completed.show();
                         return;
                     }
                 }
@@ -57,11 +63,17 @@ public class GameMain {
                 for (int row = tempRow; row < tempRow + 3; row++)
                     for (int col = tempCol; col < tempCol + 3; col++)
                         if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell) {
-                            Toast.makeText(mGameView.getContext(), "You filled in the wrong words or the game is not completed.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mGameView.getContext(), "You filled in the wrong words or the game is not completed.", Toast.LENGTH_SHORT).show();
+                            not_completed.show();
                             return;
                         }
             }
         }
-        Toast.makeText(mGameView.getContext(), "Congratulations! You Win!", Toast.LENGTH_SHORT).show();
+        Toast success = Toast.makeText(mGameView.getContext(),
+                "Congratulations! You Win!",
+                Toast.LENGTH_SHORT);
+        success.setGravity(Gravity.CENTER, 0,0);
+        success.show();
+        //mp.start();
     }
 }
