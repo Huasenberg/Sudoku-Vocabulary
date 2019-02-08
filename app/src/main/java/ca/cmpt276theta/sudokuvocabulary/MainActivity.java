@@ -1,5 +1,6 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
-        final GameMain gameMain = new GameMain(gameView);
-        gameMain.setContext(this);
+        Intent intent=getIntent();
+        final GameMain gameMain = new GameMain(gameView, intent.getIntExtra("Mode", 1));
         gameView.setGameData(gameMain.getGameData());
         gameLayout.addView(gameView);
 
@@ -35,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
 
-        // Set Listeners and Tags
+        // Set Listeners and Buttons' Text
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
+            mButtons[i].setText(gameMain.getGameData().getLanguageB(i).second);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    gameMain.fillWord(mButtons[j]);
+                public void onClick(View v) { gameMain.fillWord(mButtons[j]);
                 }
             });
         }
@@ -51,9 +52,5 @@ public class MainActivity extends AppCompatActivity {
         ch.setBase(SystemClock.elapsedRealtime());
         ch.setFormat("Time: %s");
         ch.start();
-    }
-
-    public static void main(String[] args) {
-
     }
 }

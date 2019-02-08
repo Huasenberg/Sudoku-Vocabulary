@@ -1,6 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.content.Context;
 import android.util.Pair;
 import android.widget.Button;
 import android.widget.Toast;
@@ -11,48 +10,54 @@ public class GameMain {
     private int mPositionY;
     private GameData mGameData;
     private GameView mGameView;
-    private Context context;
+    //private int mEmptyCounter;
 
-    public GameMain(GameView view) {
+
+    public GameMain(GameView view, int mode) {
         mGameView = view;
-        mGameData = new GameData();
+        mGameData = new GameData(mode);
+        //mEmptyCounter = mGameData.getEmptyCellCounter();
     }
 
     public GameData getGameData() {
         return mGameData;
     }
 
-    public int getPositionX() {
-        return mPositionX;
-    }
-
-    public void setPositionX(int x) {
-        mPositionX = x;
-    }
-
-    public int getPostionY() {
-        return mPositionY;
-    }
-
-    public void setPositionY(int y) {
-        mPositionY = y;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     public void fillWord(Button button) {
-        Pair<String, String> buttonContent = new Pair<>((String)button.getTag(), (String)button.getText());
+        Pair<Integer, String> buttonContent = new Pair<>(Integer.parseInt((String)button.getTag()), (String)button.getText());
         mPositionX = mGameView.getTouchPositionX();
         mPositionY = mGameView.getTouchPositionY();
         if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        else if(mGameData.getmPuzzle(mPositionY, mPositionX) != 0) {
-            Toast.makeText(context, "Can't fill in pre-filled cell", Toast.LENGTH_SHORT).show();
+        else if(mGameData.getPuzzle()[mPositionY][mPositionX] != 0) {
+            Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT).show();
             return;
         }
         mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
         mGameView.invalidate();
+        /*mEmptyCounter--;
+        if(mGameData.getGridContent().)
+            checkGameResult();*/
     }
+
+   /* public void checkGameResult() {
+        for(int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int currentCell = mGameData.getGridContent()[i][j].first;
+                for (int k = 0; k < 9; k++) {
+                    if (k != j && mGameData.getGridContent()[i][k].first == currentCell)
+                        return;
+                    if (k != i && mGameData.getGridContent()[k][j].first == currentCell)
+                        return;
+                }
+                int tempRow = i / 3 * 3;
+                int tempCol = j / 3 * 3;
+                for (int row = tempRow; row < tempRow + 3; row++)
+                    for (int col = tempCol; col < tempCol + 3; col++)
+                        if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell)
+                            return;
+            }
+        }
+        Toast.makeText(mGameView.getContext(), "You Win!", Toast.LENGTH_SHORT).show();
+    }*/
 }

@@ -2,17 +2,15 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import java.util.Random;
 
-public class Generator {
-    public static final int UNIT = 3;
-    public static final int SIZE = UNIT * UNIT;
-    protected static final int MAX_SHUFFLE = 20;
+public class GameDataGenerator {
+    private static final int UNIT = 3;
+    private static final int SIZE = UNIT * UNIT;
+    private static final int MAX_SHUFFLE = 20;
     public static int[][] generateSolved() {
         int[][] array = new int[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
                 array[i][j] = (i * UNIT + i / UNIT + j) % SIZE + 1;
-            }
-        }
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
