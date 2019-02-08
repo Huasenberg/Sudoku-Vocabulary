@@ -70,7 +70,7 @@
 
 ### `Test Driven Development`
 
-- When a user completes the board, a victory screen will pop up and a victory sound file will play.
+- When a user completes the board, the user can click the "check" button and if the board is correct, a victory screen will pop up and a victory sound file will play.
 
 ## 8. APP ICON
 
@@ -175,3 +175,13 @@
 ### `Test Driven Development`
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
+
+## 18. BETTER VICTORY DETECTION
+
+### `User Story`
+
+- As a user, I don't want to have to click the "check" button after I have completed the game
+
+### `Test Driven Development`
+
+- When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
