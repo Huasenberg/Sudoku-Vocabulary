@@ -26,7 +26,7 @@
 
 - When a user tries to change a pre-filled cell, a toast will state that the pre-filled cell cannot be changed and the pre-filled cells will be bolded
 
-## 3. UNIQUE PUZZLES
+## 3. UNIQUE PUZZLES*
 
 ### Status: **Implemented**
 
