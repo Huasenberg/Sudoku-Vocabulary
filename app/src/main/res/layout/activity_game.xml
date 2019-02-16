@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gamePageLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -20,18 +21,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1">
-                <!--<TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/languageA_to_languageB"
                     android:textSize="17sp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"/>-->
-                <Button
-                    android:id="@+id/checker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Check Game Result"/>
+                    android:textColor="@color/colorPrimary"/>
             </LinearLayout>
 
             <LinearLayout
@@ -43,7 +39,7 @@
                     android:id="@+id/chronometer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
             </LinearLayout>
 
 
@@ -62,12 +58,13 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginTop="5dp">
+
             <Button
                 android:id="@+id/button0"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:tag="1" />
+                android:tag="1"
+                android:textAllCaps="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,20 +77,21 @@
                 android:id="@+id/button1"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:tag="2" />
+                android:tag="2"
+                android:textAllCaps="false" />
             <Button
                 android:id="@+id/button2"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
                 android:tag="3" />
+
             <Button
                 android:id="@+id/button3"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:tag="4" />
+                android:tag="4"
+                android:textAllCaps="false" />
             <Button
                 android:id="@+id/button4"
                 android:layout_width="80dp"
@@ -114,24 +112,26 @@
                 android:layout_height="40dp"
                 android:textAllCaps="false"
                 android:tag="6" />
+
             <Button
                 android:id="@+id/button6"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:tag="7" />
+                android:tag="7"
+                android:textAllCaps="false" />
             <Button
                 android:id="@+id/button7"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:textAllCaps="false"
                 android:tag="8" />
+
             <Button
                 android:id="@+id/button8"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:textAllCaps="false"
-                android:tag="9" />
+                android:tag="9"
+                android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

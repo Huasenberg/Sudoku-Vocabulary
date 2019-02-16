@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#42A2F3</color>
-    <color name="background">#EBEBEB</color>
-    <color name="colorPrimaryDark">#42A2F3</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#0A68B6</color>
+    <color name="background">#FFFFFF</color>
+    <color name="colorPrimaryDark">#0A68B6</color>
+    <color name="colorAccent">#0A68B6</color>
     <color name="border">#050505</color>
     <color name="subgrid">#424242</color>
     <color name="highlightRec">#3295F0</color>
     <color name="conflict">#E27C7C</color>
-    <color name="preFilledWord">#1868C0</color>
-    <color name="hintBubble">#B9002A50</color>
+    <color name="hintBubble">#084479</color>
+    <color name="popUpBg">#B9000000</color>
 
 </resources>

@@ -1,24 +1,20 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
 import android.util.Pair;
-
 import java.util.Random;
 
 public class GameData {
-
+    private int mEmptyCellCounter;
     private Pair<Integer, String>[][] mGridContent;
     private Pair<Integer, String>[] mLanguageA;
     private Pair<Integer, String>[] mLanguageB;
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
-    public static int DIFFICULTY = 4;
+    public static int DIFFICULTY;
     public GameData(int mode) {
-        //mEmptyCellCounter = 81;
-        Random random = new Random();
-
+        mEmptyCellCounter = 0;
         mGridContent = new Pair[9][9];
         mPuzzle = new int[9][9];
-
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.generateSolved();
 
@@ -45,26 +41,14 @@ public class GameData {
         wordBank2[7] = new Pair<>(8, "prune");
         wordBank2[8] = new Pair<>(9, "pêche");
         mLanguageB = wordBank2;
-        int numPrefills = 0;
-        if(mode==2)
+        if(mode == 2)
             switchLanguage();
-        while(numPrefills <= DIFFICULTY) {
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    if (random.nextInt(100) == 0 && mPuzzle[i][j] == 0 && numPrefills <= DIFFICULTY) {
-                        numPrefills++;
-                        mPuzzle[i][j] = mPuzzleAnswer[i][j];
-                        mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
-                    } else if (mPuzzle[i][j] == 0)
-                        mGridContent[i][j] = new Pair<>(-1, " ");
-                }
-            }
-        }
+        generateIncompletePuzzle();
     }
 
-   /* public int getEmptyCellCounter() {
+    public int getEmptyCellCounter() {
         return mEmptyCellCounter;
-    }*/
+    }
 
     public Pair<Integer, String>[][] getGridContent() {
         return mGridContent;
@@ -90,6 +74,23 @@ public class GameData {
         Pair<Integer, String>[] temp = mLanguageA;
         mLanguageA = mLanguageB;
         mLanguageB = temp;
+    }
+
+    public void generateIncompletePuzzle() {
+        Random random = new Random();
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                if(random.nextInt(7) > DIFFICULTY)
+                    mPuzzle[i][j] = mPuzzleAnswer[i][j];
+                if(mPuzzle[i][j] != 0)
+                    mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                else {
+                    mGridContent[i][j] = new Pair<>(-1, " ");
+                    mEmptyCellCounter++;
+                }
+            }
+        }
+
     }
 }
 

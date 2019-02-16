@@ -2,13 +2,22 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,10 +26,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getWindow().setTitle("title");
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
-        Intent intent=getIntent();
-        final GameMain gameMain = new GameMain(gameView, intent.getIntExtra("Mode", 1));
+        Intent intent = getIntent();
+
+        // Set Timer
+        Chronometer timer = findViewById(R.id.chronometer1);
+        timer.setBase(SystemClock.elapsedRealtime());
+        timer.setFormat("Time: %s");
+        timer.start();
+
+        // initialize Victory Pop-up Window
+        View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
+        final Intent intent2 = new Intent(this, MainMenu.class);
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        final PopupWindow pw = new PopupWindow(popUpView,size.x,size.y, false);
+        pw.setClippingEnabled(false);
+        pw.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                pw.dismiss();
+                finish();
+            }
+        });
+        final TextView time = pw.getContentView().findViewById(R.id.time);
+        pw.setAnimationStyle(R.style.pop_animation);
+
+        final GameMain gameMain = new GameMain(gameView, intent.getIntExtra("Mode", 1), pw, timer, time);
         gameView.setGameData(gameMain.getGameData());
         gameLayout.addView(gameView);
 
@@ -35,13 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mButtons[6] = findViewById(R.id.button6);
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
-        Button checkButton = findViewById(R.id.checker);
-        checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gameMain.checkGameResult();
-            }
-        });
+
         // Set Listeners and Buttons' Text
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
@@ -54,10 +82,13 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // Set Timer
-        Chronometer ch = findViewById(R.id.chronometer1);
-        ch.setBase(SystemClock.elapsedRealtime());
-        ch.setFormat("Time: %s");
-        ch.start();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.game_top_menu, menu);
+        return true;
+    }
+
 }

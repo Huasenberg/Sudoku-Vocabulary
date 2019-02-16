@@ -7,7 +7,6 @@ import android.graphics.RectF;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
-
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -66,7 +65,6 @@ public class GameView extends View {
     }
 
     float tempX, tempY = 0;
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -115,12 +113,14 @@ public class GameView extends View {
             conflictPaint.setColor(getResources().getColor(R.color.conflict));
             Integer key = mGameData.getGridContent()[mTouchPositionY][mTouchPositionX].first;
             for(int i = 0; i < 9; i++) {
+                final float tempEdge1 = mTableMargin + i * mGridWidth;
+                final float tempEdge2 = mTableMargin + (i + 1) * mGridWidth;
                 if (key.equals(mGameData.getGridContent()[i][mTouchPositionX].first) && i != mTouchPositionY)
-                    canvas.drawRect(mTableMargin + mTouchPositionX * mGridWidth, mTableMargin + i * mGridWidth,
-                        mTableMargin + (mTouchPositionX + 1) * mGridWidth, mTableMargin + (i + 1) * mGridWidth, conflictPaint);
+                    canvas.drawRect(mTableMargin + mTouchPositionX * mGridWidth, tempEdge1,
+                        mTableMargin + (mTouchPositionX + 1) * mGridWidth, tempEdge2, conflictPaint);
                 if (key.equals(mGameData.getGridContent()[mTouchPositionY][i].first) && i != mTouchPositionX)
-                    canvas.drawRect(mTableMargin + i * mGridWidth, mTableMargin + mTouchPositionY * mGridWidth,
-                        mTableMargin + (i + 1) * mGridWidth, mTableMargin + (mTouchPositionY + 1) * mGridWidth, conflictPaint);
+                    canvas.drawRect(tempEdge1, mTableMargin + mTouchPositionY * mGridWidth,
+                            tempEdge2, mTableMargin + (mTouchPositionY + 1) * mGridWidth, conflictPaint);
             }
 
             int firstCellOfSubgridX = mTouchPositionX / 3 * 3;
@@ -145,26 +145,28 @@ public class GameView extends View {
     }
 
     private void drawGrid(Canvas canvas) {
+        final float girdEdge = mTableMargin + mGridWidth * 9;
         // draw the border
         Paint borderPaint = new Paint();
         borderPaint.setColor(getResources().getColor(R.color.border));
         borderPaint.setStrokeWidth(7);
-        final float GirdEndEdge = mTableMargin + mGridWidth * 9;
         for(int i = 0; i <= 3; i++) {
-            canvas.drawLine(mTableMargin + i * mGridWidth * 3, mTableMargin,
-                    mTableMargin + i * mGridWidth * 3, GirdEndEdge, borderPaint);
-            canvas.drawLine(mTableMargin, mTableMargin + i * mGridWidth * 3,
-                    GirdEndEdge, mTableMargin + i * mGridWidth * 3, borderPaint);
+            final float vertex = mTableMargin + i * mGridWidth * 3;
+            canvas.drawLine(vertex, mTableMargin,
+                    vertex, girdEdge, borderPaint);
+            canvas.drawLine(mTableMargin, vertex,
+                    girdEdge, vertex, borderPaint);
         }
 
         // draw the subgrid
         Paint subgridPaint = new Paint();
         subgridPaint.setColor(getResources().getColor(R.color.subgrid));
         for(int i = 1; i < 9; i++) {
-            canvas.drawLine(mTableMargin + i * mGridWidth, mTableMargin, mTableMargin + i * mGridWidth,
-                    GirdEndEdge, subgridPaint );
-            canvas.drawLine(mTableMargin, mTableMargin + i * mGridWidth,GirdEndEdge,
-                    mTableMargin + i * mGridWidth, subgridPaint );
+            final float vertex = mTableMargin + i * mGridWidth;
+            canvas.drawLine(vertex, mTableMargin, vertex,
+                    girdEdge, subgridPaint );
+            canvas.drawLine(mTableMargin, vertex,girdEdge,
+                    vertex, subgridPaint );
         }
     }
 
@@ -184,7 +186,7 @@ public class GameView extends View {
                 else
                     wordPaint.setTextSize(mGridWidth * 0.25f);
                 if(mGameData.getPuzzle()[i][j] != 0) {
-                    wordPaint.setColor(getResources().getColor(R.color.preFilledWord));
+                    wordPaint.setColor(getResources().getColor(R.color.colorPrimary));
                     wordPaint.setFakeBoldText(true);
                 }
                 canvas.drawText(word, mTableMargin + (j + 0.5f) * mGridWidth, mTableMargin + (i * mGridWidth + y), wordPaint);
@@ -201,6 +203,7 @@ public class GameView extends View {
             Paint bubblePaint = new Paint();
             bubblePaint.setColor(getResources().getColor(R.color.hintBubble));
             bubblePaint.setAntiAlias(true);
+            bubblePaint.setAlpha(200);
             Paint hintPaint = new Paint();
             hintPaint.setTextAlign(Paint.Align.CENTER);
             hintPaint.setColor(getResources().getColor(R.color.background));
