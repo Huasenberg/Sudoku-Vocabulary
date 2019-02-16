@@ -4,6 +4,8 @@
 
 ## 1. SUDOKU DUPLICATE IDENTIFIER
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a beginner in Sudoku, I want to be able to quickly see if I have inputted duplicate words, so that I can quickly fix the mistake
@@ -14,6 +16,8 @@
 
 ## 2. BOLDED PRE-FILLED WORDS
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to be able to differentiate between pre-filled cells and the cells that I filled out
@@ -22,7 +26,9 @@
 
 - When a user tries to change a pre-filled cell, a toast will state that the pre-filled cell cannot be changed and the pre-filled cells will be bolded
 
-## 3. UNIQUE PUZZLES
+## 3. UNIQUE PUZZLES*
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -34,6 +40,8 @@
 
 ## 4. MAIN MENU
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to see a main menu so that I can choose when to start my game
@@ -43,6 +51,8 @@
 - When a user opens the app, a main menu will be presented to the user so that the user can decide when to start the game
 
 ## 5. TIMER
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -54,15 +64,21 @@
 
 ## 6. WORD TRANSLATION HINTS
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a language learner, I want to be able to peek at the translation of the pre-filled cell so that I can remind myself what the translation is
 
 ### `Test Driven Development`
 
-- When a user selects a Sudoku cell, the translation of that word is momentarily displayed and a vibration will let the user know that the hint is displayed
+- When a user presses and hold a Sudoku cell from the app on the phone, the translation of that word is momentarily displayed and a vibration will let the user know that the hint is displayed
+
+- When user selects a Sudoku cell from the Android Studio Emulator, the users mouse pointer must slightly move within the cell for the hint to popup 
 
 ## 7. FINISH SCREEN
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -76,6 +92,8 @@
 
 ## 8. APP ICON
 
+### Status: **Implemented**
+
 ### `User Story`
 
 - As a user, I want to see a unique icon for the app rather, so that it looks nicer than the default icon
@@ -85,6 +103,8 @@
 - When a user decides to open the app, a unique icon will be displayed rather than the default Android icon
 
 ## 9. Difficulty Settings
+
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -98,6 +118,8 @@
 
 ## 10. NIGHT MODE
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
@@ -107,6 +129,8 @@
 - When a user clicks the night mode button, the colours of the app will change to a darker scheme
 
 ## 11. LANDSCAPE MODE
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -120,6 +144,8 @@
 
 ## 12. CSV READER
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a teacher, I want to specify a list of word pairs via a CSV file for my students to practice this week
@@ -129,6 +155,8 @@
 - When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the 9 (or 10) pairs of words and prompted to enter the name of the 2 languages. The program will then generate a Sudoku board using the user inputted nine pair of words
 
 ## 13. PAUSE
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -140,6 +168,8 @@
 
 ## 14. BACK (TO MENU) BUTTON
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I want to be able to go back to the menu screen, so that I can go back to the menu to choose other options
@@ -149,6 +179,8 @@
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
 
 ## 15. ERASE BUTTON
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -160,6 +192,8 @@
 
 ## 16. HOW-TO-PLAY BUTTON
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a beginner to Sudoku, I want to know the rules of the game
@@ -169,6 +203,8 @@
 - When a beignner to Sudoku selects the "help button," a popup will explain the rules to Sudoku and pausing the timer of the game. (Help button in Main Menu and in-game?)
 
 ## 17. SAVED BOARDS
+
+### Status: **Not Started**
 
 ### `User Story`
 
@@ -180,6 +216,8 @@
 
 ## 18. BETTER VICTORY DETECTION
 
+### Status: **Not Started**
+
 ### `User Story`
 
 - As a user, I don't want to have to click the "check" button after I have completed the game
@@ -187,3 +225,7 @@
 ### `Test Driven Development`
 
 - When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
+
+## **REFERENCES**
+
+- Code from https://github.com/Subh0m0y/Sudoku/blob/master/src/core/Generator.java by Subh0m0y was referenced when implementing feature three (Unique Puzzles)
