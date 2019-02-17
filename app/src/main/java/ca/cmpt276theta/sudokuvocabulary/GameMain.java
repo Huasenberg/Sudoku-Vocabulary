@@ -17,17 +17,16 @@ public class GameMain {
     private int mPositionY;
     private GameData mGameData;
     private GameView mGameView;
-    private int mEmptyCellCounter;
     private final MediaPlayer mp;
     private PopupWindow mPopupWindow;
     private Chronometer mTimer;
     private TextView mTime;
 
-    public GameMain(GameView view, int mode, PopupWindow popupWindow, Chronometer timer, TextView time) {
+    public GameMain(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
-        mGameData = new GameData(mode);
-        mEmptyCellCounter = mGameData.getEmptyCellCounter();
+        mGameData = gameData;
         this.mTimer = timer;
+        mTimer.start();
         this.mTime = time;
         this.mPopupWindow = popupWindow;
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
@@ -36,7 +35,6 @@ public class GameMain {
     public GameData getGameData() {
         return mGameData;
     }
-
 
     public void fillWord(Button button) {
         Pair<Integer, String> buttonContent = new Pair<>(Integer.parseInt((String)button.getTag()), (String)button.getText());
@@ -56,10 +54,10 @@ public class GameMain {
             return;
         }
         else if(mGameData.getGridContent()[mPositionY][mPositionX].first.equals(-1))
-            mEmptyCellCounter--;
+            mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
         mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
         mGameView.invalidate();
-        if(mEmptyCellCounter == 0)
+        if(mGameData.getEmptyCellCounter() == 0)
             checkGameResult();
     }
 
@@ -82,6 +80,7 @@ public class GameMain {
             }
         }
         mTimer.stop();
+        mPopupWindow.setAnimationStyle(R.style.pop_animation);
         showVicPopup(mTimer.getText().toString());
         if(mp != null)
             mp.start();

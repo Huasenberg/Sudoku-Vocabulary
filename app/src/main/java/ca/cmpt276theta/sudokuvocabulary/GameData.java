@@ -1,9 +1,11 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
 import android.util.Pair;
+
+import java.io.Serializable;
 import java.util.Random;
 
-public class GameData {
+public class GameData implements Serializable {
     private int mEmptyCellCounter;
     private Pair<Integer, String>[][] mGridContent;
     private Pair<Integer, String>[] mLanguageA;
@@ -44,6 +46,10 @@ public class GameData {
         if(mode == 2)
             switchLanguage();
         generateIncompletePuzzle();
+    }
+
+    public void setEmptyCellCounter(int emptyCellCounter) {
+        mEmptyCellCounter = emptyCellCounter;
     }
 
     public int getEmptyCellCounter() {
@@ -90,7 +96,6 @@ public class GameData {
                 }
             }
         }
-
     }
 }
 

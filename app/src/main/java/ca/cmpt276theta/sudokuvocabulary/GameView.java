@@ -44,7 +44,8 @@ public class GameView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
+        int min = Math.min(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(min, min);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class GameView extends View {
         // draw the border
         Paint borderPaint = new Paint();
         borderPaint.setColor(getResources().getColor(R.color.border));
-        borderPaint.setStrokeWidth(7);
+        borderPaint.setStrokeWidth(6);
         for(int i = 0; i <= 3; i++) {
             final float vertex = mTableMargin + i * mGridWidth * 3;
             canvas.drawLine(vertex, mTableMargin,
