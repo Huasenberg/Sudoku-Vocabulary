@@ -34,7 +34,6 @@ public class MainMenu extends AppCompatActivity {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         final PopupWindow pw = new PopupWindow(contentView, size.x, size.y, false);
-        pw.setClippingEnabled(false);
         final LinearLayout diffPopUp = pw.getContentView().findViewById(R.id.difficulty_popup);
         final Spinner spinner = pw.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = pw.getContentView().findViewById(R.id.seekBar);
@@ -116,8 +115,8 @@ public class MainMenu extends AppCompatActivity {
 
     public void showDiffPopup(final Intent intent, final LinearLayout diffPopUp, final PopupWindow pw, final SeekBar seekBar, final TextView text) {
         pw.setAnimationStyle(R.style.pop_animation);
+        setActivityBackGroundAlpha(0.3f);
         pw.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
-        diffPopUp.setBackgroundColor(getResources().getColor(R.color.popUpBg));
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -139,13 +138,21 @@ public class MainMenu extends AppCompatActivity {
                 intent.putExtra("Mode", option);
                 startActivity(intent);
                 pw.dismiss();
+                setActivityBackGroundAlpha(1);
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                setActivityBackGroundAlpha(1);
                 pw.dismiss();
             }
         });
+    }
+
+    public void setActivityBackGroundAlpha(float num) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = num;
+        getWindow().setAttributes(lp);
     }
 }

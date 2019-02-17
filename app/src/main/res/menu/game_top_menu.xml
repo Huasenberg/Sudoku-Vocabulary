@@ -2,6 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/game_settings"
-        android:title="Setting"
+        android:title="@string/title_activity_settings_menu"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/game_helper"
+        android:title="@string/help"
         app:showAsAction="never"/>
 </menu>
