@@ -6,7 +6,17 @@ public class GameDataGenerator {
     private static final int UNIT = 3;
     private static final int SIZE = UNIT * UNIT;
     private static final int MAX_SHUFFLE = 20;
-    public static int[][] generateSolved() {
+    private static int[][] sSolvedPuzzle;
+
+    public static int[][] getSolvedPuzzle() {
+        return sSolvedPuzzle;
+    }
+
+    public static void loadPuzzleData() {
+        sSolvedPuzzle = generateSolved();
+    }
+
+    private static int[][] generateSolved() {
         int[][] array = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
@@ -26,7 +36,7 @@ public class GameDataGenerator {
      *
      * @param array The array to be transposed.
      */
-    public static void transpose(int[][] array) {
+    private static void transpose(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
                 int temp = array[i][j];

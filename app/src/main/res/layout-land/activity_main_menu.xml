@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MainMenu">
+    tools:context=".MainMenuActivity">
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -65,11 +65,11 @@
 
         <ImageView
             android:id="@+id/settings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:src="@drawable/settings_icon"
-            android:layout_gravity="end"/>
+            android:src="@drawable/settings_icon" />
 
         <LinearLayout
             android:layout_width="257dp"

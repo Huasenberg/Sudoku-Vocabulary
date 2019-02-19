@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     private GameData mGameData;
     private Chronometer mTimer;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             mGameData = (GameData)savedInstanceState.getSerializable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
         }
-        final GameMain gameMain = new GameMain(mGameData, gameView, pw, mTimer, time);
+        final GameController gameMain = new GameController(mGameData, gameView, pw, mTimer, time);
 
 
         gameView.setGameData(gameMain.getGameData());
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         mButtons[8] = findViewById(R.id.button8);
 
         // Set Listeners and Buttons' Text
+        final float textSize = mButtons[0].getWidth();
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
-            mButtons[i].setText(gameMain.getGameData().getLanguageB(i).second);
-            mButtons[i].setTextSize(15);
+            mButtons[i].setText(gameMain.getGameData().getLanguageB()[i]);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

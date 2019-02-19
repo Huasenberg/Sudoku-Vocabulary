@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameMain {
+public class GameController {
 
     private int mPositionX;
     private int mPositionY;
@@ -22,7 +23,7 @@ public class GameMain {
     private Chronometer mTimer;
     private TextView mTime;
 
-    public GameMain(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
+    public GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
         mGameData = gameData;
         this.mTimer = timer;
@@ -37,12 +38,11 @@ public class GameMain {
     }
 
     public void fillWord(Button button) {
-        Pair<Integer, String> buttonContent = new Pair<>(Integer.parseInt((String)button.getTag()), (String)button.getText());
         mPositionX = mGameView.getTouchPositionX();
         mPositionY = mGameView.getTouchPositionY();
         if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        else if(mGameData.getPuzzle()[mPositionY][mPositionX] != 0) {
+        if(mGameData.getPuzzlePreFilled()[mPositionY][mPositionX] != 0) {
             Toast toast = Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0,0);
             View view = toast.getView();
@@ -53,29 +53,30 @@ public class GameMain {
             toast.show();
             return;
         }
-        else if(mGameData.getGridContent()[mPositionY][mPositionX].first.equals(-1))
+        if(mGameData.getPuzzle()[mPositionY][mPositionX] == 0)
             mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
-        mGameData.setGridContent(buttonContent, mPositionY, mPositionX);
+        mGameData.getPuzzle()[mPositionY][mPositionX] = Integer.valueOf(button.getTag().toString());
+        mGameData.getGridContent()[mPositionY][mPositionX] = (String) button.getText();
         mGameView.invalidate();
         if(mGameData.getEmptyCellCounter() == 0)
             checkGameResult();
     }
 
-    public void checkGameResult() {
+    private void checkGameResult() {
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                int currentCell = mGameData.getGridContent()[i][j].first;
+                int currentCell = mGameData.getPuzzle()[i][j];
                 for (int k = 0; k < 9; k++) {
-                    if (k != j && mGameData.getGridContent()[i][k].first == currentCell)
+                    if (k != j && mGameData.getPuzzle()[i][k] == currentCell)
                         return;
-                    if (k != i && mGameData.getGridContent()[k][j].first == currentCell)
+                    if (k != i && mGameData.getPuzzle()[k][j] == currentCell)
                         return;
                 }
                 int tempRow = i / 3 * 3;
                 int tempCol = j / 3 * 3;
                 for (int row = tempRow; row < tempRow + 3; row++)
                     for (int col = tempCol; col < tempCol + 3; col++)
-                        if (row != i && col != j && mGameData.getGridContent()[row][col].first == currentCell)
+                        if (row != i && col != j && mGameData.getPuzzle()[row][col] == currentCell)
                             return;
             }
         }
@@ -88,7 +89,7 @@ public class GameMain {
 
     public void showVicPopup(String time) {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
-        difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), mGameData.DIFFICULTY));
+        difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), GameData.getDifficulty()));
         mTime.setText(time);
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }

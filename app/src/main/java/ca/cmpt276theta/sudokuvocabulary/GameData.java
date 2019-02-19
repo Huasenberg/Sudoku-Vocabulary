@@ -1,47 +1,32 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.util.Pair;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameData implements Serializable {
     private int mEmptyCellCounter;
-    private Pair<Integer, String>[][] mGridContent;
-    private Pair<Integer, String>[] mLanguageA;
-    private Pair<Integer, String>[] mLanguageB;
+    private String[][] mGridContent;
+    private String[] mLanguageA;
+    private String[] mLanguageB;
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
-    public static int DIFFICULTY;
+    private int[][] mPuzzlePreFilled;
+    private static List<String> sLanguagesList = new ArrayList<>();
+    private static int sDifficulty;
+
     public GameData(int mode) {
         mEmptyCellCounter = 0;
-        mGridContent = new Pair[9][9];
+        mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
+        mPuzzlePreFilled = new int[9][9];
         // Puzzle with the answers
-        mPuzzleAnswer = GameDataGenerator.generateSolved();
-
+        mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
         // Pairing the words with numbers
-        Pair<Integer, String>[] wordBank1 = new Pair[9];
-        wordBank1[0] = new Pair<>(1, "mango");
-        wordBank1[1] = new Pair<>(2, "cherry");
-        wordBank1[2] = new Pair<>(3, "lemon");
-        wordBank1[3] = new Pair<>(4, "kiwi");
-        wordBank1[4] = new Pair<>(5, "orange");
-        wordBank1[5] = new Pair<>(6, "pear");
-        wordBank1[6] = new Pair<>(7, "apple");
-        wordBank1[7] = new Pair<>(8, "plum");
-        wordBank1[8] = new Pair<>(9, "peach");
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
+        String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
         mLanguageA = wordBank1;
-        Pair<Integer, String>[] wordBank2 = new Pair[9];
-        wordBank2[0] = new Pair<>(1, "mangue");
-        wordBank2[1] = new Pair<>(2, "cerise");
-        wordBank2[2] = new Pair<>(3, "citron");
-        wordBank2[3] = new Pair<>(4, "kiwi");
-        wordBank2[4] = new Pair<>(5, "orange");
-        wordBank2[5] = new Pair<>(6, "poire");
-        wordBank2[6] = new Pair<>(7, "pomme");
-        wordBank2[7] = new Pair<>(8, "prune");
-        wordBank2[8] = new Pair<>(9, "pêche");
         mLanguageB = wordBank2;
         if(mode == 2)
             switchLanguage();
@@ -52,51 +37,68 @@ public class GameData implements Serializable {
         mEmptyCellCounter = emptyCellCounter;
     }
 
+    public String[] getLanguageA() {
+        return mLanguageA;
+    }
+
+    public String[] getLanguageB() {
+        return mLanguageB;
+    }
+
     public int getEmptyCellCounter() {
         return mEmptyCellCounter;
     }
 
-    public Pair<Integer, String>[][] getGridContent() {
+    public String[][] getGridContent() {
         return mGridContent;
     }
 
-    public void setGridContent(Pair<Integer, String> pair, int i, int j) {
-        mGridContent[i][j] = pair;
+    public int[][] getPuzzlePreFilled() {
+        return mPuzzlePreFilled;
     }
 
     public int[][] getPuzzle() {
         return mPuzzle;
     }
 
-    public Pair<Integer, String> getLanguageA(int i) {
-        return mLanguageA[i];
+    public static List<String> getLanguagesList() {
+        return sLanguagesList;
     }
 
-    public Pair<Integer, String> getLanguageB(int i) {
-        return mLanguageB[i];
+    public static int getDifficulty() {
+        return sDifficulty;
+    }
+
+    public static void setDifficulty(int difficulty) {
+        sDifficulty = difficulty;
     }
 
     public void switchLanguage() {
-        Pair<Integer, String>[] temp = mLanguageA;
+        String[] temp = mLanguageA;
         mLanguageA = mLanguageB;
         mLanguageB = temp;
     }
 
-    public void generateIncompletePuzzle() {
+    private void generateIncompletePuzzle() {
         Random random = new Random();
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
-                if(random.nextInt(7) > DIFFICULTY)
+                if(random.nextInt(7) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
+                    mPuzzlePreFilled[i][j] = mPuzzle[i][j];
+                }
                 if(mPuzzle[i][j] != 0)
                     mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
                 else {
-                    mGridContent[i][j] = new Pair<>(-1, " ");
+                    mGridContent[i][j] = " ";
                     mEmptyCellCounter++;
                 }
             }
         }
     }
+
+    public static void loadLanguagesList() {
+        sLanguagesList.add("English - Français");
+        sLanguagesList.add("Français - English");
+    }
 }
-
-

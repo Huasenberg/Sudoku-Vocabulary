@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MainMenu">
+    tools:context=".MainMenuActivity">
 
     <ImageView
         android:id="@+id/settings"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="end"
         android:layout_margin="10dp"
-        android:src="@drawable/settings_icon"
-        android:layout_gravity="end"/>
+        android:src="@drawable/settings_icon" />
 
     <ImageView
         android:id="@+id/app_name_caps"
