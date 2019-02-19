@@ -13,7 +13,7 @@ public class GameData implements Serializable {
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
     private int[][] mPuzzlePreFilled;
-    private static List<String> sLanguagesList = new ArrayList<>();
+    private static List<String> sLanguagesList;
     private static int sDifficulty;
 
     public GameData(int mode) {
@@ -98,6 +98,7 @@ public class GameData implements Serializable {
     }
 
     public static void loadLanguagesList() {
+        sLanguagesList = new ArrayList<>();
         sLanguagesList.add("English - Français");
         sLanguagesList.add("Français - English");
     }

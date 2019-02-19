@@ -84,6 +84,7 @@ public class GameView extends View {
     Runnable longPressed = new Runnable() {
         public void run() {
             isLongPress = true;
+            GameView.this.invalidate();
         }
     };
     @Override
