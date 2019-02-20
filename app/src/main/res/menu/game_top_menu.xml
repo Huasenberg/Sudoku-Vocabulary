@@ -8,4 +8,8 @@
         android:id="@+id/game_helper"
         android:title="@string/help"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/game_statistics"
+        android:title="@string/statistics"
+        app:showAsAction="never"/>
 </menu>

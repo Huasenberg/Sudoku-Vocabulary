@@ -15,8 +15,9 @@ public class GameData implements Serializable {
     private int[][] mPuzzlePreFilled;
     private static List<String> sLanguagesList;
     private static int sDifficulty;
+    private static int sLanguageMode;
 
-    public GameData(int mode) {
+    public GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -28,7 +29,7 @@ public class GameData implements Serializable {
         String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
-        if(mode == 2)
+        if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
     }
@@ -71,6 +72,18 @@ public class GameData implements Serializable {
 
     public static void setDifficulty(int difficulty) {
         sDifficulty = difficulty;
+    }
+
+    public static int getLanguageMode() {
+        return sLanguageMode;
+    }
+
+    public static void setLanguageMode(int languageMode) {
+        sLanguageMode = languageMode;
+    }
+
+    public static String getLanguageMode_String() {
+        return sLanguagesList.get(sLanguageMode);
     }
 
     public void switchLanguage() {

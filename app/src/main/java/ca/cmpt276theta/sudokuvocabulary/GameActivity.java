@@ -1,6 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.SystemClock;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
@@ -31,12 +31,17 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(GameData.getLanguageMode_String());
         setContentView(R.layout.activity_game);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            getSupportActionBar().hide();
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(getSupportActionBar() != null)
+                getSupportActionBar().hide();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            final TextView textView = findViewById(R.id.mode);
+            textView.setText(GameData.getLanguageMode_String());
+        }
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
         GameView gameView = new GameView(this);
-        Intent intent = getIntent();
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
@@ -58,15 +63,14 @@ public class GameActivity extends AppCompatActivity {
         });
         final TextView time = pw.getContentView().findViewById(R.id.time);
 
-        mGameData  = new GameData(intent.getIntExtra("Mode", 1));
+        mGameData  = new GameData();
         if (savedInstanceState != null) {
             mGameData = (GameData)savedInstanceState.getSerializable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
         }
-        final GameController gameMain = new GameController(mGameData, gameView, pw, mTimer, time);
+        final GameController gameController = new GameController(mGameData, gameView, pw, mTimer, time);
 
-
-        gameView.setGameData(gameMain.getGameData());
+        gameView.setGameData(mGameData);
         gameLayout.addView(gameView);
 
         // Set Buttons Bank
@@ -82,14 +86,13 @@ public class GameActivity extends AppCompatActivity {
         mButtons[8] = findViewById(R.id.button8);
 
         // Set Listeners and Buttons' Text
-        final float textSize = mButtons[0].getWidth();
         for (int i = 0; i < mButtons.length; i++) {
             final int j = i;
-            mButtons[i].setText(gameMain.getGameData().getLanguageB()[i]);
+            mButtons[i].setText(gameController.getGameData().getLanguageB()[i]);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gameMain.fillWord(mButtons[j]);
+                    gameController.fillWord(mButtons[j]);
                 }
             });
         }

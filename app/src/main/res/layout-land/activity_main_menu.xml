@@ -6,62 +6,69 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".MainMenuActivity">
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_weight="1">
 
         <ImageView
             android:id="@+id/app_name_caps"
-            android:layout_width="330dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:scaleType="centerInside"
             android:src="@drawable/title" />
 
-        <Button
-            android:id="@+id/new_game"
-            android:layout_width="140dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/button"
-            android:text="@string/new_game"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/continue_game"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:text="@string/continue_game"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp"
-            android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/new_game"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button"
+                android:text="@string/new_game"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/import_word_list"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:text="@string/import_word_list"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp"
-            android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/continue_game"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                android:text="@string/continue_game"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
 
-    <LinearLayout
+            <Button
+                android:id="@+id/import_word_list"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                android:text="@string/import_word_list"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
-        android:orientation="vertical">
+        android:layout_weight="0.7">
 
         <ImageView
             android:id="@+id/settings"
@@ -71,20 +78,15 @@
             android:layout_margin="10dp"
             android:src="@drawable/settings_icon" />
 
-        <LinearLayout
-            android:layout_width="257dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="258dp"
-                android:layout_height="240dp"
-                android:layout_gravity="bottom"
-                android:src="@drawable/bg" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:scaleType="fitEnd"
+            android:src="@drawable/bg" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 
 

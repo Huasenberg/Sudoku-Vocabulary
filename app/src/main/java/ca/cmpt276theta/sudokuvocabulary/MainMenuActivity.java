@@ -100,13 +100,13 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(pw.getContentView().getContext(), R.layout.spinner_dropdown, GameData.getLanguagesList());
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(pw.getContentView().getContext(), R.layout.spinner_dropdown, GameData.getLanguagesList());
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                mOption = arg2 + 1;
+                mOption = arg2;
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -136,7 +136,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
-                intent.putExtra("Mode", mOption);
+                GameData.setLanguageMode(mOption);
                 startActivity(intent);
                 pw.dismiss();
             }

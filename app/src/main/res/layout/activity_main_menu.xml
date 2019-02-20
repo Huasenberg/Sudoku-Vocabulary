@@ -25,16 +25,19 @@
         android:src="@drawable/title" />
 
     <ImageView
-        android:layout_width="44dp"
-        android:layout_height="135dp"
+        android:layout_width="45dp"
+        android:layout_height="125dp"
         android:layout_gravity="start"
         android:layout_marginTop="160dp"
+        android:scaleType="fitStart"
         android:src="@drawable/bg2" />
 
     <ImageView
-        android:layout_width="244dp"
-        android:layout_height="223dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginStart="136dp"
+        android:scaleType="fitEnd"
         android:src="@drawable/bg" />
 
     <LinearLayout

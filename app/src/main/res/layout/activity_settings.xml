@@ -16,21 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Switch"
+            android:text="Sound Effects"
             android:textSize="20sp" />
         <Switch
             android:id="@+id/switch2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Switch"
+            android:layout_marginTop="10dp"
+            android:text="Vibration Effects"
             android:textSize="20sp" />
-        <Switch
-            android:id="@+id/switch3"
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Switch"
-            android:textSize="20sp" />
+            android:layout_marginTop="150dp"
+            android:textSize="18sp"
+            android:textColor="#E20505"
+            android:text="This page has not been developed yet." />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#E20505"
+            android:text="All switches are unavailable." />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
