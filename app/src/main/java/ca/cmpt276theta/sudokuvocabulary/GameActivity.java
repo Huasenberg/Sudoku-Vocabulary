@@ -19,13 +19,21 @@ public class GameActivity extends AppCompatActivity {
 
     private GameData mGameData;
     private Chronometer mTimer;
+    private PopupWindow mPopupWindow;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putSerializable("gameData", mGameData);
+        savedInstanceState.putParcelable("gameData", mGameData);
         long timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
         savedInstanceState.putLong("timeInterval", timeInterval);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mPopupWindow.isShowing())
+            mPopupWindow.dismiss();
     }
 
     @Override
@@ -52,23 +60,28 @@ public class GameActivity extends AppCompatActivity {
         View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        final PopupWindow pw = new PopupWindow(popUpView,size.x,size.y, false);
-        pw.setClippingEnabled(false);
-        pw.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener(){
+        mPopupWindow = new PopupWindow(popUpView,size.x,size.y, false) {
             @Override
-            public void onClick(View v) {
-                pw.dismiss();
+            public void dismiss() {
+                super.dismiss();
                 finish();
             }
+        };
+        mPopupWindow.setClippingEnabled(false);
+        mPopupWindow.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mPopupWindow.dismiss();
+            }
         });
-        final TextView time = pw.getContentView().findViewById(R.id.time);
+        final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
 
         mGameData  = new GameData();
         if (savedInstanceState != null) {
-            mGameData = (GameData)savedInstanceState.getSerializable("gameData");
+            mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
         }
-        final GameController gameController = new GameController(mGameData, gameView, pw, mTimer, time);
+        final GameController gameController = new GameController(mGameData, gameView, mPopupWindow, mTimer, time);
 
         gameView.setGameData(mGameData);
         gameLayout.addView(gameView);

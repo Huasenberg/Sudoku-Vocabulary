@@ -25,7 +25,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mPopupWindow != null)
+        if(mPopupWindow.isShowing())
             mPopupWindow.dismiss();
     }
 

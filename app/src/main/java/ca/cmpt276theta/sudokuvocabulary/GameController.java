@@ -2,13 +2,11 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,15 +80,15 @@ public class GameController {
         }
         mTimer.stop();
         mPopupWindow.setAnimationStyle(R.style.pop_animation);
-        showVicPopup(mTimer.getText().toString());
+        showVicPopup();
         if(mp != null)
             mp.start();
     }
 
-    public void showVicPopup(String time) {
+    private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
         difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), GameData.getDifficulty()));
-        mTime.setText(time);
+        mTime.setText(mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }
 

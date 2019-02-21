@@ -78,7 +78,6 @@
             android:layout_margin="10dp"
             android:src="@drawable/settings_icon" />
 
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,12 +86,4 @@
             android:src="@drawable/bg" />
 
     </FrameLayout>
-
-
-
-
-
-
-
-
 </LinearLayout>

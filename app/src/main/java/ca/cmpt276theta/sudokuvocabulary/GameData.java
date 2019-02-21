@@ -1,11 +1,13 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameData implements Serializable {
+public class GameData implements Parcelable {
     private int mEmptyCellCounter;
     private String[][] mGridContent;
     private String[] mLanguageA;
@@ -86,7 +88,7 @@ public class GameData implements Serializable {
         return sLanguagesList.get(sLanguageMode);
     }
 
-    public void switchLanguage() {
+    private void switchLanguage() {
         String[] temp = mLanguageA;
         mLanguageA = mLanguageB;
         mLanguageB = temp;
@@ -115,4 +117,39 @@ public class GameData implements Serializable {
         sLanguagesList.add("English - Français");
         sLanguagesList.add("Français - English");
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.mEmptyCellCounter);
+        for(int i = 0; i < 9; i++) {
+            dest.writeStringArray(this.mGridContent[i]);
+            dest.writeIntArray(this.mPuzzle[i]);
+            dest.writeIntArray(this.mPuzzlePreFilled[i]);
+        }
+    }
+
+    protected GameData(Parcel in) {
+        this.mEmptyCellCounter = in.readInt();
+        for(int i = 0; i < 9; i++) {
+            in.readStringArray(this.mGridContent[i]);
+            in.readIntArray(this.mPuzzle[i]);
+            in.readIntArray(this.mPuzzlePreFilled[i]);
+        }
+    }
+
+    public static final Parcelable.Creator<GameData> CREATOR = new Parcelable.Creator<GameData>() {
+        @Override
+        public GameData createFromParcel(Parcel source) {
+            return new GameData(source);
+        }
+        @Override
+        public GameData[] newArray(int size) {
+            return new GameData[size];
+        }
+    };
 }
