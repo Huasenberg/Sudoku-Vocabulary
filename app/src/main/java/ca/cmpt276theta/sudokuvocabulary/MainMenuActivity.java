@@ -46,14 +46,12 @@ public class MainMenuActivity extends AppCompatActivity {
         final Spinner spinner = mPopupWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mPopupWindow.getContentView().findViewById(R.id.seekBar);
         final TextView text = mPopupWindow.getContentView().findViewById(R.id.textViewDif);
-        final Intent intentToGameActivity = new Intent(MainMenuActivity.this, GameActivity.class);
-        final Intent intentToSettingsActivity = new Intent(MainMenuActivity.this, SettingsActivity.class);
         loadSpinner(spinner, mPopupWindow);
         final Button newGameButton = findViewById(R.id.new_game);
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiffPopup(intentToGameActivity, mPopupWindow, seekBar, text);
+                showDiffPopup(new Intent(MainMenuActivity.this, GameActivity.class), mPopupWindow, seekBar, text);
             }
         });
 
@@ -86,12 +84,21 @@ public class MainMenuActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+        final ImageView about = findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainMenuActivity.this, AboutPageActivity.class));
+            }
+        });
 
         final ImageView settings = findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intentToSettingsActivity);
+                
+                startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
         GameDataGenerator.loadPuzzleData();

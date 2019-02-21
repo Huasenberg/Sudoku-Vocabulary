@@ -15,5 +15,6 @@
     <string name="done">Done</string>
     <string name="help">Help</string>
     <string name="statistics">Statistics</string>
-
+    <string name="version">Version: 2.1.1</string>
+    <string name="about">About</string>
 </resources>
