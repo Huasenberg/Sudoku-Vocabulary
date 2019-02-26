@@ -86,6 +86,7 @@ public class GameActivity extends AppCompatActivity {
         gameView.setGameData(mGameData);
         gameLayout.addView(gameView);
 
+
         // Set Buttons Bank
         final Button[] mButtons = new Button[9];
         mButtons[0] = findViewById(R.id.button0);

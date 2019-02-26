@@ -2,17 +2,17 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import java.util.Random;
 
-public class GameDataGenerator {
+class GameDataGenerator {
     private static final int UNIT = 3;
     private static final int SIZE = UNIT * UNIT;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
 
-    public static int[][] getSolvedPuzzle() {
+    static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;
     }
 
-    public static void loadPuzzleData() {
+    static void loadPuzzleData() {
         sSolvedPuzzle = generateSolved();
     }
 

@@ -4,24 +4,24 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameController {
+class GameController {
 
-    private int mPositionX;
-    private int mPositionY;
-    private GameData mGameData;
-    private GameView mGameView;
     private final MediaPlayer mp;
-    private PopupWindow mPopupWindow;
-    private Chronometer mTimer;
-    private TextView mTime;
+    private final GameData mGameData;
+    private final GameView mGameView;
+    private final PopupWindow mPopupWindow;
+    private final Chronometer mTimer;
+    private final TextView mTime;
 
-    public GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
+    GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
         mGameData = gameData;
         this.mTimer = timer;
@@ -31,16 +31,16 @@ public class GameController {
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
     }
 
-    public GameData getGameData() {
+    GameData getGameData() {
         return mGameData;
     }
 
-    public void fillWord(Button button) {
-        mPositionX = mGameView.getTouchPositionX();
-        mPositionY = mGameView.getTouchPositionY();
-        if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
+    void fillWord(Button button) {
+        int positionX = mGameView.getTouchPositionX();
+        int positionY = mGameView.getTouchPositionY();
+        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
             return;
-        if(mGameData.getPuzzlePreFilled()[mPositionY][mPositionX] != 0) {
+        if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
             Toast toast = Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0,0);
             View view = toast.getView();
@@ -49,12 +49,14 @@ public class GameController {
             text.setTextSize(17);
             text.setTextColor(Color.WHITE);
             toast.show();
+            Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake);
+            button.startAnimation(shake);
             return;
         }
-        if(mGameData.getPuzzle()[mPositionY][mPositionX] == 0)
+        if(mGameData.getPuzzle()[positionY][positionX] == 0)
             mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
-        mGameData.getPuzzle()[mPositionY][mPositionX] = Integer.valueOf(button.getTag().toString());
-        mGameData.getGridContent()[mPositionY][mPositionX] = (String) button.getText();
+        mGameData.getPuzzle()[positionY][positionX] = Integer.valueOf(button.getTag().toString());
+        mGameData.getGridContent()[positionY][positionX] = (String) button.getText();
         mGameView.invalidate();
         if(mGameData.getEmptyCellCounter() == 0)
             checkGameResult();

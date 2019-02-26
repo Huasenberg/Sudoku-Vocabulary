@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MainMenuActivity">
+    tools:context=".MainMenuActivity"
+    android:baselineAligned="false">
 
     <FrameLayout
         android:layout_width="0dp"
@@ -13,7 +14,6 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/app_name_caps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"

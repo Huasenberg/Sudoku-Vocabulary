@@ -19,7 +19,7 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
 
-    public GameData() {
+    GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -36,55 +36,55 @@ public class GameData implements Parcelable {
         generateIncompletePuzzle();
     }
 
-    public void setEmptyCellCounter(int emptyCellCounter) {
+    void setEmptyCellCounter(int emptyCellCounter) {
         mEmptyCellCounter = emptyCellCounter;
     }
 
-    public String[] getLanguageA() {
+    String[] getLanguageA() {
         return mLanguageA;
     }
 
-    public String[] getLanguageB() {
+    String[] getLanguageB() {
         return mLanguageB;
     }
 
-    public int getEmptyCellCounter() {
+    int getEmptyCellCounter() {
         return mEmptyCellCounter;
     }
 
-    public String[][] getGridContent() {
+    String[][] getGridContent() {
         return mGridContent;
     }
 
-    public int[][] getPuzzlePreFilled() {
+    int[][] getPuzzlePreFilled() {
         return mPuzzlePreFilled;
     }
 
-    public int[][] getPuzzle() {
+    int[][] getPuzzle() {
         return mPuzzle;
     }
 
-    public static List<String> getLanguagesList() {
+    static List<String> getLanguagesList() {
         return sLanguagesList;
     }
 
-    public static int getDifficulty() {
+    static int getDifficulty() {
         return sDifficulty;
     }
 
-    public static void setDifficulty(int difficulty) {
+    static void setDifficulty(int difficulty) {
         sDifficulty = difficulty;
     }
 
-    public static int getLanguageMode() {
+    private static int getLanguageMode() {
         return sLanguageMode;
     }
 
-    public static void setLanguageMode(int languageMode) {
+    static void setLanguageMode(int languageMode) {
         sLanguageMode = languageMode;
     }
 
-    public static String getLanguageMode_String() {
+    static String getLanguageMode_String() {
         return sLanguagesList.get(sLanguageMode);
     }
 
@@ -112,7 +112,7 @@ public class GameData implements Parcelable {
         }
     }
 
-    public static void loadLanguagesList() {
+    static void loadLanguagesList() {
         sLanguagesList = new ArrayList<>();
         sLanguagesList.add("English - Français");
         sLanguagesList.add("Français - English");
@@ -133,7 +133,7 @@ public class GameData implements Parcelable {
         }
     }
 
-    protected GameData(Parcel in) {
+    private GameData(Parcel in) {
         this.mEmptyCellCounter = in.readInt();
         for(int i = 0; i < 9; i++) {
             in.readStringArray(this.mGridContent[i]);

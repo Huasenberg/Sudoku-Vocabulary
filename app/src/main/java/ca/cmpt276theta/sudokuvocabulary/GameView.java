@@ -22,14 +22,11 @@ public class GameView extends View {
     private boolean isLongPress;
     private boolean isVibrated;
     private final Vibrator mVibrator;
-    private boolean isLandscapeMode;
+    private final boolean isLandscapeMode;
 
     public GameView(Context context) {
         super(context);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            isLandscapeMode = false;
-        else
-            isLandscapeMode = true;
+        isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
         isLongPress = false;
         isVibrated = false;
         mVibrator = (Vibrator) this.getContext().getSystemService(VIBRATOR_SERVICE);
@@ -80,20 +77,16 @@ public class GameView extends View {
     }
 
 
-    final Handler handler = new Handler();
-    Runnable longPressed = new Runnable() {
+    private final Handler handler = new Handler();
+    private final Runnable longPressed = new Runnable() {
         public void run() {
             isLongPress = true;
             GameView.this.invalidate();
         }
     };
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
 
-    float tempX = 0;
-    float tempY = 0;
+    private float tempX = 0;
+    private float tempY = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mTouchPositionX = (int) ((event.getX() - mTableMargin) / mGridWidth);

@@ -1,5 +1,6 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -45,18 +44,16 @@ public class MainMenuActivity extends AppCompatActivity {
         };
         final Spinner spinner = mPopupWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mPopupWindow.getContentView().findViewById(R.id.seekBar);
-        final TextView text = mPopupWindow.getContentView().findViewById(R.id.textViewDif);
         loadSpinner(spinner, mPopupWindow);
-        final Button newGameButton = findViewById(R.id.new_game);
-        newGameButton.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiffPopup(new Intent(MainMenuActivity.this, GameActivity.class), mPopupWindow, seekBar, text);
+                showDiffPopup(mPopupWindow, seekBar);
             }
         });
 
-        final Button continueGame = findViewById(R.id.continue_game);
-        continueGame.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.continue_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
@@ -70,8 +67,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        final Button mImportWordList = findViewById(R.id.import_word_list);
-        mImportWordList.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.import_word_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
@@ -84,20 +80,17 @@ public class MainMenuActivity extends AppCompatActivity {
                 toast.show();
             }
         });
-        final ImageView about = findViewById(R.id.about);
-        about.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(MainMenuActivity.this, AboutPageActivity.class));
+                startActivity(new Intent(MainMenuActivity.this, AboutPageActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
             }
         });
 
-        final ImageView settings = findViewById(R.id.settings);
-        settings.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
@@ -121,7 +114,8 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void showDiffPopup(final Intent intent, final PopupWindow pw, final SeekBar seekBar, final TextView text) {
+    private void showDiffPopup(final PopupWindow pw, final SeekBar seekBar) {
+        final TextView text = mPopupWindow.getContentView().findViewById(R.id.textViewDif);
         pw.setAnimationStyle(R.style.pop_animation);
         setActivityBackGroundAlpha(0.3f);
         pw.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
@@ -144,8 +138,7 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
                 GameData.setLanguageMode(mOption);
-                startActivity(intent);
-                pw.dismiss();
+                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
