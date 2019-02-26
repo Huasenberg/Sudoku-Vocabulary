@@ -136,6 +136,10 @@
 
 - As a user, I want to be able to play the game in landscape mode, so that I can play while laying on my side
 
+- As a vocabulary learner practicing at home, I want to use my tablet for Sudoku vocabulary practice, so that the words will be conveniently displayed in larger, easier to read fonts.
+
+- As a vocabulary learner taking the bus, I want to use my phone in landscape mode for Sudoku vocabulary practice, so that longer words are displayed in a larger font that standard mode.
+
 ### `Test Driven Development`
 
 - When a user rotates the screen orientation to landscape, the app will rotate accordingly with readjustments to board and button locations
@@ -150,11 +154,39 @@
 
 - As a teacher, I want to specify a list of word pairs via a CSV file for my students to practice this week
 
+- As a teacher, I want to specify a list of word pairs for my students to practice this week.
+
+- As a student working with a textbook, I want to load pairs of words to practice from each chapter of the book.
+
 ### `Test Driven Development`
 
 - When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the 9 (or 10) pairs of words and prompted to enter the name of the 2 languages. The program will then generate a Sudoku board using the user inputted nine pair of words
 
-## 13. PAUSE
+## 13. VOCABULARY LISTS
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a student, I want the Sudoku app to keep track of the vocabulary words that I am having difficulty recognizing so that they will be used more often in my practice puzzles.
+
+### `Test Driven Development`
+
+- __
+
+## 14. LISTENING COMPREHENSION
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a student who wants to practice my understanding of spoken words in the language that I am learning, I want a listening comprehension mode. In this mode, numbers will appear in the prefilled cells and the corresponding word in the language that I am learning will be read out to me when I press the number.
+
+### `Test Driven Development`
+
+- _
+
+## 15. PAUSE
 
 ### Status: **Not Started**
 
@@ -166,7 +198,7 @@
 
 - When a user touches the "pause" button, the timer will pause and a "pause screen" will be displayed (it should be big enough to block the board)
 
-## 14. BACK (TO MENU) BUTTON
+## 16. BACK (TO MENU) BUTTON
 
 ### Status: **Not Started**
 
@@ -178,7 +210,7 @@
 
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
 
-## 15. ERASE BUTTON
+## 17. ERASE BUTTON
 
 ### Status: **Not Started**
 
@@ -190,7 +222,7 @@
 
 - When a user wants to erase a filled cell, the user will select the desired cell to be erased and click the erase button
 
-## 16. HOW-TO-PLAY BUTTON
+## 18. HOW-TO-PLAY BUTTON
 
 ### Status: **Not Started**
 
@@ -202,7 +234,7 @@
 
 - When a beignner to Sudoku selects the "help button," a popup will explain the rules to Sudoku and pausing the timer of the game. (Help button in Main Menu and in-game?)
 
-## 17. SAVED BOARDS
+## 19. SAVED BOARDS
 
 ### Status: **Not Started**
 
@@ -214,7 +246,7 @@
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
 
-## 18. BETTER VICTORY DETECTION
+## 20. BETTER VICTORY DETECTION
 
 ### Status: **Not Started**
 
