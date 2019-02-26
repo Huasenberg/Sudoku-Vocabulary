@@ -258,6 +258,18 @@
 
 - When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
 
+## 21. DIFFERENT DEVICES
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a vocabulary learner practicing at home, I want to use my tablet for Sudoku vocabulary practice, so that the words will be conveniently displayed in larger, easier to read fonts.
+
+### `Test Driven Development`
+
+- 
+
 ## **REFERENCES**
 
 - Code from https://github.com/Subh0m0y/Sudoku/blob/master/src/core/Generator.java by Subh0m0y was referenced when implementing feature three (Unique Puzzles)
