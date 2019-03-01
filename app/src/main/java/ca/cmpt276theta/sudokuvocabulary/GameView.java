@@ -78,10 +78,12 @@ public class GameView extends View {
         drawWord(canvas);
         if(isLongPress) {
             if(GameData.listenMode) {
-                Locale locale = Locale.US;
-                if(GameData.getLanguageMode() == 1)
-                    locale = Locale.FRENCH;
-                tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], Locale.US);
+                if(mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
+                    Locale locale = Locale.US;
+                    if (GameData.getLanguageMode() == 1)
+                        locale = Locale.FRENCH;
+                    tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], Locale.US);
+                }
             }
             else drawHint(canvas);
         }

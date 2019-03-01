@@ -18,7 +18,7 @@ public class GameData implements Parcelable {
     private static List<String> sLanguagesList;
     private static int sDifficulty;
     private static int sLanguageMode;
-    public static boolean listenMode = true;
+    public static boolean listenMode = false;
     GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
