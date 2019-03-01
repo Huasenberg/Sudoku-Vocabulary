@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="267dp"
-        android:layout_height="359dp"
+        android:layout_height="388dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:background="@drawable/pop_up_shape"
             android:orientation="vertical">
 
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:spinnerMode="dialog"/>
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
             <View
@@ -57,6 +57,47 @@
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.2"
                 android:background="#7A5C5C5C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_mode"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/radioRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/read_mode" />
+
+                    <RadioButton
+                        android:id="@+id/radioListen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/listen_mode" />
+                </RadioGroup>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

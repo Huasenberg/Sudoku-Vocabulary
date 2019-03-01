@@ -9,6 +9,9 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.util.Locale;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -23,7 +26,7 @@ public class GameView extends View {
     private boolean isVibrated;
     private final Vibrator mVibrator;
     private final boolean isLandscapeMode;
-
+    private TTSHandler tts;
     public GameView(Context context) {
         super(context);
         isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
@@ -33,6 +36,8 @@ public class GameView extends View {
         mTableMargin = 13;
         mTouchPositionX = -1;
         mTouchPositionY = -1;
+        tts = new TTSHandler(context);
+        tts.init();
     }
 
     public void setGameData(GameData gameData) {
@@ -71,8 +76,15 @@ public class GameView extends View {
         drawConflict(canvas);
         drawGrid(canvas);
         drawWord(canvas);
-        if(isLongPress)
-            drawHint(canvas);
+        if(isLongPress) {
+            if(GameData.listenMode) {
+                Locale locale = Locale.US;
+                if(GameData.getLanguageMode() == 1)
+                    locale = Locale.FRENCH;
+                tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], Locale.US);
+            }
+            else drawHint(canvas);
+        }
         super.onDraw(canvas);
     }
 
