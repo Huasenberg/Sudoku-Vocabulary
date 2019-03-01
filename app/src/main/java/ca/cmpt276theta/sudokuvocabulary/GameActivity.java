@@ -36,8 +36,12 @@ public class GameActivity extends AppCompatActivity {
             mPopupWindow.dismiss();
     }
 
+    GameView gameView;
+    protected TTSHandler tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        tts = new TTSHandler(this);
+        tts.init();
         super.onCreate(savedInstanceState);
         setTitle(GameData.getLanguageMode_String());
         setContentView(R.layout.activity_game);
@@ -49,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setText(GameData.getLanguageMode_String());
         }
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
-        final GameView gameView = new GameView(this);
+        GameView gameView = new GameView(this);
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
@@ -102,11 +106,11 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.removeOne).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int touchPositionX = gameView.getTouchPositionX();
-                final int touchPositionY = gameView.getTouchPositionY();
+                final int touchPositionX = GameActivity.this.gameView.getTouchPositionX();
+                final int touchPositionY = GameActivity.this.gameView.getTouchPositionY();
                 if(touchPositionX != -1 && touchPositionY != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
                     mGameData.removeOneCell(touchPositionX, touchPositionY);
-                    gameView.invalidate();
+                    GameActivity.this.gameView.invalidate();
                 }
             }
         });
@@ -123,6 +127,13 @@ public class GameActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        tts.destroy();
     }
 
     @Override
