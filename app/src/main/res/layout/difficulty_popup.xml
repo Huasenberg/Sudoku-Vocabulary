@@ -5,8 +5,8 @@
     android:gravity="center">
 
     <LinearLayout
-        android:layout_width="267dp"
-        android:layout_height="388dp"
+        android:layout_width="270dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -23,9 +23,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="245dp"
             android:background="@drawable/pop_up_shape"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,13 +81,14 @@
                 <RadioGroup
                     android:id="@+id/radioGroupMode"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:theme="@style/AppTheme">
 
                     <RadioButton
                         android:id="@+id/radioRead"
-                        android:layout_width="wrap_content"
+                        style="@android:style/Widget.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:checked="true"
@@ -91,13 +96,20 @@
 
                     <RadioButton
                         android:id="@+id/radioListen"
-                        android:layout_width="wrap_content"
+                        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/listen_mode" />
                 </RadioGroup>
-
             </LinearLayout>
+
+            <View
+                android:layout_width="240dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:alpha="0.2"
+                android:background="#7A5C5C5C" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,7 +132,7 @@
                 <SeekBar
                     android:id="@+id/seekBar"
                     style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="250dp"
+                    android:layout_width="245dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
                     android:max="3"
