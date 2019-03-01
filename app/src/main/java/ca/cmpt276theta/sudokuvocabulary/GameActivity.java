@@ -37,9 +37,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     GameView gameView;
-
+    protected TTSHandler tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        tts = new TTSHandler(this);
+        tts.init();
         super.onCreate(savedInstanceState);
         setTitle(GameData.getLanguageMode_String());
         setContentView(R.layout.activity_game);
@@ -131,7 +133,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        gameView.onDestroy();
+        tts.destroy();
     }
 
     @Override

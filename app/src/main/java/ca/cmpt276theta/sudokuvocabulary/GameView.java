@@ -26,7 +26,6 @@ public class GameView extends View {
     private boolean isVibrated;
     private final Vibrator mVibrator;
     private final boolean isLandscapeMode;
-    private TTSHandler tts;
     public GameView(Context context) {
         super(context);
         isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
@@ -36,14 +35,7 @@ public class GameView extends View {
         mTableMargin = 13;
         mTouchPositionX = -1;
         mTouchPositionY = -1;
-        tts = new TTSHandler(context);
-        tts.init();
 
-    }
-
-    public void onDestroy()
-    {
-        tts.destroy();
     }
 
     public void setGameData(GameData gameData) {
@@ -88,7 +80,7 @@ public class GameView extends View {
                     Locale locale = Locale.US;
                     if (GameData.getLanguageMode() == 1)
                         locale = Locale.FRENCH;
-                    tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
+                    ((GameActivity)getContext()).tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
                 }
             }
             else drawHint(canvas);
