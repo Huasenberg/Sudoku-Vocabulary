@@ -2,6 +2,10 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +34,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SQLiteDatabase database = this.openOrCreateDatabase("SudokuVocab", MODE_PRIVATE, null);
+        database.execSQL("CREATE TABLE IF NOT EXISTS MyBeautifulTable(INT id, INT random, TEXT text)");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
