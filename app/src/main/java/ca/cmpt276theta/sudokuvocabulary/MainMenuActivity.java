@@ -44,6 +44,18 @@ public class MainMenuActivity extends AppCompatActivity {
         };
         final Spinner spinner = mPopupWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mPopupWindow.getContentView().findViewById(R.id.seekBar);
+        mPopupWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameData.listenMode = false;
+            }
+        });
+        mPopupWindow.getContentView().findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameData.listenMode = true;
+            }
+        });
         loadSpinner(spinner, mPopupWindow);
 
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {

@@ -16,4 +16,7 @@
     <string name="statistics">Statistics</string>
     <string name="version">Version: 2.1.1</string>
     <string name="about">About</string>
+    <string name="game_mode">Game Mode:</string>
+    <string name="read_mode">Reading</string>
+    <string name="listen_mode">Listening</string>
 </resources>
