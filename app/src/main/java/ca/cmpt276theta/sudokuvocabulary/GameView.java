@@ -38,6 +38,12 @@ public class GameView extends View {
         mTouchPositionY = -1;
         tts = new TTSHandler(context);
         tts.init();
+
+    }
+
+    public void onDestroy()
+    {
+        tts.destroy();
     }
 
     public void setGameData(GameData gameData) {
@@ -82,13 +88,16 @@ public class GameView extends View {
                     Locale locale = Locale.US;
                     if (GameData.getLanguageMode() == 1)
                         locale = Locale.FRENCH;
-                    tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], Locale.US);
+                    tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
                 }
             }
             else drawHint(canvas);
         }
         super.onDraw(canvas);
+
     }
+
+
 
 
     private final Handler handler = new Handler();
