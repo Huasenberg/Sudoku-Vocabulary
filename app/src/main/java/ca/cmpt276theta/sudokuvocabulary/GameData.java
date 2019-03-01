@@ -152,4 +152,26 @@ public class GameData implements Parcelable {
             return new GameData[size];
         }
     };
+
+    public void removeAllCells() {
+        mEmptyCellCounter = 0;
+        for(int i = 0; i < 9; i++)
+            for(int j = 0; j < 9; j++) {
+                mPuzzle[i][j] = mPuzzlePreFilled[i][j];
+                if(mPuzzle[i][j] != 0)
+                    mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                else {
+                    mGridContent[i][j] = " ";
+                    mEmptyCellCounter++;
+                }
+            }
+    }
+
+    public void removeOneCell(int positionX, int positionY) {
+        mPuzzle[positionY][positionX] = 0;
+        mGridContent[positionY][positionX] = " ";
+        mEmptyCellCounter++;
+    }
+
+
 }

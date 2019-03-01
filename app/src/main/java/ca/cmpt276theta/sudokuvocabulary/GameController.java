@@ -20,6 +20,8 @@ class GameController {
     private final PopupWindow mPopupWindow;
     private final Chronometer mTimer;
     private final TextView mTime;
+    private int mPositionX;
+    private int mPositionY;
 
     GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
@@ -36,11 +38,11 @@ class GameController {
     }
 
     void fillWord(Button button) {
-        int positionX = mGameView.getTouchPositionX();
-        int positionY = mGameView.getTouchPositionY();
-        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
+        mPositionX = mGameView.getTouchPositionX();
+        mPositionY = mGameView.getTouchPositionY();
+        if(mPositionX < 0 || mPositionX > 8 || mPositionY < 0 || mPositionY > 8)
             return;
-        if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
+        if(mGameData.getPuzzlePreFilled()[mPositionY][mPositionX] != 0) {
             Toast toast = Toast.makeText(mGameView.getContext(), "Can't fill in pre-filled cell", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0,0);
             View view = toast.getView();
@@ -53,10 +55,10 @@ class GameController {
             button.startAnimation(shake);
             return;
         }
-        if(mGameData.getPuzzle()[positionY][positionX] == 0)
+        if(mGameData.getPuzzle()[mPositionY][mPositionX] == 0)
             mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
-        mGameData.getPuzzle()[positionY][positionX] = Integer.valueOf(button.getTag().toString());
-        mGameData.getGridContent()[positionY][positionX] = (String) button.getText();
+        mGameData.getPuzzle()[mPositionY][mPositionX] = Integer.valueOf(button.getTag().toString());
+        mGameData.getGridContent()[mPositionY][mPositionX] = (String) button.getText();
         mGameView.invalidate();
         if(mGameData.getEmptyCellCounter() == 0)
             checkGameResult();
@@ -93,5 +95,7 @@ class GameController {
         mTime.setText(mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }
+
+
 
 }

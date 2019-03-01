@@ -49,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setText(GameData.getLanguageMode_String());
         }
         FrameLayout gameLayout = findViewById(R.id.gameLayout);
-        GameView gameView = new GameView(this);
+        final GameView gameView = new GameView(this);
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
@@ -98,6 +98,18 @@ public class GameActivity extends AppCompatActivity {
         mButtons[6] = findViewById(R.id.button6);
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
+
+        findViewById(R.id.removeOne).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int touchPositionX = gameView.getTouchPositionX();
+                final int touchPositionY = gameView.getTouchPositionY();
+                if(touchPositionX != -1 && touchPositionY != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
+                    mGameData.removeOneCell(touchPositionX, touchPositionY);
+                    gameView.invalidate();
+                }
+            }
+        });
 
         // Set Listeners and Buttons' Text
         for (int i = 0; i < mButtons.length; i++) {
