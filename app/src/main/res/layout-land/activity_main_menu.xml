@@ -1,85 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".MainMenu">
+    tools:context=".MainMenuActivity"
+    android:baselineAligned="false">
 
-    <ImageView
-        android:id="@+id/settings"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/settings_icon"
-        android:layout_gravity="end"/>
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-    <ImageView
-        android:id="@+id/app_name_caps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:src="@drawable/title" />
-
-    <ImageView
-        android:layout_width="44dp"
-        android:layout_height="135dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="160dp"
-        android:src="@drawable/bg2" />
-
-    <ImageView
-        android:layout_width="244dp"
-        android:layout_height="223dp"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/bg" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
-
-        <Button
-            android:id="@+id/new_game"
-            android:layout_width="140dp"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:text="@string/new_game"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp" />
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/title" />
 
-        <Button
-            android:id="@+id/continue_game"
-            android:layout_width="140dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:text="@string/continue_game"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/import_word_list"
-            android:layout_width="140dp"
+            <Button
+                android:id="@+id/new_game"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button"
+                android:text="@string/new_game"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/continue_game"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                android:text="@string/continue_game"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/import_word_list"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                android:text="@string/import_word_list"
+                android:textAllCaps="false"
+                android:textColor="@color/background"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:text="@string/import_word_list"
-            android:textAllCaps="false"
-            android:textColor="@color/background"
-            android:textSize="15sp" />
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/about"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginEnd="7dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/about_icon" />
 
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/settings_icon" />
+        </LinearLayout>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:scaleType="fitEnd"
+            android:src="@drawable/bg" />
 
-
-</FrameLayout>
+    </FrameLayout>
+</LinearLayout>
