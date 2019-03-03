@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteQuery;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainMenuActivity extends AppCompatActivity {
     private int mOption;
     private PopupWindow mPopupWindow;
+
+    //private static final int DATABASE_VERSION = 1;
+    //private static final String DATABASE_NAME = "studentDB.db";
+    //public static final String TABLE_NAME = "Word_DB";
+    //public static final String WORD_ID = "Word_ID";
+    //public static final String ENGLISH = "English";
+    //public static final String FRENCH = "French";
+    //public static final String SCORE = "Score";
 
     @Override
     protected void onPause() {
@@ -34,8 +51,14 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SQLiteDatabase database = this.openOrCreateDatabase("SudokuVocab", MODE_PRIVATE, null);
-        database.execSQL("CREATE TABLE IF NOT EXISTS MyBeautifulTable(INT id, INT random, TEXT text)");
+        //SQLiteDatabase database = this.openOrCreateDatabase("SudokuVocab", MODE_WORLD_READABLE, null);
+        //database.execSQL("CREATE TABLE IF NOT EXISTS MyBeautifulTable(INT id, INT random, TEXT text)");
+        //String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS" + TABLE_NAME + "(" + WORD_ID +
+        //        "INTEGER PRIMARYKEY," + ENGLISH + "TEXT," + FRENCH + "TEXT," + SCORE + "INTEGER )";
+        //database.execSQL(CREATE_TABLE);
+
+        readWordData();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
@@ -114,7 +137,47 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         GameDataGenerator.loadPuzzleData();
     }
+    private List<Word> wordlist = new ArrayList<>();
 
+    private void readWordData() {
+        InputStream is = getResources().openRawResource(R.raw.words);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("UTF-8"))
+        );
+        String line = "";
+        try {
+            // Step over headers
+            reader.readLine();
+
+            // If buffer is not empty
+            while ((line = reader.readLine()) != null) {
+                Log.d("My Activity","Line: " + line);
+                // use comma as separator columns of CSV
+                String[] tokens = line.split(",");
+                // Read the data
+                Word sample = new Word();
+
+                // Setters
+                sample.setEnglish(tokens[1]);
+                sample.setFrench(tokens[2]);
+                sample.setScore(Integer.parseInt(tokens[3]));
+
+                // Adding object to a class
+                wordlist.add(sample);
+
+                // Log the object
+                System.out.println("HI" + wordlist.get(0));
+                Log.d("My Activity", "Just created: " + sample);
+            }
+
+        } catch (IOException e) {
+            // Logs error with priority level
+            Log.wtf("My Activity", "Error reading data file on line" + line, e);
+
+            // Prints throwable details
+            e.printStackTrace();
+        }
+    }
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();
