@@ -9,33 +9,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
+
+            <TextView
                 android:id="@+id/removeOne"
-                android:src="@drawable/eraser_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="4dp"/>
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="8dp"
+                android:drawablePadding="-4dp"
+                android:text="@string/erase"
+                android:textSize="12sp" />
 
             <Chronometer
                 android:id="@+id/chronometer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="229dp" />
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="7dp"
+                android:textSize="17sp" />
 
-        </LinearLayout>
-
+        </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/gameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1.9dp"
+            android:background="@color/border"
+            android:layout_margin="2.8dp">
+
+            <FrameLayout
+                android:id="@+id/gameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background">
+            </FrameLayout>
+
         </FrameLayout>
 
         <LinearLayout

@@ -2,6 +2,7 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +10,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class GameActivity extends AppCompatActivity {
 
     private GameData mGameData;
     private Chronometer mTimer;
     private PopupWindow mPopupWindow;
+    TTSHandler tts;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -36,12 +42,8 @@ public class GameActivity extends AppCompatActivity {
             mPopupWindow.dismiss();
     }
 
-    GameView gameView;
-    protected TTSHandler tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        tts = new TTSHandler(this);
-        tts.init();
         super.onCreate(savedInstanceState);
         setTitle(GameData.getLanguageMode_String());
         setContentView(R.layout.activity_game);
@@ -52,8 +54,8 @@ public class GameActivity extends AppCompatActivity {
             final TextView textView = findViewById(R.id.mode);
             textView.setText(GameData.getLanguageMode_String());
         }
-        FrameLayout gameLayout = findViewById(R.id.gameLayout);
-        GameView gameView = new GameView(this);
+        final FrameLayout gameLayout = findViewById(R.id.gameLayout);
+        final GameView gameView = new GameView(this);
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
@@ -61,8 +63,8 @@ public class GameActivity extends AppCompatActivity {
         mTimer.setFormat("Time: %s");
 
         // initialize Victory Pop-up Window
-        View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
-        Point size = new Point();
+        final View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
+        final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         mPopupWindow = new PopupWindow(popUpView,size.x,size.y, false) {
             @Override
@@ -90,7 +92,6 @@ public class GameActivity extends AppCompatActivity {
         gameView.setGameData(mGameData);
         gameLayout.addView(gameView);
 
-
         // Set Buttons Bank
         final Button[] mButtons = new Button[9];
         mButtons[0] = findViewById(R.id.button0);
@@ -103,14 +104,23 @@ public class GameActivity extends AppCompatActivity {
         mButtons[7] = findViewById(R.id.button7);
         mButtons[8] = findViewById(R.id.button8);
 
-        findViewById(R.id.removeOne).setOnClickListener(new View.OnClickListener() {
+        final Drawable drawable = getResources().getDrawable(R.drawable.eraser);
+        drawable.setBounds(0,0,68,68);
+        final TextView erase = findViewById(R.id.removeOne);
+        erase.setCompoundDrawables(null,drawable,null,null);
+        erase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int touchPositionX = GameActivity.this.gameView.getTouchPositionX();
-                final int touchPositionY = GameActivity.this.gameView.getTouchPositionY();
-                if(touchPositionX != -1 && touchPositionY != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
+                final int touchPositionX = gameView.getTouchPositionX();
+                final int touchPositionY = gameView.getTouchPositionY();
+                if(touchPositionX != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
                     mGameData.removeOneCell(touchPositionX, touchPositionY);
-                    GameActivity.this.gameView.invalidate();
+                    gameView.invalidate();
+                }
+                else if(touchPositionX != -1) {
+                    gameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell");
+                    final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake);
+                    erase.startAnimation(shake);
                 }
             }
         });
@@ -126,21 +136,19 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
-
+        tts = new TTSHandler(this);
+        tts.init();
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         tts.destroy();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.game_top_menu, menu);
         return true;
     }
-
 }
