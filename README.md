@@ -130,7 +130,7 @@
 
 ## 11. LANDSCAPE MODE
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -176,7 +176,7 @@
 
 ## 14. LISTENING COMPREHENSION
 
-### Status: **Not Started**
+### Status: **Completed**
 
 ### `User Story`
 
