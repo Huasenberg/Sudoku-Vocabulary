@@ -12,19 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AboutPageActivity"
-            android:theme="@style/FullScreenTheme" />
-        <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/FullScreenTheme"></activity>
-        <activity
-            android:name=".MainMenuActivity"
+            android:name=".LaunchActivity"
             android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AboutPageActivity"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:theme="@style/FullScreenTheme"/>
         <activity android:name=".GameActivity" />
     </application>
 

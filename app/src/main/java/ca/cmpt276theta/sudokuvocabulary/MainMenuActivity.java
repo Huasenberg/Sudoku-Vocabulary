@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,13 +49,13 @@ public class MainMenuActivity extends AppCompatActivity {
         mPopupWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.listenMode = false;
+                GameData.setListenMode(false);
             }
         });
         mPopupWindow.getContentView().findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.listenMode = true;
+                GameData.setListenMode(true);
             }
         });
         loadSpinner(spinner, mPopupWindow);
@@ -106,7 +108,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
-        GameDataGenerator.loadPuzzleData();
     }
 
 

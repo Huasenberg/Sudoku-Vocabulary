@@ -18,7 +18,7 @@ public class GameData implements Parcelable {
     private static List<String> sLanguagesList;
     private static int sDifficulty;
     private static int sLanguageMode;
-    public static boolean listenMode = false;
+    private static boolean sIsListenMode;
     GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
@@ -34,6 +34,14 @@ public class GameData implements Parcelable {
         if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
+    }
+
+    static void setListenMode(boolean isListenMode) {
+        sIsListenMode = isListenMode;
+    }
+
+    static boolean isListenMode() {
+        return sIsListenMode;
     }
 
     void setEmptyCellCounter(int emptyCellCounter) {
@@ -103,9 +111,10 @@ public class GameData implements Parcelable {
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
                 if(mPuzzle[i][j] != 0)
-                    if(listenMode)
+                    if(sIsListenMode)
                         mGridContent[i][j] = String.valueOf(mPuzzle[i][j]);
-                    else mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                    else
+                        mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
                 else {
                     mGridContent[i][j] = " ";
                     mEmptyCellCounter++;

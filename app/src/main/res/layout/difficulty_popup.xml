@@ -28,14 +28,12 @@
             android:orientation="vertical"
             android:paddingTop="9dp"
             android:paddingBottom="9dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
+            android:paddingStart="19dp"
+            android:paddingEnd="19dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
@@ -65,8 +63,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
@@ -83,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     android:theme="@style/AppTheme">
 
                     <RadioButton
@@ -91,16 +88,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="8dp"
                         android:checked="true"
-                        android:text="@string/read_mode" />
+                        android:text="@string/read_mode"
+                        android:textColor="@color/subgrid"/>
 
                     <RadioButton
                         android:id="@+id/radioListen"
                         style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                         android:layout_width="0dp"
+                        android:layout_marginStart="8dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/listen_mode" />
+                        android:text="@string/listen_mode"
+                        android:textColor="@color/subgrid"/>
                 </RadioGroup>
             </LinearLayout>
 
@@ -114,8 +115,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
@@ -134,6 +133,7 @@
                     style="@style/Widget.AppCompat.SeekBar.Discrete"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:max="3"
                     android:theme="@style/AppTheme" />
