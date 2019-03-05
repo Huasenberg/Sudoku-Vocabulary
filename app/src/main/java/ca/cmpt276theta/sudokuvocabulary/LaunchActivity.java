@@ -1,13 +1,10 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
-import android.transition.Explode;
-import android.view.Window;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -18,14 +15,11 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_launch);
-        GameDataGenerator.loadPuzzleData();
-
+        loadGame();
         TextView textView = findViewById(R.id.name);
         String str = "<font color='#0373D6'>S</font>udoku  <font color='#0373D6'>V</font>ocabulary";
         textView.setText(Html.fromHtml(str));
-
         final Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part1_animation);
         final ImageView logoPart1 = findViewById(R.id.logo_1);
         final Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part2_animation);
@@ -43,5 +37,9 @@ public class LaunchActivity extends AppCompatActivity {
                 finish();
             }
         }, 3200);
+    }
+
+    private void loadGame (){
+        GameDataGenerator.loadPuzzleData();
     }
 }

@@ -3,13 +3,11 @@ package ca.cmpt276theta.sudokuvocabulary;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Explode;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,7 +57,6 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
         loadSpinner(spinner, mPopupWindow);
-
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

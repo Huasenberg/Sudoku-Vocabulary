@@ -3,9 +3,9 @@ package ca.cmpt276theta.sudokuvocabulary;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -18,14 +18,12 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 public class GameActivity extends AppCompatActivity {
 
     private GameData mGameData;
     private Chronometer mTimer;
     private PopupWindow mPopupWindow;
-    TTSHandler tts;
+    private GameView mGameView;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setText(GameData.getLanguageMode_String());
         }
         final FrameLayout gameLayout = findViewById(R.id.gameLayout);
-        final GameView gameView = new GameView(this);
+        mGameView = new GameView(this);
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
@@ -87,10 +85,9 @@ public class GameActivity extends AppCompatActivity {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
         }
-        final GameController gameController = new GameController(mGameData, gameView, mPopupWindow, mTimer, time);
-
-        gameView.setGameData(mGameData);
-        gameLayout.addView(gameView);
+        final GameController gameController = new GameController(mGameData, mGameView, mPopupWindow, mTimer, time);
+        mGameView.setGameData(mGameData);
+        gameLayout.addView(mGameView);
 
         // Set Buttons Bank
         final Button[] mButtons = new Button[9];
@@ -111,11 +108,11 @@ public class GameActivity extends AppCompatActivity {
         erase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int touchPositionX = gameView.getTouchPositionX();
-                final int touchPositionY = gameView.getTouchPositionY();
+                final int touchPositionX = mGameView.getTouchPositionX();
+                final int touchPositionY = mGameView.getTouchPositionY();
                 if(touchPositionX != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
                     mGameData.removeOneCell(touchPositionX, touchPositionY);
-                    gameView.invalidate();
+                    mGameView.invalidate();
                 }
                 else if(touchPositionX != -1) {
                     gameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell");
@@ -136,14 +133,13 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
-        tts = new TTSHandler(this);
-        tts.init();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        tts.destroy();
+        mGameView.getTTSHandler().destroy();
     }
 
     @Override

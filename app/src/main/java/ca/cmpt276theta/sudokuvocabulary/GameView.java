@@ -7,8 +7,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -25,6 +27,7 @@ public class GameView extends View {
     private boolean isVibrated;
     private final Vibrator mVibrator;
     private final boolean isLandscapeMode;
+    private final TTSHandler mTTSHandler;
 
     public GameView(Context context) {
         super(context);
@@ -34,6 +37,7 @@ public class GameView extends View {
         mVibrator = (Vibrator) this.getContext().getSystemService(VIBRATOR_SERVICE);
         mTouchPositionX = -1;
         mTouchPositionY = -1;
+        mTTSHandler = new TTSHandler(context);
     }
 
     public void setGameData(GameData gameData) {
@@ -42,6 +46,10 @@ public class GameView extends View {
 
     public int getTouchPositionX() {
         return mTouchPositionX;
+    }
+
+    public TTSHandler getTTSHandler() {
+        return mTTSHandler;
     }
 
     public int getTouchPositionY() {
@@ -289,7 +297,10 @@ public class GameView extends View {
             Locale locale = Locale.US;
             if (GameData.getLanguageMode() == 1)
                 locale = Locale.FRENCH;
-            ((GameActivity)getContext()).tts.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
+            mTTSHandler.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
+            Toast toast = Toast.makeText(getContext(), "Reading...", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP,0,210);
+            toast.show();
         }
     }
 }
