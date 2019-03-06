@@ -5,10 +5,12 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +44,7 @@ class GameController {
         if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
-            showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell");
+            showMessageToast(mGameView.getContext(), "  Can't fill in pre-filled cell  ");
             final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake);
             button.startAnimation(shake);
             return;

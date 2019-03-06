@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
                     mGameView.invalidate();
                 }
                 else if(touchPositionX != -1) {
-                    gameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell");
+                    gameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ");
                     final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake);
                     erase.startAnimation(shake);
                 }
