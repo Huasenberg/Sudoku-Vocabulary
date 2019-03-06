@@ -80,7 +80,7 @@ public class GameActivity extends AppCompatActivity {
         });
         final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
 
-        mGameData  = new GameData();
+        mGameData  = new GameData(this);
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));

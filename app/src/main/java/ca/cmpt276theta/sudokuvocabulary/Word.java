@@ -1,6 +1,10 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-class Word {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+class Word implements Serializable {
     private int wordID;
     private String english;
     private String french;
@@ -37,4 +41,8 @@ class Word {
     public void setScore(int score) {
         this.score = score;
     }
+
+    //public void writeToParcel(Parcel dest, int flags) {
+        //dest.write
+    //}
 }

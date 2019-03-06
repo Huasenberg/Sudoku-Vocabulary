@@ -5,6 +5,16 @@ wordID,english,french,score
 4,apple,pomme,0
 5,lemon,citron,0
 6,kiwi,kiwi,0
-7,plumn,prune,0
+7,plum,prune,7
 8,orange,orange,0
 9,peach,pêche,0
+10,red,rouge,0
+11,blue,bleu,0
+12,black,noir,0
+13,white,blanc,0
+14,yellow,jaune,0
+15,green,vert,0
+16,gray,gris,0
+17,pink,rose,0
+18,purple,violet,0
+19,brown,marron,0

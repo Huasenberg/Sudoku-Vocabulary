@@ -26,8 +26,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -58,7 +61,7 @@ public class MainMenuActivity extends AppCompatActivity {
         //database.execSQL(CREATE_TABLE);
 
         readWordData();
-
+        sortWordData();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
@@ -137,7 +140,7 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         GameDataGenerator.loadPuzzleData();
     }
-    private List<Word> wordlist = new ArrayList<>();
+    private ArrayList<Word> wordlist = new ArrayList<>();
 
     private void readWordData() {
         InputStream is = getResources().openRawResource(R.raw.words);
@@ -166,7 +169,9 @@ public class MainMenuActivity extends AppCompatActivity {
                 wordlist.add(sample);
 
                 // Log the object
-                System.out.println("HI" + wordlist.get(0));
+                System.out.println("SIZE"+wordlist.size());//gets size
+                System.out.println("HI" + wordlist.get(0).getEnglish()); //gets english
+
                 Log.d("My Activity", "Just created: " + sample);
             }
 
@@ -177,7 +182,26 @@ public class MainMenuActivity extends AppCompatActivity {
             // Prints throwable details
             e.printStackTrace();
         }
+        Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable("wordlist",wordlist);
+        intent.putExtra("BUNDLE",args);
+        startActivity(intent);
+        System.out.println("DID IT GO HERE");
     }
+    private void sortWordData() {
+        Collections.sort(wordlist, new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return Integer.compare(o2.getScore(), o1.getScore());
+            }
+        });
+        int iCount;
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            System.out.println("SIZE"+wordlist.get(iCount).getEnglish());
+        }
+    }
+
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();

@@ -1,7 +1,11 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +23,38 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     public static boolean listenMode = false;
-    GameData() {
+    GameData(Activity context) {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
         mPuzzlePreFilled = new int[9][9];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
+
+
+
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+
+/*
+        Intent intent = getIntent();
+        final ArrayList<Word> wordlist = intent.getParcelableArrayListExtra("wordlist");
+        */
+        ArrayList<Word> wordlist = new ArrayList<>();
+        wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
+        String[] wordBank1 = new String[9];
+        String[] wordBank2 = new String[9];
+        int iCount;
+        if (wordlist != null) {
+            for (iCount = 0; iCount < wordlist.size(); iCount++) {
+                wordBank1[iCount] = wordlist.get(iCount).getEnglish();
+                wordBank2[iCount] = wordlist.get(iCount).getFrench();
+            }
+        }
+        else {
+
+            wordBank1 = new String[] {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
+            wordBank2 = new String[] {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        }
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
         if(getLanguageMode() == 1)

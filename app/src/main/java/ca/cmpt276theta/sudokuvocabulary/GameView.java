@@ -233,6 +233,8 @@ public class GameView extends View {
     }
 
     private void drawHint(Canvas canvas) {
+        //need to add code so that the wordlist array is transferred to this activity and
+        // increase the score portion when hint is used
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);
