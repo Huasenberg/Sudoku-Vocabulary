@@ -1,5 +1,5 @@
 wordID,english,french,score
-1,mango,mangue,0
+1,AAaaAaaaaaJjJJAa,mangue,0
 2,cherry,cerise,0
 3,pear,poire,0
 4,apple,pomme,0
@@ -13,7 +13,7 @@ wordID,english,french,score
 12,black,noir,0
 13,white,blanc,0
 14,yellow,jaune,0
-15,green,vert,0
+15,green,vert,10
 16,gray,gris,0
 17,pink,rose,0
 18,purple,violet,0

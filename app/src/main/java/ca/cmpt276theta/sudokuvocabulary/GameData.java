@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +40,20 @@ public class GameData implements Parcelable {
         Intent intent = getIntent();
         final ArrayList<Word> wordlist = intent.getParcelableArrayListExtra("wordlist");
         */
-        ArrayList<Word> wordlist = new ArrayList<>();
+        ArrayList<Word> wordlist = null;//new ArrayList<>();
         wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
         String[] wordBank1 = new String[9];
         String[] wordBank2 = new String[9];
         int iCount;
+        System.out.println("SIZEHERE: "+wordlist.size());
         if (wordlist != null) {
-            for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            for (iCount = 0; iCount < Math.min(wordlist.size(), wordBank1.length); iCount++) {
                 wordBank1[iCount] = wordlist.get(iCount).getEnglish();
                 wordBank2[iCount] = wordlist.get(iCount).getFrench();
             }
         }
         else {
-
+            Toast.makeText(context, "O no is null", Toast.LENGTH_LONG).show();
             wordBank1 = new String[] {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
             wordBank2 = new String[] {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
         }

@@ -183,9 +183,9 @@ public class MainMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
-        Bundle args = new Bundle();
-        args.putSerializable("wordlist",wordlist);
-        intent.putExtra("BUNDLE",args);
+        //Bundle args = new Bundle();
+        intent.putExtra("wordlist",wordlist);
+        //intent.putExtra("BUNDLE",args);
         startActivity(intent);
         System.out.println("DID IT GO HERE");
     }
