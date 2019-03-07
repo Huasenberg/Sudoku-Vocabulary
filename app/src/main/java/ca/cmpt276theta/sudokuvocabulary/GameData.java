@@ -65,7 +65,7 @@ public class GameData implements Parcelable {
             switchLanguage();
         generateIncompletePuzzle();
     }
-
+    ArrayList<Integer> usedIndex = new ArrayList<Integer>();
     int random_weighted_scores(ArrayList<Word> wordlist) {
         int iCount;
         final int min = 1;
@@ -76,13 +76,19 @@ public class GameData implements Parcelable {
         int random_word = 0;
 
         for (iCount = 0; iCount < wordlist.size(); iCount++) {
-            if (target <= wordlist.get(iCount).getScore()) {
+            if (target <= wordlist.get(iCount).getScore() && !usedIndex.contains(iCount)) {
                 //System.out.println("choosing"+wordlist.get(iCount).getScore());
                 random_word = iCount;
+                usedIndex.add(iCount);
                 //System.out.println("1RANDOM_WORD"+random_word);
                 return random_word;
             } else {
                 target -= wordlist.get(iCount).getScore();
+            }
+        }
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if(!usedIndex.contains(iCount)) {
+                return iCount;
             }
         }
         //System.out.println("2RANDOM_WORD"+random_word);
