@@ -1,15 +1,9 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -25,7 +19,7 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     public static boolean listenMode = false;
-    GameData(Activity context) {
+    GameData(ArrayList<Word> wordlist) {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -33,8 +27,8 @@ public class GameData implements Parcelable {
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
 
-        ArrayList<Word> wordlist = null; //new ArrayList<>();
-        wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
+        //ArrayList<Word> wordlist = null; //new ArrayList<>();
+        //wordlist = (ArrayList<Word>)context.
 
 
         // Pairing the words with numbers
@@ -55,7 +49,7 @@ public class GameData implements Parcelable {
             }
         }
         else {
-            Toast.makeText(context, "O no is null", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "O no is null", Toast.LENGTH_LONG).show();
             wordBank1 = new String[] {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
             wordBank2 = new String[] {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
         }

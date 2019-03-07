@@ -2,10 +2,6 @@ package ca.cmpt276theta.sudokuvocabulary;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursorDriver;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQuery;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,12 +22,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class MainMenuActivity extends AppCompatActivity {
     private int mOption;

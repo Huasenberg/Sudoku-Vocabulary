@@ -10,7 +10,6 @@ import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.content.Context.VIBRATOR_SERVICE;

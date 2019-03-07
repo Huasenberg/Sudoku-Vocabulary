@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class GameActivity extends AppCompatActivity {
 
     private GameData mGameData;
@@ -80,7 +82,7 @@ public class GameActivity extends AppCompatActivity {
         });
         final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
 
-        mGameData  = new GameData(this);
+        mGameData  = new GameData((ArrayList<Word>)getIntent().getSerializableExtra("wordlist"));
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
