@@ -37,14 +37,6 @@ public class MainMenuActivity extends AppCompatActivity {
     private int mOption;
     private PopupWindow mPopupWindow;
 
-    //private static final int DATABASE_VERSION = 1;
-    //private static final String DATABASE_NAME = "studentDB.db";
-    //public static final String TABLE_NAME = "Word_DB";
-    //public static final String WORD_ID = "Word_ID";
-    //public static final String ENGLISH = "English";
-    //public static final String FRENCH = "French";
-    //public static final String SCORE = "Score";
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -54,14 +46,10 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //SQLiteDatabase database = this.openOrCreateDatabase("SudokuVocab", MODE_WORLD_READABLE, null);
-        //database.execSQL("CREATE TABLE IF NOT EXISTS MyBeautifulTable(INT id, INT random, TEXT text)");
-        //String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS" + TABLE_NAME + "(" + WORD_ID +
-        //        "INTEGER PRIMARYKEY," + ENGLISH + "TEXT," + FRENCH + "TEXT," + SCORE + "INTEGER )";
-        //database.execSQL(CREATE_TABLE);
 
         readWordData();
         sortWordData();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
@@ -128,6 +116,9 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 startActivity(new Intent(MainMenuActivity.this, AboutPageActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
             }
         });
@@ -170,7 +161,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
                 // Log the object
                 System.out.println("SIZE"+wordlist.size());//gets size
-                System.out.println("HI" + wordlist.get(0).getEnglish()); //gets english
 
                 Log.d("My Activity", "Just created: " + sample);
             }
@@ -182,12 +172,6 @@ public class MainMenuActivity extends AppCompatActivity {
             // Prints throwable details
             e.printStackTrace();
         }
-        Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
-        //Bundle args = new Bundle();
-        intent.putExtra("wordlist",wordlist);
-        //intent.putExtra("BUNDLE",args);
-        startActivity(intent);
-        System.out.println("DID IT GO HERE");
     }
     private void sortWordData() {
         Collections.sort(wordlist, new Comparator<Word>() {
@@ -196,10 +180,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 return Integer.compare(o2.getScore(), o1.getScore());
             }
         });
-        int iCount;
-        for (iCount = 0; iCount < wordlist.size(); iCount++) {
-            System.out.println("SIZE"+wordlist.get(iCount).getEnglish());
-        }
     }
 
 
@@ -243,7 +223,12 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
                 GameData.setLanguageMode(mOption);
-                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
+
+                Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
+                intent.putExtra("wordlist",wordlist);
+                startActivity(intent);
+
+                //startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){

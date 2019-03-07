@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -32,24 +33,25 @@ public class GameData implements Parcelable {
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
 
+        ArrayList<Word> wordlist = null; //new ArrayList<>();
+        wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
 
 
         // Pairing the words with numbers
 
-/*
-        Intent intent = getIntent();
-        final ArrayList<Word> wordlist = intent.getParcelableArrayListExtra("wordlist");
-        */
-        ArrayList<Word> wordlist = null;//new ArrayList<>();
-        wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
         String[] wordBank1 = new String[9];
         String[] wordBank2 = new String[9];
+        int random_word[] = new int[9];
         int iCount;
-        System.out.println("SIZEHERE: "+wordlist.size());
         if (wordlist != null) {
-            for (iCount = 0; iCount < Math.min(wordlist.size(), wordBank1.length); iCount++) {
-                wordBank1[iCount] = wordlist.get(iCount).getEnglish();
-                wordBank2[iCount] = wordlist.get(iCount).getFrench();
+            for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                random_word[iCount] = random_weighted_scores(wordlist);
+                //System.out.println("randomlist" + Arrays.toString(random_word));
+            }
+                for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
+                wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
+                //System.out.println("USING"+wordlist.get(iCount).getEnglish());
             }
         }
         else {
@@ -62,6 +64,38 @@ public class GameData implements Parcelable {
         if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
+    }
+
+    int random_weighted_scores(ArrayList<Word> wordlist) {
+        int iCount;
+        final int min = 1;
+        final int max_score = max_score(wordlist);
+        //System.out.println("MAX" + max_score);
+        int target = new Random().nextInt((max_score - min) + 1) + min;
+        //System.out.println("RANDOM" + target);
+        int random_word = 0;
+
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if (target <= wordlist.get(iCount).getScore()) {
+                //System.out.println("choosing"+wordlist.get(iCount).getScore());
+                random_word = iCount;
+                //System.out.println("1RANDOM_WORD"+random_word);
+                return random_word;
+            } else {
+                target -= wordlist.get(iCount).getScore();
+            }
+        }
+        //System.out.println("2RANDOM_WORD"+random_word);
+        return random_word;
+    }
+
+    int max_score(ArrayList<Word> wordlist) {
+        int max_score = 0;
+        int iCount;
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            max_score += wordlist.get(iCount).getScore();
+        }
+        return max_score;
     }
 
     void setEmptyCellCounter(int emptyCellCounter) {

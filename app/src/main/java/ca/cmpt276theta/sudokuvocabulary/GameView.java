@@ -10,6 +10,7 @@ import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -235,6 +236,12 @@ public class GameView extends View {
     private void drawHint(Canvas canvas) {
         //need to add code so that the wordlist array is transferred to this activity and
         // increase the score portion when hint is used
+
+        //ArrayList<Word> wordlist = null;//new ArrayList<>();
+        //wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
+        //wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].setScore(wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].getScore()++);
+        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);
+
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);
