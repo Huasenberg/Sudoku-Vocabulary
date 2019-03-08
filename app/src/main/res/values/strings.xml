@@ -19,5 +19,6 @@
     <string name="game_mode">Game Mode:</string>
     <string name="read_mode">Reading</string>
     <string name="listen_mode">Listening</string>
+    <string name="import_success">You have successfully imported your words!</string>
     <string name="erase">Erase</string>
 </resources>

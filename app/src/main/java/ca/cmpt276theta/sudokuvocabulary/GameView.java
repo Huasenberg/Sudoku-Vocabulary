@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -228,6 +229,35 @@ public class GameView extends View {
     }
 
     private void drawHint(Canvas canvas) {
+        //need to add code so that the wordlist array is transferred to this activity and
+        // increase the score portion when hint is used
+        int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
+        Word word = null;
+        for(int i = 0; i < mGameData.getWordList().size(); i++)
+        {
+            word = mGameData.getWordList().get(i);
+            if(mGameData.getLanguageMode() == 1) {
+                if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
+                {
+                    //System.out.println("WORD:" +  word.getEnglish());
+                    //System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
+                    word.setScore(word.getScore()+1);
+                    break;
+                }
+            }
+            else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
+                {
+
+                    //System.out.println("WORD:" +  word.getEnglish());
+                    //System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
+                    word.setScore(word.getScore()+1);
+                    break;
+                }
+        }
+
+        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);// PRINTS INDEX
+        //System.out.println("SCORE"+word.getScore()); //PRINTS SCORE
+
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);

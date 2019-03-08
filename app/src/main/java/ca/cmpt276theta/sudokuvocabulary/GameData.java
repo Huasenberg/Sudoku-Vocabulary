@@ -18,22 +18,86 @@ public class GameData implements Parcelable {
     private static List<String> sLanguagesList;
     private static int sDifficulty;
     private static int sLanguageMode;
-    private static boolean sIsListenMode;
-    GameData() {
+    public static boolean listenMode = false;
+    private ArrayList<Word> wordlist;
+    GameData(ArrayList<Word> wordlist) {
+        this.wordlist = wordlist;
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
         mPuzzlePreFilled = new int[9][9];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
+
+        //ArrayList<Word> wordlist = null; //new ArrayList<>();
+        //wordlist = (ArrayList<Word>)context.
+
+
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+
+        String[] wordBank1 = new String[9];
+        String[] wordBank2 = new String[9];
+        int random_word[] = new int[9];
+        int iCount;
+        if (wordlist != null) {
+            for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                random_word[iCount] = random_weighted_scores(wordlist);
+                //System.out.println("randomlist" + Arrays.toString(random_word));
+            }
+                for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
+                wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
+                //System.out.println("USING"+wordlist.get(iCount).getEnglish());
+            }
+        }
+        else {
+            //Toast.makeText(context, "O no is null", Toast.LENGTH_LONG).show();
+            wordBank1 = new String[] {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
+            wordBank2 = new String[] {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        }
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
         if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
+    }
+    ArrayList<Integer> usedIndex = new ArrayList<Integer>();
+    int random_weighted_scores(ArrayList<Word> wordlist) {
+        int iCount;
+        final int min = 1;
+        final int max_score = max_score(wordlist);
+        //System.out.println("MAX" + max_score);
+        int target = new Random().nextInt((max_score - min) + 1) + min;
+        //System.out.println("RANDOM" + target);
+        int random_word = 0;
+
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if (target <= wordlist.get(iCount).getScore() && !usedIndex.contains(iCount)) {
+                //System.out.println("choosing"+wordlist.get(iCount).getScore());
+                random_word = iCount;
+                usedIndex.add(iCount);
+                //System.out.println("1RANDOM_WORD"+random_word);
+                return random_word;
+            } else {
+                target -= wordlist.get(iCount).getScore();
+            }
+        }
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if(!usedIndex.contains(iCount)) {
+                return iCount;
+            }
+        }
+        //System.out.println("2RANDOM_WORD"+random_word);
+        return random_word;
+    }
+
+    int max_score(ArrayList<Word> wordlist) {
+        int max_score = 0;
+        int iCount;
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            max_score += wordlist.get(iCount).getScore();
+        }
+        return max_score;
     }
 
     static void setListenMode(boolean isListenMode) {
@@ -184,5 +248,7 @@ public class GameData implements Parcelable {
         mEmptyCellCounter++;
     }
 
-
+    public ArrayList<Word> getWordList() {
+        return wordlist;
+    }
 }
