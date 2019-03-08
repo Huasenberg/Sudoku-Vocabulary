@@ -20,6 +20,7 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     public static boolean listenMode = false;
     GameData(ArrayList<Word> wordlist) {
+
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];

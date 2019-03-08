@@ -1,8 +1,15 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Point;
+import android.net.Uri;
+import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -96,23 +105,24 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.import_word_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER,0,0);
-                View view = toast.getView();
-                view.setBackgroundColor(getResources().getColor(R.color.conflict));
-                TextView text = view.findViewById(android.R.id.message);
-                text.setTextColor(getResources().getColor(R.color.background));
-                text.setTextSize(18);
-                toast.show();
+                performFileSearch();
+
+//                Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.CENTER,0,0);
+//                View view = toast.getView();
+//                view.setBackgroundColor(getResources().getColor(R.color.conflict));
+//                TextView text = view.findViewById(android.R.id.message);
+//                text.setTextColor(getResources().getColor(R.color.background));
+//                text.setTextSize(18);
+//                toast.show();
+
+
             }
         });
 
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 startActivity(new Intent(MainMenuActivity.this, AboutPageActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
             }
         });
@@ -125,6 +135,106 @@ public class MainMenuActivity extends AppCompatActivity {
         });
         GameDataGenerator.loadPuzzleData();
     }
+
+    private static final int READ_REQUEST_CODE = 42;
+    /**
+     * Fires an intent to spin up the "file chooser" UI and select an image.
+     */
+    public void performFileSearch() {
+
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+        // browser.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+        // Filter to only show results that can be "opened", such as a
+        // file (as opposed to a list of contacts or timezones)
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        intent.setType("text/*");
+
+        startActivityForResult(intent, READ_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
+        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
+        // response to some other intent, and the code below shouldn't run at all.
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                //String test;
+                //test = readTextFromUri(uri);
+                try {
+                    readTextFromUri(uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void readTextFromUri(Uri uri) throws IOException {
+        InputStream inputStream = getContentResolver().openInputStream(uri);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                inputStream));
+        String line = "";
+        try {
+            // Step over headers
+            reader.readLine();
+
+            // If buffer is not empty
+            while ((line = reader.readLine()) != null) {
+                Log.d("My Activity","Line: " + line);
+                // use comma as separator columns of CSV
+                String[] tokens = line.split(",");
+                // Read the data
+                Word sample = new Word();
+
+                // Setters
+                sample.setEnglish(tokens[1]);
+                sample.setFrench(tokens[2]);
+                sample.setScore(Integer.parseInt(tokens[3]));
+
+                // Adding object to a class
+                wordlist.add(sample);
+
+                // Log the object
+                System.out.println("SIZE"+wordlist.size());//gets size
+
+                Log.d("My Activity", "Just created: " + sample);
+            }
+
+        } catch (IOException e) {
+            // Logs error with priority level
+            Log.wtf("My Activity", "Error reading data file on line" + line, e);
+
+            // Prints throwable details
+            e.printStackTrace();
+        }
+
+
+        Toast toast = Toast.makeText(MainMenuActivity.this, "WORDS HAVE BEEN IMPORTED!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        View view = toast.getView();
+        view.setBackgroundColor(getResources().getColor(R.color.conflict));
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextColor(getResources().getColor(R.color.background));
+        text.setTextSize(18);
+        toast.show();
+        //fileInputStream.close();
+        //parcelFileDescriptor.close();
+        //return stringBuilder.toString();
+    }
+
     private ArrayList<Word> wordlist = new ArrayList<>();
 
     private void readWordData() {
@@ -175,7 +285,6 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();
