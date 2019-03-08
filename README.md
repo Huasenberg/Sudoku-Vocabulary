@@ -147,6 +147,17 @@
 ### `Test Driven Development`
 
 - When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the pairs of words. The program will then generate a Sudoku board using the user inputted pair of words.
+ 
+### `HOW TO TEST`
+
+1. As a base case, start a new game as usual, and only words pertaining to fruits should be used in the making of the game
+2. Download the provided CSV, called test.csv, from gitLab in the master repository
+3. Run the app and click the "Import Word List" button
+4. Navigate to where test.csv was downloaded to and click on it
+5. A toast should appear announcing that the import was a success
+6. Start a new game as normal
+7. If the word "test" appears as a button or on the board, the import is a success
+8. OPTIONAL FURTHER TESTING: repeat steps 2-7 above but with "test2.csv" to add colours to the game
 
 ## 12. VOCABULARY LISTS
 
