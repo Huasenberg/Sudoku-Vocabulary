@@ -114,8 +114,6 @@
 
 - When a user opens a board, the app will prompt the user with a seeking bar, so that the user can choose the difficulty of the board.
 
-# MARKDOWN SUDOKU VOCABULARY
-
 ## **FOR ITERATION 2**
 
 ## 10. LANDSCAPE MODE
