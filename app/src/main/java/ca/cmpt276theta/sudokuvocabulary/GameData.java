@@ -237,6 +237,4 @@ public class GameData implements Parcelable {
         mGridContent[positionY][positionX] = " ";
         mEmptyCellCounter++;
     }
-
-
 }
