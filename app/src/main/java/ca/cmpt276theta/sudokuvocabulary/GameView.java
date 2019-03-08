@@ -236,8 +236,29 @@ public class GameView extends View {
     private void drawHint(Canvas canvas) {
         //need to add code so that the wordlist array is transferred to this activity and
         // increase the score portion when hint is used
-        Word word = mGameData.getWordList().get(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);
-        word.setScore(word.getScore()+1);
+        int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
+        Word word = null;
+        for(int i = 0; i < mGameData.getWordList().size(); i++)
+        {
+            word = mGameData.getWordList().get(i);
+            if(mGameData.getLanguageMode() == 1) {
+                if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
+                {
+                    System.out.println("WORD:" +  word.getEnglish());
+                    System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
+                    word.setScore(word.getScore()+1);
+                    break;
+                }
+            }
+            else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
+                {
+
+                    System.out.println("WORD:" +  word.getEnglish());
+                    System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
+                    word.setScore(word.getScore()+1);
+                    break;
+                }
+        }
         //ArrayList<Word> wordlist = null;//new ArrayList<>();
         //wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
         //wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].setScore(wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].getScore()++);
