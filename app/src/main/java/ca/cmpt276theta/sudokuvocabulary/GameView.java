@@ -236,7 +236,8 @@ public class GameView extends View {
     private void drawHint(Canvas canvas) {
         //need to add code so that the wordlist array is transferred to this activity and
         // increase the score portion when hint is used
-
+        Word word = mGameData.getWordList().get(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);
+        word.setScore(word.getScore()+1);
         //ArrayList<Word> wordlist = null;//new ArrayList<>();
         //wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
         //wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].setScore(wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].getScore()++);

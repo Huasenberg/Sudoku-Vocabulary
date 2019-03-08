@@ -19,8 +19,9 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     public static boolean listenMode = false;
+    private ArrayList<Word> wordlist;
     GameData(ArrayList<Word> wordlist) {
-
+        this.wordlist = wordlist;
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -236,5 +237,9 @@ public class GameData implements Parcelable {
         mPuzzle[positionY][positionX] = 0;
         mGridContent[positionY][positionX] = " ";
         mEmptyCellCounter++;
+    }
+
+    public ArrayList<Word> getWordList() {
+        return wordlist;
     }
 }
