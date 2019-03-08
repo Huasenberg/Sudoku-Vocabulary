@@ -18,7 +18,7 @@ public class GameData implements Parcelable {
     private static List<String> sLanguagesList;
     private static int sDifficulty;
     private static int sLanguageMode;
-    public static boolean listenMode = false;
+    public static boolean sIsListenMode = false;
     private ArrayList<Word> wordlist;
     GameData(ArrayList<Word> wordlist) {
         this.wordlist = wordlist;
