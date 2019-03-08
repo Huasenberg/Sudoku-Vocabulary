@@ -270,77 +270,55 @@
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
 
-## 22. RESET WORDLIST DATABASE
+## 22. RESET WORDLIST SCORE DATABASE
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- 
+- As a user, I want to be able to reset the scores of each word to start fresh because I have learned the words I had difficulty with.
 
 ### `Test Driven Development`
 
-- 
+- When a user decides to click "clear statistics", the scores for each word will be zeroed
 
-## 23. VIEW WORDLIST DATABASE
+## 23. UI WORDLIST DATABASE
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- 
+- - As a user, I want to be able to view what words are in the database to see what I am learning. 
 
 ### `Test Driven Development`
 
-- 
+- When a user decides to press the "list of words" button, the user will be taken to another screen showing the list of words and the score of the words
 
-## 24. UI WORDLIST DATABASE
+## 24. DIFFERENT LANGUAGES
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- 
+- As a user, I want to be able to learn other languages other than french.
 
 ### `Test Driven Development`
 
-- 
+- When a user decides to import a new list of words that contains a language other than french, there will be a column in the csv file dictating what language it will be
 
-## 25. DIFFERENT LANGUAGES
+- TTS will also use the appropriate locale for the different language inputs
+
+## 25. JSON SUPPORT
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- 
+- As a user, I want to also be able to use JSON files to import word lists as well.
 
 ### `Test Driven Development`
 
-- 
-
-## 26. TTS FOR DIFFERENT LANGUAGES
-
-### Status: **Not Started**
-
-### `User Story`
-
-- 
-
-### `Test Driven Development`
-
-- 
-
-## 27. JSON SUPPORT
-
-### Status: **Not Started**
-
-### `User Story`
-
-- 
-
-### `Test Driven Development`
-
-- 
+- When a user selects a JSON file instead of a CSV file, the appropriate reader will be used for the file selected.
 
 ## **REFERENCES**
 
