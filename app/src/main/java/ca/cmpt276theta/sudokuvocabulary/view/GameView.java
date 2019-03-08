@@ -236,10 +236,11 @@ public class GameView extends View {
         //need to add code so that the wordlist array is transferred to this activity and
         // increase the score portion when hint is used
         int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
-        Word word = null;
+
+        if(index != -1)
         for(int i = 0; i < mGameData.getWordList().size(); i++)
         {
-            word = mGameData.getWordList().get(i);
+            Word word = mGameData.getWordList().get(i);
             if(mGameData.getLanguageMode() == 1) {
                 if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
                 {
