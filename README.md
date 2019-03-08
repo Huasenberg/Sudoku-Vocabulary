@@ -114,6 +114,8 @@
 
 - When a user opens a board, the app will prompt the user with a seeking bar, so that the user can choose the difficulty of the board.
 
+# MARKDOWN SUDOKU VOCABULARY
+
 ## **FOR ITERATION 2**
 
 ## 10. LANDSCAPE MODE
@@ -134,7 +136,7 @@
 
 ## 11. CSV READER
 
-### Status: **Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -219,9 +221,19 @@
 
 - When a user uses a tablet, the game is optimized to be played on a bigger screen
 
+## 17. SPLASH SCREEN
+
+### `User Story`
+
+- As a user, I would like to see a nice welcome animation to the app
+
+### `Test Driven Development`
+
+- When a user opens the game, an animation of the logo will be played and the main menu will soon pursue.
+
 ## **FOR ITERATION 3**
 
-## 17. NIGHT MODE
+## 18. NIGHT MODE
 
 ### Status: **Not Started**
 
@@ -233,7 +245,7 @@
 
 - When a user clicks the night mode button, the colours of the app will change to a darker scheme
 
-## 18. PAUSE
+## 19. PAUSE
 
 ### Status: **Not Started**
 
@@ -245,7 +257,7 @@
 
 - When a user touches the "pause" button, the timer will pause and a "pause screen" will be displayed (it should be big enough to block the board)
 
-## 19. BACK (TO MENU) BUTTON
+## 20. BACK (TO MENU) BUTTON
 
 ### Status: **Not Started**
 
@@ -257,7 +269,7 @@
 
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
 
-## 20. HOW-TO-PLAY BUTTON
+## 21. HOW-TO-PLAY BUTTON
 
 ### Status: **Not Started**
 
@@ -269,7 +281,7 @@
 
 - When a beignner to Sudoku selects the "help button," a popup will explain the rules to Sudoku and pausing the timer of the game. (Help button in Main Menu and in-game?)
 
-## 21. SAVED BOARDS
+## 22. SAVED BOARDS
 
 ### Status: **Not Started**
 
@@ -281,7 +293,7 @@
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
 
-## 22. RESET WORDLIST SCORE DATABASE
+## 23. RESET WORDLIST SCORE DATABASE
 
 ### Status: **Not Started**
 
@@ -293,7 +305,7 @@
 
 - When a user decides to click "clear statistics", the scores for each word will be zeroed
 
-## 23. UI WORDLIST DATABASE
+## 24. UI WORDLIST DATABASE
 
 ### Status: **Not Started**
 
@@ -305,7 +317,7 @@
 
 - When a user decides to press the "list of words" button, the user will be taken to another screen showing the list of words and the score of the words
 
-## 24. DIFFERENT LANGUAGES
+## 25. DIFFERENT LANGUAGES
 
 ### Status: **Not Started**
 
@@ -319,7 +331,7 @@
 
 - TTS will also use the appropriate locale for the different language inputs
 
-## 25. JSON SUPPORT
+## 26. JSON SUPPORT
 
 ### Status: **Not Started**
 
