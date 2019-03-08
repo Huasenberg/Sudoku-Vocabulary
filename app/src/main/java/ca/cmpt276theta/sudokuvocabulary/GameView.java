@@ -244,8 +244,8 @@ public class GameView extends View {
             if(mGameData.getLanguageMode() == 1) {
                 if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
                 {
-                    System.out.println("WORD:" +  word.getEnglish());
-                    System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
+                    //System.out.println("WORD:" +  word.getEnglish());
+                    //System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
                     word.setScore(word.getScore()+1);
                     break;
                 }
@@ -253,16 +253,15 @@ public class GameView extends View {
             else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
                 {
 
-                    System.out.println("WORD:" +  word.getEnglish());
-                    System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
+                    //System.out.println("WORD:" +  word.getEnglish());
+                    //System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
                     word.setScore(word.getScore()+1);
                     break;
                 }
         }
-        //ArrayList<Word> wordlist = null;//new ArrayList<>();
-        //wordlist = (ArrayList<Word>)context.getIntent().getSerializableExtra("wordlist");
-        //wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].setScore(wordlist[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]].getScore()++);
-        System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);
+
+        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);// PRINTS INDEX
+        //System.out.println("SCORE"+word.getScore()); //PRINTS SCORE
 
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {

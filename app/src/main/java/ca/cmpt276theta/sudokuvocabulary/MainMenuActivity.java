@@ -241,7 +241,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             // Logs error with priority level
-            Log.wtf("My Activity", "Error reading data file on line" + line, e);
+            Log.d("My Activity", "Error reading data file on line" + line, e);
 
             // Prints throwable details
             e.printStackTrace();
