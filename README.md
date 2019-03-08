@@ -116,21 +116,9 @@
 
 ## **FOR ITERATION 2**
 
-## 10. NIGHT MODE
+## 10. LANDSCAPE MODE
 
-### Status: **Not Started**
-
-### `User Story`
-
-- As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
-
-### `Test Driven Development`
-
-- When a user clicks the night mode button, the colours of the app will change to a darker scheme
-
-## 11. LANDSCAPE MODE
-
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -144,11 +132,9 @@
 
 - When a user rotates the screen orientation to landscape, the app will rotate accordingly with readjustments to board and button locations
 
-- Ex. ![Sudoku Landscape Ex.](landscape_sudoku_ex.png)
+## 11. CSV READER
 
-## 12. CSV READER
-
-### Status: **Not Started**
+### Status: **Started**
 
 ### `User Story`
 
@@ -160,11 +146,22 @@
 
 ### `Test Driven Development`
 
-- When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the 9 (or 10) pairs of words and prompted to enter the name of the 2 languages. The program will then generate a Sudoku board using the user inputted nine pair of words
+- When a teacher selects the "import word list" button from the main menu, the teacher will be prompted to find the CSV file that contains the pairs of words. The program will then generate a Sudoku board using the user inputted pair of words.
+ 
+### `HOW TO TEST`
 
-## 13. VOCABULARY LISTS
+1. As a base case, start a new game as usual, and only words pertaining to fruits should be used in the making of the game
+2. Download the provided CSV, called test.csv, from gitLab in the master repository
+3. Run the app and click the "Import Word List" button
+4. Navigate to where test.csv was downloaded to and click on it
+5. A toast should appear announcing that the import was a success
+6. Start a new game as normal
+7. If the word "test" appears as a button or on the board, the import is a success
+8. OPTIONAL FURTHER TESTING: repeat steps 2-7 above but with "test2.csv" to add colours to the game
 
-### Status: **Not Started**
+## 12. VOCABULARY LISTS
+
+### Status: **Started**
 
 ### `User Story`
 
@@ -172,11 +169,11 @@
 
 ### `Test Driven Development`
 
-- __
+- When a user uses a hint while playing the game, a score incrementor will be applied to the word and the score will be stored on the device. If the user then generates a new game, the new board will choose words with higher scores to play with.
 
-## 14. LISTENING COMPREHENSION
+## 13. LISTENING COMPREHENSION
 
-### Status: **Not Started**
+### Status: **Finished**
 
 ### `User Story`
 
@@ -184,9 +181,59 @@
 
 ### `Test Driven Development`
 
-- _
+- When a user selects the "listening mode" from the main menu, the game will instead generate a board with numbers. If the user long presses a pre-filled number on the board, a Text-to-Speech function will be used and the language that the user knows will be spoken while the user tries to fill in the cells with words that they are trying to learn
 
-## 15. PAUSE
+## 14. ERASE BUTTON
+
+### Status: **Implemented**
+
+### `User Story`
+
+- As a user, I want to be able to erase a cell that I accidentally filled with the wrong word
+
+### `Test Driven Development`
+
+- When a user wants to erase a filled cell, the user will select the desired cell to be erased and click the erase button
+
+## 15. BETTER VICTORY DETECTION
+
+### Status: **Implemented**
+
+### `User Story`
+
+- As a user, I don't want to have to click the "check" button after I have completed the game
+
+### `Test Driven Development`
+
+- When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
+
+## 16. DIFFERENT DEVICES
+
+### Status: **Implemented**
+
+### `User Story`
+
+- As a vocabulary learner practicing at home, I want to use my tablet for Sudoku vocabulary practice, so that the words will be conveniently displayed in larger, easier to read fonts.
+
+### `Test Driven Development`
+
+- When a user uses a tablet, the game is optimized to be played on a bigger screen
+
+## **FOR ITERATION 3**
+
+## 17. NIGHT MODE
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
+
+### `Test Driven Development`
+
+- When a user clicks the night mode button, the colours of the app will change to a darker scheme
+
+## 18. PAUSE
 
 ### Status: **Not Started**
 
@@ -198,7 +245,7 @@
 
 - When a user touches the "pause" button, the timer will pause and a "pause screen" will be displayed (it should be big enough to block the board)
 
-## 16. BACK (TO MENU) BUTTON
+## 19. BACK (TO MENU) BUTTON
 
 ### Status: **Not Started**
 
@@ -210,19 +257,7 @@
 
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
 
-## 17. ERASE BUTTON
-
-### Status: **Not Started**
-
-### `User Story`
-
-- As a user, I want to be able to erase a cell that I accidentally filled with the wrong word
-
-### `Test Driven Development`
-
-- When a user wants to erase a filled cell, the user will select the desired cell to be erased and click the erase button
-
-## 18. HOW-TO-PLAY BUTTON
+## 20. HOW-TO-PLAY BUTTON
 
 ### Status: **Not Started**
 
@@ -234,7 +269,7 @@
 
 - When a beignner to Sudoku selects the "help button," a popup will explain the rules to Sudoku and pausing the timer of the game. (Help button in Main Menu and in-game?)
 
-## 19. SAVED BOARDS
+## 21. SAVED BOARDS
 
 ### Status: **Not Started**
 
@@ -246,29 +281,55 @@
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
 
-## 20. BETTER VICTORY DETECTION
+## 22. RESET WORDLIST SCORE DATABASE
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- As a user, I don't want to have to click the "check" button after I have completed the game
+- As a user, I want to be able to reset the scores of each word to start fresh because I have learned the words I had difficulty with.
 
 ### `Test Driven Development`
 
-- When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
+- When a user decides to click "clear statistics", the scores for each word will be zeroed
 
-## 21. DIFFERENT DEVICES
+## 23. UI WORDLIST DATABASE
 
 ### Status: **Not Started**
 
 ### `User Story`
 
-- As a vocabulary learner practicing at home, I want to use my tablet for Sudoku vocabulary practice, so that the words will be conveniently displayed in larger, easier to read fonts.
+- - As a user, I want to be able to view what words are in the database to see what I am learning. 
 
 ### `Test Driven Development`
 
-- 
+- When a user decides to press the "list of words" button, the user will be taken to another screen showing the list of words and the score of the words
+
+## 24. DIFFERENT LANGUAGES
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a user, I want to be able to learn other languages other than french.
+
+### `Test Driven Development`
+
+- When a user decides to import a new list of words that contains a language other than french, there will be a column in the csv file dictating what language it will be
+
+- TTS will also use the appropriate locale for the different language inputs
+
+## 25. JSON SUPPORT
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a user, I want to also be able to use JSON files to import word lists as well.
+
+### `Test Driven Development`
+
+- When a user selects a JSON file instead of a CSV file, the appropriate reader will be used for the file selected.
 
 ## **REFERENCES**
 

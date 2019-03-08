@@ -74,17 +74,16 @@ public class MainMenuActivity extends AppCompatActivity {
         mPopupWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.listenMode = false;
+                GameData.setListenMode(false);
             }
         });
         mPopupWindow.getContentView().findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.listenMode = true;
+                GameData.setListenMode(true);
             }
         });
         loadSpinner(spinner, mPopupWindow);
-
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +134,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
-        GameDataGenerator.loadPuzzleData();
     }
 
     private static final int READ_REQUEST_CODE = 42;

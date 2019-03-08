@@ -1,7 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.View;
 

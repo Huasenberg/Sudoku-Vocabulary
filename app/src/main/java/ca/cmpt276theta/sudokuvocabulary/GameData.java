@@ -100,6 +100,14 @@ public class GameData implements Parcelable {
         return max_score;
     }
 
+    static void setListenMode(boolean isListenMode) {
+        sIsListenMode = isListenMode;
+    }
+
+    static boolean isListenMode() {
+        return sIsListenMode;
+    }
+
     void setEmptyCellCounter(int emptyCellCounter) {
         mEmptyCellCounter = emptyCellCounter;
     }
@@ -167,9 +175,10 @@ public class GameData implements Parcelable {
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
                 if(mPuzzle[i][j] != 0)
-                    if(listenMode)
+                    if(sIsListenMode)
                         mGridContent[i][j] = String.valueOf(mPuzzle[i][j]);
-                    else mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
+                    else
+                        mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
                 else {
                     mGridContent[i][j] = " ";
                     mEmptyCellCounter++;

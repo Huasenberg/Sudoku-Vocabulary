@@ -13,7 +13,7 @@
         android:layout_gravity="end"
         android:orientation="horizontal"
         android:layout_margin="10dp">
-        
+
         <ImageView
             android:id="@+id/about"
             android:layout_width="23dp"
@@ -93,6 +93,5 @@
             android:textAllCaps="false"
             android:textColor="@color/background"
             android:textSize="15sp" />
-
     </LinearLayout>
 </FrameLayout>
