@@ -208,6 +208,8 @@
 
 - When a user uses a tablet, the game is optimized to be played on a bigger screen
 
+## **FOR ITERATION 3**
+
 ## 17. NIGHT MODE
 
 ### Status: **Not Started**
@@ -267,6 +269,66 @@
 ### `Test Driven Development`
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
+
+## 22. RESET WORDLIST DATABASE
+
+### Status: **Not Started**
+
+### `User Story`
+
+- 
+
+### `Test Driven Development`
+
+- 
+
+## 23. VIEW WORDLIST DATABASE
+
+### Status: **Not Started**
+
+### `User Story`
+
+- 
+
+### `Test Driven Development`
+
+- 
+
+## 24. UI WORDLIST DATABASE
+
+### Status: **Not Started**
+
+### `User Story`
+
+- 
+
+### `Test Driven Development`
+
+- 
+
+## 25. DIFFERENT LANGUAGES
+
+### Status: **Not Started**
+
+### `User Story`
+
+- 
+
+### `Test Driven Development`
+
+- 
+
+## 26. TTS FOR DIFFERENT LANGUAGES
+
+### Status: **Not Started**
+
+### `User Story`
+
+- 
+
+### `Test Driven Development`
+
+- 
 
 
 ## **REFERENCES**
