@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {
     private int mEmptyCellCounter;
@@ -20,7 +22,7 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     public static boolean sIsListenMode = false;
     private ArrayList<Word> wordlist;
-    GameData(ArrayList<Word> wordlist) {
+    public GameData(ArrayList<Word> wordlist) {
         this.wordlist = wordlist;
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
@@ -100,63 +102,63 @@ public class GameData implements Parcelable {
         return max_score;
     }
 
-    static void setListenMode(boolean isListenMode) {
+    public static void setListenMode(boolean isListenMode) {
         sIsListenMode = isListenMode;
     }
 
-    static boolean isListenMode() {
+    public static boolean isListenMode() {
         return sIsListenMode;
     }
 
-    void setEmptyCellCounter(int emptyCellCounter) {
+    public void setEmptyCellCounter(int emptyCellCounter) {
         mEmptyCellCounter = emptyCellCounter;
     }
 
-    String[] getLanguageA() {
+    public String[] getLanguageA() {
         return mLanguageA;
     }
 
-    String[] getLanguageB() {
+    public String[] getLanguageB() {
         return mLanguageB;
     }
 
-    int getEmptyCellCounter() {
+    public int getEmptyCellCounter() {
         return mEmptyCellCounter;
     }
 
-    String[][] getGridContent() {
+    public String[][] getGridContent() {
         return mGridContent;
     }
 
-    int[][] getPuzzlePreFilled() {
+    public int[][] getPuzzlePreFilled() {
         return mPuzzlePreFilled;
     }
 
-    int[][] getPuzzle() {
+    public int[][] getPuzzle() {
         return mPuzzle;
     }
 
-    static List<String> getLanguagesList() {
+    public static List<String> getLanguagesList() {
         return sLanguagesList;
     }
 
-    static int getDifficulty() {
+    public static int getDifficulty() {
         return sDifficulty;
     }
 
-    static void setDifficulty(int difficulty) {
+    public static void setDifficulty(int difficulty) {
         sDifficulty = difficulty;
     }
 
-    static int getLanguageMode() {
+    public static int getLanguageMode() {
         return sLanguageMode;
     }
 
-    static void setLanguageMode(int languageMode) {
+    public static void setLanguageMode(int languageMode) {
         sLanguageMode = languageMode;
     }
 
-    static String getLanguageMode_String() {
+    public static String getLanguageMode_String() {
         return sLanguagesList.get(sLanguageMode);
     }
 
@@ -187,7 +189,7 @@ public class GameData implements Parcelable {
         }
     }
 
-    static void loadLanguagesList() {
+    public static void loadLanguagesList() {
         sLanguagesList = new ArrayList<>();
         sLanguagesList.add("English - Français");
         sLanguagesList.add("Français - English");

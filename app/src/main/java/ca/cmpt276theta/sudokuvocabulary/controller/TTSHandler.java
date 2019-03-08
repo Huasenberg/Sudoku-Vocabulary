@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
@@ -11,21 +11,21 @@ public class TTSHandler implements TextToSpeech.OnInitListener{
     private Context context;
     private TextToSpeech tts = null;
 
-    TTSHandler(Context context)
+    public TTSHandler(Context context)
     {
         this.context = context;
         if (tts == null)
             tts = new TextToSpeech(context, this);
     }
 
-    void destroy()
+    public void destroy()
     {
         if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
     }
-    void speak(String speak, Locale locale)
+    public void speak(String speak, Locale locale)
     {
         if (tts != null) {
             tts.setLanguage(locale);

@@ -1,8 +1,8 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import java.io.Serializable;
 
-class Word implements Serializable {
+public class Word implements Serializable {
     private int wordID;
     private String english;
     private String french;

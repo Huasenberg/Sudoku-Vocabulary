@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 
 public class LaunchActivity extends AppCompatActivity {
 

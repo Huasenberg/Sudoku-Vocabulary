@@ -1,9 +1,11 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.View;
+
+import ca.cmpt276theta.sudokuvocabulary.R;
 
 public class AboutPageActivity extends AppCompatActivity {
 

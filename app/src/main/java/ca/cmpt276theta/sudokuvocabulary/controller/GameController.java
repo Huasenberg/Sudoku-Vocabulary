@@ -1,21 +1,23 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-class GameController {
+import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.view.GameView;
+
+public class GameController {
 
     private final MediaPlayer mp;
     private final GameData mGameData;
@@ -24,7 +26,7 @@ class GameController {
     private final Chronometer mTimer;
     private final TextView mTime;
 
-    GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
+    public GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
         mGameData = gameData;
         this.mTimer = timer;
@@ -34,11 +36,11 @@ class GameController {
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
     }
 
-    GameData getGameData() {
+    public GameData getGameData() {
         return mGameData;
     }
 
-    void fillWord(Button button) {
+    public void fillWord(Button button) {
         final int positionX = mGameView.getTouchPositionX();
         final int positionY = mGameView.getTouchPositionY();
         if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
@@ -90,7 +92,7 @@ class GameController {
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }
 
-    void showMessageToast(Context context, String message) {
+    public void showMessageToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0,0);
         View view = toast.getView();

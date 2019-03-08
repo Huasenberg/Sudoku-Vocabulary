@@ -1,22 +1,22 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.model;
 
 import java.util.Random;
 
-class GameDataGenerator {
+public class GameDataGenerator {
     private static final int UNIT = 3;
     private static final int SIZE = UNIT * UNIT;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
 
-    static int[][] getSolvedPuzzle() {
+    public static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;
     }
 
-    static void loadPuzzleData() {
+    public static void loadPuzzleData() {
         sSolvedPuzzle = generateSolved();
     }
 
-    private static int[][] generateSolved() {
+    public static int[][] generateSolved() {
         int[][] array = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
@@ -36,7 +36,7 @@ class GameDataGenerator {
      *
      * @param array The array to be transposed.
      */
-    private static void transpose(int[][] array) {
+    public static void transpose(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
                 int temp = array[i][j];
@@ -51,7 +51,7 @@ class GameDataGenerator {
      *
      * @param array The array to be transformed.
      */
-    private static void shuffleSquareRows(int[][] array) {
+    public static void shuffleSquareRows(int[][] array) {
         Random random = new Random();
         for (int i = 0; i < UNIT - 1; i++) {
             int j = 1 + i + random.nextInt(UNIT - 1 - i);
@@ -64,7 +64,7 @@ class GameDataGenerator {
      *
      * @param array The array to be transformed.
      */
-    private static void shuffleSingleRows(int[][] array) {
+    public static void shuffleSingleRows(int[][] array) {
         Random random = new Random();
         for (int i = 0; i < UNIT; i++) {
             int start = i * UNIT;
@@ -83,7 +83,7 @@ class GameDataGenerator {
      * @param i     The first row.
      * @param j     The second row.
      */
-    private static void swapSingleRows(int[][] array, int i, int j) {
+    public static void swapSingleRows(int[][] array, int i, int j) {
         int[] temp = new int[SIZE];
         System.arraycopy(array[i], 0, temp, 0, SIZE);
         System.arraycopy(array[j], 0, array[i], 0, SIZE);
@@ -97,7 +97,7 @@ class GameDataGenerator {
      * @param i     The first row.
      * @param j     The second row.
      */
-    private static void swapSquareRows(int[][] array, int i, int j) {
+    public static void swapSquareRows(int[][] array, int i, int j) {
         //if (i == j) return;
         int[][] temp = new int[UNIT][SIZE];
         int iStart = i * UNIT;

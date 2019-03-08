@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+package ca.cmpt276theta.sudokuvocabulary.view;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -12,8 +12,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Locale;
+
+import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
+import ca.cmpt276theta.sudokuvocabulary.controller.Word;
+import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
