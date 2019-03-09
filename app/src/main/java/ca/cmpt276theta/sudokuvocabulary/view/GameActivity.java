@@ -17,12 +17,8 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-
 import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class GameActivity extends AppCompatActivity {

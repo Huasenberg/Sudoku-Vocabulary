@@ -7,48 +7,46 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
-
 import static org.junit.Assert.*;
 
 public class GameDataTest {
 
-    private GameData myClass;
+    private GameData mGameData;
 
     @Before
     public void setUp() {
         GameDataGenerator.loadPuzzleData();
         GameData.setWordlist(new ArrayList<Word>());
-        myClass = new GameData();
+        mGameData = new GameData();
     }
 
     @After
     public void tearDown() {
-        myClass = null;
+        mGameData = null;
     }
 
     @Test
     public void setEmptyCellCounter() {
-        myClass.setEmptyCellCounter(0);
-        Assert.assertEquals(0, myClass.getEmptyCellCounter());
+        mGameData.setEmptyCellCounter(0);
+        Assert.assertEquals(0, mGameData.getEmptyCellCounter());
     }
 
     @Test
     public void getEmptyCellCounter() {
         for (int i = 0; i < 82; i++) {
-            myClass.setEmptyCellCounter(i);
-            int counter = myClass.getEmptyCellCounter();
+            mGameData.setEmptyCellCounter(i);
+            int counter = mGameData.getEmptyCellCounter();
             Assert.assertEquals(counter, i);
         }
     }
 
     @Test
     public void getGridContent() {
-        myClass.generateIncompletePuzzle();
-        String [][] grid = myClass.getGridContent();
+        mGameData.generateIncompletePuzzle();
+        String [][] grid = mGameData.getGridContent();
         boolean contentExists = false;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -116,7 +114,7 @@ public class GameDataTest {
 
     @Test
     public void describeContents() {
-        Assert.assertEquals(myClass.describeContents(), 0);
+        Assert.assertEquals(mGameData.describeContents(), 0);
     }
 
     @Test
@@ -125,13 +123,13 @@ public class GameDataTest {
 
     @Test
     public void removeOneCell() {
-        int[][] puzzle = myClass.getPuzzle();
+        int[][] puzzle = mGameData.getPuzzle();
         for (int i = 0; i < 9 ; i++) {
             for (int j = 0; j < 9 ; j++) {
                 if (puzzle[i][j] != 0){
-                    myClass.removeOneCell(i, j);
-                    int cellContent = myClass.getPuzzle()[j][i];
-                    String gridContent = myClass.getGridContent()[j][i];
+                    mGameData.removeOneCell(i, j);
+                    int cellContent = mGameData.getPuzzle()[j][i];
+                    String gridContent = mGameData.getGridContent()[j][i];
                     Assert.assertEquals(0, cellContent);
                     Assert.assertEquals(" ", gridContent);
                 }
@@ -141,10 +139,10 @@ public class GameDataTest {
 
     @Test
     public void generateIncompletePuzzle(){
-        assertNotEquals(0, myClass.getEmptyCellCounter());
-        assertNotEquals(81, myClass.getEmptyCellCounter());
-        assertTrue(myClass.getEmptyCellCounter() < 81);
-        int[][] puzzle = myClass.getPuzzle();
+        assertNotEquals(0, mGameData.getEmptyCellCounter());
+        assertNotEquals(81, mGameData.getEmptyCellCounter());
+        assertTrue(mGameData.getEmptyCellCounter() < 81);
+        int[][] puzzle = mGameData.getPuzzle();
         boolean not_empty = false;
         int counter = 0;
         for (int i = 0; i < 9 ; i++) {
@@ -157,7 +155,7 @@ public class GameDataTest {
         }
         Assert.assertTrue(not_empty);
         assertNotEquals(81, counter);
-        String [][] grid = myClass.getGridContent();
+        String [][] grid = mGameData.getGridContent();
         boolean not_empty2 = false;
         int counter2 = 0;
         for (int i = 0; i < 9 ; i++) {

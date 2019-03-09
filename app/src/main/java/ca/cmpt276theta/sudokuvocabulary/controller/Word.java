@@ -1,9 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
-import java.util.Collections;
-import java.util.Comparator;
-
-import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class Word {
     private int wordID;
