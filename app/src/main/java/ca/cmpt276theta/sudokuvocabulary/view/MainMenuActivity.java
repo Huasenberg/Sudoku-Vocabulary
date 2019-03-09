@@ -54,10 +54,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        GameData.setWordlist(new ArrayList<Word>());
-        loadArray(GameData.getWordlist());
         //readWordData();
-        sortWordData();
+
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -93,14 +91,7 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.continue_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER,0,0);
-                View view = toast.getView();
-                view.setBackgroundColor(getResources().getColor(R.color.conflict));
-                TextView text = view.findViewById(android.R.id.message);
-                text.setTextColor(getResources().getColor(R.color.background));
-                text.setTextSize(18);
-                toast.show();
+                GameController.showMessageToast(MainMenuActivity.this, " Coming soon! ");
             }
         });
 
@@ -144,8 +135,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
         // The ACTION_OPEN_DOCUMENT intent was sent with the request code
         // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
@@ -170,9 +160,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private void readTextFromUri(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                inputStream));
-        writeToArrayList(reader);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        GameController.writeToArrayList(reader);
         GameController.showMessageToast(this, " Words have been imported! ");
         saveArray(GameData.getWordlist());
     }
@@ -185,57 +174,8 @@ public class MainMenuActivity extends AppCompatActivity {
         writeToArrayList(reader);
     }*/
 
-    private void writeToArrayList(BufferedReader reader) {
-        String line = "";
-        try {
-            // Step over headers
-            reader.readLine();
 
-            // If buffer is not empty
-            while ((line = reader.readLine()) != null) {
-                Log.d("My Activity","Line: " + line);
-                // use comma as separator columns of CSV
-                String[] tokens = line.split(",");
-                // Read the data
-                Word sample = new Word();
 
-                // Setters
-                sample.setEnglish(tokens[1]);
-                sample.setFrench(tokens[2]);
-                sample.setScore(Integer.parseInt(tokens[3]));
-
-                // Adding object to a class
-                GameData.getWordlist().add(sample);
-//                ContentValues cv = new ContentValues();
-//                cv.put(Word.COLUMN_ID, tokens[0].trim());
-//                cv.put(Word.COLUMN_ENGLISH, tokens[1].trim());
-//                cv.put(Word.COLUMN_FRENCH, tokens[2].trim());
-//                cv.put(Word.COLUMN_SCORE, tokens[3].trim());
-//                db.insertWord(cv);
-
-                // Log the object
-                System.out.println("SIZE" +GameData.getWordlist().size());//gets size
-
-                Log.d("My Activity", "Just created: " + sample);
-            }
-
-        } catch (IOException e) {
-            // Logs error with priority level
-            Log.d("My Activity", "Error reading data file on line" + line, e);
-
-            // Prints throwable details
-            e.printStackTrace();
-        }
-    }
-
-    private void sortWordData() {
-        Collections.sort(GameData.getWordlist(), new Comparator<Word>() {
-            @Override
-            public int compare(Word o1, Word o2) {
-                return Integer.compare(o2.getScore(), o1.getScore());
-            }
-        });
-    }
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();
@@ -310,17 +250,6 @@ public class MainMenuActivity extends AppCompatActivity {
         mEdit1.commit();
     }
 
-    public void loadArray(ArrayList<Word> list) {
-        SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
-        list.clear();
-        int size = mSharedPreference1.getInt("Size", 0);
-        for(int i = 0; i < size; i++) {
-            Word word = new Word();
-            word.setEnglish(mSharedPreference1.getString("Status_English" + i, null));
-            word.setFrench(mSharedPreference1.getString("Status_French" + i, null));
-            word.setScore(mSharedPreference1.getInt("Status_Score" + i,0));
-            list.add(word);
-        }
-    }
+
 
 }

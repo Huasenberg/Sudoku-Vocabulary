@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -48,5 +49,21 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void loadGame (){
         GameDataGenerator.loadPuzzleData();
+        GameData.setWordlist(new ArrayList<Word>());
+        loadArray(GameData.getWordlist());
+        GameData.sortWordData();
+    }
+
+    private void loadArray(ArrayList<Word> list) {
+        SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
+        list.clear();
+        int size = mSharedPreference1.getInt("Size", 0);
+        for(int i = 0; i < size; i++) {
+            Word word = new Word();
+            word.setEnglish(mSharedPreference1.getString("Status_English" + i, null));
+            word.setFrench(mSharedPreference1.getString("Status_French" + i, null));
+            word.setScore(mSharedPreference1.getInt("Status_Score" + i,0));
+            list.add(word);
+        }
     }
 }

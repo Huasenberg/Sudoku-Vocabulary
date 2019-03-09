@@ -3,6 +3,8 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
@@ -250,5 +252,14 @@ public class GameData implements Parcelable {
 
     public ArrayList<Word> getWordList() {
         return wordlist;
+    }
+
+    public static void sortWordData() {
+        Collections.sort(GameData.getWordlist(), new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return Integer.compare(o2.getScore(), o1.getScore());
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,6 +13,9 @@ import android.widget.Chronometer;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
@@ -101,5 +105,48 @@ public class GameController {
         text.setTextSize(17);
         text.setTextColor(Color.WHITE);
         toast.show();
+    }
+
+    public static void writeToArrayList(BufferedReader reader) {
+        String line = "";
+        try {
+            // Step over headers
+            reader.readLine();
+
+            // If buffer is not empty
+            while ((line = reader.readLine()) != null) {
+                Log.d("My Activity","Line: " + line);
+                // use comma as separator columns of CSV
+                String[] tokens = line.split(",");
+                // Read the data
+                Word sample = new Word();
+
+                // Setters
+                sample.setEnglish(tokens[1]);
+                sample.setFrench(tokens[2]);
+                sample.setScore(Integer.parseInt(tokens[3]));
+
+                // Adding object to a class
+                GameData.getWordlist().add(sample);
+//                ContentValues cv = new ContentValues();
+//                cv.put(Word.COLUMN_ID, tokens[0].trim());
+//                cv.put(Word.COLUMN_ENGLISH, tokens[1].trim());
+//                cv.put(Word.COLUMN_FRENCH, tokens[2].trim());
+//                cv.put(Word.COLUMN_SCORE, tokens[3].trim());
+//                db.insertWord(cv);
+
+                // Log the object
+                System.out.println("SIZE" +GameData.getWordlist().size());//gets size
+
+                Log.d("My Activity", "Just created: " + sample);
+            }
+
+        } catch (IOException e) {
+            // Logs error with priority level
+            Log.d("My Activity", "Error reading data file on line" + line, e);
+
+            // Prints throwable details
+            e.printStackTrace();
+        }
     }
 }

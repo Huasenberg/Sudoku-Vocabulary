@@ -1,5 +1,10 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
+
+import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+
 public class Word {
     private int wordID;
     private String english;
@@ -38,6 +43,7 @@ public class Word {
     public void setScore(int score) {
         this.score = score;
     }
+
 }
 
 //package ca.cmpt276theta.sudokuvocabulary;
