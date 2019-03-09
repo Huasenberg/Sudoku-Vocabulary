@@ -2,11 +2,9 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {
@@ -33,8 +31,6 @@ public class GameData implements Parcelable {
 
         //ArrayList<Word> wordlist = null; //new ArrayList<>();
         //wordlist = (ArrayList<Word>)context.
-
-
         // Pairing the words with numbers
         String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
         String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
@@ -103,7 +99,6 @@ public class GameData implements Parcelable {
     public static void setWordlist(ArrayList<Word> wordlist) {
         GameData.wordlist = wordlist;
     }
-
 
     public static void setListenMode(boolean isListenMode) {
         sIsListenMode = isListenMode;

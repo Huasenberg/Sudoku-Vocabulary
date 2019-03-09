@@ -1,6 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,6 +21,7 @@ public class GameDataTest {
     @Before
     public void setUp() {
         GameDataGenerator.loadPuzzleData();
+        GameData.setWordlist(new ArrayList<Word>());
         myClass = new GameData();
     }
 
