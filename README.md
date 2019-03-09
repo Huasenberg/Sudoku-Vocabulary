@@ -114,6 +114,8 @@
 
 - When a user opens a board, the app will prompt the user with a seeking bar, so that the user can choose the difficulty of the board.
 
+# MARKDOWN SUDOKU VOCABULARY
+
 ## **FOR ITERATION 2**
 
 ## 10. LANDSCAPE MODE
@@ -161,7 +163,7 @@
 
 ## 12. VOCABULARY LISTS
 
-### Status: **Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -173,7 +175,7 @@
 
 ## 13. LISTENING COMPREHENSION
 
-### Status: **Finished**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -220,6 +222,8 @@
 - When a user uses a tablet, the game is optimized to be played on a bigger screen
 
 ## 17. SPLASH SCREEN
+
+### Status: **Implemented**
 
 ### `User Story`
 
