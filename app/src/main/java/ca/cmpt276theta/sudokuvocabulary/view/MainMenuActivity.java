@@ -3,6 +3,7 @@ package ca.cmpt276theta.sudokuvocabulary.view;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
@@ -47,15 +49,15 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        readWordData();
-        sortWordData();
-
 //        db = new DatabaseHelper(this);
 //        wordlist.addAll(db.getAllWords());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        GameData.setWordlist(new ArrayList<Word>());
+        loadArray(GameData.getWordlist());
+        //readWordData();
+        sortWordData();
         View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -106,15 +108,6 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 performFileSearch();
-
-//                Toast toast = Toast.makeText(MainMenuActivity.this, "Coming soon!", Toast.LENGTH_SHORT);
-//                toast.setGravity(Gravity.CENTER,0,0);
-//                View view = toast.getView();
-//                view.setBackgroundColor(getResources().getColor(R.color.conflict));
-//                TextView text = view.findViewById(android.R.id.message);
-//                text.setTextColor(getResources().getColor(R.color.background));
-//                text.setTextSize(18);
-//                toast.show();
             }
         });
 
@@ -180,24 +173,17 @@ public class MainMenuActivity extends AppCompatActivity {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));
         writeToArrayList(reader);
-        Toast toast = Toast.makeText(MainMenuActivity.this, "WORDS HAVE BEEN IMPORTED!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        View view = toast.getView();
-        view.setBackgroundColor(getResources().getColor(R.color.conflict));
-        TextView text = view.findViewById(android.R.id.message);
-        text.setTextColor(getResources().getColor(R.color.background));
-        text.setTextSize(18);
-        toast.show();
+        GameController.showMessageToast(this, " Words have been imported! ");
+        saveArray(GameData.getWordlist());
     }
 
-    private ArrayList<Word> wordlist = new ArrayList<>();
 
-    private void readWordData() {
+   /* private void readWordData() {
         InputStream is = getResources().openRawResource(R.raw.words);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8")));
         writeToArrayList(reader);
-    }
+    }*/
 
     private void writeToArrayList(BufferedReader reader) {
         String line = "";
@@ -219,8 +205,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 sample.setScore(Integer.parseInt(tokens[3]));
 
                 // Adding object to a class
-                wordlist.add(sample);
-
+                GameData.getWordlist().add(sample);
 //                ContentValues cv = new ContentValues();
 //                cv.put(Word.COLUMN_ID, tokens[0].trim());
 //                cv.put(Word.COLUMN_ENGLISH, tokens[1].trim());
@@ -229,7 +214,7 @@ public class MainMenuActivity extends AppCompatActivity {
 //                db.insertWord(cv);
 
                 // Log the object
-                System.out.println("SIZE"+wordlist.size());//gets size
+                System.out.println("SIZE" +GameData.getWordlist().size());//gets size
 
                 Log.d("My Activity", "Just created: " + sample);
             }
@@ -244,7 +229,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void sortWordData() {
-        Collections.sort(wordlist, new Comparator<Word>() {
+        Collections.sort(GameData.getWordlist(), new Comparator<Word>() {
             @Override
             public int compare(Word o1, Word o2) {
                 return Integer.compare(o2.getScore(), o1.getScore());
@@ -292,12 +277,7 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
                 GameData.setLanguageMode(mOption);
-
-                Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
-                intent.putExtra("wordlist",wordlist);
-                startActivity(intent);
-
-                //startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
+                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
@@ -313,4 +293,34 @@ public class MainMenuActivity extends AppCompatActivity {
         lp.alpha = num;
         getWindow().setAttributes(lp);
     }
+
+    public void saveArray(ArrayList<Word> list) {
+        SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
+        SharedPreferences.Editor mEdit1= sp.edit();
+        mEdit1.putInt("Size",list.size());
+
+        for(int i = 0; i < list.size(); i++) {
+            mEdit1.remove("Status_English" + i);
+            mEdit1.putString("Status_English" + i, list.get(i).getEnglish());
+            mEdit1.remove("Status_French" + i);
+            mEdit1.putString("Status_French" + i, list.get(i).getFrench());
+            mEdit1.remove("Status_Score" + i);
+            mEdit1.putInt("Status_Score" + i, list.get(i).getScore());
+        }
+        mEdit1.commit();
+    }
+
+    public void loadArray(ArrayList<Word> list) {
+        SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
+        list.clear();
+        int size = mSharedPreference1.getInt("Size", 0);
+        for(int i = 0; i < size; i++) {
+            Word word = new Word();
+            word.setEnglish(mSharedPreference1.getString("Status_English" + i, null));
+            word.setFrench(mSharedPreference1.getString("Status_French" + i, null));
+            word.setScore(mSharedPreference1.getInt("Status_Score" + i,0));
+            list.add(word);
+        }
+    }
+
 }

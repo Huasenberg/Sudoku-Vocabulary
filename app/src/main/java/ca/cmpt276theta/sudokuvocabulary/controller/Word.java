@@ -1,12 +1,11 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
-import java.io.Serializable;
-
-public class Word implements Serializable {
+public class Word {
     private int wordID;
     private String english;
     private String french;
     private int score;
+
 
     public int getWordID() {
         return wordID;

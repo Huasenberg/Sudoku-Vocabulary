@@ -20,10 +20,10 @@ public class GameData implements Parcelable {
     private static List<String> sLanguagesList;
     private static int sDifficulty;
     private static int sLanguageMode;
-    public static boolean sIsListenMode = false;
-    private ArrayList<Word> wordlist;
-    public GameData(ArrayList<Word> wordlist) {
-        this.wordlist = wordlist;
+    private static boolean sIsListenMode = false;
+    private static ArrayList<Word> wordlist;
+
+    public GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -36,12 +36,11 @@ public class GameData implements Parcelable {
 
 
         // Pairing the words with numbers
-
-        String[] wordBank1 = new String[9];
-        String[] wordBank2 = new String[9];
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
+        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
         int random_word[] = new int[9];
         int iCount;
-        if (wordlist != null) {
+        if (!wordlist.isEmpty()) {
             for (iCount = 0; iCount < wordBank1.length; iCount++) {
                 random_word[iCount] = random_weighted_scores(wordlist);
                 //System.out.println("randomlist" + Arrays.toString(random_word));
@@ -52,19 +51,14 @@ public class GameData implements Parcelable {
                 //System.out.println("USING"+wordlist.get(iCount).getEnglish());
             }
         }
-        else {
-            //Toast.makeText(context, "O no is null", Toast.LENGTH_LONG).show();
-            wordBank1 = new String[] {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-            wordBank2 = new String[] {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
-        }
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
         if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
     }
-    ArrayList<Integer> usedIndex = new ArrayList<Integer>();
-    int random_weighted_scores(ArrayList<Word> wordlist) {
+    private ArrayList<Integer> usedIndex = new ArrayList<>();
+    private int random_weighted_scores(ArrayList<Word> wordlist) {
         int iCount;
         final int min = 1;
         final int max_score = max_score(wordlist);
@@ -93,7 +87,7 @@ public class GameData implements Parcelable {
         return random_word;
     }
 
-    int max_score(ArrayList<Word> wordlist) {
+    private int max_score(ArrayList<Word> wordlist) {
         int max_score = 0;
         int iCount;
         for (iCount = 0; iCount < wordlist.size(); iCount++) {
@@ -101,6 +95,15 @@ public class GameData implements Parcelable {
         }
         return max_score;
     }
+
+    public static ArrayList<Word> getWordlist() {
+        return wordlist;
+    }
+
+    public static void setWordlist(ArrayList<Word> wordlist) {
+        GameData.wordlist = wordlist;
+    }
+
 
     public static void setListenMode(boolean isListenMode) {
         sIsListenMode = isListenMode;

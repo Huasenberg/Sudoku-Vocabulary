@@ -92,7 +92,7 @@ public class GameController {
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }
 
-    public void showMessageToast(Context context, String message) {
+    public static void showMessageToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0,0);
         View view = toast.getView();
