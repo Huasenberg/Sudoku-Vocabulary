@@ -168,7 +168,7 @@ public class GameData implements Parcelable {
         mLanguageB = temp;
     }
 
-    private void generateIncompletePuzzle() {
+    public void generateIncompletePuzzle() {
         Random random = new Random();
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
