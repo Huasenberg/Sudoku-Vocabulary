@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/button"
-            android:text="@string/import_word_list"
+            android:text="@string/manage_word_list"
             android:textAllCaps="false"
             android:textColor="@color/background"
             android:textSize="15sp" />

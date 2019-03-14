@@ -8,13 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
-import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -47,21 +50,31 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void loadGame (){
         GameDataGenerator.loadPuzzleData();
-        GameData.setWordlist(new ArrayList<Word>());
-        loadArray(GameData.getWordlist());
-        GameData.sortWordData();
+        WordList.setOriginalWordList(new ArrayList<Word>());
+        WordList.setSelectedWordList(new ArrayList<Word>());
+        loadWordList(WordList.getOriginalWordList());
+        //WordList.sortWordDataByScore();
     }
 
-    private void loadArray(ArrayList<Word> list) {
+    private void loadWordList(ArrayList<Word> list) {
+        List<CheckBox> checkBoxes = new ArrayList<>();
+
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);
         for(int i = 0; i < size; i++) {
             Word word = new Word();
-            word.setEnglish(mSharedPreference1.getString("Status_English" + i, null));
-            word.setFrench(mSharedPreference1.getString("Status_French" + i, null));
-            word.setScore(mSharedPreference1.getInt("Status_Score" + i,0));
+            CheckBox checkBox = new CheckBox(this);
+            word.setEnglish(mSharedPreference1.getString("English" + i, null));
+            word.setFrench(mSharedPreference1.getString("French" + i, null));
+            word.setScore(mSharedPreference1.getInt("Score" + i,0));
             list.add(word);
+            checkBox.setText(word.toString());
+            checkBox.setTextSize(16);
+            checkBoxes.add(checkBox);
         }
+
+        MainMenuActivity.setCheckBoxes(checkBoxes);
+
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sudoku Vocabulary</string>
     <string name="languageA_to_languageB">English - Français</string>
-    <string name="import_word_list">Import Word List</string>
+    <string name="manage_word_list">Manage Word List</string>
     <string name="difficulty1">Difficulty: 1</string>
     <string name="difficulty">Difficulty: %1$d</string>
     <string name="language_mode">Language Mode:</string>
@@ -14,11 +14,13 @@
     <string name="done">Done</string>
     <string name="help">Help</string>
     <string name="statistics">Statistics</string>
-    <string name="version">Version: 2.1.1</string>
+    <string name="version">Version: 3.0.0</string>
     <string name="about">About</string>
     <string name="game_mode">Game Mode:</string>
     <string name="read_mode">Reading</string>
     <string name="listen_mode">Listening</string>
     <string name="import_success">You have successfully imported your words!</string>
     <string name="erase">Erase</string>
+    <string name="word_list">Word List</string>
+    <string name="import_word_list">Import Word List</string>
 </resources>

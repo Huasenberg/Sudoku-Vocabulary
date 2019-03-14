@@ -14,6 +14,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -23,61 +27,66 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class MainMenuActivity extends AppCompatActivity {
     private int mOption;
-    private PopupWindow mPopupWindow;
-//    private DatabaseHelper db;
+    private static final int READ_REQUEST_CODE = 42;
+    private PopupWindow mDiffWindow;
+    private PopupWindow mWordListWindow;
+    private static List<CheckBox> sCheckBoxes;
+    private LinearLayout linearLayout;
+
+    public static void setCheckBoxes(List<CheckBox> checkBoxes) {
+        sCheckBoxes = checkBoxes;
+    }
+
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mPopupWindow.isShowing())
-            mPopupWindow.dismiss();
+        if(mDiffWindow.isShowing())
+            mDiffWindow.dismiss();
+        else if(mWordListWindow.isShowing())
+            mWordListWindow.dismiss();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        db = new DatabaseHelper(this);
-//        wordlist.addAll(db.getAllWords());
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        //readWordData();
 
-        View contentView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
+        View diffView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
+        View wordListView = LayoutInflater.from(this).inflate(R.layout.wordlist_popup, null);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        mPopupWindow = new PopupWindow(contentView, size.x, size.y, true) {
-            @Override
-            public void dismiss() {
-                super.dismiss();
-                setActivityBackGroundAlpha(1);
-            }
-        };
-        final Spinner spinner = mPopupWindow.getContentView().findViewById(R.id.spinner);
-        final SeekBar seekBar = mPopupWindow.getContentView().findViewById(R.id.seekBar);
-        mPopupWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
+        loadPopupWindows(diffView, wordListView, size);
+        final Spinner spinner = mDiffWindow.getContentView().findViewById(R.id.spinner);
+        final SeekBar seekBar = mDiffWindow.getContentView().findViewById(R.id.seekBar);
+        mDiffWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GameData.setListenMode(false);
             }
         });
-        mPopupWindow.getContentView().findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
+        mDiffWindow.getContentView().findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GameData.setListenMode(true);
             }
         });
-        loadSpinner(spinner, mPopupWindow);
+        loadSpinner(spinner, mDiffWindow);
+        linearLayout = mWordListWindow.getContentView().findViewById(R.id.checkboxs);
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiffPopup(mPopupWindow, seekBar);
+                showDiffPopup(seekBar);
             }
         });
 
@@ -91,7 +100,7 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.import_word_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performFileSearch();
+                showWordListPopup();
             }
         });
 
@@ -108,9 +117,34 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
+
+        final List<Word> wordList = WordList.getSelectedWordList();
+        final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
+        for(int i = 0; i < sCheckBoxes.size(); i++) {
+            final int j = i;
+            sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        wordList.add(WordList.getOriginalWordList().get(j));
+                        if(wordList.size() == 9) {
+                            doneButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            for (int k = 0; k < sCheckBoxes.size(); k++)
+                                if (!sCheckBoxes.get(k).isChecked())
+                                    sCheckBoxes.get(k).setEnabled(false);
+                        }
+                    }
+                    else {
+                        wordList.remove(WordList.getOriginalWordList().get(j));
+                        doneButton.setTextColor(getResources().getColor(R.color.subgrid));
+                        for (int k = 0; k < sCheckBoxes.size(); k++)
+                            sCheckBoxes.get(k).setEnabled(true);
+                    }
+                }
+            });
+        }
     }
 
-    private static final int READ_REQUEST_CODE = 42;
 
     public void performFileSearch() {
 
@@ -139,7 +173,7 @@ public class MainMenuActivity extends AppCompatActivity {
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
-            Uri uri = null;
+            Uri uri;
             if (resultData != null) {
                 uri = resultData.getData();
                 try {
@@ -156,19 +190,8 @@ public class MainMenuActivity extends AppCompatActivity {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         GameController.writeToArrayList(reader);
         GameController.showMessageToast(this, " Words have been imported! ");
-        saveArray(GameData.getWordlist());
+        saveArray(WordList.getOriginalWordList());
     }
-
-
-   /* private void readWordData() {
-        InputStream is = getResources().openRawResource(R.raw.words);
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8")));
-        writeToArrayList(reader);
-    }*/
-
-
-
 
     private void loadSpinner(Spinner spinner, PopupWindow pw) {
         GameData.loadLanguagesList();
@@ -186,11 +209,9 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void showDiffPopup(final PopupWindow pw, final SeekBar seekBar) {
-        final TextView text = mPopupWindow.getContentView().findViewById(R.id.textViewDif);
-        pw.setAnimationStyle(R.style.pop_animation);
-        setActivityBackGroundAlpha(0.3f);
-        pw.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
+    private void showDiffPopup(final SeekBar seekBar) {
+        final TextView text = mDiffWindow.getContentView().findViewById(R.id.textViewDif);
+        mDiffWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -205,7 +226,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
             }
         });
-        pw.getContentView().findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener(){
+        mDiffWindow.getContentView().findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
@@ -213,10 +234,39 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
-        pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
+        mDiffWindow.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                pw.dismiss();
+                mDiffWindow.dismiss();
+            }
+        });
+    }
+    //One Bug Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private void showWordListPopup () {
+        linearLayout.removeAllViews();
+        for(CheckBox checkBox : sCheckBoxes)
+            linearLayout.addView(checkBox);
+        final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
+        if(WordList.getSelectedWordList().size() < 9)
+            doneButton.setTextColor(getResources().getColor(R.color.subgrid));
+        mWordListWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
+
+        mWordListWindow.getContentView().findViewById(R.id.button_import).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performFileSearch();
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(doneButton.getCurrentTextColor() == getResources().getColor(R.color.subgrid))
+                    GameController.showMessageToast(MainMenuActivity.this, " Must Choose Exactly 9 Pairs of Words ");
+                else
+                    mWordListWindow.dismiss();
             }
         });
     }
@@ -229,20 +279,48 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void saveArray(ArrayList<Word> list) {
         SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
-        SharedPreferences.Editor mEdit1= sp.edit();
-        mEdit1.putInt("Size",list.size());
-
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("Size",list.size());
         for(int i = 0; i < list.size(); i++) {
-            mEdit1.remove("Status_English" + i);
-            mEdit1.putString("Status_English" + i, list.get(i).getEnglish());
-            mEdit1.remove("Status_French" + i);
-            mEdit1.putString("Status_French" + i, list.get(i).getFrench());
-            mEdit1.remove("Status_Score" + i);
-            mEdit1.putInt("Status_Score" + i, list.get(i).getScore());
+            editor.remove("English" + i);
+            editor.putString("English" + i, list.get(i).getEnglish());
+            editor.remove("French" + i);
+            editor.putString("French" + i, list.get(i).getFrench());
+            editor.remove("Score" + i);
+            editor.putInt("Score" + i, list.get(i).getScore());
         }
-        mEdit1.commit();
+        editor.apply();
     }
 
+    private void loadPopupWindows(View diffView, View wordListView, Point size) {
+        mDiffWindow = new PopupWindow(diffView, size.x, size.y, true) {
+            @Override
+            public void dismiss() {
+                super.dismiss();
+                setActivityBackGroundAlpha(1);
+            }
+            @Override
+            public void showAtLocation(View parent, int gravity, int x, int y) {
+                setAnimationStyle(R.style.pop_animation);
+                setActivityBackGroundAlpha(0.3f);
+                super.showAtLocation(parent, gravity, x, y);
+            }
+        };
+
+        mWordListWindow = new PopupWindow(wordListView, size.x, size.y, true) {
+            @Override
+            public void dismiss() {
+                super.dismiss();
+                setActivityBackGroundAlpha(1);
+            }
+            @Override
+            public void showAtLocation(View parent, int gravity, int x, int y) {
+                setAnimationStyle(R.style.pop_animation);
+                setActivityBackGroundAlpha(0.3f);
+                super.showAtLocation(parent, gravity, x, y);
+            }
+        };
+    }
 
 
 }

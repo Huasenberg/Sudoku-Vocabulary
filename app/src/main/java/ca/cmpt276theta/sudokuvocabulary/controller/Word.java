@@ -1,20 +1,11 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
+import android.support.annotation.NonNull;
 
 public class Word {
-    private int wordID;
     private String english;
     private String french;
     private int score;
-
-
-    public int getWordID() {
-        return wordID;
-    }
-
-    public void setWordID(int wordID) {
-        this.wordID = wordID;
-    }
 
     public String getEnglish() {
         return english;
@@ -38,6 +29,11 @@ public class Word {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return english + " -- " + french;
     }
 
 }

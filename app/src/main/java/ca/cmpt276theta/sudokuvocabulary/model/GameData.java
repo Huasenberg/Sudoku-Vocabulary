@@ -3,8 +3,6 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
@@ -21,9 +19,10 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
-    private static ArrayList<Word> wordlist;
+    private ArrayList<Word> wordlist;
 
     public GameData() {
+        wordlist = WordList.getSelectedWordList();
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
         mPuzzle = new int[9][9];
@@ -34,71 +33,19 @@ public class GameData implements Parcelable {
         // Pairing the words with numbers
         String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
         String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
-        int random_word[] = new int[9];
-        int iCount;
-        if (!wordlist.isEmpty()) {
-            for (iCount = 0; iCount < wordBank1.length; iCount++) {
-                random_word[iCount] = random_weighted_scores(wordlist);
-                //System.out.println("randomlist" + Arrays.toString(random_word));
+
+        if (!wordlist.isEmpty())
+            for(int i = 0; i < 9; i++) {
+                wordBank1[i] = wordlist.get(i).getEnglish();
+                wordBank2[i] = wordlist.get(i).getFrench();
             }
-                for (iCount = 0; iCount < wordBank1.length; iCount++) {
-                wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
-                wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
-                //System.out.println("USING"+wordlist.get(iCount).getEnglish());
-            }
-        }
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
         if(getLanguageMode() == 1)
             switchLanguage();
         generateIncompletePuzzle();
     }
-    private ArrayList<Integer> usedIndex = new ArrayList<>();
-    private int random_weighted_scores(ArrayList<Word> wordlist) {
-        int iCount;
-        final int min = 1;
-        final int max_score = max_score(wordlist);
-        //System.out.println("MAX" + max_score);
-        int target = new Random().nextInt((max_score - min) + 1) + min;
-        //System.out.println("RANDOM" + target);
-        int random_word = 0;
 
-        for (iCount = 0; iCount < wordlist.size(); iCount++) {
-            if (target <= wordlist.get(iCount).getScore() && !usedIndex.contains(iCount)) {
-                //System.out.println("choosing"+wordlist.get(iCount).getScore());
-                random_word = iCount;
-                usedIndex.add(iCount);
-                //System.out.println("1RANDOM_WORD"+random_word);
-                return random_word;
-            } else {
-                target -= wordlist.get(iCount).getScore();
-            }
-        }
-        for (iCount = 0; iCount < wordlist.size(); iCount++) {
-            if(!usedIndex.contains(iCount)) {
-                return iCount;
-            }
-        }
-        //System.out.println("2RANDOM_WORD"+random_word);
-        return random_word;
-    }
-
-    private int max_score(ArrayList<Word> wordlist) {
-        int max_score = 0;
-        int iCount;
-        for (iCount = 0; iCount < wordlist.size(); iCount++) {
-            max_score += wordlist.get(iCount).getScore();
-        }
-        return max_score;
-    }
-
-    public static ArrayList<Word> getWordlist() {
-        return wordlist;
-    }
-
-    public static void setWordlist(ArrayList<Word> wordlist) {
-        GameData.wordlist = wordlist;
-    }
 
     public static void setListenMode(boolean isListenMode) {
         sIsListenMode = isListenMode;
@@ -250,14 +197,5 @@ public class GameData implements Parcelable {
 
     public ArrayList<Word> getWordList() {
         return wordlist;
-    }
-
-    public static void sortWordData() {
-        Collections.sort(GameData.getWordlist(), new Comparator<Word>() {
-            @Override
-            public int compare(Word o1, Word o2) {
-                return Integer.compare(o2.getScore(), o1.getScore());
-            }
-        });
     }
 }

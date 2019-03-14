@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameController {
@@ -125,24 +126,15 @@ public class GameController {
                 sample.setScore(Integer.parseInt(tokens[3]));
 
                 // Adding object to a class
-                GameData.getWordlist().add(sample);
-//                ContentValues cv = new ContentValues();
-//                cv.put(Word.COLUMN_ID, tokens[0].trim());
-//                cv.put(Word.COLUMN_ENGLISH, tokens[1].trim());
-//                cv.put(Word.COLUMN_FRENCH, tokens[2].trim());
-//                cv.put(Word.COLUMN_SCORE, tokens[3].trim());
-//                db.insertWord(cv);
+                WordList.getOriginalWordList().add(sample);
 
                 // Log the object
-                System.out.println("SIZE" +GameData.getWordlist().size());//gets size
-
                 Log.d("My Activity", "Just created: " + sample);
             }
 
         } catch (IOException e) {
             // Logs error with priority level
             Log.d("My Activity", "Error reading data file on line" + line, e);
-
             // Prints throwable details
             e.printStackTrace();
         }
