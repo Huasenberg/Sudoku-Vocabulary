@@ -5,18 +5,21 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
@@ -41,12 +44,18 @@ public class MainMenuActivity extends AppCompatActivity {
     private PopupWindow mDiffWindow;
     private PopupWindow mWordListWindow;
     private static List<CheckBox> sCheckBoxes;
-    private LinearLayout linearLayout;
+    private LinearLayout mLinearLayout_checkboxes;
+    private List<LinearLayout> mLinearLayout_wordList;
+    private List<ImageView> mDeleteIcon;
+    private boolean isDeleteIconsLoaded = false;
 
     public static void setCheckBoxes(List<CheckBox> checkBoxes) {
         sCheckBoxes = checkBoxes;
     }
 
+    public static List<CheckBox> getCheckBoxes() {
+        return sCheckBoxes;
+    }
 
     @Override
     protected void onPause() {
@@ -82,7 +91,9 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
         loadSpinner(spinner, mDiffWindow);
-        linearLayout = mWordListWindow.getContentView().findViewById(R.id.checkboxs);
+        mLinearLayout_checkboxes = mWordListWindow.getContentView().findViewById(R.id.checkboxs);
+        mLinearLayout_wordList = new ArrayList<>();
+        mDeleteIcon = new ArrayList<>();
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,31 +129,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        final List<Word> wordList = WordList.getSelectedWordList();
-        final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
-        for(int i = 0; i < sCheckBoxes.size(); i++) {
-            final int j = i;
-            sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        wordList.add(WordList.getOriginalWordList().get(j));
-                        if(wordList.size() == 9) {
-                            doneButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                            for (int k = 0; k < sCheckBoxes.size(); k++)
-                                if (!sCheckBoxes.get(k).isChecked())
-                                    sCheckBoxes.get(k).setEnabled(false);
-                        }
-                    }
-                    else {
-                        wordList.remove(WordList.getOriginalWordList().get(j));
-                        doneButton.setTextColor(getResources().getColor(R.color.subgrid));
-                        for (int k = 0; k < sCheckBoxes.size(); k++)
-                            sCheckBoxes.get(k).setEnabled(true);
-                    }
-                }
-            });
-        }
+
     }
 
 
@@ -188,7 +175,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private void readTextFromUri(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        GameController.writeToArrayList(reader);
+        GameController.writeToArrayList(this, reader);
         GameController.showMessageToast(this, " Words have been imported! ");
         saveArray(WordList.getOriginalWordList());
     }
@@ -245,12 +232,11 @@ public class MainMenuActivity extends AppCompatActivity {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void showWordListPopup () {
-        linearLayout.removeAllViews();
-        for(CheckBox checkBox : sCheckBoxes)
-            linearLayout.addView(checkBox);
+        loadCheckBoxes();
         final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
         if(WordList.getSelectedWordList().size() < 9)
             doneButton.setTextColor(getResources().getColor(R.color.subgrid));
+
         mWordListWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
 
         mWordListWindow.getContentView().findViewById(R.id.button_import).setOnClickListener(new View.OnClickListener() {
@@ -269,6 +255,109 @@ public class MainMenuActivity extends AppCompatActivity {
                     mWordListWindow.dismiss();
             }
         });
+
+        mWordListWindow.getContentView().findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWordListWindow.dismiss();
+            }
+        });
+
+
+        mWordListWindow.getContentView().findViewById(R.id.button_delete_words).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isDeleteIconsLoaded) {
+                    loadDeleteIcons();
+                    isDeleteIconsLoaded = true;
+                }
+                else {
+                    for(int i = 0; i < sCheckBoxes.size(); i++)
+                        mLinearLayout_wordList.get(i).removeView(mDeleteIcon.get(i));
+                    isDeleteIconsLoaded = false;
+                }
+            }
+        });
+
+        /*mWordListWindow.getContentView().findViewById(R.id.removeAll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sCheckBoxes.clear();
+                WordList.getSelectedWordList().clear();
+                WordList.getOriginalWordList().clear();
+                saveArray(WordList.getOriginalWordList());
+                loadCheckBoxes();
+            }
+        });*/
+    }
+
+    private void loadCheckBoxes() {
+        mLinearLayout_checkboxes.removeAllViews();
+        final List<Word> wordList = WordList.getSelectedWordList();
+        final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
+        for(int i = 0; i < sCheckBoxes.size(); i++) {
+            mLinearLayout_wordList.add(new LinearLayout(this));
+            mLinearLayout_wordList.get(i).setOrientation(LinearLayout.HORIZONTAL);
+            mLinearLayout_wordList.get(i).removeView(sCheckBoxes.get(i));
+            mLinearLayout_wordList.get(i).addView(sCheckBoxes.get(i));
+            mLinearLayout_checkboxes.addView(mLinearLayout_wordList.get(i));
+
+            final int j = i;
+            sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        wordList.add(WordList.getOriginalWordList().get(j));
+                        if(wordList.size() == 9) {
+                            doneButton.setTextColor(getResources().getColor(R.color.background));
+                            for (int k = 0; k < sCheckBoxes.size(); k++)
+                                if (!sCheckBoxes.get(k).isChecked())
+                                    sCheckBoxes.get(k).setEnabled(false);
+                        }
+                    }
+                    else {
+                        wordList.remove(WordList.getOriginalWordList().get(j));
+                        doneButton.setTextColor(getResources().getColor(R.color.subgrid));
+                        for (int k = 0; k < sCheckBoxes.size(); k++)
+                            sCheckBoxes.get(k).setEnabled(true);
+                    }
+                }
+            });
+        }
+
+    }
+
+    private void loadDeleteIcons() {
+        mDeleteIcon.clear();
+        for(int i = 0; i < sCheckBoxes.size(); i++) {
+            final ImageView imageView = new ImageView(this);
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.delete_word));
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(70,70);
+            param.gravity = Gravity.CENTER;
+            mLinearLayout_wordList.get(i).addView(imageView,0, param);
+            mDeleteIcon.add(imageView);
+        }
+        setDeleteIconListener();
+    }
+
+
+    private void setDeleteIconListener(){
+        for(int i = 0; i < sCheckBoxes.size(); i++) {
+            final int j = i;
+            mDeleteIcon.get(j).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mLinearLayout_wordList.remove(j);
+                    sCheckBoxes.remove(j);
+                    mDeleteIcon.remove(j);
+                    WordList.getOriginalWordList().remove(j);
+                    if(WordList.getSelectedWordList().size() > j)
+                        WordList.getSelectedWordList().remove(j);
+                    loadCheckBoxes();
+                    setDeleteIconListener();
+                }
+            });
+        }
     }
 
     private void setActivityBackGroundAlpha(float num) {

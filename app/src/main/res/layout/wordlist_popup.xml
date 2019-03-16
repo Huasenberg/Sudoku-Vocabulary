@@ -23,32 +23,62 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="380dp"
             android:background="@drawable/pop_up_shape"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:paddingTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingBottom="20dp">
             <ScrollView
                 android:id="@+id/view1"
-                android:layout_width="220dp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:scrollbarStyle="outsideOverlay">
+                android:scrollbarStyle="outsideInset">
+
                 <LinearLayout
                     android:id="@+id/checkboxs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                 </LinearLayout>
+
             </ScrollView>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:alpha="0.3"
+                android:background="#8a8a8a" />
+
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="68dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <Button
+                <!--<Button
+                    android:id="@+id/removeAll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Remove"/>
+                    android:text="Remove"/>-->
+
+                <ImageButton
+                    android:id="@+id/button_import"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="7dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/add" />
+
+                <ImageButton
+                    android:id="@+id/button_delete_words"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="7dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/delete_words" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -58,23 +88,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
             <Button
-                android:id="@+id/button_import"
-                android:layout_width="match_parent"
+                android:id="@+id/button_done"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/button"
-                android:text="@string/import_word_list"
+                android:text="@string/done"
                 android:textColor="@color/background"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/button_done"
-                android:layout_width="match_parent"
+                android:id="@+id/button_back"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:background="@drawable/button"
                 android:backgroundTint="@color/background"
-                android:text="@string/done"
+                android:text="@string/back"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
         </LinearLayout>

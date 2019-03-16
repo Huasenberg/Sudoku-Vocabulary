@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
+import ca.cmpt276theta.sudokuvocabulary.view.MainMenuActivity;
 
 public class GameController {
 
@@ -106,7 +108,7 @@ public class GameController {
         toast.show();
     }
 
-    public static void writeToArrayList(BufferedReader reader) {
+    public static void writeToArrayList(Context context, BufferedReader reader) {
         String line = "";
         try {
             // Step over headers
@@ -126,8 +128,11 @@ public class GameController {
                 sample.setScore(Integer.parseInt(tokens[3]));
 
                 // Adding object to a class
+                CheckBox checkBox = new CheckBox(context);
+                checkBox.setText(sample.toString());
+                checkBox.setTextSize(16);
+                MainMenuActivity.getCheckBoxes().add(checkBox);
                 WordList.getOriginalWordList().add(sample);
-
                 // Log the object
                 Log.d("My Activity", "Just created: " + sample);
             }
