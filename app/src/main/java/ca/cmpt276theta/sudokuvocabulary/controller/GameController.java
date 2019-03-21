@@ -3,24 +3,19 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.io.BufferedReader;
-import java.io.IOException;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
-import ca.cmpt276theta.sudokuvocabulary.view.MainMenuActivity;
 
 public class GameController {
 
@@ -52,7 +47,7 @@ public class GameController {
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
             showMessageToast(mGameView.getContext(), "  Can't fill in pre-filled cell  ");
-            final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake);
+            final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake_anim);
             button.startAnimation(shake);
             return;
         }
@@ -103,45 +98,10 @@ public class GameController {
         View view = toast.getView();
         view.setBackgroundResource(R.drawable.button_shape);
         TextView text = view.findViewById(android.R.id.message);
-        text.setTextSize(17);
+        //text.setTextSize(17);
         text.setTextColor(Color.WHITE);
         toast.show();
     }
 
-    public static void writeToArrayList(Context context, BufferedReader reader) {
-        String line = "";
-        try {
-            // Step over headers
-            reader.readLine();
 
-            // If buffer is not empty
-            while ((line = reader.readLine()) != null) {
-                Log.d("My Activity","Line: " + line);
-                // use comma as separator columns of CSV
-                String[] tokens = line.split(",");
-                // Read the data
-                Word sample = new Word();
-
-                // Setters
-                sample.setEnglish(tokens[1]);
-                sample.setFrench(tokens[2]);
-                sample.setScore(Integer.parseInt(tokens[3]));
-
-                // Adding object to a class
-                CheckBox checkBox = new CheckBox(context);
-                checkBox.setText(sample.toString());
-                checkBox.setTextSize(16);
-                MainMenuActivity.getCheckBoxes().add(checkBox);
-                WordList.getOriginalWordList().add(sample);
-                // Log the object
-                Log.d("My Activity", "Just created: " + sample);
-            }
-
-        } catch (IOException e) {
-            // Logs error with priority level
-            Log.d("My Activity", "Error reading data file on line" + line, e);
-            // Prints throwable details
-            e.printStackTrace();
-        }
-    }
 }

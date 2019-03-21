@@ -22,7 +22,8 @@
                 android:layout_marginStart="8dp"
                 android:drawablePadding="-4dp"
                 android:text="@string/erase"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <Chronometer
                 android:id="@+id/chronometer1"

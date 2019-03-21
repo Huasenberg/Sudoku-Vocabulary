@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".view.MainMenuActivity">
+    tools:context=".controller.MainMenuActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,14 +20,16 @@
             android:layout_height="23dp"
             android:layout_marginEnd="7dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/about_icon" />
+            android:src="@drawable/about_icon"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
         <ImageView
             android:id="@+id/settings"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/settings_icon" />
+            android:src="@drawable/settings_icon"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 
     <ImageView

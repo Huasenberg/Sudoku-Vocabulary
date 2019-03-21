@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.view;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -17,9 +17,11 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.view.GameGridView;
+import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -90,6 +92,8 @@ public class GameActivity extends AppCompatActivity {
         }
         final GameController gameController = new GameController(mGameData, mGameView, mPopupWindow, mTimer, time);
         mGameView.setGameData(mGameData);
+        final GameGridView gameGridView = new GameGridView(this);
+        gameLayout.addView(gameGridView);
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
@@ -119,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 else if(touchPositionX != -1) {
                     GameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ");
-                    final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake);
+                    final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake_anim);
                     erase.startAnimation(shake);
                 }
             }

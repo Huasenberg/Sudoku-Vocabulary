@@ -11,14 +11,11 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-
 import java.util.Locale;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -61,6 +58,7 @@ public class GameView extends View {
         return mTouchPositionY;
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if(!isLandscapeMode)
@@ -81,13 +79,12 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         drawHighlight(canvas);
         drawConflict(canvas);
-        drawGrid(canvas);
         drawWord(canvas);
         if(isLongPress && !GameData.isListenMode())
             drawHint(canvas);
-        super.onDraw(canvas);
     }
 
     private final Handler handler = new Handler();
@@ -180,34 +177,6 @@ public class GameView extends View {
         }
     }
 
-    private void drawGrid(Canvas canvas) {
-        final float girdEdgeHorizontal = mGridWidth * 9;
-        final float girdEdgeVertical = mGridHeight * 9;
-        // draw the border
-        final Paint borderPaint = new Paint();
-        borderPaint.setColor(getResources().getColor(R.color.border));
-        borderPaint.setStrokeWidth(5);
-        for(int i = 1; i <= 2; i++) {
-            final float vertex1 = i * mGridWidth * 3;
-            final float vertex2 = i * mGridHeight * 3;
-            canvas.drawLine(vertex1, 0,
-                    vertex1, girdEdgeVertical, borderPaint);
-            canvas.drawLine(0, vertex2,
-                    girdEdgeHorizontal, vertex2, borderPaint);
-        }
-
-        // draw the subgrid
-        borderPaint.setStrokeWidth(1);
-        for(int i = 1; i < 9; i++) {
-            final float vertex1 = i * mGridWidth;
-            final float vertex2 = i * mGridHeight;
-            canvas.drawLine(vertex1, 0, vertex1,
-                    girdEdgeVertical, borderPaint);
-            canvas.drawLine(0, vertex2,girdEdgeHorizontal,
-                    vertex2, borderPaint);
-        }
-    }
-
     private void drawWord(Canvas canvas) {
         final Paint wordPaint = new Paint();
         wordPaint.setAntiAlias(true);
@@ -239,7 +208,7 @@ public class GameView extends View {
         for(int i = 0; i < mGameData.getWordList().size(); i++)
         {
             Word word = mGameData.getWordList().get(i);
-            if(mGameData.getLanguageMode() == 1) {
+            if(GameData.getLanguageMode() == 1) {
                 if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
                 {
                     //System.out.println("WORD:" +  word.getEnglish());

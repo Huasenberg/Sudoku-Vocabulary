@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.view;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
@@ -30,11 +28,11 @@ public class LaunchActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.name);
         String str = "<font color='#0373D6'>S</font>udoku  <font color='#0373D6'>V</font>ocabulary";
         textView.setText(Html.fromHtml(str));
-        final Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part1_animation);
+        final Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part1_anim);
         final ImageView logoPart1 = findViewById(R.id.logo_1);
-        final Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part2_animation);
+        final Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part2_anim);
         final ImageView logoPart2 = findViewById(R.id.logo_2);
-        final Animation animation3 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part3_animation);
+        final Animation animation3 = AnimationUtils.loadAnimation(this, R.anim.launch_page_part3_anim);
         final ImageView logo = findViewById(R.id.logo);
         logoPart1.startAnimation(animation1);
         logoPart2.startAnimation(animation2);
@@ -71,7 +69,7 @@ public class LaunchActivity extends AppCompatActivity {
             word.setScore(mSharedPreference1.getInt("Score" + i,0));
             list.add(word);
             checkBox.setText(word.toString());
-            checkBox.setTextSize(16);
+            checkBox.setTextSize(17);
             checkBoxes.add(checkBox);
         }
 

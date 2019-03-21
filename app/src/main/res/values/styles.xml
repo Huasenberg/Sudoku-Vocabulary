@@ -10,7 +10,7 @@
     </style>
 
     <style name="pop_animation" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/pop_up_animation</item>
+        <item name="android:windowEnterAnimation">@anim/pop_up_anim</item>
     </style>
 
     <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
