@@ -3,7 +3,6 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -12,12 +11,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -32,7 +29,6 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +38,7 @@ import java.util.List;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
+import ca.cmpt276theta.sudokuvocabulary.view.GamePopupWindowView;
 
 public class MainMenuActivity extends AppCompatActivity {
     private int mOption;
@@ -51,7 +48,6 @@ public class MainMenuActivity extends AppCompatActivity {
     private static List<CheckBox> sCheckBoxes;
     private LinearLayout mLinearLayout_checkboxes;
     private List<ImageView> mDeleteIcon;
-    private boolean isDeleteIconsLoaded = false;
 
     public static void setCheckBoxes(List<CheckBox> checkBoxes) {
         sCheckBoxes = checkBoxes;
@@ -75,11 +71,12 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        View diffView = LayoutInflater.from(this).inflate(R.layout.difficulty_popup, null);
-        View wordListView = LayoutInflater.from(this).inflate(R.layout.wordlist_popup, null);
-        Point size = new Point();
+        final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        loadPopupWindows(diffView, wordListView, size);
+
+        mDiffWindow = new GamePopupWindowView(LayoutInflater.from(this).inflate(R.layout.difficulty_popup,null), findViewById(R.id.mainLayout), size.x, size.y, getWindow());
+        mWordListWindow = new GamePopupWindowView(LayoutInflater.from(this).inflate(R.layout.wordlist_popup, null), findViewById(R.id.mainLayout), size.x, size.y, getWindow());
+
         final Spinner spinner = mDiffWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mDiffWindow.getContentView().findViewById(R.id.seekBar);
         mDiffWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
@@ -94,13 +91,13 @@ public class MainMenuActivity extends AppCompatActivity {
                 GameData.setListenMode(true);
             }
         });
-        loadSpinner(spinner, mDiffWindow);
+        loadSpinner(spinner);
         mLinearLayout_checkboxes = mWordListWindow.getContentView().findViewById(R.id.checkboxs);
         mDeleteIcon = new ArrayList<>();
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiffPopup(seekBar);
+                mDiffWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
             }
         });
 
@@ -132,7 +129,36 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        //Word List Window's listener
+        //load pop_up window
+        final TextView text = mDiffWindow.getContentView().findViewById(R.id.textViewDif);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                text.setText(String.format(getResources().getString(R.string.difficulty), seekBar.getProgress() + 1));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        mDiffWindow.getContentView().findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                GameData.setDifficulty(seekBar.getProgress() + 1);
+                GameData.setLanguageMode(mOption);
+                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
+            }
+        });
+        mDiffWindow.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mDiffWindow.dismiss();
+            }
+        });
 
     }
 
@@ -179,52 +205,16 @@ public class MainMenuActivity extends AppCompatActivity {
     private void readTextFromUri(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        writeToArrayList(this, reader);
+        WordList.writeToArrayList(this, reader);
         GameController.showMessageToast(this, " Words have been imported! ");
-        saveArray(WordList.getOriginalWordList());
+        saveArray();
     }
 
-    public void writeToArrayList(Context context, BufferedReader reader) {
-        String line = "";
-        try {
-            // Step over headers
-            reader.readLine();
 
-            // If buffer is not empty
-            while ((line = reader.readLine()) != null) {
-                Log.d("My Activity","Line: " + line);
-                // use comma as separator columns of CSV
-                String[] tokens = line.split(",");
-                // Read the data
-                Word sample = new Word();
 
-                // Setters
-                sample.setEnglish(tokens[1]);
-                sample.setFrench(tokens[2]);
-                sample.setScore(Integer.parseInt(tokens[3]));
-
-                // Adding object to a class
-                CheckBox checkBox = new CheckBox(context);
-                checkBox.setText(sample.toString());
-                checkBox.setTextSize(17);
-                checkBox.setTextColor(getResources().getColor(R.color.checkBox));
-                MainMenuActivity.getCheckBoxes().add(checkBox);
-                WordList.getOriginalWordList().add(sample);
-                // Log the object
-                Log.d("My Activity", "Just created: " + sample);
-            }
-
-        } catch (IOException e) {
-            // Logs error with priority level
-            Log.d("My Activity", "Error reading data file on line" + line, e);
-            // Prints throwable details
-            e.printStackTrace();
-        }
-    }
-
-    private void loadSpinner(Spinner spinner, PopupWindow pw) {
+    private void loadSpinner(Spinner spinner) {
         GameData.loadLanguagesList();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(pw.getContentView().getContext(), R.layout.spinner_dropdown, GameData.getLanguagesList());
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(mDiffWindow.getContentView().getContext(), R.layout.spinner_dropdown, GameData.getLanguagesList());
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -238,47 +228,12 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void showDiffPopup(final SeekBar seekBar) {
-        final TextView text = mDiffWindow.getContentView().findViewById(R.id.textViewDif);
-        mDiffWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                text.setText(String.format(getResources().getString(R.string.difficulty), seekBar.getProgress() + 1));
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        mDiffWindow.getContentView().findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                GameData.setDifficulty(seekBar.getProgress() + 1);
-                GameData.setLanguageMode(mOption);
-                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
-            }
-        });
-        mDiffWindow.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                mDiffWindow.dismiss();
-            }
-        });
-    }
-    //One Bug Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private void showWordListPopup () {
-
         loadCheckBoxes();
         final Button doneButton = mWordListWindow.getContentView().findViewById(R.id.button_done);
         final Button backButton = mWordListWindow.getContentView().findViewById(R.id.button_back);
         final Button finishDelButton = mWordListWindow.getContentView().findViewById(R.id.button_finish_deletion);
+
         if(WordList.getSelectedWordList().size() < 9)
             doneButton.setTextColor(getResources().getColor(R.color.subgrid));
 
@@ -292,7 +247,23 @@ public class MainMenuActivity extends AppCompatActivity {
         final Animation enterAnim4 = AnimationUtils.loadAnimation(MainMenuActivity.this, R.anim.word_list_button_enter_anim);
         final Animation exitAnim = AnimationUtils.loadAnimation(MainMenuActivity.this, R.anim.word_list_side_button_exit_anim);
         final Animation exitAnim2 = AnimationUtils.loadAnimation(MainMenuActivity.this, R.anim.word_list_button_exit_anim);
+
         final ImageButton sortButton = mWordListWindow.getContentView().findViewById(R.id.button_sort);
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sCheckBoxes.clear();
+                WordList.sortWordDataByAlphbet();
+                for(int i = 0; i < WordList.getOriginalWordList().size(); i++) {
+                    CheckBox checkBox = new CheckBox(MainMenuActivity.this);
+                    checkBox.setText(WordList.getOriginalWordList().get(i).toString());
+                    checkBox.setTextSize(17);
+                    sCheckBoxes.add(checkBox);
+                }
+                loadCheckBoxes();
+                saveArray();
+            }
+        });
 
         final ImageButton importButton = mWordListWindow.getContentView().findViewById(R.id.button_import);
 
@@ -320,20 +291,38 @@ public class MainMenuActivity extends AppCompatActivity {
                 mWordListWindow.dismiss();
             }
         });
-
+        //One Bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        final ImageButton deleteAllButton = mWordListWindow.getContentView().findViewById(R.id.button_delete_all);
+        deleteAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sCheckBoxes.clear();
+                WordList.getOriginalWordList().clear();
+                WordList.getSelectedWordList().clear();
+                finishDelButton.performClick();
+            }
+        });
 
         final ImageButton deleteButton = mWordListWindow.getContentView().findViewById(R.id.button_delete_words);
-
-
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sortButton.startAnimation(exitAnim);
                 importButton.startAnimation(exitAnim);
                 deleteButton.startAnimation(exitAnim);
+                new Handler().postDelayed(new Runnable(){
+                    public void run(){
+                        sortButton.setVisibility(View.GONE);
+                        importButton.setVisibility(View.GONE);
+                        deleteButton.setVisibility(View.GONE);
+                    }
+                },600);
+
                 finishDelButton.setVisibility(View.VISIBLE);
                 backButton.startAnimation(exitAnim2);
                 ObjectAnimator.ofInt(finishDelButton, "width", 1000).setDuration(700).start();
+                deleteAllButton.setVisibility(View.VISIBLE);
+                deleteAllButton.startAnimation(enterAnim1);
                 enterDeletionMode();
             }
         });
@@ -342,16 +331,22 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ObjectAnimator.ofInt(finishDelButton, "width", 440).setDuration(600).start();
+                sortButton.setVisibility(View.VISIBLE);
+                importButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
                 sortButton.startAnimation(enterAnim1);
                 importButton.startAnimation(enterAnim2);
                 deleteButton.startAnimation(enterAnim3);
                 backButton.startAnimation(enterAnim4);
+                deleteAllButton.startAnimation(exitAnim);
                 loadCheckBoxes();
                 new Handler().postDelayed(new Runnable(){
                     public void run(){
-                        finishDelButton.setVisibility(View.INVISIBLE);
+                        finishDelButton.setVisibility(View.GONE);
+                        deleteAllButton.setVisibility(View.GONE);
                     }
                 },600);
+                saveArray();
             }
         });
 
@@ -398,7 +393,8 @@ public class MainMenuActivity extends AppCompatActivity {
         mLinearLayout_checkboxes.removeAllViews();
         final List<TextView> textViews = new ArrayList<>();
         final Drawable drawable = getResources().getDrawable(R.drawable.delete_word);
-        drawable.setBounds(7, 4, 70, 67);
+
+        drawable.setBounds(7, 5, 73, 71);
         final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0,14,0,14);//
         for(Word word : WordList.getOriginalWordList()) {
@@ -433,14 +429,8 @@ public class MainMenuActivity extends AppCompatActivity {
         }
     }
 
-
-    private void setActivityBackGroundAlpha(float num) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = num;
-        getWindow().setAttributes(lp);
-    }
-
-    public void saveArray(ArrayList<Word> list) {
+    public void saveArray() {
+        final List<Word> list = WordList.getOriginalWordList();
         SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("Size",list.size());
@@ -454,36 +444,5 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         editor.apply();
     }
-
-    private void loadPopupWindows(View diffView, View wordListView, Point size) {
-        mDiffWindow = new PopupWindow(diffView, size.x, size.y, true) {
-            @Override
-            public void dismiss() {
-                super.dismiss();
-                setActivityBackGroundAlpha(1);
-            }
-            @Override
-            public void showAtLocation(View parent, int gravity, int x, int y) {
-                setAnimationStyle(R.style.pop_animation);
-                setActivityBackGroundAlpha(0.3f);
-                super.showAtLocation(parent, gravity, x, y);
-            }
-        };
-
-        mWordListWindow = new PopupWindow(wordListView, size.x, size.y, true) {
-            @Override
-            public void dismiss() {
-                super.dismiss();
-                setActivityBackGroundAlpha(1);
-            }
-            @Override
-            public void showAtLocation(View parent, int gravity, int x, int y) {
-                setAnimationStyle(R.style.pop_animation);
-                setActivityBackGroundAlpha(0.3f);
-                super.showAtLocation(parent, gravity, x, y);
-            }
-        };
-    }
-
 
 }

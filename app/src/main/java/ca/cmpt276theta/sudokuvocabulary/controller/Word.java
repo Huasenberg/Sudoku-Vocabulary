@@ -1,7 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
-import android.support.annotation.NonNull;
-
 public class Word {
     private String english;
     private String french;

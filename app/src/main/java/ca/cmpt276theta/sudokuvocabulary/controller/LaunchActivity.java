@@ -52,12 +52,10 @@ public class LaunchActivity extends AppCompatActivity {
         WordList.setOriginalWordList(new ArrayList<Word>());
         WordList.setSelectedWordList(new ArrayList<Word>());
         loadWordList(WordList.getOriginalWordList());
-        //WordList.sortWordDataByScore();
     }
 
     private void loadWordList(ArrayList<Word> list) {
         List<CheckBox> checkBoxes = new ArrayList<>();
-
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);

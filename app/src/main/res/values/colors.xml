@@ -11,4 +11,5 @@
     <color name="hintBubble">#084479</color>
     <color name="popUpBg">#B9000000</color>
     <color name="checkBox">#000000</color>
+    <color name="deleteAll">#FE3A21</color>
 </resources>

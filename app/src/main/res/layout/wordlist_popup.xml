@@ -65,26 +65,34 @@
                 android:alpha="0.2"
                 android:background="#8a8a8a" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!--<Button
-                    android:id="@+id/removeAll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Remove"/>-->
+
                 <ImageButton
                     android:id="@+id/button_sort"
                     android:layout_width="47dp"
                     android:layout_height="45dp"
                     android:padding="12dp"
                     android:paddingStart="16dp"
-                    android:layout_marginBottom="10dp"
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/sort"
                     android:background="@drawable/round_rectangle"/>
+
+                <ImageButton
+                    android:id="@+id/button_delete_all"
+                    android:layout_width="47dp"
+                    android:layout_height="45dp"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="end"
+                    android:src="@drawable/delete_words"
+                    android:background="@drawable/round_rectangle"
+                    android:backgroundTint="@color/deleteAll"
+                    android:visibility="gone"/>
 
                 <ImageButton
                     android:id="@+id/button_import"
@@ -92,7 +100,7 @@
                     android:layout_height="45dp"
                     android:padding="12dp"
                     android:paddingStart="16dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="55dp"
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/add"
@@ -104,12 +112,13 @@
                     android:layout_height="45dp"
                     android:padding="12dp"
                     android:paddingStart="16dp"
+                    android:layout_marginTop="110dp"
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/delete_words"
                     android:background="@drawable/round_rectangle"/>
 
-            </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -140,7 +149,7 @@
                 android:textStyle="bold" />
             <Button
                 android:id="@+id/button_finish_deletion"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
