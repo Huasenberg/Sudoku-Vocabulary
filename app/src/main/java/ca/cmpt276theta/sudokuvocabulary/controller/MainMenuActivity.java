@@ -240,13 +240,11 @@ public class MainMenuActivity extends AppCompatActivity {
         backButton = mWordListWindow.getContentView().findViewById(R.id.button_back);
         finishDelButton = mWordListWindow.getContentView().findViewById(R.id.button_finish_deletion);
 
+
         if(WordList.getSelectedWordList().size() < 9)
             doneButton.setTextColor(getResources().getColor(R.color.subgrid));
 
         mWordListWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
-
-
-
 
         final Animation enterAnim1 = AnimationUtils.loadAnimation(MainMenuActivity.this, R.anim.word_list_side_button_enter_anim);
         final Animation enterAnim2 = AnimationUtils.loadAnimation(MainMenuActivity.this, R.anim.word_list_side_button_enter_anim);
@@ -342,6 +340,11 @@ public class MainMenuActivity extends AppCompatActivity {
                 sortButton.startAnimation(exitAnim);
                 importButton.startAnimation(exitAnim);
                 deleteButton.startAnimation(exitAnim);
+
+                backButton.startAnimation(exitAnim2);
+                finishDelButton.setVisibility(View.VISIBLE);
+
+                ObjectAnimator.ofInt(finishDelButton, "width", 1000).setDuration(600).start();
                 new Handler().postDelayed(new Runnable(){
                     public void run(){
                         sortButton.setVisibility(View.GONE);
@@ -350,9 +353,8 @@ public class MainMenuActivity extends AppCompatActivity {
                     }
                 },600);
 
-                finishDelButton.setVisibility(View.VISIBLE);
-                backButton.startAnimation(exitAnim2);
-                ObjectAnimator.ofInt(finishDelButton, "width", 1000).setDuration(700).start();
+
+
                 deleteAllButton.setVisibility(View.VISIBLE);
                 deleteAllButton.startAnimation(enterAnim2);
                 enterDeletionMode();
