@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.controller.MainMenuActivity;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
@@ -53,8 +50,8 @@ public class WordList {
                 sample.setEnglish(tokens[1]);
                 sample.setFrench(tokens[2]);
                 sample.setScore(Integer.parseInt(tokens[3]));
-               /* if(sOriginalWordList.contains(sample))
-                    continue;*/
+                if(sOriginalWordList.contains(sample))
+                    continue;
                 // Adding object to a class
                 final CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(sample.toString());

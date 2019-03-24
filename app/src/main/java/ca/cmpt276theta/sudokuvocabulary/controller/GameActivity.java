@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -122,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
                     mGameView.invalidate();
                 }
                 else if(touchPositionX != -1) {
-                    GameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ");
+                    GameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ", Gravity.CENTER);
                     final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake_anim);
                     erase.startAnimation(shake);
                 }

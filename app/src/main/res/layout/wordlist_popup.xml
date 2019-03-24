@@ -79,6 +79,7 @@
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/sort"
+                    android:visibility="gone"
                     android:background="@drawable/round_rectangle"/>
 
                 <ImageButton
@@ -104,6 +105,7 @@
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/add"
+                    android:visibility="gone"
                     android:background="@drawable/round_rectangle"/>
 
                 <ImageButton
@@ -116,6 +118,7 @@
                     android:scaleType="centerInside"
                     android:layout_gravity="end"
                     android:src="@drawable/delete_words"
+                    android:visibility="gone"
                     android:background="@drawable/round_rectangle"/>
 
             </FrameLayout>

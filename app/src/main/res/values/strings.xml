@@ -24,4 +24,7 @@
     <string name="word_list">Word List</string>
     <string name="import_word_list">Import Word List</string>
     <string name="back">Back</string>
+    <string name="confirm">Confirm</string>
+    <string name="alert_title">Delete All</string>
+    <string name="alert_content">All words will be deleted from the word list.</string>
 </resources>

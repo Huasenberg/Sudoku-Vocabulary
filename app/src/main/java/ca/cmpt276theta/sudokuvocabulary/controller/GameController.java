@@ -46,7 +46,7 @@ public class GameController {
         if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
-            showMessageToast(mGameView.getContext(), "  Can't fill in pre-filled cell  ");
+            showMessageToast(mGameView.getContext(), "  Can't fill in pre-filled cell  ", Gravity.CENTER);
             final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake_anim);
             button.startAnimation(shake);
             return;
@@ -92,9 +92,10 @@ public class GameController {
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
     }
 
-    public static void showMessageToast(Context context, String message) {
+    public static void showMessageToast(Context context, String message, int gravity) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0,0);
+        if(gravity != Gravity.NO_GRAVITY)
+            toast.setGravity(gravity, 0,0);
         View view = toast.getView();
         view.setBackgroundResource(R.drawable.button_shape);
         TextView text = view.findViewById(android.R.id.message);

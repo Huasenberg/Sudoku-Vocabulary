@@ -34,4 +34,10 @@ public class Word {
         return english + " -- " + french;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+        return english.equals(((Word) obj).getEnglish()) && french.equals(((Word) obj).getFrench());
+    }
 }
