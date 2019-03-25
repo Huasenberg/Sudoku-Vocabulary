@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -67,6 +66,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        mLinearLayout_checkboxes.removeAllViews();
         if(mDiffWindow.isShowing())
             mDiffWindow.dismiss();
         else if(mWordListWindow.isShowing())

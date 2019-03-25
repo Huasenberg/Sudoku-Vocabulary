@@ -42,6 +42,7 @@ public class GameView extends View {
         mTTSHandler = new TTSHandler(context);
     }
 
+
     public void setGameData(GameData gameData) {
         this.mGameData = gameData;
     }
@@ -82,6 +83,7 @@ public class GameView extends View {
         super.onDraw(canvas);
         drawHighlight(canvas);
         drawConflict(canvas);
+        drawGrid(canvas);
         drawWord(canvas);
         if(isLongPress && !GameData.isListenMode())
             drawHint(canvas);
@@ -219,16 +221,10 @@ public class GameView extends View {
             }
             else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
                 {
-
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
                     word.setScore(word.getScore()+1);
                     break;
                 }
         }
-
-        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);// PRINTS INDEX
-        //System.out.println("SCORE"+word.getScore()); //PRINTS SCORE
 
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
@@ -294,6 +290,35 @@ public class GameView extends View {
             }
         }
     }
+
+    private void drawGrid(Canvas canvas) {
+        final float girdEdgeHorizontal = mGridWidth * 9;
+        final float girdEdgeVertical = mGridHeight * 9;
+        // draw the border
+        final Paint borderPaint = new Paint();
+        borderPaint.setColor(getResources().getColor(R.color.border));
+        borderPaint.setStrokeWidth(5);
+        for(int i = 1; i <= 2; i++) {
+            final float vertex1 = i * mGridWidth * 3;
+            final float vertex2 = i * mGridHeight * 3;
+            canvas.drawLine(vertex1, 0,
+                    vertex1, girdEdgeVertical, borderPaint);
+            canvas.drawLine(0, vertex2,
+                    girdEdgeHorizontal, vertex2, borderPaint);
+        }
+
+        // draw the subgrid
+        borderPaint.setStrokeWidth(1);
+        for(int i = 1; i < 9; i++) {
+            final float vertex1 = i * mGridWidth;
+            final float vertex2 = i * mGridHeight;
+            canvas.drawLine(vertex1, 0, vertex1,
+                    girdEdgeVertical, borderPaint);
+            canvas.drawLine(0, vertex2,girdEdgeHorizontal,
+                    vertex2, borderPaint);
+        }
+    }
+
     private void readWord() {
         if (mTouchPositionX != -1 && mTouchPositionY != -1 && mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
             Locale locale = Locale.US;
