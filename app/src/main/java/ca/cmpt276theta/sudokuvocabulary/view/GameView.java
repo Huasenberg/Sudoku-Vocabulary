@@ -11,11 +11,16 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.List;
 import java.util.Locale;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -41,6 +46,7 @@ public class GameView extends View {
         mTouchPositionY = -1;
         mTTSHandler = new TTSHandler(context);
     }
+
 
     public void setGameData(GameData gameData) {
         this.mGameData = gameData;
@@ -82,6 +88,7 @@ public class GameView extends View {
         super.onDraw(canvas);
         drawHighlight(canvas);
         drawConflict(canvas);
+        drawGrid(canvas);
         drawWord(canvas);
         if(isLongPress && !GameData.isListenMode())
             drawHint(canvas);
@@ -202,34 +209,6 @@ public class GameView extends View {
     }
 
     private void drawHint(Canvas canvas) {
-        int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
-
-        if(index != -1)
-        for(int i = 0; i < mGameData.getWordList().size(); i++)
-        {
-            Word word = mGameData.getWordList().get(i);
-            if(GameData.getLanguageMode() == 1) {
-                if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
-                {
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-            }
-            else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
-                {
-
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-        }
-
-        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);// PRINTS INDEX
-        //System.out.println("SCORE"+word.getScore()); //PRINTS SCORE
-
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);
@@ -248,6 +227,8 @@ public class GameView extends View {
             final RectF rec;
             final String hintWord1 = mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
             final String hintWord2 = mGameData.getLanguageB()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
+
+
             if((mTouchPositionY == 0 || mTouchPositionY == 1) && mTouchPositionX < 5) {
                 final float x = mGridWidth * (mTouchPositionX + 2.15f);
                 rec = new RectF(mGridWidth * (mTouchPositionX + 1.2f), mGridHeight * mTouchPositionY,
@@ -294,6 +275,35 @@ public class GameView extends View {
             }
         }
     }
+
+    private void drawGrid(Canvas canvas) {
+        final float girdEdgeHorizontal = mGridWidth * 9;
+        final float girdEdgeVertical = mGridHeight * 9;
+        // draw the border
+        final Paint borderPaint = new Paint();
+        borderPaint.setColor(getResources().getColor(R.color.border));
+        borderPaint.setStrokeWidth(5);
+        for(int i = 1; i <= 2; i++) {
+            final float vertex1 = i * mGridWidth * 3;
+            final float vertex2 = i * mGridHeight * 3;
+            canvas.drawLine(vertex1, 0,
+                    vertex1, girdEdgeVertical, borderPaint);
+            canvas.drawLine(0, vertex2,
+                    girdEdgeHorizontal, vertex2, borderPaint);
+        }
+
+        // draw the subgrid
+        borderPaint.setStrokeWidth(1);
+        for(int i = 1; i < 9; i++) {
+            final float vertex1 = i * mGridWidth;
+            final float vertex2 = i * mGridHeight;
+            canvas.drawLine(vertex1, 0, vertex1,
+                    girdEdgeVertical, borderPaint);
+            canvas.drawLine(0, vertex2,girdEdgeHorizontal,
+                    vertex2, borderPaint);
+        }
+    }
+
     private void readWord() {
         if (mTouchPositionX != -1 && mTouchPositionY != -1 && mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
             Locale locale = Locale.US;

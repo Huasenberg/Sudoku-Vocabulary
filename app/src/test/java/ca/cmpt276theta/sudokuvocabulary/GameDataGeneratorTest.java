@@ -4,7 +4,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
+
 import static org.junit.Assert.fail;
 
 

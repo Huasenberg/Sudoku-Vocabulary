@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-import ca.cmpt276theta.sudokuvocabulary.view.GameGridView;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
@@ -93,8 +92,6 @@ public class GameActivity extends AppCompatActivity {
         }
         final GameController gameController = new GameController(mGameData, mGameView, mPopupWindow, mTimer, time);
         mGameView.setGameData(mGameData);
-        final GameGridView gameGridView = new GameGridView(this);
-        gameLayout.addView(gameGridView);
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
@@ -123,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
                     mGameView.invalidate();
                 }
                 else if(touchPositionX != -1) {
-                    GameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ", Gravity.CENTER);
+                    GameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell", Gravity.CENTER);
                     final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake_anim);
                     erase.startAnimation(shake);
                 }

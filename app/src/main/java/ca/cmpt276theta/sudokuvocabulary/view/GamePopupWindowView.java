@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 
 public class GamePopupWindowView extends PopupWindow {
