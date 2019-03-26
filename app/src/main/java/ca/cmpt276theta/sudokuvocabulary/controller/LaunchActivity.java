@@ -4,15 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,17 +69,16 @@ public class LaunchActivity extends AppCompatActivity {
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);
         for(int i = 0; i < size; i++) {
-            Word word = new Word();
+            Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
             CheckBox checkBox = new CheckBox(this);
-            word.setEnglish(mSharedPreference1.getString("English" + i, null));
-            word.setFrench(mSharedPreference1.getString("French" + i, null));
             word.setScore(mSharedPreference1.getInt("Score" + i,0));
             list.add(word);
             checkBox.setText(word.toString());
-            checkBox.setTextSize(17);
+            checkBox.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            checkBox.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            checkBox.setTextSize(16);
             checkBoxes.add(checkBox);
         }
-
         MainMenuActivity.setCheckBoxes(checkBoxes);
 
     }

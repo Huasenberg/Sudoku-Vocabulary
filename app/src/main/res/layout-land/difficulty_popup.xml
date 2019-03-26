@@ -172,7 +172,8 @@
                 android:backgroundTint="@color/background"
                 android:text="@string/cancel"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:foreground="?android:attr/selectableItemBackground"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

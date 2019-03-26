@@ -41,21 +41,20 @@
             android:background="@drawable/pop_up_shape"
             android:orientation="horizontal"
             android:paddingTop="20dp"
-            android:paddingStart="20dp"
             android:paddingBottom="20dp">
             <ScrollView
                 android:id="@+id/view1"
-                android:layout_width="210dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:scrollbarStyle="outsideInset">
-
+                android:scrollbarStyle="outsideInset"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp">
                 <LinearLayout
                     android:id="@+id/checkboxs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                 </LinearLayout>
-
             </ScrollView>
 
             <View
@@ -80,7 +79,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/sort"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_delete_all"
@@ -93,7 +93,8 @@
                     android:src="@drawable/delete_words"
                     android:background="@drawable/round_rectangle"
                     android:backgroundTint="@color/deleteAll"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_import"
@@ -106,7 +107,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/add"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_delete_words"
@@ -119,7 +121,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/delete_words"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
             </FrameLayout>
 
@@ -147,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"
                 android:backgroundTint="@color/background"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/back"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />

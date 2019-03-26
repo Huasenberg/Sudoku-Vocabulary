@@ -90,6 +90,7 @@ public class GameController {
         difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), GameData.getDifficulty()));
         mTime.setText(mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
+
     }
 
     public static void showMessageToast(Context context, String message, int gravity) {
@@ -97,12 +98,10 @@ public class GameController {
         if(gravity != Gravity.NO_GRAVITY)
             toast.setGravity(gravity, 0,0);
         View view = toast.getView();
-        view.setBackgroundResource(R.drawable.button_shape);
+        view.getBackground().setTint(context.getResources().getColor(R.color.colorPrimary));
         TextView text = view.findViewById(android.R.id.message);
-        //text.setTextSize(17);
+        text.setTextSize(17);
         text.setTextColor(Color.WHITE);
         toast.show();
     }
-
-
 }

@@ -2,9 +2,11 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {

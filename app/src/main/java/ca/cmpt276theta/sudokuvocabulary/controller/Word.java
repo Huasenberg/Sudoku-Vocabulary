@@ -5,6 +5,11 @@ public class Word {
     private String french;
     private int score;
 
+    public Word(String english, String french) {
+        this.english = english;
+        this.french = french;
+    }
+
     public String getEnglish() {
         return english;
     }
@@ -31,7 +36,10 @@ public class Word {
 
     @Override
     public String toString() {
-        return english + " -- " + french;
+        if(String.valueOf(score).length() > 1)
+            return score + "   " + english + " -- " + french;
+        else
+            return score + "     " + english + " -- " + french;
     }
 
     @Override

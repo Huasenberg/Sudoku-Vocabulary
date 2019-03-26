@@ -11,11 +11,16 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.List;
 import java.util.Locale;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -204,28 +209,6 @@ public class GameView extends View {
     }
 
     private void drawHint(Canvas canvas) {
-        int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
-
-        if(index != -1)
-        for(int i = 0; i < mGameData.getWordList().size(); i++)
-        {
-            Word word = mGameData.getWordList().get(i);
-            if(GameData.getLanguageMode() == 1) {
-                if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
-                {
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-            }
-            else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
-                {
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-        }
-
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);
@@ -244,6 +227,8 @@ public class GameView extends View {
             final RectF rec;
             final String hintWord1 = mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
             final String hintWord2 = mGameData.getLanguageB()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
+
+
             if((mTouchPositionY == 0 || mTouchPositionY == 1) && mTouchPositionX < 5) {
                 final float x = mGridWidth * (mTouchPositionX + 2.15f);
                 rec = new RectF(mGridWidth * (mTouchPositionX + 1.2f), mGridHeight * mTouchPositionY,

@@ -55,7 +55,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/sort"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_delete_all"
@@ -68,7 +69,8 @@
                     android:src="@drawable/delete_words"
                     android:background="@drawable/round_rectangle"
                     android:backgroundTint="@color/deleteAll"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_import"
@@ -81,7 +83,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/add"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
                 <ImageButton
                     android:id="@+id/button_delete_words"
@@ -94,7 +97,8 @@
                     android:layout_gravity="end"
                     android:src="@drawable/delete_words"
                     android:visibility="gone"
-                    android:background="@drawable/round_rectangle"/>
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
 
             </FrameLayout>
 
@@ -124,7 +128,8 @@
                 android:backgroundTint="@color/background"
                 android:text="@string/back"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:foreground="?android:attr/selectableItemBackground"/>
             <Button
                 android:id="@+id/button_finish_deletion"
                 android:visibility="invisible"
