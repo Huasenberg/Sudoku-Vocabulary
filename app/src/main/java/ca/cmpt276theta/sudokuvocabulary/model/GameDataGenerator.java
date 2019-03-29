@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class GameDataGenerator {
 //    private static final int UNIT = 3;
-    private static final int UNITX = 3;
+    private static final int UNITX = 2;
     private static final int UNITY = 2;
     private static final int SIZE = UNITX * UNITY;
     private static final int MAX_SHUFFLE = 20;

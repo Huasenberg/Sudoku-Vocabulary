@@ -21,12 +21,11 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
     private static ArrayList<Word> wordlist;
-    private static int gridSize = 12;
+    private static final int UNITX = 2;
+    private static final int UNITY = 2;
+    private static int gridSize = UNITX * UNITY;
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
-
-    private static final int UNITX = 3;
-    private static final int UNITY = 2;
 
     public GameData() {
         mEmptyCellCounter = 0;
