@@ -106,7 +106,7 @@ public class GameController {
         View view = toast.getView();
         view.getBackground().setTint(context.getResources().getColor(R.color.colorPrimary));
         TextView text = view.findViewById(android.R.id.message);
-        text.setTextSize(17);
+        text.setTextSize(18);
         text.setTextColor(Color.WHITE);
         toast.show();
     }

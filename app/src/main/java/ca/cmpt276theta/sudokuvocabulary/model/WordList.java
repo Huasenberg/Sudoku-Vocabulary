@@ -3,7 +3,10 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import ca.cmpt276theta.sudokuvocabulary.controller.MainMenuActivity;
+import ca.cmpt276theta.sudokuvocabulary.controller.WordListActivity;
 
 public class WordList {
     private static ArrayList<Word> sOriginalWordList;
@@ -38,7 +42,8 @@ public class WordList {
         try {
             // Step over headers
             reader.readLine();
-
+            final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0,15,0,15);
             // If buffer is not empty
             while ((line = reader.readLine()) != null) {
                 Log.d("My Activity","Line: " + line);
@@ -52,12 +57,17 @@ public class WordList {
                 if(sOriginalWordList.contains(sample))
                     continue;
                 // Adding object to a class
-                final CheckBox checkBox = new CheckBox(context);
+                /*final CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(sample.toString());
                 checkBox.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                 checkBox.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                 checkBox.setTextSize(16);
-                MainMenuActivity.getCheckBoxes().add(checkBox);
+                WordListActivity.getCheckBoxes().add(checkBox);*/
+                final TextView textView = new TextView(context);
+                textView.setText(sample.toString());
+                textView.setTextSize(18);
+                textView.setLayoutParams(lp);
+                WordListActivity.getTextViews().add(textView);
                 sOriginalWordList.add(sample);
                 // Log the object
                 Log.d("My Activity", "Just created: " + sample);

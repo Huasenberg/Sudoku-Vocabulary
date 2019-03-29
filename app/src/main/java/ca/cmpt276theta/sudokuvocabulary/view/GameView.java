@@ -45,12 +45,9 @@ public class GameView extends View {
         mTouchPositionX = -1;
         mTouchPositionY = -1;
         mTTSHandler = new TTSHandler(context);
-        //gridSize = GameData.getGridSize();
-        gridSize = 12;
-        subGridSizeVerti = 3;
-        subGridSizeHori = 4;
-        //subGridSizeHori = GameData.getSubGridSizeHori();
-        //subGridSizeVerti = GameData.getSubGridSizeVerti();
+        gridSize = GameData.getGridSize();
+        subGridSizeHori = GameData.getSubGridSizeHori();
+        subGridSizeVerti = GameData.getSubGridSizeVerti();
     }
 
 

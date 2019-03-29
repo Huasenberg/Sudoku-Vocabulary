@@ -9,10 +9,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,22 +66,30 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void loadWordList(ArrayList<Word> list) {
-        List<CheckBox> checkBoxes = new ArrayList<>();
+        //List<CheckBox> checkBoxes = new ArrayList<>();
+        List<TextView> textViewList = new ArrayList<>();
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);
+        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0,15,0,15);
         for(int i = 0; i < size; i++) {
             Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
             CheckBox checkBox = new CheckBox(this);
             word.setScore(mSharedPreference1.getInt("Score" + i,0));
             list.add(word);
-            checkBox.setText(word.toString());
+            /*checkBox.setText(word.toString());
             checkBox.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             checkBox.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            checkBox.setTextSize(16);
-            checkBoxes.add(checkBox);
+            checkBox.setTextSize(18);
+            checkBoxes.add(checkBox);*/
+            final TextView textView = new TextView(this);
+            textView.setText(word.toString());
+            textView.setTextSize(18);
+            textView.setLayoutParams(lp);
+            textViewList.add(textView);
         }
-        MainMenuActivity.setCheckBoxes(checkBoxes);
-
+        //WordListActivity.setCheckBoxes(checkBoxes);
+        WordListActivity.setTextViews(textViewList);
     }
 }
