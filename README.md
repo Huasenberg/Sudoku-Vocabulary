@@ -14,6 +14,12 @@
 
 - When a beginner in Sudoku inputs a duplicate entry either in the row or column or the 3x3 box, the duplicates will be highlighted in red.
 
+### `Scenario`
+
+- Given: The user is filling the grid in either the listening compreshsion mode or the normal mode
+- When: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
+- Then: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
+
 ## 2. BOLDED PRE-FILLED WORDS
 
 ### Status: **Implemented**
@@ -25,6 +31,18 @@
 ### `Test Driven Development`
 
 - When a user tries to change a pre-filled cell, a toast will state that the pre-filled cell cannot be changed and the pre-filled cells will be bolded
+
+### `Scenario 1`
+
+- Given: The user started the application and pressed the 'New Game' button 
+- When: The user chose the preferred settings and clicked the 'START' button 
+- Then: The application will display a sudoku grid with pre-filled values that are bolded to distinguish them from the values the user will input
+
+### `Scenario 2`
+
+- Given: The user has started a new game and a pre-filled cell has been selected 
+- When: The user presses on one of the word buttons at the bottom of the screen to fill it in the cell
+- Then: The application will not allow changing the value while displaying a toast stating 'Can't fill in a pre-filled cell'
 
 ## 3. UNIQUE PUZZLES*
 
@@ -38,6 +56,12 @@
 
 - When a user starts a game, a unique Sudoku board will be generated each time the user starts a game
 
+### `Scenario`
+
+- Given: The user started a game by pressing 'New Game' button and a puzzle has been generated 
+- When: The user presses the back button and then, presses the 'New Game' followed by 'START'
+- Then: The application will display generate and display a different puzzle than the one the user saw before
+
 ## 4. MAIN MENU
 
 ### Status: **Implemented**
@@ -50,6 +74,12 @@
 
 - When a user opens the app, a main menu will be presented to the user so that the user can decide when to start the game
 
+### `Scenario`
+
+- Given: The user is at the menu of applications that exist on their photo
+- When: The user clicks on the icon of the 'Sudoku Vocabulary' game
+- Then: The application displays a main menu with three options to choose from ('New Game', 'Continue Game', 'Import Word List')
+
 ## 5. TIMER
 
 ### Status: **Implemented**
@@ -61,6 +91,12 @@
 ### `Test Driven Development`
 
 - When a user starts a Sudoku puzzle, a timer is initiated and displayed above the Sudoku board
+
+### `Scenario`
+
+- Given: The user is at the menu 'New Game' and has chose their desired options for the game they want to play
+- When: The user clicks on the 'START' button
+- Then: The application displays the game playing screen with a timer in the right upper corner
 
 ## 6. WORD TRANSLATION HINTS
 
@@ -76,6 +112,12 @@
 
 - When user selects a Sudoku cell from the Android Studio Emulator, the users mouse pointer must slightly move within the cell for the hint to popup 
 
+### `Scenario`
+
+- Given: The user is in the game playing screen  
+- When: The user holds one of the pre-filled cells
+- Then: A toast appears on the screen with a message that includes the word selected and its translation to the other language
+
 ## 7. FINISH SCREEN
 
 ### Status: **Implemented**
@@ -89,6 +131,24 @@
 - When a user completes the board, the user can click the "check" button and if the board is correct, a victory toast will pop up and a victory sound file will play.
 
 - When a user does not complete the board, if the user clicks the "check" button, a toast will prompt the user that the puzzle is not completed
+
+### `Scenario 1`
+
+- Given: The user has finished solving the puzzle (filled in all the cells that were not pre-filled)
+- When: The user clicks on the 'check' button 
+- Then: A vicotry toast will appear on the screen accompanied by a victory sound
+
+### `Scenario 2`
+
+- Given: The user has not finished solving the puzzle (has not filled in all the cells that were not pre-filled) 
+- When: The user clicks on the 'check' button 
+- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
+
+### `Scenario 3`
+
+- Given: The user has finished solving the puzzle, but solved it incorrectly (filled in some or all the cells that were not prefilled with incorrect values)
+- When: The user clicks on the 'check' button 
+- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
 
 ## 8. APP ICON
 
@@ -114,6 +174,25 @@
 
 - When a user opens a board, the app will prompt the user with a seeking bar, so that the user can choose the difficulty of the board.
 
+### `Scenario 1`
+
+- Given: The user wants to solve an easy sudoku puzzle and is in the 'New Game' menu of the application
+- When: The user presses on the level of difficulty with value '1'
+- Then: The application will generate an easy puzzle for the user to solve 
+
+### `Scenario 2`
+
+- Given: The user wants to solve a difficult sudoku puzzle and is in the 'New Game' menu of the application
+- When: The user presses on the level of difficulty with value '4'
+- Then: The application will generate a difficult puzzle for the user to solve 
+
+
+### `Scenario 3`
+
+- Given: The user wants to solve a medium difficulty sudoku puzzle and is in the 'New Game' menu of the application
+- When: The user presses on the level of difficulty with value '2' or '3'
+- Then: The application will generate a medium difficulity puzzle for the user to solve 
+
 # MARKDOWN SUDOKU VOCABULARY
 
 ## **FOR ITERATION 2**
@@ -133,6 +212,12 @@
 ### `Test Driven Development`
 
 - When a user rotates the screen orientation to landscape, the app will rotate accordingly with readjustments to board and button locations
+
+### `Scenario`
+
+- Given: The user has the application installed on a tablet device
+- When: The user clicks on the application icon and rotate the screen 90 degrees (making it in landscape view)
+- Then: The application screen (with the buttons, grid and all the subelements) will rotate as well to fit the landscape view 
 
 ## 11. CSV READER
 
@@ -161,6 +246,20 @@
 7. If the word "test" appears as a button or on the board, the import is a success
 8. OPTIONAL FURTHER TESTING: repeat steps 2-7 above but with "test2.csv" to add colours to the game
 
+
+### `Scenario 1`
+
+- Given: The user is in the main menu of the application 
+- When: The user presses on the import word list
+- Then: The application opens the device's file directory and allows the user to choose the desired csv file
+
+
+### `Scenario 2`
+
+- Given: The user chose a desired csv file
+- When: The user goes back to the main menu and then, and starts a new game
+- Then: The application will generate a puzzle with the word list that the user chose 
+
 ## 12. VOCABULARY LISTS
 
 ### Status: **Implemented**
@@ -173,6 +272,13 @@
 
 - When a user uses a hint while playing the game, a score incrementor will be applied to the word and the score will be stored on the device. If the user then generates a new game, the new board will choose words with higher scores to play with.
 
+
+### `Scenario`
+
+- Given: The user has solved multiple puzzles and would like to practie the words they have been having problems with 
+- When: The user makes a wrong guess of a particular cell in a sudoku puzzle
+- Then: The application will increase the difficulity of the word and with it, the chance of this word appearing in future puzzles increase
+
 ## 13. LISTENING COMPREHENSION
 
 ### Status: **Implemented**
@@ -180,6 +286,12 @@
 ### `User Story`
 
 - As a student who wants to practice my understanding of spoken words in the language that I am learning, I want a listening comprehension mode. In this mode, numbers will appear in the prefilled cells and the corresponding word in the language that I am learning will be read out to me when I press the number.
+
+### `Scenario`
+
+- Given: The user has solved multiple puzzles and would like to practie the words they have been having problems with 
+- When: The user makes a wrong guess of a particular cell in a sudoku puzzle
+- Then: The application will increase the difficulity of the word and with it, the chance of this word appearing in future puzzles increase
 
 ### `Test Driven Development`
 
@@ -197,6 +309,19 @@
 
 - When a user wants to erase a filled cell, the user will select the desired cell to be erased and click the erase button
 
+### `Scenario 1`
+
+- Given: The user is in the process of solving a puzzle and has selected a certain cell that was not pre-filled 
+- When: The user clicks on the erase button in the top left corner
+- Then: The content of the cell gets erased and cell appears to be empty to the user
+
+
+### `Scenario 2`
+
+- Given: The user is in the process of solving a puzzle and has selected a certain cell that was pre-filled 
+- When: The user clicks on the erase button in the top left corner
+- Then: The application does not allow the deletion of the cell content and a toast message appears with the message 'cannot erase pre-filled cell'
+
 ## 15. BETTER VICTORY DETECTION
 
 ### Status: **Implemented**
@@ -208,6 +333,18 @@
 ### `Test Driven Development`
 
 - When a user plays the Sudoku game, the game will automatically check if the board is completed or not rather than having the user to press the button
+
+### `Scenario 1`
+
+- Given: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
+- When: The user fills in the last cell with the correct value
+- Then: The application shows a toast vicotry message accompanied with a victory sound file
+
+### `Scenario 2`
+
+- Given: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
+- When: The user fills in the last cell with the incorrect value
+- Then: The application game screen does not do any actions that indicates the completeness of the game
 
 ## 16. DIFFERENT DEVICES
 
@@ -221,6 +358,12 @@
 
 - When a user uses a tablet, the game is optimized to be played on a bigger screen
 
+### `Scenario`
+
+- Given: The user has installed the game on tablet device 
+- When: The user clicks on the application icon to open the game
+- Then: The welcoming message and the application screen with all the subelements (grid, buttons, images ... etc.) get optimized to fit the screen of the tablet device 
+
 ## 17. SPLASH SCREEN
 
 ### Status: **Implemented**
@@ -232,6 +375,12 @@
 ### `Test Driven Development`
 
 - When a user opens the game, an animation of the logo will be played and the main menu will soon pursue.
+
+### `Scenario`
+
+- Given: The user has the game installed on their device  
+- When: The user clicks on the application icon to open the game
+- Then: A welcoming message with an animation of the logo appears before the application proceeds to displaying the main menu 
 
 ## **FOR ITERATION 3**
 
