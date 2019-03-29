@@ -25,7 +25,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class MainMenuActivity extends AppCompatActivity {

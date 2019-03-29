@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {
     private int mEmptyCellCounter;
