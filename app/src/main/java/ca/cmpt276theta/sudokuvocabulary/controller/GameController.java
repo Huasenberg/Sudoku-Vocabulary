@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameController {
