@@ -22,26 +22,35 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
     private static ArrayList<Word> wordlist;
-    private static int gridSize = 6;
+    private static int gridSize = 12;
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
 
     private static final int UNITX = 3;
-    private static final int UNITY = 2;
+    private static final int UNITY = 4;
     private static final int SIZE = UNITX * UNITY;
 
     public GameData() {
         mEmptyCellCounter = 0;
-        mGridContent = new String[9][9];
-        mPuzzle = new int[9][9];
-        mPuzzlePreFilled = new int[9][9];
+        mGridContent = new String[gridSize][gridSize];
+        mPuzzle = new int[gridSize][gridSize];
+        mPuzzlePreFilled = new int[gridSize][gridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
-        subGridSizeHori = (int)Math.sqrt(gridSize);
-        if(gridSize == 4 || gridSize == 9)
-            subGridSizeVerti = subGridSizeHori;
-        else
-            subGridSizeVerti = subGridSizeHori + 1;
+        if (gridSize == 12) {
+            subGridSizeVerti = (int)Math.sqrt(gridSize);
+            if(gridSize == 4 || gridSize == 9)
+                subGridSizeHori = subGridSizeVerti;
+            else
+                subGridSizeHori = subGridSizeVerti + 1;
+        }
+        else {
+            subGridSizeHori = (int) Math.sqrt(gridSize);
+            if (gridSize == 4 || gridSize == 9)
+                subGridSizeVerti = subGridSizeHori;
+            else
+                subGridSizeVerti = subGridSizeHori + 1;
+        }
 
         // Pairing the words with numbers
         String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};

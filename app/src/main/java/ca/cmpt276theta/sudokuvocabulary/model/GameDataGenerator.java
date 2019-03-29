@@ -5,7 +5,7 @@ import java.util.Random;
 public class GameDataGenerator {
 //    private static final int UNIT = 3;
     private static final int UNITX = 3;
-    private static final int UNITY = 2;
+    private static final int UNITY = 4;
     private static final int SIZE = UNITX * UNITY;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
@@ -29,11 +29,23 @@ public class GameDataGenerator {
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
-            if (random.nextBoolean()) transpose(array);
+            if (isPerfectSquare(SIZE)){ if (random.nextBoolean()) transpose(array);}
             if (random.nextBoolean()) shuffleSquareRows(array);
-//            if (random.nextBoolean()) shuffleSingleRows(array);
+            if (random.nextBoolean()) shuffleSingleRows(array);
+//            if (random.nextBoolean() shuffleSquareCols(array));
         }
         return array;
+    }
+
+    static boolean isPerfectSquare(double x)
+    {
+
+        // Find floating point value of
+        // square root of x.
+        double sr = Math.sqrt(x);
+
+        // If square root is an integer
+        return ((sr - Math.floor(sr)) == 0);
     }
 
     /**
@@ -64,6 +76,7 @@ public class GameDataGenerator {
             swapSquareRows(array, i, j);
         }
     }
+
 //
     /**
      * Shuffles single rows within each square row.
