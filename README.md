@@ -17,6 +17,7 @@
 ### `Scenario`
 
 - Given: The user is filling the grid in either the listening compreshsion mode or the normal mode
+![](Screenshot_20190328-163633.png)
 - When: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
 - Then: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
 
