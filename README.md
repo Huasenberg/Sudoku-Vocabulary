@@ -39,15 +39,25 @@
 
 ### `Scenario 1`
 
-- Given: The user started the application and pressed the 'New Game' button 
+- Given: The user started the application and pressed the 'New Game' button
+
+![Screenshot_20190328-163731](/uploads/ff95dc6050d64077879956a6b32849d2/Screenshot_20190328-163731.png)
+
 - When: The user chose the preferred settings and clicked the 'START' button 
 - Then: The application will display a sudoku grid with pre-filled values that are bolded to distinguish them from the values the user will input
+
+![Screenshot_20190328-163742](/uploads/7ef42e736036f3cc669169fdf6d45774/Screenshot_20190328-163742.png)
 
 ### `Scenario 2`
 
 - Given: The user has started a new game and a pre-filled cell has been selected 
+
+![Screenshot_20190328-163742](/uploads/fe1123ba68027f6b8465fbae684eb6f5/Screenshot_20190328-163742.png)
+
 - When: The user presses on one of the word buttons at the bottom of the screen to fill it in the cell
 - Then: The application will not allow changing the value while displaying a toast stating 'Can't fill in a pre-filled cell'
+
+![Screenshot_20190328-163749](/uploads/7ca36787ff97e00b5ac191c78b0c4b8c/Screenshot_20190328-163749.png)
 
 ## 3. UNIQUE PUZZLES*
 
