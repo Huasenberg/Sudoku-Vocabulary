@@ -22,6 +22,9 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
     private static ArrayList<Word> wordlist;
+    private static int gridSize = 6;
+    private static int subGridSizeHori;
+    private static int subGridSizeVerti;
 
     public GameData() {
         mEmptyCellCounter = 0;
@@ -30,6 +33,11 @@ public class GameData implements Parcelable {
         mPuzzlePreFilled = new int[9][9];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
+        subGridSizeVerti = (int)Math.sqrt(gridSize);
+        if(gridSize == 4 || gridSize == 9)
+            subGridSizeHori = subGridSizeVerti;
+        else
+            subGridSizeHori = subGridSizeVerti + 1;
 
         // Pairing the words with numbers
         String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
@@ -90,6 +98,18 @@ public class GameData implements Parcelable {
             max_score += wordlist.get(iCount).getScore();
         }
         return max_score;
+    }
+
+    public static int getGridSize() {
+        return gridSize;
+    }
+
+    public static int getSubGridSizeHori() {
+        return subGridSizeHori;
+    }
+
+    public static int getSubGridSizeVerti() {
+        return subGridSizeVerti;
     }
 
     public static ArrayList<Word> getWordlist() {

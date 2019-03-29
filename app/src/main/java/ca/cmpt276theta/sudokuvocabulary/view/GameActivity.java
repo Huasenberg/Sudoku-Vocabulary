@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setText(GameData.getLanguageMode_String());
         }
         final FrameLayout gameLayout = findViewById(R.id.gameLayout);
+        mGameData  = new GameData();
         mGameView = new GameView(this);
 
         // Set Timer
@@ -83,7 +84,7 @@ public class GameActivity extends AppCompatActivity {
         });
         final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
 
-        mGameData  = new GameData();
+
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));

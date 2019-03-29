@@ -27,6 +27,10 @@ public class GameController {
     private final PopupWindow mPopupWindow;
     private final Chronometer mTimer;
     private final TextView mTime;
+    private final int gridSize;
+    private final int subGridSizeHori;
+    private final int subGridSizeVerti;
+
 
     public GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
         mGameView = view;
@@ -36,6 +40,10 @@ public class GameController {
         this.mTime = time;
         this.mPopupWindow = popupWindow;
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
+        gridSize = GameData.getGridSize();
+        subGridSizeHori = GameData.getSubGridSizeHori();
+        subGridSizeVerti = GameData.getSubGridSizeVerti();
+
     }
 
     public GameData getGameData() {
@@ -48,7 +56,7 @@ public class GameController {
         if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
-            showMessageToast(mGameView.getContext(), "  Can't fill in pre-filled cell  ");
+            showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell");
             final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake);
             button.startAnimation(shake);
             return;
@@ -63,19 +71,19 @@ public class GameController {
     }
 
     private void checkGameResult() {
-        for(int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for(int i = 0; i < (gridSize - 1); i++) {
+            for (int j = 0; j < (gridSize - 1); j++) {
                 int currentCell = mGameData.getPuzzle()[i][j];
-                for (int k = 0; k < 9; k++) {
+                for (int k = 0; k < (gridSize - 1); k++) {
                     if (k != j && mGameData.getPuzzle()[i][k] == currentCell)
                         return;
                     if (k != i && mGameData.getPuzzle()[k][j] == currentCell)
                         return;
                 }
-                int tempRow = i / 3 * 3;
-                int tempCol = j / 3 * 3;
-                for (int row = tempRow; row < tempRow + 3; row++)
-                    for (int col = tempCol; col < tempCol + 3; col++)
+                int tempRow = i / subGridSizeHori * subGridSizeHori;
+                int tempCol = j / subGridSizeVerti * subGridSizeVerti;
+                for (int row = tempRow; row < tempRow + subGridSizeHori; row++)
+                    for (int col = tempCol; col < tempCol + subGridSizeVerti; col++)
                         if (row != i && col != j && mGameData.getPuzzle()[row][col] == currentCell)
                             return;
             }
@@ -86,6 +94,7 @@ public class GameController {
         if(mp != null)
             mp.start();
     }
+
 
     private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);

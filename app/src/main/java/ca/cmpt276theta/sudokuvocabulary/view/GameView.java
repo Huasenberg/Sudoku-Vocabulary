@@ -11,14 +11,10 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-
 import java.util.Locale;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {
@@ -33,6 +29,9 @@ public class GameView extends View {
     private final Vibrator mVibrator;
     private final boolean isLandscapeMode;
     private final TTSHandler mTTSHandler;
+    private final int gridSize;
+    private final int subGridSizeHori;
+    private final int subGridSizeVerti;
 
     public GameView(Context context) {
         super(context);
@@ -43,7 +42,11 @@ public class GameView extends View {
         mTouchPositionX = -1;
         mTouchPositionY = -1;
         mTTSHandler = new TTSHandler(context);
+        gridSize = GameData.getGridSize();
+        subGridSizeHori = GameData.getSubGridSizeHori();
+        subGridSizeVerti = GameData.getSubGridSizeVerti();
     }
+
 
     public void setGameData(GameData gameData) {
         this.mGameData = gameData;
@@ -61,6 +64,7 @@ public class GameView extends View {
         return mTouchPositionY;
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if(!isLandscapeMode)
@@ -72,22 +76,22 @@ public class GameView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mGridWidth = w / 9f;
+        mGridWidth = w / (float)gridSize;
         if(!isLandscapeMode)
             mGridHeight = mGridWidth;
         else
-            mGridHeight = h / 9f;
+            mGridHeight = h / (float)gridSize;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         drawHighlight(canvas);
         drawConflict(canvas);
         drawGrid(canvas);
         drawWord(canvas);
         if(isLongPress && !GameData.isListenMode())
             drawHint(canvas);
-        super.onDraw(canvas);
     }
 
     private final Handler handler = new Handler();
@@ -125,7 +129,7 @@ public class GameView extends View {
                 handler.removeCallbacks(longPressed);
                 isVibrated = false;
         }
-        if(mTouchPositionX < 0 || mTouchPositionY < 0 || mTouchPositionX > 8 || mTouchPositionY > 8) {
+        if(mTouchPositionX < 0 || mTouchPositionY < 0 || mTouchPositionX > (gridSize - 1) || mTouchPositionY > (gridSize - 1)) {
             mTouchPositionX = -1;
             mTouchPositionY = -1;
         }
@@ -139,8 +143,8 @@ public class GameView extends View {
             highlightPaint.setColor(getResources().getColor(R.color.highlightRec));
             highlightPaint.setAlpha(80);
             canvas.drawRect(mTouchPositionX * mGridWidth, 0, (mTouchPositionX + 1) * mGridWidth,
-                    9 * mGridHeight, highlightPaint);
-            canvas.drawRect(0, mTouchPositionY * mGridHeight, 9 * mGridWidth,
+                    gridSize * mGridHeight, highlightPaint);
+            canvas.drawRect(0, mTouchPositionY * mGridHeight, gridSize * mGridWidth,
                     (mTouchPositionY + 1) * mGridHeight, highlightPaint);
         }
     }
@@ -150,61 +154,30 @@ public class GameView extends View {
             final Paint conflictPaint = new Paint();
             conflictPaint.setColor(getResources().getColor(R.color.conflict));
             final int key = mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX];
-            for(int i = 0; i < 9; i++) {
+            for(int i = 0; i < gridSize; i++) {
                 if ((key == mGameData.getPuzzle()[i][mTouchPositionX]) && i != mTouchPositionY)
                     canvas.drawRect(mTouchPositionX * mGridWidth, i * mGridHeight,
-                        (mTouchPositionX + 1) * mGridWidth, (i + 1) * mGridHeight, conflictPaint);
+                            (mTouchPositionX + 1) * mGridWidth, (i + 1) * mGridHeight, conflictPaint);
                 if ((key == mGameData.getPuzzle()[mTouchPositionY][i]) && i != mTouchPositionX)
                     canvas.drawRect(i * mGridWidth, mTouchPositionY * mGridHeight,
                             (i + 1) * mGridWidth, (mTouchPositionY + 1) * mGridHeight, conflictPaint);
             }
 
-            final int firstCellOfSubgridX = mTouchPositionX / 3 * 3;
-            final int firstCellOfSubgridY = mTouchPositionY / 3 * 3;
-            final float tempPosition1 = (firstCellOfSubgridY + 1) * mGridHeight;
-            final float tempPosition2 = (firstCellOfSubgridY + 2) * mGridHeight;
-
-            for(int i = 0; i < 3; i++) {
-                if(firstCellOfSubgridX + i != mTouchPositionX) {
-                    final float rightPosition = (firstCellOfSubgridX + i + 1) * mGridWidth;
-                    final float leftPosition = (firstCellOfSubgridX + i) * mGridWidth;
-                    if ((key == mGameData.getPuzzle()[firstCellOfSubgridY][firstCellOfSubgridX + i]) && (firstCellOfSubgridY != mTouchPositionY))
-                        canvas.drawRect(leftPosition, firstCellOfSubgridY * mGridHeight, rightPosition, tempPosition1, conflictPaint);
-                    if ((key == mGameData.getPuzzle()[firstCellOfSubgridY + 1][firstCellOfSubgridX + i]) && (firstCellOfSubgridY + 1 != mTouchPositionY))
-                        canvas.drawRect(leftPosition, tempPosition1, rightPosition, tempPosition2, conflictPaint);
-                    if ((key == mGameData.getPuzzle()[firstCellOfSubgridY + 2][firstCellOfSubgridX + i]) && (firstCellOfSubgridY + 2 != mTouchPositionY))
-                        canvas.drawRect(leftPosition, tempPosition2, rightPosition, (firstCellOfSubgridY + 3) * mGridHeight, conflictPaint);
+            final int firstCellOfSubgridX = mTouchPositionX / subGridSizeHori * subGridSizeHori;
+            final int firstCellOfSubgridY = mTouchPositionY / subGridSizeVerti * subGridSizeVerti;
+            for(int i = 0; i < subGridSizeVerti; i++) {
+                if(firstCellOfSubgridY + i != mTouchPositionY) {
+                    final float topPosition = (firstCellOfSubgridY + i) * mGridHeight;
+                    final float bottomPosition = (firstCellOfSubgridY + i + 1) * mGridHeight;
+                    for(int j = 0; j < subGridSizeHori; j++) {
+                        final float rightPosition = (firstCellOfSubgridX + j + 1) * mGridWidth;
+                        final float leftPosition = (firstCellOfSubgridX + j) * mGridWidth;
+                        if ((firstCellOfSubgridX + j != mTouchPositionX) && (key == mGameData.getPuzzle()[firstCellOfSubgridY + i][firstCellOfSubgridX + j]))
+                            canvas.drawRect(leftPosition, topPosition, rightPosition, bottomPosition, conflictPaint);
+                    }
                 }
             }
 
-        }
-    }
-
-    private void drawGrid(Canvas canvas) {
-        final float girdEdgeHorizontal = mGridWidth * 9;
-        final float girdEdgeVertical = mGridHeight * 9;
-        // draw the border
-        final Paint borderPaint = new Paint();
-        borderPaint.setColor(getResources().getColor(R.color.border));
-        borderPaint.setStrokeWidth(5);
-        for(int i = 1; i <= 2; i++) {
-            final float vertex1 = i * mGridWidth * 3;
-            final float vertex2 = i * mGridHeight * 3;
-            canvas.drawLine(vertex1, 0,
-                    vertex1, girdEdgeVertical, borderPaint);
-            canvas.drawLine(0, vertex2,
-                    girdEdgeHorizontal, vertex2, borderPaint);
-        }
-
-        // draw the subgrid
-        borderPaint.setStrokeWidth(1);
-        for(int i = 1; i < 9; i++) {
-            final float vertex1 = i * mGridWidth;
-            final float vertex2 = i * mGridHeight;
-            canvas.drawLine(vertex1, 0, vertex1,
-                    girdEdgeVertical, borderPaint);
-            canvas.drawLine(0, vertex2,girdEdgeHorizontal,
-                    vertex2, borderPaint);
         }
     }
 
@@ -214,8 +187,8 @@ public class GameView extends View {
         wordPaint.setTextAlign(Paint.Align.CENTER);
         wordPaint.setTextSize(mGridWidth * 0.25f);
         final float y = mGridHeight / 2 - (wordPaint.getFontMetrics().top + wordPaint.getFontMetrics().bottom) / 2;
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
                 final String word = mGameData.getGridContent()[i][j];
                 wordPaint.setColor(getResources().getColor(R.color.border));
                 wordPaint.setFakeBoldText(false);
@@ -233,34 +206,6 @@ public class GameView extends View {
     }
 
     private void drawHint(Canvas canvas) {
-        int index = (mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1);
-
-        if(index != -1)
-        for(int i = 0; i < mGameData.getWordList().size(); i++)
-        {
-            Word word = mGameData.getWordList().get(i);
-            if(mGameData.getLanguageMode() == 1) {
-                if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageB()[index]))
-                {
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageB()[index]);
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-            }
-            else if (word.getEnglish().equalsIgnoreCase(mGameData.getLanguageA()[index]))
-                {
-
-                    //System.out.println("WORD:" +  word.getEnglish());
-                    //System.out.println("REALWORD:" +  mGameData.getLanguageA()[index]);
-                    word.setScore(word.getScore()+1);
-                    break;
-                }
-        }
-
-        //System.out.println("WHAT"+mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX]);// PRINTS INDEX
-        //System.out.println("SCORE"+word.getScore()); //PRINTS SCORE
-
         if(mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
             if(!isVibrated) {
                 mVibrator.vibrate(65);
@@ -279,7 +224,9 @@ public class GameView extends View {
             final RectF rec;
             final String hintWord1 = mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
             final String hintWord2 = mGameData.getLanguageB()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1];
-            if((mTouchPositionY == 0 || mTouchPositionY == 1) && mTouchPositionX < 5) {
+
+
+            if((mTouchPositionY == 0 || mTouchPositionY == 1) && mTouchPositionX < ((gridSize + 1) / 2)) {
                 final float x = mGridWidth * (mTouchPositionX + 2.15f);
                 rec = new RectF(mGridWidth * (mTouchPositionX + 1.2f), mGridHeight * mTouchPositionY,
                         mGridWidth  * (mTouchPositionX + 3.1f), mGridHeight * (mTouchPositionY + 1.2f));
@@ -305,7 +252,7 @@ public class GameView extends View {
                 hintPaint.setFakeBoldText(false);
                 canvas.drawText(hintWord2, x, mGridHeight * (mTouchPositionY - 0.43f), hintPaint);
             }
-            else if(mTouchPositionX == 8){
+            else if(mTouchPositionX == (gridSize - 1)){
                 final float x = mGridWidth * (mTouchPositionX + 0.15f);
                 rec = new RectF(mGridWidth * (mTouchPositionX - 0.8f), mGridHeight * (mTouchPositionY - 1.4f),
                         mGridWidth * 9, mGridHeight * (mTouchPositionY - 0.2f));
@@ -325,6 +272,35 @@ public class GameView extends View {
             }
         }
     }
+
+    private void drawGrid(Canvas canvas) {
+        final float girdEdgeHorizontal = mGridWidth * gridSize;
+        final float girdEdgeVertical = mGridHeight * gridSize;
+        // draw the border
+        final Paint borderPaint = new Paint();
+        borderPaint.setColor(getResources().getColor(R.color.border));
+        borderPaint.setStrokeWidth(5);
+        for(int i = 1; i < subGridSizeVerti; i++) {
+            final float vertex = i * mGridWidth * subGridSizeHori;
+            canvas.drawLine(vertex, 0, vertex, girdEdgeVertical, borderPaint);
+        }
+        for(int i = 1; i < subGridSizeHori; i++){
+            final float vertex = i * mGridHeight * subGridSizeVerti;
+            canvas.drawLine(0, vertex, girdEdgeHorizontal, vertex, borderPaint);
+        }
+
+        // draw the subgrid
+        borderPaint.setStrokeWidth(1);
+        for(int i = 1; i < gridSize; i++) {
+            final float vertex1 = i * mGridWidth;
+            final float vertex2 = i * mGridHeight;
+            canvas.drawLine(vertex1, 0, vertex1,
+                    girdEdgeVertical, borderPaint);
+            canvas.drawLine(0, vertex2,girdEdgeHorizontal,
+                    vertex2, borderPaint);
+        }
+    }
+
     private void readWord() {
         if (mTouchPositionX != -1 && mTouchPositionY != -1 && mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
             Locale locale = Locale.US;
