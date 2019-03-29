@@ -17,9 +17,13 @@
 ### `Scenario`
 
 - Given: The user is filling the grid in either the listening compreshsion mode or the normal mode
-![](Screenshot_20190328-163633.png)
+
+![Screenshot_20190328-163633](/uploads/4c5619902e4f69c1722cc5d40968bfcd/Screenshot_20190328-163633.png)
+
 - When: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
 - Then: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
+
+![Screenshot_20190328-163644](/uploads/0e1bf7f350d9b20c133db72a88f96e90/Screenshot_20190328-163644.png)
 
 ## 2. BOLDED PRE-FILLED WORDS
 
