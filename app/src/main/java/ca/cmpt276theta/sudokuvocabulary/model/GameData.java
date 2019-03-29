@@ -26,6 +26,10 @@ public class GameData implements Parcelable {
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
 
+    private static final int UNITX = 3;
+    private static final int UNITY = 2;
+    private static final int SIZE = UNITX * UNITY;
+
     public GameData() {
         mEmptyCellCounter = 0;
         mGridContent = new String[9][9];
@@ -33,11 +37,11 @@ public class GameData implements Parcelable {
         mPuzzlePreFilled = new int[9][9];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
-        subGridSizeVerti = (int)Math.sqrt(gridSize);
+        subGridSizeHori = (int)Math.sqrt(gridSize);
         if(gridSize == 4 || gridSize == 9)
-            subGridSizeHori = subGridSizeVerti;
+            subGridSizeVerti = subGridSizeHori;
         else
-            subGridSizeHori = subGridSizeVerti + 1;
+            subGridSizeVerti = subGridSizeHori + 1;
 
         // Pairing the words with numbers
         String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
@@ -188,8 +192,8 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < SIZE; i++) {
+            for(int j = 0; j < SIZE; j++) {
                 if(random.nextInt(7) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
