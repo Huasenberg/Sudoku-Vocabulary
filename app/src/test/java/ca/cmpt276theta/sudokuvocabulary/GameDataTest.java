@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 

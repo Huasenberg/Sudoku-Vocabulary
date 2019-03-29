@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.controller;
+package ca.cmpt276theta.sudokuvocabulary.model;
 
 public class Word {
     private String english;

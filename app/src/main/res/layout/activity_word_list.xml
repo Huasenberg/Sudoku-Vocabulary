@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.WordListActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp">
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/list" />
+
+            <TextView
+                android:id="@+id/word_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="@drawable/round_rectangle"
+                android:text="@string/manage_word_list"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="@color/background"
+                android:layout_marginStart="10dp"
+                android:paddingStart="19dp"
+                android:transitionName="shared_elem" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+            <ScrollView
+                android:id="@+id/view1"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:scrollbarStyle="outsideInset"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp">
+                <LinearLayout
+                    android:id="@+id/checkboxs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+            </ScrollView>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="70dp"
+                android:alpha="0.3"
+                android:background="#8a8a8a" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="end">
+
+                <ImageButton
+                    android:id="@+id/button_sort"
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sort"
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+                <ImageButton
+                    android:id="@+id/button_delete_all"
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/delete_words"
+                    android:background="@drawable/round_rectangle"
+                    android:backgroundTint="@color/deleteAll"
+                    android:visibility="gone"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+                <ImageButton
+                    android:id="@+id/button_import"
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:layout_marginTop="60dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/add"
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+                <ImageButton
+                    android:id="@+id/button_delete_words"
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:paddingStart="16dp"
+                    android:layout_marginTop="120dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/delete_words"
+                    android:background="@drawable/round_rectangle"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+            </FrameLayout>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_done"
+                android:layout_width="146dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/done"
+                android:textColor="@color/background"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="146dp"
+                android:layout_marginStart="154dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:backgroundTint="@color/background"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/back"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/button_finish_deletion"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="                DONE                "
+                android:textColor="@color/background"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

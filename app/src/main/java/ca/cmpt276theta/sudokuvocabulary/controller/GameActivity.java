@@ -18,7 +18,6 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
@@ -58,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
             textView.setText(GameData.getLanguageMode_String());
         }
         final FrameLayout gameLayout = findViewById(R.id.gameLayout);
+        mGameData  = new GameData();
         mGameView = new GameView(this);
 
         // Set Timer
@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
         });
         final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
 
-        mGameData  = new GameData();
+
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
-        final Button[] mButtons = new Button[9];
+        final Button[] mButtons = new Button[GameData.getGridSize()];
         mButtons[0] = findViewById(R.id.button0);
         mButtons[1] = findViewById(R.id.button1);
         mButtons[2] = findViewById(R.id.button2);

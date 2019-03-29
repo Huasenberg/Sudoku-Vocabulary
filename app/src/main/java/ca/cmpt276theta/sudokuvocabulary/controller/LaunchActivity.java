@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +20,7 @@ import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class LaunchActivity extends AppCompatActivity {

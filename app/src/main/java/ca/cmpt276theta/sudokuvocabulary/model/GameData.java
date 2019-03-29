@@ -2,12 +2,9 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {
     private int mEmptyCellCounter;
@@ -21,23 +18,33 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
-    private ArrayList<Word> wordlist;
+    private static int gridSize = 9;
+    private static int subGridSizeHori;
+    private static int subGridSizeVerti;
 
     public GameData() {
-        wordlist = WordList.getSelectedWordList();
+        subGridSizeHori = (int)Math.sqrt(gridSize);
+        if(gridSize == 4 || gridSize == 9)
+            subGridSizeVerti = subGridSizeHori;
+        else
+            subGridSizeVerti = subGridSizeHori + 1;
+
+        ArrayList<Word> wordlist = WordList.getSelectedWordList();
         mEmptyCellCounter = 0;
-        mGridContent = new String[9][9];
-        mPuzzle = new int[9][9];
-        mPuzzlePreFilled = new int[9][9];
+        mGridContent = new String[gridSize][gridSize];
+        mPuzzle = new int[gridSize][gridSize];
+        mPuzzlePreFilled = new int[gridSize][gridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
 
+        String[] wordBank1 = new String[gridSize];
+        String[] wordBank2 = new String[gridSize];
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        //wordBank1 = {"mango", "cherry", "lemon", "kiwi"};
+        //wordBank2 ={"mangue", "cerise", "citron", "kiwi"};
 
         if (!wordlist.isEmpty())
-            for(int i = 0; i < 9; i++) {
+            for(int i = 0; i < gridSize; i++) {
                 wordBank1[i] = wordlist.get(i).getEnglish();
                 wordBank2[i] = wordlist.get(i).getFrench();
             }
@@ -48,6 +55,21 @@ public class GameData implements Parcelable {
         generateIncompletePuzzle();
     }
 
+    public static int getSubGridSizeHori() {
+        return subGridSizeHori;
+    }
+
+    public static int getSubGridSizeVerti() {
+        return subGridSizeVerti;
+    }
+
+    public static int getGridSize() {
+        return gridSize;
+    }
+
+    public static void setGridSize(int gridSize) {
+        GameData.gridSize = gridSize;
+    }
 
     public static void setListenMode(boolean isListenMode) {
         sIsListenMode = isListenMode;
@@ -117,9 +139,9 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(random.nextInt(7) > sDifficulty) {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
+                if(random.nextInt(4) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
@@ -150,7 +172,7 @@ public class GameData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.mEmptyCellCounter);
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < gridSize; i++) {
             dest.writeStringArray(this.mGridContent[i]);
             dest.writeIntArray(this.mPuzzle[i]);
             dest.writeIntArray(this.mPuzzlePreFilled[i]);
@@ -159,7 +181,7 @@ public class GameData implements Parcelable {
 
     private GameData(Parcel in) {
         this.mEmptyCellCounter = in.readInt();
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < gridSize; i++) {
             in.readStringArray(this.mGridContent[i]);
             in.readIntArray(this.mPuzzle[i]);
             in.readIntArray(this.mPuzzlePreFilled[i]);
@@ -179,8 +201,8 @@ public class GameData implements Parcelable {
 
     public void removeAllCells() {
         mEmptyCellCounter = 0;
-        for(int i = 0; i < 9; i++)
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < gridSize; i++)
+            for(int j = 0; j < gridSize; j++) {
                 mPuzzle[i][j] = mPuzzlePreFilled[i][j];
                 if(mPuzzle[i][j] != 0)
                     mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
@@ -195,9 +217,5 @@ public class GameData implements Parcelable {
         mPuzzle[positionY][positionX] = 0;
         mGridContent[positionY][positionX] = " ";
         mEmptyCellCounter++;
-    }
-
-    public ArrayList<Word> getWordList() {
-        return wordlist;
     }
 }

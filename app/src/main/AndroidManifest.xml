@@ -12,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".controller.WordListActivity"
+            android:theme="@style/FullScreenTheme"/>
+        <activity
             android:name=".controller.LaunchActivity"
             android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,7 +31,7 @@
             android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".controller.MainMenuActivity"
-            android:theme="@style/FullScreenTheme"/>
+            android:theme="@style/FullScreenTheme" />
         <activity android:name=".controller.GameActivity" />
     </application>
 

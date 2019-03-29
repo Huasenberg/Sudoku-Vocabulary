@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import ca.cmpt276theta.sudokuvocabulary.controller.MainMenuActivity;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class WordList {
     private static ArrayList<Word> sOriginalWordList;
