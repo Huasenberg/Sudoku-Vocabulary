@@ -26,8 +26,7 @@ public class GameData implements Parcelable {
     private static int subGridSizeVerti;
 
     private static final int UNITX = 3;
-    private static final int UNITY = 4;
-    private static final int SIZE = UNITX * UNITY;
+    private static final int UNITY = 2;
 
     public GameData() {
         mEmptyCellCounter = 0;
@@ -200,8 +199,8 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for(int i = 0; i < SIZE; i++) {
-            for(int j = 0; j < SIZE; j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
                 if(random.nextInt(7) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
