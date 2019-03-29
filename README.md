@@ -16,12 +16,12 @@
 
 ### `Scenario`
 
-- Given: The user is filling the grid in either the listening compreshsion mode or the normal mode
+### **Given**: The user is filling the grid in either the listening compreshsion mode or the normal mode
 
 ![Screenshot_20190328-163633](/uploads/4c5619902e4f69c1722cc5d40968bfcd/Screenshot_20190328-163633.png)
 
-- When: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
-- Then: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
+### **When**: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
+### **Then**: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
 
 ![Screenshot_20190328-163644](/uploads/0e1bf7f350d9b20c133db72a88f96e90/Screenshot_20190328-163644.png)
 
@@ -39,23 +39,23 @@
 
 ### `Scenario 1`
 
-- Given: The user started the application and pressed the 'New Game' button
+### **Given**: The user started the application and pressed the 'New Game' button
 
 ![Screenshot_20190328-163731](/uploads/ff95dc6050d64077879956a6b32849d2/Screenshot_20190328-163731.png)
 
-- When: The user chose the preferred settings and clicked the 'START' button 
-- Then: The application will display a sudoku grid with pre-filled values that are bolded to distinguish them from the values the user will input
+### **When**: The user chose the preferred settings and clicked the 'START' button 
+### **Then**: The application will display a sudoku grid with pre-filled values that are bolded to distinguish them from the values the user will input
 
 ![Screenshot_20190328-163742](/uploads/7ef42e736036f3cc669169fdf6d45774/Screenshot_20190328-163742.png)
 
 ### `Scenario 2`
 
-- Given: The user has started a new game and a pre-filled cell has been selected 
+### **Given**: The user has started a new game and a pre-filled cell has been selected 
 
 ![Screenshot_20190328-163742](/uploads/fe1123ba68027f6b8465fbae684eb6f5/Screenshot_20190328-163742.png)
 
-- When: The user presses on one of the word buttons at the bottom of the screen to fill it in the cell
-- Then: The application will not allow changing the value while displaying a toast stating 'Can't fill in a pre-filled cell'
+### **When**: The user presses on one of the word buttons at the bottom of the screen to fill it in the cell
+### **Then**: The application will not allow changing the value while displaying a toast stating 'Can't fill in a pre-filled cell'
 
 ![Screenshot_20190328-163749](/uploads/7ca36787ff97e00b5ac191c78b0c4b8c/Screenshot_20190328-163749.png)
 
@@ -91,9 +91,14 @@
 
 ### `Scenario`
 
-- Given: The user is at the menu of applications that exist on their photo
-- When: The user clicks on the icon of the 'Sudoku Vocabulary' game
-- Then: The application displays a main menu with three options to choose from ('New Game', 'Continue Game', 'Import Word List')
+### **Given**: The user is at the menu of applications that exist on their photo
+
+![Screenshot_20190328-163852](/uploads/65f34e1a554c947db3aaf2981210de95/Screenshot_20190328-163852.png)
+
+### **When**: The user clicks on the icon of the 'Sudoku Vocabulary' game
+### **Then**: The application displays a main menu with three options to choose from ('New Game', 'Continue Game', 'Import Word List')
+
+![Screenshot_20190328-163859](/uploads/23333405e8c54d1b52ac304755f4aa0b/Screenshot_20190328-163859.png)
 
 ## 5. TIMER
 
@@ -129,9 +134,14 @@
 
 ### `Scenario`
 
-- Given: The user is in the game playing screen  
-- When: The user holds one of the pre-filled cells
-- Then: A toast appears on the screen with a message that includes the word selected and its translation to the other language
+### **Given**: The user is in the game playing screen
+
+![Screenshot_20190328-163957](/uploads/9060dc62e8213758436139e850d6ab2f/Screenshot_20190328-163957.png)
+
+### **When**: The user holds one of the pre-filled cells
+### **Then**: A toast appears on the screen with a message that includes the word selected and its translation to the other language
+
+![Screenshot_20190328-164008](/uploads/c0a6cee91a7f8306236b406b8c08708a/Screenshot_20190328-164008.png)
 
 ## 7. FINISH SCREEN
 
