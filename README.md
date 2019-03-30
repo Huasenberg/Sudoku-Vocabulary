@@ -211,34 +211,34 @@
 
 ### `Scenario 1`
 
-###**Given**: The user wants to solve an easy sudoku puzzle and is in the 'New Game' menu of the application
+### **Given**: The user wants to solve an easy sudoku puzzle and is in the 'New Game' menu of the application
 
 ![56164140_573351086495972_743653044473823232_n](/uploads/12ba577869f0ae7cab8f280671921eb9/56164140_573351086495972_743653044473823232_n.png)
 
-###**When**: The user presses on the level of difficulty with value '1'
-###**Then**: The application will generate an easy puzzle for the user to solve 
+### **When**: The user presses on the level of difficulty with value '1'
+### **Then**: The application will generate an easy puzzle for the user to solve 
 
 ![55576090_360747611208159_8819146534047186944_n](/uploads/210c1007c6df61d6afd05d69809bd8f6/55576090_360747611208159_8819146534047186944_n.png)
 
 ### `Scenario 2`
 
-### **Given**: The user wants to solve a difficult sudoku puzzle and is in the 'New Game' menu of the application
+### **Given**: The user wants to solve a medium difficulty sudoku puzzle and is in the 'New Game' menu of the application
 
 ![55798221_430762367732051_8910319008884981760_n](/uploads/4b9744659457679aac83dc12735949a8/55798221_430762367732051_8910319008884981760_n.png)
 
 ### **When**: The user presses on the level of difficulty with value '4'
-### **Then**: The application will generate a difficult puzzle for the user to solve 
+### **Then**: The application will generate a medium difficulty puzzle for the user to solve 
 
 ![54350231_2292202104165148_8077165228283920384_n](/uploads/a227e8f252d57e5a180ffe053bdc9f14/54350231_2292202104165148_8077165228283920384_n.png)
 
 ### `Scenario 3`
 
-### **Given**: The user wants to solve a medium difficulty sudoku puzzle and is in the 'New Game' menu of the application
+### **Given**: The user wants to solve a difficult sudoku puzzle and is in the 'New Game' menu of the application
 
 ![55819009_2266275993627459_7494780805546246144_n](/uploads/bd0d507e92cfbbe0eee6eaadd9b2ca5b/55819009_2266275993627459_7494780805546246144_n.png)
 
 ### **When**: The user presses on the level of difficulty with value '2' or '3'
-### **Then**: The application will generate a medium difficulity puzzle for the user to solve 
+### **Then**: The application will generate a difficult puzzle for the user to solve 
 
 ![54350231_2292202104165148_8077165228283920384_n](/uploads/3a0fb97d2916eb13e4adc0d55fa33580/54350231_2292202104165148_8077165228283920384_n.png)
 
@@ -264,9 +264,18 @@
 
 ### `Scenario`
 
-- Given: The user has the application installed on a tablet device
-- When: The user clicks on the application icon and rotate the screen 90 degrees (making it in landscape view)
-- Then: The application screen (with the buttons, grid and all the subelements) will rotate as well to fit the landscape view 
+### **Given**: The user has the application installed on a tablet device
+
+![Screenshot_20190328-163859__1_](/uploads/7bf2af72caa226b99f11671b24305986/Screenshot_20190328-163859__1_.png)
+
+### **When**: The user clicks on the application icon and rotate the screen 90 degrees (making it in landscape view)
+### **Then**: The application screen (with the buttons, grid and all the subelements) will rotate as well to fit the landscape view 
+
+![Screenshot_20190328-164311](/uploads/3e16d46621d3fb63d97b51930848de26/Screenshot_20190328-164311.png)
+
+![Screenshot_20190328-164315](/uploads/b5194c9c144d9ec3534ea8e657858ab6/Screenshot_20190328-164315.png)
+
+![Screenshot_20190328-164320](/uploads/92a007687682c536be4211e35d4c0019/Screenshot_20190328-164320.png)
 
 ## 11. CSV READER
 
