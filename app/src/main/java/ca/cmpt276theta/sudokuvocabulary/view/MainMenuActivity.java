@@ -244,30 +244,20 @@ public class MainMenuActivity extends AppCompatActivity {
                 GameData.setLanguageMode(mOption);
                 switch (seekBar2.getProgress()) {
                     case 0:
-                        GameData.setGridSize(4);
-                        GameDataGenerator.setUNITX(2);
-                        GameDataGenerator.setUNITY(2);
+                        GameDataGenerator.setSIZE(2,2);
                         break;
                     case 1:
-                        GameData.setGridSize(6);
-                        GameDataGenerator.setUNITX(2);
-                        GameDataGenerator.setUNITY(3);
+                        GameDataGenerator.setSIZE(2,3);
                         break;
                     case 2:
-                        GameData.setGridSize(9);
-                        GameDataGenerator.setUNITX(3);
-                        GameDataGenerator.setUNITY(3);
+                        GameDataGenerator.setSIZE(3,3);
                         break;
                     case 3:
-                        GameData.setGridSize(12);
-                        GameDataGenerator.setUNITX(3);
-                        GameDataGenerator.setUNITY(4);
+                        GameDataGenerator.setSIZE(3,4);
                 }
 
-                System.out.println(GameDataGenerator.getSolvedPuzzle() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-                //GameDataGenerator.loadPuzzleData();
-                //startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
+                GameDataGenerator.loadPuzzleData();
+                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){

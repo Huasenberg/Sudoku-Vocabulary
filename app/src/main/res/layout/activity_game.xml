@@ -51,23 +51,25 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/button_bank1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginTop="5dp">
 
-            <Button
+            <!--<Button
                 android:id="@+id/button0"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.25"
                 android:tag="1"
-                android:textAllCaps="false" />
+                android:textAllCaps="false" />-->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/button_bank2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -75,7 +77,7 @@
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp">
 
-            <Button
+            <!--<Button
                 android:id="@+id/button1"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
@@ -109,10 +111,11 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:tag="5"
-                android:textAllCaps="false" />
+                android:textAllCaps="false" />-->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/button_bank3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -120,7 +123,7 @@
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp">
 
-            <Button
+            <!--<Button
                 android:id="@+id/button5"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
@@ -154,7 +157,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:tag="9"
-                android:textAllCaps="false" />
+                android:textAllCaps="false" />-->
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

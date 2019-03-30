@@ -6,7 +6,7 @@ public class GameDataGenerator {
 //    private static final int UNIT = 3;
     private static int UNITX;
     private static int UNITY;
-    private static final int SIZE = UNITX * UNITY;
+    private static int SIZE;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
 
@@ -18,20 +18,22 @@ public class GameDataGenerator {
         return UNITY;
     }
 
-    public static void setUNITX(int UNITX) {
-        GameDataGenerator.UNITX = UNITX;
-    }
-
-    public static void setUNITY(int UNITY) {
-        GameDataGenerator.UNITY = UNITY;
-    }
-
     public static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;
     }
 
+    public static int getSIZE() {
+        return SIZE;
+    }
+
     public static void loadPuzzleData() {
         sSolvedPuzzle = generateSolved();
+    }
+
+    public static void setSIZE(final int x, final int y) {
+        GameDataGenerator.UNITX = x;
+        GameDataGenerator.UNITY = y;
+        GameDataGenerator.SIZE = x * y;
     }
 
     private static int[][] generateSolved() {

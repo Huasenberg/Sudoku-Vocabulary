@@ -26,33 +26,27 @@ public class GameData implements Parcelable {
     private static int subGridSizeVerti;
 
     public GameData() {
+        gridSize = GameDataGenerator.getSIZE();
         mEmptyCellCounter = 0;
         mGridContent = new String[gridSize][gridSize];
         mPuzzle = new int[gridSize][gridSize];
         mPuzzlePreFilled = new int[gridSize][gridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
-        subGridSizeVerti = (int)Math.sqrt(gridSize);
-        if(gridSize == 4 || gridSize == 9)
-            subGridSizeHori = subGridSizeVerti;
-        else if(gridSize == 12) {
-            subGridSizeHori = subGridSizeVerti;
-            subGridSizeVerti++;
-        }
-        else
-            subGridSizeHori = subGridSizeVerti + 1;
+        subGridSizeHori = GameDataGenerator.getUNITX();
+        subGridSizeVerti = GameDataGenerator.getUNITY();
 
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi"/*, "orange", "pear", "apple", "plum", "peach"*/};
-        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi"/*, "orange", "poire", "pomme", "prune", "pêche"*/};
-        int random_word[] = new int[9];
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
+        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        int random_word[] = new int[gridSize];
         int iCount;
         if (!wordlist.isEmpty()) {
-            for (iCount = 0; iCount < wordBank1.length; iCount++) {
+            for (iCount = 0; iCount < gridSize; iCount++) {
                 random_word[iCount] = random_weighted_scores(wordlist);
                 //System.out.println("randomlist" + Arrays.toString(random_word));
             }
-                for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                for (iCount = 0; iCount < gridSize; iCount++) {
                 wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
                 wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
                 //System.out.println("USING"+wordlist.get(iCount).getEnglish());
@@ -113,10 +107,6 @@ public class GameData implements Parcelable {
 
     public static int getSubGridSizeVerti() {
         return subGridSizeVerti;
-    }
-
-    public static void setGridSize(int gridSize) {
-        GameData.gridSize = gridSize;
     }
 
     public static ArrayList<Word> getWordlist() {
