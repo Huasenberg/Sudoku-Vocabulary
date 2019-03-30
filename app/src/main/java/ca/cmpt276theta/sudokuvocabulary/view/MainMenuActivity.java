@@ -25,12 +25,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class MainMenuActivity extends AppCompatActivity {
     private int mOption;
     private PopupWindow mPopupWindow;
+    private SeekBar seekBar2;
 //    private DatabaseHelper db;
 
     @Override
@@ -61,6 +63,7 @@ public class MainMenuActivity extends AppCompatActivity {
         };
         final Spinner spinner = mPopupWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mPopupWindow.getContentView().findViewById(R.id.seekBar);
+        seekBar2 = mPopupWindow.getContentView().findViewById(R.id.seek_bar_2);
         mPopupWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +111,36 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
             }
         });
+
+        final TextView text2 = mPopupWindow.getContentView().findViewById(R.id.textview_size);
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                switch (progress) {
+                    case 0:
+                        text2.setText("Grid Size: 4 x 4");
+                        break;
+                    case 1:
+                        text2.setText("Grid Size: 6 x 6");
+                        break;
+                    case 2:
+                        text2.setText("Grid Size: 9 x 9");
+                        break;
+                    case 3:
+                        text2.setText("Grid Size: 12 x 12");
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
+
 
     private static final int READ_REQUEST_CODE = 42;
 
@@ -210,7 +242,32 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
                 GameData.setLanguageMode(mOption);
-                startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
+                switch (seekBar2.getProgress()) {
+                    case 0:
+                        GameData.setGridSize(4);
+                        GameDataGenerator.setUNITX(2);
+                        GameDataGenerator.setUNITY(2);
+                        break;
+                    case 1:
+                        GameData.setGridSize(6);
+                        GameDataGenerator.setUNITX(2);
+                        GameDataGenerator.setUNITY(3);
+                        break;
+                    case 2:
+                        GameData.setGridSize(9);
+                        GameDataGenerator.setUNITX(3);
+                        GameDataGenerator.setUNITY(3);
+                        break;
+                    case 3:
+                        GameData.setGridSize(12);
+                        GameDataGenerator.setUNITX(3);
+                        GameDataGenerator.setUNITY(4);
+                }
+
+                System.out.println(GameDataGenerator.getSolvedPuzzle() + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                //GameDataGenerator.loadPuzzleData();
+                //startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
         });
         pw.getContentView().findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener(){

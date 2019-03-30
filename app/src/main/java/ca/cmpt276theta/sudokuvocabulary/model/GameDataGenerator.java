@@ -4,11 +4,27 @@ import java.util.Random;
 
 public class GameDataGenerator {
 //    private static final int UNIT = 3;
-    private static final int UNITX = 2;
-    private static final int UNITY = 2;
+    private static int UNITX;
+    private static int UNITY;
     private static final int SIZE = UNITX * UNITY;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
+
+    public static int getUNITX() {
+        return UNITX;
+    }
+
+    public static int getUNITY() {
+        return UNITY;
+    }
+
+    public static void setUNITX(int UNITX) {
+        GameDataGenerator.UNITX = UNITX;
+    }
+
+    public static void setUNITY(int UNITY) {
+        GameDataGenerator.UNITY = UNITY;
+    }
 
     public static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;

@@ -94,16 +94,16 @@ public class GameActivity extends AppCompatActivity {
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
-        final Button[] mButtons = new Button[9];
+        final Button[] mButtons = new Button[4];
         mButtons[0] = findViewById(R.id.button0);
         mButtons[1] = findViewById(R.id.button1);
         mButtons[2] = findViewById(R.id.button2);
         mButtons[3] = findViewById(R.id.button3);
-        mButtons[4] = findViewById(R.id.button4);
+        /*mButtons[4] = findViewById(R.id.button4);
         mButtons[5] = findViewById(R.id.button5);
         mButtons[6] = findViewById(R.id.button6);
         mButtons[7] = findViewById(R.id.button7);
-        mButtons[8] = findViewById(R.id.button8);
+        mButtons[8] = findViewById(R.id.button8);*/
 
         final Drawable drawable = getResources().getDrawable(R.drawable.eraser);
         drawable.setBounds(0,0,68,68);
@@ -119,7 +119,7 @@ public class GameActivity extends AppCompatActivity {
                     mGameView.invalidate();
                 }
                 else if(touchPositionX != -1) {
-                    gameController.showMessageToast(GameActivity.this, " Can't erase a pre-filled cell ");
+                    GameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell");
                     final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake);
                     erase.startAnimation(shake);
                 }

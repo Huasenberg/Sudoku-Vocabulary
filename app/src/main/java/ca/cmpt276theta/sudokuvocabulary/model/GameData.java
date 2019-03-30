@@ -21,9 +21,7 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
     private static ArrayList<Word> wordlist;
-    private static final int UNITX = 2;
-    private static final int UNITY = 2;
-    private static int gridSize = UNITX * UNITY;
+    private static int gridSize;
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
 
@@ -34,24 +32,19 @@ public class GameData implements Parcelable {
         mPuzzlePreFilled = new int[gridSize][gridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
-        if (gridSize == 12) {
-            subGridSizeVerti = (int)Math.sqrt(gridSize);
-            if(gridSize == 4 || gridSize == 9)
-                subGridSizeHori = subGridSizeVerti;
-            else
-                subGridSizeHori = subGridSizeVerti + 1;
+        subGridSizeVerti = (int)Math.sqrt(gridSize);
+        if(gridSize == 4 || gridSize == 9)
+            subGridSizeHori = subGridSizeVerti;
+        else if(gridSize == 12) {
+            subGridSizeHori = subGridSizeVerti;
+            subGridSizeVerti++;
         }
-        else {
-            subGridSizeHori = (int) Math.sqrt(gridSize);
-            if (gridSize == 4 || gridSize == 9)
-                subGridSizeVerti = subGridSizeHori;
-            else
-                subGridSizeVerti = subGridSizeHori + 1;
-        }
+        else
+            subGridSizeHori = subGridSizeVerti + 1;
 
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi"/*, "orange", "pear", "apple", "plum", "peach"*/};
+        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi"/*, "orange", "poire", "pomme", "prune", "pêche"*/};
         int random_word[] = new int[9];
         int iCount;
         if (!wordlist.isEmpty()) {
@@ -120,6 +113,10 @@ public class GameData implements Parcelable {
 
     public static int getSubGridSizeVerti() {
         return subGridSizeVerti;
+    }
+
+    public static void setGridSize(int gridSize) {
+        GameData.gridSize = gridSize;
     }
 
     public static ArrayList<Word> getWordlist() {

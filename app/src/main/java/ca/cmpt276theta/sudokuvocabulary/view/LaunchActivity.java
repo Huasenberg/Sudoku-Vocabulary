@@ -46,7 +46,6 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void loadGame (){
-        GameDataGenerator.loadPuzzleData();
         GameData.setWordlist(new ArrayList<Word>());
         loadArray(GameData.getWordlist());
         GameData.sortWordData();
