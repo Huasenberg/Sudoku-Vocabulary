@@ -73,9 +73,14 @@
 
 ### `Scenario`
 
-- Given: The user started a game by pressing 'New Game' button and a puzzle has been generated 
-- When: The user presses the back button and then, presses the 'New Game' followed by 'START'
-- Then: The application will display generate and display a different puzzle than the one the user saw before
+### **Given**: The user started a game by pressing 'New Game' button and a puzzle has been generated
+
+![Screenshot_20190328-163633](/uploads/d47294893d174126f394d7294e297052/Screenshot_20190328-163633.png)
+
+### **When**: The user presses the back button and then, presses the 'New Game' followed by 'START'
+### **Then**: The application will display generate and display a different puzzle than the one the user saw before
+
+![Screenshot_20190328-163621](/uploads/345d247a4e2469ff66add5ceeaa359ee/Screenshot_20190328-163621.png)
 
 ## 4. MAIN MENU
 
@@ -114,9 +119,14 @@
 
 ### `Scenario`
 
-- Given: The user is at the menu 'New Game' and has chose their desired options for the game they want to play
-- When: The user clicks on the 'START' button
-- Then: The application displays the game playing screen with a timer in the right upper corner
+### **Given**: The user is at the menu 'New Game' and has chose their desired options for the game they want to play
+
+![Screenshot_20190328-163923](/uploads/b5208969c61e845655ea7c9ac2a890e1/Screenshot_20190328-163923.png)
+
+### **When**: The user clicks on the 'START' button
+### **Then**: The application displays the game playing screen with a timer in the right upper corner
+
+![Screenshot_20190328-163949](/uploads/4342330c194bbd0fcc7bd6362976c5db/Screenshot_20190328-163949.png)
 
 ## 6. WORD TRANSLATION HINTS
 
@@ -159,21 +169,21 @@
 
 ### `Scenario 1`
 
-- Given: The user has finished solving the puzzle (filled in all the cells that were not pre-filled)
-- When: The user clicks on the 'check' button 
-- Then: A vicotry toast will appear on the screen accompanied by a victory sound
+### **Given**: The user has finished solving the puzzle (filled in all the cells that were not pre-filled)
+### **When**: The user clicks on the 'check' button 
+### **Then**: A vicotry toast will appear on the screen accompanied by a victory sound
 
 ### `Scenario 2`
 
-- Given: The user has not finished solving the puzzle (has not filled in all the cells that were not pre-filled) 
-- When: The user clicks on the 'check' button 
-- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
+### **Given**: The user has not finished solving the puzzle (has not filled in all the cells that were not pre-filled) 
+### **When**: The user clicks on the 'check' button 
+### **Then**: A toast will appear on the screen telling the user that the puzzle is not completed yet
 
 ### `Scenario 3`
 
-- Given: The user has finished solving the puzzle, but solved it incorrectly (filled in some or all the cells that were not prefilled with incorrect values)
-- When: The user clicks on the 'check' button 
-- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
+### **Given**: The user has finished solving the puzzle, but solved it incorrectly (filled in some or all the cells that were not prefilled with incorrect values)
+### **When**: The user clicks on the 'check' button 
+### **Then**: A toast will appear on the screen telling the user that the puzzle is not completed yet
 
 ## 8. APP ICON
 
@@ -201,22 +211,36 @@
 
 ### `Scenario 1`
 
-- Given: The user wants to solve an easy sudoku puzzle and is in the 'New Game' menu of the application
-- When: The user presses on the level of difficulty with value '1'
-- Then: The application will generate an easy puzzle for the user to solve 
+###**Given**: The user wants to solve an easy sudoku puzzle and is in the 'New Game' menu of the application
+
+![56164140_573351086495972_743653044473823232_n](/uploads/12ba577869f0ae7cab8f280671921eb9/56164140_573351086495972_743653044473823232_n.png)
+
+###**When**: The user presses on the level of difficulty with value '1'
+###**Then**: The application will generate an easy puzzle for the user to solve 
+
+![55576090_360747611208159_8819146534047186944_n](/uploads/210c1007c6df61d6afd05d69809bd8f6/55576090_360747611208159_8819146534047186944_n.png)
 
 ### `Scenario 2`
 
-- Given: The user wants to solve a difficult sudoku puzzle and is in the 'New Game' menu of the application
-- When: The user presses on the level of difficulty with value '4'
-- Then: The application will generate a difficult puzzle for the user to solve 
+### **Given**: The user wants to solve a difficult sudoku puzzle and is in the 'New Game' menu of the application
 
+![55798221_430762367732051_8910319008884981760_n](/uploads/4b9744659457679aac83dc12735949a8/55798221_430762367732051_8910319008884981760_n.png)
+
+### **When**: The user presses on the level of difficulty with value '4'
+### **Then**: The application will generate a difficult puzzle for the user to solve 
+
+![54350231_2292202104165148_8077165228283920384_n](/uploads/a227e8f252d57e5a180ffe053bdc9f14/54350231_2292202104165148_8077165228283920384_n.png)
 
 ### `Scenario 3`
 
-- Given: The user wants to solve a medium difficulty sudoku puzzle and is in the 'New Game' menu of the application
-- When: The user presses on the level of difficulty with value '2' or '3'
-- Then: The application will generate a medium difficulity puzzle for the user to solve 
+### **Given**: The user wants to solve a medium difficulty sudoku puzzle and is in the 'New Game' menu of the application
+
+![55819009_2266275993627459_7494780805546246144_n](/uploads/bd0d507e92cfbbe0eee6eaadd9b2ca5b/55819009_2266275993627459_7494780805546246144_n.png)
+
+### **When**: The user presses on the level of difficulty with value '2' or '3'
+### **Then**: The application will generate a medium difficulity puzzle for the user to solve 
+
+![54350231_2292202104165148_8077165228283920384_n](/uploads/3a0fb97d2916eb13e4adc0d55fa33580/54350231_2292202104165148_8077165228283920384_n.png)
 
 # MARKDOWN SUDOKU VOCABULARY
 
