@@ -90,9 +90,9 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawHighlight(canvas);
-        // drawConflict(canvas);
+        drawConflict(canvas);
         drawGrid(canvas);
-        //drawWord(canvas);
+        drawWord(canvas);
         if(isLongPress && !GameData.isListenMode())
             drawHint(canvas);
     }

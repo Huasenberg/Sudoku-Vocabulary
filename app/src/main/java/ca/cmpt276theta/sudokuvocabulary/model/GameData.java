@@ -18,16 +18,20 @@ public class GameData implements Parcelable {
     private static int sDifficulty;
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
-    private static int gridSize = 9;
+    private static int gridSize;
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
 
     public GameData() {
-        subGridSizeHori = (int)Math.sqrt(gridSize);
+        subGridSizeVerti = (int)Math.sqrt(gridSize);
         if(gridSize == 4 || gridSize == 9)
-            subGridSizeVerti = subGridSizeHori;
+            subGridSizeHori = subGridSizeVerti;
+        else if(gridSize == 12) {
+            subGridSizeHori = subGridSizeVerti;
+            subGridSizeVerti++;
+        }
         else
-            subGridSizeVerti = subGridSizeHori + 1;
+            subGridSizeHori = subGridSizeVerti + 1;
 
         ArrayList<Word> wordlist = WordList.getSelectedWordList();
         mEmptyCellCounter = 0;
@@ -37,11 +41,10 @@ public class GameData implements Parcelable {
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
 
-        String[] wordBank1 = new String[gridSize];
-        String[] wordBank2 = new String[gridSize];
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "1", "2"};
+        String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "1", "2"};
         // Pairing the words with numbers
-        //wordBank1 = {"mango", "cherry", "lemon", "kiwi"};
-        //wordBank2 ={"mangue", "cerise", "citron", "kiwi"};
+
 
         if (!wordlist.isEmpty())
             for(int i = 0; i < gridSize; i++) {

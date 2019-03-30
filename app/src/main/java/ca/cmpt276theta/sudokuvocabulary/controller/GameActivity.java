@@ -102,9 +102,9 @@ public class GameActivity extends AppCompatActivity {
         mButtons[3] = findViewById(R.id.button3);
         mButtons[4] = findViewById(R.id.button4);
         mButtons[5] = findViewById(R.id.button5);
-        mButtons[6] = findViewById(R.id.button6);
+        /*mButtons[6] = findViewById(R.id.button6);
         mButtons[7] = findViewById(R.id.button7);
-        mButtons[8] = findViewById(R.id.button8);
+        mButtons[8] = findViewById(R.id.button8);*/
 
         final Drawable drawable = getResources().getDrawable(R.drawable.eraser);
         drawable.setBounds(0,0,68,68);

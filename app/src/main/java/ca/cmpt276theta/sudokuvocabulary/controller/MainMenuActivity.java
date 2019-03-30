@@ -1,35 +1,22 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
-import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.List;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-import ca.cmpt276theta.sudokuvocabulary.model.Word;
-import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 import ca.cmpt276theta.sudokuvocabulary.view.GamePopupWindowView;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -51,6 +38,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         final Spinner spinner = mDiffWindow.getContentView().findViewById(R.id.spinner);
         final SeekBar seekBar = mDiffWindow.getContentView().findViewById(R.id.seekBar);
+        final SeekBar seekBar2 = mDiffWindow.getContentView().findViewById(R.id.seek_bar_2);
         mDiffWindow.getContentView().findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,10 +56,7 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.new_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if(WordList.getSelectedWordList().size() != 9)
-                    GameController.showMessageToast(MainMenuActivity.this, "Must Select 9 Pairs of Words From the Word List.", Gravity.NO_GRAVITY);
-                else*/
-                    mDiffWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
+                mDiffWindow.showAtLocation(findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
             }
         });
 
@@ -107,6 +92,20 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GameData.setDifficulty(seekBar.getProgress() + 1);
+                switch (seekBar2.getProgress()) {
+                    case 0:
+                        GameData.setGridSize(4);
+                        break;
+                    case 1:
+                        GameData.setGridSize(6);
+                        break;
+                    case 2:
+                        GameData.setGridSize(9);
+                        break;
+                    case 3:
+                        GameData.setGridSize(12);
+                }
+
                 GameData.setLanguageMode(mOption);
                 startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
             }
@@ -124,6 +123,34 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 text.setText(String.format(getResources().getString(R.string.difficulty), seekBar.getProgress() + 1));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        final TextView text2 = mDiffWindow.getContentView().findViewById(R.id.textview_size);
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                switch (progress) {
+                    case 0:
+                        text2.setText("Grid Size: 4 x 4");
+                        break;
+                    case 1:
+                        text2.setText("Grid Size: 6 x 6");
+                        break;
+                    case 2:
+                        text2.setText("Grid Size: 9 x 9");
+                        break;
+                    case 3:
+                        text2.setText("Grid Size: 12 x 12");
+                }
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {

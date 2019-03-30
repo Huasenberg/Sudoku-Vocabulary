@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -221,11 +219,8 @@ public class WordListActivity extends AppCompatActivity {
 
     private void loadCheckBoxes() {
         mLinearLayout_textViewList.removeAllViews();
-        final Animation enterAnim4 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_logo_enter_anim);
-        mLinearLayout_textViewList.startAnimation(enterAnim4);
-        for(TextView textView : sTextViews) {
+        for(TextView textView : sTextViews)
             mLinearLayout_textViewList.addView(textView);
-        }
     }
 
     private void enterDeletionMode() {
