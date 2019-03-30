@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,7 +65,7 @@ public class WordListActivity extends AppCompatActivity {
 
     private void initWordList() {
         isDeletionMode = false;
-        loadCheckBoxes();
+        loadTextViews();
         final Button doneButton = findViewById(R.id.button_done);
         finishDelButton = findViewById(R.id.button_finish_deletion);
         final Animation enterAnim1 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_enter_anim);
@@ -91,7 +92,7 @@ public class WordListActivity extends AppCompatActivity {
                                     WordList.sortWordDataByScore();
                                 for(int j = 0; j < WordList.getOriginalWordList().size(); j++)
                                     sTextViews.get(j).setText(WordList.getOriginalWordList().get(j).toString());
-                                loadCheckBoxes();
+                                loadTextViews();
                                 saveArray();
                             }
                         })
@@ -126,6 +127,7 @@ public class WordListActivity extends AppCompatActivity {
                         sTextViews.clear();
                         WordList.getOriginalWordList().clear();
                         WordList.getSelectedWordList().clear();
+                        GameStartActivity.getCheckBoxes().clear();
                         finishDelButton.performClick();
                     }
                 })
@@ -217,7 +219,7 @@ public class WordListActivity extends AppCompatActivity {
         title.startAnimation(enterAnim1);
     }
 
-    private void loadCheckBoxes() {
+    private void loadTextViews() {
         mLinearLayout_textViewList.removeAllViews();
         for(TextView textView : sTextViews)
             mLinearLayout_textViewList.addView(textView);
@@ -240,6 +242,7 @@ public class WordListActivity extends AppCompatActivity {
     }
 
     private void setDeletionModeListener() {
+        final List<CheckBox> checkBoxes = GameStartActivity.getCheckBoxes();
         for(int i = 0; i < sTextViews.size(); i++) {
             final int j = i;
             final TextView textView = sTextViews.get(i);
@@ -248,6 +251,7 @@ public class WordListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mLinearLayout_textViewList.removeView(textView);
                     sTextViews.remove(j);
+                    checkBoxes.remove(j);
                     WordList.getOriginalWordList().remove(j);
                     setDeletionModeListener();
                 }
@@ -299,7 +303,7 @@ public class WordListActivity extends AppCompatActivity {
         WordList.writeToArrayList(this, reader);
         Toast.makeText(this, "Words have been imported!", Toast.LENGTH_SHORT).show();
         saveArray();
-        loadCheckBoxes();
+        loadTextViews();
     }
 
     public void saveArray() {

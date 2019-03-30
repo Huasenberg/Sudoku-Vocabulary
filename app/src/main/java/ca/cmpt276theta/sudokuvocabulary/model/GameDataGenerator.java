@@ -4,18 +4,36 @@ import java.util.Random;
 
 public class GameDataGenerator {
     //    private static final int UNIT = 3;
-    private static final int UNITX = 2;
-    private static final int UNITY = 3;
-    private static final int SIZE = UNITX * UNITY;
+    private static int UNITX;
+    private static int UNITY;
+    private static int SIZE;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
+
+    public static int getUNITX() {
+        return UNITX;
+    }
+
+    public static int getUNITY() {
+        return UNITY;
+    }
 
     public static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;
     }
 
+    public static int getSIZE() {
+        return SIZE;
+    }
+
     public static void loadPuzzleData() {
         sSolvedPuzzle = generateSolved();
+    }
+
+    public static void setSIZE(final int x, final int y) {
+        GameDataGenerator.UNITX = x;
+        GameDataGenerator.UNITY = y;
+        GameDataGenerator.SIZE = x * y;
     }
 
     private static int[][] generateSolved() {

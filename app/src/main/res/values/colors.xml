@@ -10,6 +10,6 @@
     <color name="conflict">#E27C7C</color>
     <color name="hintBubble">#084479</color>
     <color name="popUpBg">#B9000000</color>
-    <color name="checkBox">#000000</color>
     <color name="deleteAll">#FE3A21</color>
+    <color name="check_box">#696969</color>
 </resources>

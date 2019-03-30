@@ -59,37 +59,35 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void loadGame (){
-        GameDataGenerator.loadPuzzleData();
         WordList.setOriginalWordList(new ArrayList<Word>());
         WordList.setSelectedWordList(new ArrayList<Word>());
         loadWordList(WordList.getOriginalWordList());
     }
 
     private void loadWordList(ArrayList<Word> list) {
-        //List<CheckBox> checkBoxes = new ArrayList<>();
-        List<TextView> textViewList = new ArrayList<>();
+        final List<CheckBox> checkBoxes = new ArrayList<>();
+        final List<TextView> textViewList = new ArrayList<>();
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);
         final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0,15,0,15);
         for(int i = 0; i < size; i++) {
-            Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
-            CheckBox checkBox = new CheckBox(this);
+            final Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
+            final CheckBox checkBox = new CheckBox(this);
             word.setScore(mSharedPreference1.getInt("Score" + i,0));
             list.add(word);
-            /*checkBox.setText(word.toString());
-            checkBox.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-            checkBox.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            checkBox.setTextSize(18);
-            checkBoxes.add(checkBox);*/
+            checkBox.setText("   " + word.toString());
+            checkBox.setTextColor(getResources().getColor(R.color.check_box));
+            checkBox.setTextSize(17);
+            checkBoxes.add(checkBox);
             final TextView textView = new TextView(this);
             textView.setText(word.toString());
             textView.setTextSize(18);
             textView.setLayoutParams(lp);
             textViewList.add(textView);
         }
-        //WordListActivity.setCheckBoxes(checkBoxes);
+        GameStartActivity.setCheckBoxes(checkBoxes);
         WordListActivity.setTextViews(textViewList);
     }
 }

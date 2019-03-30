@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.controller.GameStartActivity;
 import ca.cmpt276theta.sudokuvocabulary.controller.MainMenuActivity;
 import ca.cmpt276theta.sudokuvocabulary.controller.WordListActivity;
 
@@ -57,12 +59,11 @@ public class WordList {
                 if(sOriginalWordList.contains(sample))
                     continue;
                 // Adding object to a class
-                /*final CheckBox checkBox = new CheckBox(context);
-                checkBox.setText(sample.toString());
-                checkBox.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-                checkBox.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-                checkBox.setTextSize(16);
-                WordListActivity.getCheckBoxes().add(checkBox);*/
+                final CheckBox checkBox = new CheckBox(context);
+                checkBox.setText("   " + sample.toString());
+                checkBox.setTextColor(context.getResources().getColor(R.color.check_box));
+                checkBox.setTextSize(17);
+                GameStartActivity.getCheckBoxes().add(checkBox);
                 final TextView textView = new TextView(context);
                 textView.setText(sample.toString());
                 textView.setTextSize(18);

@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import ca.cmpt276theta.sudokuvocabulary.R;
@@ -95,16 +96,6 @@ public class GameActivity extends AppCompatActivity {
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
-        final Button[] mButtons = new Button[GameData.getGridSize()];
-        mButtons[0] = findViewById(R.id.button0);
-        mButtons[1] = findViewById(R.id.button1);
-        mButtons[2] = findViewById(R.id.button2);
-        mButtons[3] = findViewById(R.id.button3);
-        mButtons[4] = findViewById(R.id.button4);
-        mButtons[5] = findViewById(R.id.button5);
-        /*mButtons[6] = findViewById(R.id.button6);
-        mButtons[7] = findViewById(R.id.button7);
-        mButtons[8] = findViewById(R.id.button8);*/
 
         final Drawable drawable = getResources().getDrawable(R.drawable.eraser);
         drawable.setBounds(0,0,68,68);
@@ -127,9 +118,20 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        final LinearLayout buttonBank1 = findViewById(R.id.button_bank1);
+        final LinearLayout buttonBank2 = findViewById(R.id.button_bank2);
+        final LinearLayout buttonBank3 = findViewById(R.id.button_bank3);
+        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        final int gridSize = GameData.getGridSize();
+        final Button[] mButtons = new Button[gridSize];
+
         // Set Listeners and Buttons' Text
-        for (int i = 0; i < mButtons.length; i++) {
+        for (int i = 0; i < gridSize; i++) {
             final int j = i;
+            mButtons[i] = new Button(this);
+            mButtons[i].setLayoutParams(lp);
+            mButtons[i].setAllCaps(false);
+            mButtons[i].setTag(String.valueOf(i + 1));
             mButtons[i].setText(gameController.getGameData().getLanguageB()[i]);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,6 +139,30 @@ public class GameActivity extends AppCompatActivity {
                     gameController.fillWord(mButtons[j]);
                 }
             });
+        }
+
+        if(gridSize == 4)
+            for(int i = 0; i < 4; i++)
+                buttonBank3.addView(mButtons[i]);
+        else if(gridSize == 6) {
+            for (int i = 0; i < 3; i++) {
+                buttonBank2.addView(mButtons[i]);
+                buttonBank3.addView(mButtons[i + 3]);
+            }
+        }
+        else if(gridSize == 9) {
+            buttonBank1.addView(mButtons[0]);
+            for (int i = 1; i < 5; i++) {
+                buttonBank2.addView(mButtons[i]);
+                buttonBank3.addView(mButtons[i + 4]);
+            }
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                buttonBank1.addView(mButtons[i]);
+                buttonBank2.addView(mButtons[i + 4]);
+                buttonBank3.addView(mButtons[i + 8]);
+            }
         }
 
     }

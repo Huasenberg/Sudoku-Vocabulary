@@ -37,9 +37,9 @@ public class Word {
     @Override
     public String toString() {
         if(String.valueOf(score).length() > 1)
-            return score + "    " + english + " --- " + french;
-        else
             return score + "      " + english + " --- " + french;
+        else
+            return score + "        " + english + " --- " + french;
     }
 
     @Override
