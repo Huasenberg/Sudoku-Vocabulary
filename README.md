@@ -226,7 +226,7 @@
 
 ![55798221_430762367732051_8910319008884981760_n](/uploads/4b9744659457679aac83dc12735949a8/55798221_430762367732051_8910319008884981760_n.png)
 
-### **When**: The user presses on the level of difficulty with value '4'
+### **When**: The user presses on the level of difficulty with value '2' or '3'
 ### **Then**: The application will generate a medium difficulty puzzle for the user to solve 
 
 ![54350231_2292202104165148_8077165228283920384_n](/uploads/a227e8f252d57e5a180ffe053bdc9f14/54350231_2292202104165148_8077165228283920384_n.png)
@@ -237,7 +237,7 @@
 
 ![55819009_2266275993627459_7494780805546246144_n](/uploads/bd0d507e92cfbbe0eee6eaadd9b2ca5b/55819009_2266275993627459_7494780805546246144_n.png)
 
-### **When**: The user presses on the level of difficulty with value '2' or '3'
+### **When**: The user presses on the level of difficulty with value '4'
 ### **Then**: The application will generate a difficult puzzle for the user to solve 
 
 ![54350231_2292202104165148_8077165228283920384_n](/uploads/3a0fb97d2916eb13e4adc0d55fa33580/54350231_2292202104165148_8077165228283920384_n.png)
@@ -345,12 +345,6 @@
 
 - As a student who wants to practice my understanding of spoken words in the language that I am learning, I want a listening comprehension mode. In this mode, numbers will appear in the prefilled cells and the corresponding word in the language that I am learning will be read out to me when I press the number.
 
-### `Scenario`
-
-- Given: The user has solved multiple puzzles and would like to practie the words they have been having problems with 
-- When: The user makes a wrong guess of a particular cell in a sudoku puzzle
-- Then: The application will increase the difficulity of the word and with it, the chance of this word appearing in future puzzles increase
-
 ### `Test Driven Development`
 
 - When a user selects the "listening mode" from the main menu, the game will instead generate a board with numbers. If the user long presses a pre-filled number on the board, a Text-to-Speech function will be used and the language that the user knows will be spoken while the user tries to fill in the cells with words that they are trying to learn
@@ -369,16 +363,25 @@
 
 ### `Scenario 1`
 
-- Given: The user is in the process of solving a puzzle and has selected a certain cell that was not pre-filled 
-- When: The user clicks on the erase button in the top left corner
-- Then: The content of the cell gets erased and cell appears to be empty to the user
+### **Given**: The user is in the process of solving a puzzle and has selected a certain cell that was not pre-filled 
 
+![Screenshot_20190328-164547__1_](/uploads/3b5cf201f52d2b529d70383b96d74921/Screenshot_20190328-164547__1_.png)
+
+### **When**: The user clicks on the erase button in the top left corner
+### **Then**: The content of the cell gets erased and cell appears to be empty to the user
+
+![Screenshot_20190328-164554](/uploads/068944aec041a66008db8487a70e11e6/Screenshot_20190328-164554.png)
 
 ### `Scenario 2`
 
-- Given: The user is in the process of solving a puzzle and has selected a certain cell that was pre-filled 
-- When: The user clicks on the erase button in the top left corner
-- Then: The application does not allow the deletion of the cell content and a toast message appears with the message 'cannot erase pre-filled cell'
+### **Given**: The user is in the process of solving a puzzle and has selected a certain cell that was pre-filled 
+
+![Screenshot_20190328-164554](/uploads/068944aec041a66008db8487a70e11e6/Screenshot_20190328-164554.png)
+
+### **When**: The user clicks on the erase button in the top left corner
+### **Then**: The application does not allow the deletion of the cell content and a toast message appears with the message 'cannot erase pre-filled cell'
+
+![Screenshot_20190328-164600](/uploads/f28b3264e5c2dd2c1764fdb9fc2bf508/Screenshot_20190328-164600.png)
 
 ## 15. BETTER VICTORY DETECTION
 
