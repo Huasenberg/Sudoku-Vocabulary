@@ -37,8 +37,8 @@ public class GameData implements Parcelable {
         subGridSizeVerti = GameDataGenerator.getUNITY();
 
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach", "grapes", "banana", "pineapple"};
+        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche", "raisins", "banane", "ananas"};
         int random_word[] = new int[gridSize];
         int iCount;
         if (!wordlist.isEmpty()) {

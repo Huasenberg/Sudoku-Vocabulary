@@ -253,7 +253,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         GameDataGenerator.setSIZE(3,3);
                         break;
                     case 3:
-                        GameDataGenerator.setSIZE(3,4);
+                        GameDataGenerator.setSIZE(4,3);
                 }
 
                 GameDataGenerator.loadPuzzleData();
