@@ -19,6 +19,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
@@ -126,13 +130,21 @@ public class GameActivity extends AppCompatActivity {
         final Button[] mButtons = new Button[gridSize];
 
         // Set Listeners and Buttons' Text
+        ArrayList<Integer> randIntList = new ArrayList<Integer>();
+        for(int i = 0; i < gridSize; i++)
+        {
+            randIntList.add(i);
+        }
+        Random rand = new Random();
+        // Set Listeners and Buttons' Text
         for (int i = 0; i < gridSize; i++) {
             final int j = i;
+            int num = randIntList.remove(rand.nextInt(randIntList.size()));
             mButtons[i] = new Button(this);
             mButtons[i].setLayoutParams(lp);
             mButtons[i].setAllCaps(false);
-            mButtons[i].setTag(String.valueOf(i + 1));
-            mButtons[i].setText(gameController.getGameData().getLanguageB()[i]);
+            mButtons[i].setTag(String.valueOf(num + 1));
+            mButtons[i].setText(gameController.getGameData().getLanguageB()[num]);
             mButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
