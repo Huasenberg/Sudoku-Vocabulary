@@ -72,10 +72,10 @@ public class GameController {
     }
 
     private void checkGameResult() {
-        for(int i = 0; i < (gridSize - 1); i++) {
-            for (int j = 0; j < (gridSize - 1); j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
                 int currentCell = mGameData.getPuzzle()[i][j];
-                for (int k = 0; k < (gridSize - 1); k++) {
+                for (int k = 0; k < gridSize; k++) {
                     if (k != j && mGameData.getPuzzle()[i][k] == currentCell)
                         return;
                     if (k != i && mGameData.getPuzzle()[k][j] == currentCell)
