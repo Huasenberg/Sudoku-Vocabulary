@@ -169,21 +169,21 @@
 
 ### `Scenario 1`
 
-### **Given**: The user has finished solving the puzzle (filled in all the cells that were not pre-filled)
-### **When**: The user clicks on the 'check' button 
-### **Then**: A vicotry toast will appear on the screen accompanied by a victory sound
+- Given: The user has finished solving the puzzle (filled in all the cells that were not pre-filled)
+- When: The user clicks on the 'check' button 
+- Then: A vicotry toast will appear on the screen accompanied by a victory sound
 
 ### `Scenario 2`
 
-### **Given**: The user has not finished solving the puzzle (has not filled in all the cells that were not pre-filled) 
-### **When**: The user clicks on the 'check' button 
-### **Then**: A toast will appear on the screen telling the user that the puzzle is not completed yet
+- Given: The user has not finished solving the puzzle (has not filled in all the cells that were not pre-filled) 
+- When: The user clicks on the 'check' button 
+- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
 
 ### `Scenario 3`
 
-### **Given**: The user has finished solving the puzzle, but solved it incorrectly (filled in some or all the cells that were not prefilled with incorrect values)
-### **When**: The user clicks on the 'check' button 
-### **Then**: A toast will appear on the screen telling the user that the puzzle is not completed yet
+- Given: The user has finished solving the puzzle, but solved it incorrectly (filled in some or all the cells that were not prefilled with incorrect values)
+- When: The user clicks on the 'check' button 
+- Then: A toast will appear on the screen telling the user that the puzzle is not completed yet
 
 ## 8. APP ICON
 
@@ -307,10 +307,14 @@
 
 ### `Scenario 1`
 
-- Given: The user is in the main menu of the application 
-- When: The user presses on the import word list
-- Then: The application opens the device's file directory and allows the user to choose the desired csv file
+### **Given**: The user is in the main menu of the application
 
+![Screenshot_20190328-163859](/uploads/9ba0457a686723211785005c25e43f99/Screenshot_20190328-163859.png)
+
+### **When**: The user presses on the import word list
+### **Then**: The application opens the device's file directory and allows the user to choose the desired csv file
+
+![55759997_2151279198287373_6102627367694368768_n](/uploads/1080e17005d55ed6e52e79352fa8e995/55759997_2151279198287373_6102627367694368768_n.png)
 
 ### `Scenario 2`
 
@@ -337,7 +341,7 @@
 - When: The user makes a wrong guess of a particular cell in a sudoku puzzle
 - Then: The application will increase the difficulity of the word and with it, the chance of this word appearing in future puzzles increase
 
-## 13. LISTENING COMPREHENSION
+## 13. LISTENING COMPREHENSION [1]
 
 ### Status: **Implemented**
 
@@ -348,6 +352,30 @@
 ### `Test Driven Development`
 
 - When a user selects the "listening mode" from the main menu, the game will instead generate a board with numbers. If the user long presses a pre-filled number on the board, a Text-to-Speech function will be used and the language that the user knows will be spoken while the user tries to fill in the cells with words that they are trying to learn
+
+### `Scenario 1`
+
+- Given: that listening comprehension mode is enabled
+- When: the user initiates a new puzzle
+- Then: the user sees a standard Sudoku grid with some prefilled cells showing digits in the range 1..9 and all other cells empty
+
+### `Scenario 2`
+
+- Given: that the user is filling in the grid in listening comprehension mode, and that the grid includes a cell with the prefilled digit 4 and that word pair 4 is (green, vert)
+- When: the user presses the prefilled cell having the digit 4
+- Then: the user hears the word "vert" read out and pronounced in French.
+
+### `Scenario 3`
+
+- Given: that the user is filling in the grid in listening comprehension mode, and that the grid includes a cell with the prefilled digit 4 and that word pair 4 is (green, vert)
+- When: the user selects a non-prefilled cell to enter the word "green"
+- Then: the word "green" appears in the list of words that may be selected, but not in the fourth position
+
+### `Scenario 4`
+
+- Given: that the user is filling in the grid in listening comprehension mode,
+- When: the users presses a cell and hears the word "vert"
+- Then: the user does not see the word "vert" anywhere on the game grid
 
 ## 14. ERASE BUTTON
 
@@ -397,15 +425,25 @@
 
 ### `Scenario 1`
 
-- Given: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
-- When: The user fills in the last cell with the correct value
-- Then: The application shows a toast vicotry message accompanied with a victory sound file
+### **Given**: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
+
+![56173362_2853733077977836_7234541620320796672_n](/uploads/b82e98b0597bc230d471719ce60890dd/56173362_2853733077977836_7234541620320796672_n.png)
+
+### **When**: The user fills in the last cell with the correct value
+### **Then**: The application shows a toast vicotry message accompanied with a victory sound file
+
+![55788386_2182403741837489_510562300281749504_n](/uploads/489c1e27fa51611fe63a789fda3d8e24/55788386_2182403741837489_510562300281749504_n.png)
 
 ### `Scenario 2`
 
-- Given: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
-- When: The user fills in the last cell with the incorrect value
-- Then: The application game screen does not do any actions that indicates the completeness of the game
+### **Given**: The user has almost finished solving the puzzle (filled in all the cells that were not pre-filled except one)
+
+![56173362_2853733077977836_7234541620320796672_n](/uploads/b82e98b0597bc230d471719ce60890dd/56173362_2853733077977836_7234541620320796672_n.png)
+
+### **When**: The user fills in the last cell with the incorrect value
+### **Then**: The application game screen does not do any actions that indicates the completeness of the game
+
+![55686829_809700919401217_1034749216078954496_n](/uploads/7e6b1038cf209e9cad03dd5408c66ddf/55686829_809700919401217_1034749216078954496_n.png)
 
 ## 16. DIFFERENT DEVICES
 
@@ -439,9 +477,14 @@
 
 ### `Scenario`
 
-- Given: The user has the game installed on their device  
-- When: The user clicks on the application icon to open the game
-- Then: A welcoming message with an animation of the logo appears before the application proceeds to displaying the main menu 
+### **Given**: The user has the game installed on their device
+
+![Screenshot_20190328-163852](/uploads/cf3e14f38997248f6e5054f26fd7945f/Screenshot_20190328-163852.png)
+
+### **When**: The user clicks on the application icon to open the game
+### **Then**: A welcoming message with an animation of the logo appears before the application proceeds to displaying the main menu
+
+![56158213_2245117275527695_845553621767553024_n](/uploads/816cc6cec63222a52969542a43d4089f/56158213_2245117275527695_845553621767553024_n.png)
 
 ## **FOR ITERATION 3**
 
@@ -558,3 +601,4 @@
 ## **REFERENCES**
 
 - Code from https://github.com/Subh0m0y/Sudoku/blob/master/src/core/Generator.java by Subh0m0y was referenced when implementing feature three (Unique Puzzles)
+- [1] taken from SFU CMPT276 course website - Specification By Example, link: https://coursys.sfu.ca/2019sp-cmpt-276-e1/pages/SpecByExample
