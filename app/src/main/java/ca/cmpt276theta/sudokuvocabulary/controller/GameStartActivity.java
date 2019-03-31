@@ -2,12 +2,18 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +24,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
@@ -33,6 +40,8 @@ public class GameStartActivity extends AppCompatActivity {
     private int mNumOfWords;
     private Button startButton;
     private Spinner spinner;
+    private List<View> viewList;
+    private ViewPager viewPager;
 
 
     public static void setCheckBoxes(List<CheckBox> checkBoxes) {
@@ -43,22 +52,18 @@ public class GameStartActivity extends AppCompatActivity {
         return sCheckBoxes;
     }
 
+
     @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
-        new Handler().postDelayed(new Runnable(){
-            public void run(){
-                mLinearLayout.removeAllViews();
-            }
-        },200);
+    protected void onDestroy() {
+        super.onDestroy();
+        mLinearLayout.removeAllViews();
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
             finish();
-        }
         return true;
     }
 
@@ -75,7 +80,6 @@ public class GameStartActivity extends AppCompatActivity {
         loadSpinner();
         loadCheckBoxes();
         final SeekBar seekBar = findViewById(R.id.seekBar);
-        final SeekBar seekBar2 = findViewById(R.id.seek_bar_2);
         findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,16 +92,18 @@ public class GameStartActivity extends AppCompatActivity {
                 GameData.setListenMode(true);
             }
         });
-
+        viewPager = findViewById(R.id.viewpager);
         startButton = findViewById(R.id.button_start);
-        startButton.setOnClickListener(new View.OnClickListener(){
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(startButton.getCurrentTextColor() == getResources().getColor(R.color.subgrid))
+                if (startButton.getCurrentTextColor() == getResources().getColor(R.color.subgrid)) {
+                    startButton.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
                     GameController.showMessageToast(GameStartActivity.this, "Must Select " + mNumOfWords + " Pairs of Words", Gravity.CENTER);
+                }
                 else {
                     GameData.setDifficulty(seekBar.getProgress() + 1);
-                    switch (seekBar2.getProgress()) {
+                    switch (viewPager.getCurrentItem()) {
                         case 0:
                             GameDataGenerator.setSIZE(2, 2);
                             break;
@@ -116,7 +122,7 @@ public class GameStartActivity extends AppCompatActivity {
                 }
             }
         });
-        if(WordList.getSelectedWordList().size() < mNumOfWords)
+        if (WordList.getSelectedWordList().size() < mNumOfWords)
             startButton.setTextColor(getResources().getColor(R.color.subgrid));
         final TextView text = findViewById(R.id.textViewDif);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -124,45 +130,84 @@ public class GameStartActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 text.setText(String.format(getResources().getString(R.string.difficulty), seekBar.getProgress() + 1));
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
 
-        final TextView text2 = findViewById(R.id.textview_size);
-        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        PagerAdapter pagerAdapter = new PagerAdapter() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                switch (progress) {
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+                return view == o;
+            }
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView(viewList.get(position));
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                container.addView(viewList.get(position));
+                return viewList.get(position);
+            }
+        };
+
+        final LayoutInflater inflater = getLayoutInflater();
+        final View view1 = inflater.inflate(R.layout.grid_size_setter, null);
+        final View view2 = inflater.inflate(R.layout.grid_size_setter2, null);
+        final View view3 = inflater.inflate(R.layout.grid_size_setter3, null);
+        final View view4 = inflater.inflate(R.layout.grid_size_setter4, null);
+        view3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view3.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
+            }
+        });
+        viewList = new ArrayList<>();
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+        viewList.add(view4);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(2);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                switch (i) {
                     case 0:
-                        text2.setText("Grid Size: 4 x 4");
                         mNumOfWords = 4;
                         break;
                     case 1:
-                        text2.setText("Grid Size: 6 x 6");
                         mNumOfWords = 6;
                         break;
                     case 2:
-                        text2.setText("Grid Size: 9 x 9");
                         mNumOfWords = 9;
                         break;
                     case 3:
-                        text2.setText("Grid Size: 12 x 12");
                         mNumOfWords = 12;
                 }
                 loadCheckBoxes();
             }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onPageScrollStateChanged(int i) {
 
             }
         });
@@ -185,32 +230,35 @@ public class GameStartActivity extends AppCompatActivity {
     }
 
     private void loadCheckBoxes() {
-        mLinearLayout.removeAllViews();
-        final List<Word> wordList = WordList.getSelectedWordList();
-        for(int i = 0; i < sCheckBoxes.size(); i++) {
-            sCheckBoxes.get(i).setChecked(false);
-            mLinearLayout.addView(sCheckBoxes.get(i));
-            final int j = i;
-            sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        wordList.add(WordList.getOriginalWordList().get(j));
-                        if(wordList.size() == mNumOfWords) {
-                            startButton.setTextColor(getResources().getColor(R.color.background));
+        if(WordList.getOriginalWordList().isEmpty())
+            findViewById(R.id.empty_image).setVisibility(View.VISIBLE);
+        else {
+            final List<Word> wordList = WordList.getSelectedWordList();
+            for (int i = 0; i < sCheckBoxes.size(); i++) {
+                sCheckBoxes.get(i).setChecked(false);
+                mLinearLayout.removeView(sCheckBoxes.get(i));
+                mLinearLayout.addView(sCheckBoxes.get(i));
+                final int j = i;
+                sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            wordList.add(WordList.getOriginalWordList().get(j));
+                            if (wordList.size() == mNumOfWords) {
+                                startButton.setTextColor(getResources().getColor(R.color.background));
+                                for (int k = 0; k < sCheckBoxes.size(); k++)
+                                    if (!sCheckBoxes.get(k).isChecked())
+                                        sCheckBoxes.get(k).setEnabled(false);
+                            }
+                        } else {
+                            wordList.remove(WordList.getOriginalWordList().get(j));
+                            startButton.setTextColor(getResources().getColor(R.color.subgrid));
                             for (int k = 0; k < sCheckBoxes.size(); k++)
-                                if (!sCheckBoxes.get(k).isChecked())
-                                    sCheckBoxes.get(k).setEnabled(false);
+                                sCheckBoxes.get(k).setEnabled(true);
                         }
                     }
-                    else {
-                        wordList.remove(WordList.getOriginalWordList().get(j));
-                        startButton.setTextColor(getResources().getColor(R.color.subgrid));
-                        for (int k = 0; k < sCheckBoxes.size(); k++)
-                            sCheckBoxes.get(k).setEnabled(true);
-                    }
-                }
-            });
+                });
+            }
         }
     }
 }

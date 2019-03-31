@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/button_bank1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -77,9 +78,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
                 <!--<Button
                     android:id="@+id/button0"
@@ -110,10 +111,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
                 <!--<Button
                     android:id="@+id/button3"
@@ -144,10 +146,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank3"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
                 <!--<Button
                     android:id="@+id/button6"
