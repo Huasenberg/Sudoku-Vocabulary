@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameController {
@@ -38,8 +39,8 @@ public class GameController {
         this.mPopupWindow = popupWindow;
         gridSize = GameData.getGridSize();
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
-        subGridSizeHori = GameData.getSubGridSizeHori();
-        subGridSizeVerti = GameData.getSubGridSizeVerti();
+        subGridSizeHori = GameDataGenerator.getUNITX();
+        subGridSizeVerti = GameDataGenerator.getUNITY();
     }
 
     public GameData getGameData() {
@@ -67,10 +68,10 @@ public class GameController {
     }
 
     private void checkGameResult() {
-        for(int i = 0; i < (gridSize - 1); i++) {
-            for (int j = 0; j < (gridSize - 1); j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
                 int currentCell = mGameData.getPuzzle()[i][j];
-                for (int k = 0; k < (gridSize - 1); k++) {
+                for (int k = 0; k < gridSize; k++) {
                     if (k != j && mGameData.getPuzzle()[i][k] == currentCell)
                         return;
                     if (k != i && mGameData.getPuzzle()[k][j] == currentCell)

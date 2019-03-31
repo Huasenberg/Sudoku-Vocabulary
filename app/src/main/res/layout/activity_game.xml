@@ -53,15 +53,13 @@
 
         <LinearLayout
             android:id="@+id/button_bank1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:weightSum="1">
+            android:layout_marginTop="5dp">
 
-            <!--<Button
+        <!--<Button
                 android:id="@+id/button0"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
@@ -78,10 +76,9 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:weightSum="1">
+            android:layout_marginEnd="13dp">
 
-            <!--<Button
+        <!--<Button
                 android:id="@+id/button1"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
@@ -125,10 +122,9 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginStart="13dp"
-            android:layout_marginEnd="13dp"
-            android:weightSum="1">
+            android:layout_marginEnd="13dp">
 
-            <!--<Button
+        <!--<Button
                 android:id="@+id/button5"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"

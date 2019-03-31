@@ -42,12 +42,23 @@ public class GameDataGenerator {
             for (int j = 0; j < SIZE; j++) //}
 //                int i = 0;
 //        array[0][2] = 1;
-                array[i][j] = (i * UNITY + i / UNITX + j) % SIZE + 1;
+                //array[i][j] = (i * UNITY + i / UNITX + j) % SIZE + 1;  //this is for rows of 2 and columns of 3
+                array[i][j] = (i * UNITX + i / UNITY + j) % SIZE + 1; // this is for rows of 3 and columns of 2
 //            }
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
-            if (isPerfectSquare(SIZE)){ if (random.nextBoolean()) transpose(array);}
+            if (!isPerfectSquare(SIZE)){
+                if (random.nextBoolean()) {
+                    transpose(array);
+                    //insert code on rotating grid AKA redraw the grid with x and y dimensions flipped
+                    //perhaps one way about this is to:
+//                GameDataGenerator.UNITX = y;
+//                GameDataGenerator.UNITY = x;
+//                    insert code on redrawing the grid here
+                }
+            }
+            if (random.nextBoolean()) transpose(array);
             if (random.nextBoolean()) shuffleSquareRows(array);
             if (random.nextBoolean()) shuffleSingleRows(array);
 //            if (random.nextBoolean() shuffleSquareCols(array));
@@ -89,8 +100,8 @@ public class GameDataGenerator {
      */
     private static void shuffleSquareRows(int[][] array) {
         Random random = new Random();
-        for (int i = 0; i < UNITY - 1; i++) {
-            int j = 1 + i + random.nextInt(UNITY - 1 - i);
+        for (int i = 0; i < UNITX - 1; i++) {
+            int j = 1 + i + random.nextInt(UNITX - 1 - i);
             swapSquareRows(array, i, j);
         }
     }
@@ -103,9 +114,9 @@ public class GameDataGenerator {
      */
     private static void shuffleSingleRows(int[][] array) {
         Random random = new Random();
-        for (int i = 0; i < UNITY; i++) {
-            int start = i * UNITX;
-            int limit = start + UNITX - 1;
+        for (int i = 0; i < UNITX; i++) {
+            int start = i * UNITY;
+            int limit = start + UNITY - 1;
             for (int j = start; j < limit; j++) {
                 int k = start + 1 + random.nextInt(limit - j);
                 swapSingleRows(array, j, k);
@@ -136,11 +147,11 @@ public class GameDataGenerator {
      */
     private static void swapSquareRows(int[][] array, int i, int j) {
         //if (i == j) return;
-        int[][] temp = new int[UNITX][SIZE];
-        int iStart = i * UNITX;
-        int jStart = j * UNITX;
-        int iLimit = iStart + UNITX;
-        int jLimit = jStart + UNITX;
+        int[][] temp = new int[UNITY][SIZE];
+        int iStart = i * UNITY;
+        int jStart = j * UNITY;
+        int iLimit = iStart + UNITY;
+        int jLimit = jStart + UNITY;
         System.out.println("i = " + i);
         System.out.println("j = " + j);
 
@@ -162,3 +173,4 @@ public class GameDataGenerator {
         }
     }
 }
+
