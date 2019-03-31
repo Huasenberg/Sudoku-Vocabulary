@@ -240,7 +240,7 @@
 ### **When**: The user presses on the level of difficulty with value '4'
 ### **Then**: The application will generate a difficult puzzle for the user to solve 
 
-![54350231_2292202104165148_8077165228283920384_n](/uploads/3a0fb97d2916eb13e4adc0d55fa33580/54350231_2292202104165148_8077165228283920384_n.png)
+![56225987_2303163643288099_5416660406930243584_n](/uploads/e2b8a52c348ab0213e9991f8671f3c9c/56225987_2303163643288099_5416660406930243584_n.png)
 
 # MARKDOWN SUDOKU VOCABULARY
 
