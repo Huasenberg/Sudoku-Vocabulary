@@ -50,7 +50,7 @@ public class GameDataGenerator {
         for (int i = 0; i < limit; i++) {
             if (!isPerfectSquare(SIZE)){
                 if (random.nextBoolean()) {
-                    transpose(array);
+                    //transpose(array);
                     //insert code on rotating grid AKA redraw the grid with x and y dimensions flipped
                     //perhaps one way about this is to:
 //                GameDataGenerator.UNITX = y;
