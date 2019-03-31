@@ -16,12 +16,12 @@
 
 ### `Scenario`
 
-### **Given**: The user is filling the grid in either the listening compreshsion mode or the normal mode
+### **Given**: The user is filling the grid in either the listening compreshsion mode or the reading mode
 
 ![Screenshot_20190328-163633](/uploads/4c5619902e4f69c1722cc5d40968bfcd/Screenshot_20190328-163633.png)
 
-### **When**: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-cell
-### **Then**: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in red color 
+### **When**: The user fills in a cell with a duplicate value, a value that already exists in the row or the column or the sub-grid
+### **Then**: All the cells containing duplicate values and violate the row, column or cell rules get highlighted in with a red hue 
 
 ![Screenshot_20190328-163644](/uploads/0e1bf7f350d9b20c133db72a88f96e90/Screenshot_20190328-163644.png)
 
@@ -264,12 +264,12 @@
 
 ### `Scenario`
 
-### **Given**: The user has the application installed on a tablet device
+### **Given**: The user wants to play the game in landscape mode
 
 ![Screenshot_20190328-163859__1_](/uploads/7bf2af72caa226b99f11671b24305986/Screenshot_20190328-163859__1_.png)
 
-### **When**: The user clicks on the application icon and rotate the screen 90 degrees (making it in landscape view)
-### **Then**: The application screen (with the buttons, grid and all the subelements) will rotate as well to fit the landscape view 
+### **When**: The user clicks on the application icon and rotates the screen 90 degrees (changing to landscape mode from portrait mode)
+### **Then**: The application screen (with the buttons, grid and all the subelements) will rotate to fit the landscape view 
 
 ![Screenshot_20190328-164311](/uploads/3e16d46621d3fb63d97b51930848de26/Screenshot_20190328-164311.png)
 
@@ -311,8 +311,9 @@
 
 ![Screenshot_20190328-163859](/uploads/9ba0457a686723211785005c25e43f99/Screenshot_20190328-163859.png)
 
-### **When**: The user presses on the import word list
-### **Then**: The application opens the device's file directory and allows the user to choose the desired csv file
+### **When**: The user presses on the "Import Word List" button
+
+### **Then**: The application opens the device's file directory and allows the user to choose the desired CSV file
 
 ![55759997_2151279198287373_6102627367694368768_n](/uploads/1080e17005d55ed6e52e79352fa8e995/55759997_2151279198287373_6102627367694368768_n.png)
 
@@ -337,9 +338,9 @@
 
 ### `Scenario`
 
-- Given: The user has solved multiple puzzles and would like to practie the words they have been having problems with 
-- When: The user makes a wrong guess of a particular cell in a sudoku puzzle
-- Then: The application will increase the difficulity of the word and with it, the chance of this word appearing in future puzzles increase
+- Given: The user has solved multiple puzzles and would like to practice the words they have been having problems with 
+- When: The user makes a wrong answer of a particular cell in the sudoku puzzle
+- Then: The application will increase the "score" of the word and thus, increasing the chance of the word appearing in future puzzles
 
 ## 13. LISTENING COMPREHENSION [1]
 
@@ -357,7 +358,7 @@
 
 - Given: that listening comprehension mode is enabled
 - When: the user initiates a new puzzle
-- Then: the user sees a standard Sudoku grid with some prefilled cells showing digits in the range 1..9 and all other cells empty
+- Then: the user sees a standard Sudoku grid with some prefilled cells showing digits in the range 1...9 (1 and 9 inclusive) and all other cells empty
 
 ### `Scenario 2`
 
@@ -395,7 +396,7 @@
 
 ![Screenshot_20190328-164547__1_](/uploads/3b5cf201f52d2b529d70383b96d74921/Screenshot_20190328-164547__1_.png)
 
-### **When**: The user clicks on the erase button in the top left corner
+### **When**: The user clicks on the erase button in the top-left corner
 ### **Then**: The content of the cell gets erased and cell appears to be empty to the user
 
 ![Screenshot_20190328-164554](/uploads/068944aec041a66008db8487a70e11e6/Screenshot_20190328-164554.png)
@@ -459,9 +460,11 @@
 
 ### `Scenario`
 
-- Given: The user has installed the game on tablet device 
-- When: The user clicks on the application icon to open the game
-- Then: The welcoming message and the application screen with all the subelements (grid, buttons, images ... etc.) get optimized to fit the screen of the tablet device 
+### **Given**: The user has installed the game on tablet device 
+
+### **When**: The user clicks on the application icon to open the game
+
+### **Then**: The entirety of the application with all the subelements (grid, buttons, images ... etc.) gets optimized to fit the screen of the tablet device 
 
 ## 17. SPLASH SCREEN
 
@@ -499,6 +502,14 @@
 ### `Test Driven Development`
 
 - When a user clicks the night mode button, the colours of the app will change to a darker scheme
+ 
+### `Scenario`
+
+### **Given**: The user is playing the game in the dark or just wants to use a dark colour scheme
+
+### **When**: The user clicks the "moon" icon on the menu of the app or in the game or in the settings
+
+### **Then**: The app will get a dark colour scheme to the app that is easier on the eyes when in a dark room
 
 ## 19. PAUSE
 
@@ -512,6 +523,14 @@
 
 - When a user touches the "pause" button, the timer will pause and a "pause screen" will be displayed (it should be big enough to block the board)
 
+### `Scenario`
+
+### **Given**: The user needs to do a different task other than playing the game and does not want the timer to keep increasing
+
+### **When**: The user clicks the "pause" icon in the game
+
+### **Then**: A pause screen will appear over the app and the timer will be paused so that the user can't also cheat to solve the game.
+
 ## 20. BACK (TO MENU) BUTTON
 
 ### Status: **Not Started**
@@ -523,6 +542,14 @@
 ### `Test Driven Development`
 
 - When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
+
+### `Scenario`
+
+### **Given**:
+
+### **When**:
+
+### **Then**:
 
 ## 21. HOW-TO-PLAY BUTTON
 
@@ -536,6 +563,14 @@
 
 - When a beignner to Sudoku selects the "help button," a popup will explain the rules to Sudoku and pausing the timer of the game. (Help button in Main Menu and in-game?)
 
+### `Scenario`
+
+### **Given**: The user downloads the app for the first time and has no idea how to play the game
+
+### **When**: The user clicks on the "information" icon
+
+### **Then**: The user will be prompted with a screen that explains the rules of the game and the features of the game to help the user solve the puzzle
+
 ## 22. SAVED BOARDS
 
 ### Status: **Not Started**
@@ -547,6 +582,14 @@
 ### `Test Driven Development`
 
 - When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
+
+### `Scenario`
+
+### **Given**:
+
+### **When**:
+
+### **Then**:
 
 ## 23. RESET WORDLIST SCORE DATABASE
 
@@ -560,6 +603,14 @@
 
 - When a user decides to click "clear statistics", the scores for each word will be zeroed
 
+### `Scenario`
+
+### **Given**: The user has practiced a lot and mastered the words that they were having difficulty with from earlier gameplays
+
+### **When**: The user decides to click the "reset word scores" button
+
+### **Then**: The scores of all the words in the database will be reset to 1
+
 ## 24. UI WORDLIST DATABASE
 
 ### Status: **Not Started**
@@ -571,6 +622,14 @@
 ### `Test Driven Development`
 
 - When a user decides to press the "list of words" button, the user will be taken to another screen showing the list of words and the score of the words
+
+### `Scenario`
+
+### **Given**: The user wants to see what words are contained in the database
+
+### **When**: The user clicks on the ____ button
+
+### **Then**: The user is prompted with another screen that shows all the words that are in the database and its score
 
 ## 25. DIFFERENT LANGUAGES
 
@@ -586,6 +645,14 @@
 
 - TTS will also use the appropriate locale for the different language inputs
 
+### `Scenario`
+
+### **Given**: The user wants to learn different languages other than french and english
+
+### **When**: The user imports a CSV with words from other languages
+
+### **Then**: _____
+
 ## 26. JSON SUPPORT
 
 ### Status: **Not Started**
@@ -597,6 +664,14 @@
 ### `Test Driven Development`
 
 - When a user selects a JSON file instead of a CSV file, the appropriate reader will be used for the file selected.
+
+### `Scenario`
+
+### **Given**: The user has a JSON file instead of a CSV file
+
+### **When**: The user presses the "Import Word List" button and selects a JSON file instead of a CSV file
+
+### **Then**: The app will read the JSON file accordingly
 
 ## **REFERENCES**
 
