@@ -74,9 +74,8 @@ public class GameStartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
         spinner = findViewById(R.id.spinner);
-
         mLinearLayout = findViewById(R.id.checkboxs);
-        mNumOfWords = 4;
+        mNumOfWords = 9;
         loadSpinner();
         loadCheckBoxes();
         final SeekBar seekBar = findViewById(R.id.seekBar);
