@@ -11,10 +11,13 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
 import java.util.Locale;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class GameView extends View {

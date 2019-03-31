@@ -7,10 +7,13 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import ca.cmpt276theta.sudokuvocabulary.model.Word;
+
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
-import static org.junit.Assert.*;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameDataTest {
 

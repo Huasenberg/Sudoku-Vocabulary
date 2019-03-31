@@ -18,8 +18,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class GameActivity extends AppCompatActivity {
