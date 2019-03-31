@@ -9,6 +9,7 @@ public class GameDataGenerator {
     private static int SIZE;
     private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
+    private static boolean flipped = false;
 
     public static int getUNITX() {
         return UNITX;
@@ -37,6 +38,7 @@ public class GameDataGenerator {
     }
 
     private static int[][] generateSolved() {
+        flipped = false;
         int[][] array = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++) //}
@@ -83,6 +85,7 @@ public class GameDataGenerator {
      * @param array The array to be transposed.
      */
     private static void transpose(int[][] array) {
+        flipped = !flipped;
         System.out.println("array.length = "+array.length);
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
@@ -171,5 +174,10 @@ public class GameDataGenerator {
         for (int k = jStart, l = 0; k < jLimit; k++, l++) {
             System.arraycopy(temp[l], 0, array[k], 0, SIZE);
         }
+    }
+    public static boolean isFlipped()
+    {
+        System.out.println(flipped);
+        return flipped;
     }
 }
