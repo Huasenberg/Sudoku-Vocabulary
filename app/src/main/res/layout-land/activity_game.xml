@@ -2,184 +2,171 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="@color/background"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="horizontal">
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="2.8dp"
         android:layout_weight="0.8"
-        android:padding="2dp"
         android:background="@color/border"
-        android:layout_margin="2.8dp">
+        android:padding="2dp">
 
         <FrameLayout
             android:id="@+id/gameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background">
-        </FrameLayout>
+            android:background="@color/background"></FrameLayout>
 
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="0.5"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_weight="0.5">
+        android:padding="5dp"
+        android:weightSum="12">
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="end">
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/mode"
+                android:id="@+id/game_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:background="@drawable/button_shape"
-                android:text="@string/languageA_to_languageB"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:paddingStart="6dp"
-                android:paddingEnd="6dp"
                 android:paddingTop="3dp"
+                android:paddingEnd="6dp"
                 android:paddingBottom="3dp"
-                android:textColor="@color/background"/>
+                android:text="@string/languageA_to_languageB"
+                android:textColor="@color/background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Chronometer
                 android:id="@+id/chronometer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
                 android:layout_gravity="end"
+                android:layout_marginEnd="5dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/removeOne"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:drawablePadding="-4dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/erase"
-                android:textSize="12sp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                android:layout_gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/restart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:drawablePadding="-3dp"
+                    android:text="@string/restart"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:drawablePadding="-3dp"
+                    android:text="@string/pause"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/remove_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:drawablePadding="-3dp"
+                    android:text="@string/erase"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="bottom"
+            android:layout_weight="5"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/button_bank4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="3">
 
-                <Button
-                    android:id="@+id/button0"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="1"
-                    android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/button1"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="2"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/button2"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="3"
-                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <Button
-                    android:id="@+id/button3"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="4"
-                    android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/button4"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="5"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/button5"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="6"
-                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <Button
-                    android:id="@+id/button6"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="7"
-                    android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/button7"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="8"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/button8"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="9"
-                    android:textAllCaps="false" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/button_bank3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+            </LinearLayout>
+
         </LinearLayout>
 
-    </FrameLayout>
-
+    </LinearLayout>
 
 
 </LinearLayout>
+

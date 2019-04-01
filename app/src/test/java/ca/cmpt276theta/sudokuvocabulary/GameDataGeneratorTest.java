@@ -1,52 +1,84 @@
 package ca.cmpt276theta.sudokuvocabulary;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 
-import static org.junit.Assert.fail;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameDataGeneratorTest {
-    private GameDataGenerator mGameDataGenerator;
+
+    private GameDataGenerator myGDG;
+
     @Before
-    public void setUp() {
-        GameDataGenerator.loadPuzzleData();
-        mGameDataGenerator = new GameDataGenerator();
+    public void setUp() throws Exception {
+        myGDG = new GameDataGenerator();
     }
 
     @After
-    public void tearDown() {
-        mGameDataGenerator = null;
+    public void tearDown() throws Exception {
+        myGDG = null;
+    }
+
+    @Test
+    public void getUNITX() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getUNITX(), i);
+            }
+        }
+    }
+
+    @Test
+    public void getUNITY() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getUNITY(), j);
+            }
+        }
+    }
+
+
+    @Test
+    public void getSIZE() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getSIZE(), i * j);
+            }
+        }
     }
 
     @Test
     public void loadPuzzleData() {
-        Assert.assertNotEquals(null, GameDataGenerator.getSolvedPuzzle());
+    }
+
+    @Test
+    public void setSIZE() {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getSIZE(), i * j);
+            }
+        }
+    }
+
+    @Test
+    public void isPerfectSquare() {
+        int square;
+        for (int i = 0; i < 100; i++) {
+            square = i * i;
+            assertTrue(GameDataGenerator.isPerfectSquare(square));
+        }
     }
 
     @Test
     public void getSolvedPuzzle() {
-        int[][] solvedPuzzle = GameDataGenerator.getSolvedPuzzle();
-        for(int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int currentCell = solvedPuzzle[i][j];
-                for (int k = 0; k < 9; k++) {
-                    if (k != j && solvedPuzzle[i][k] == currentCell)
-                        fail();
-                    if (k != i && solvedPuzzle[k][j] == currentCell)
-                        fail();
-                }
-                int tempRow = i / 3 * 3;
-                int tempCol = j / 3 * 3;
-                for (int row = tempRow; row < tempRow + 3; row++)
-                    for (int col = tempCol; col < tempCol + 3; col++)
-                        if (row != i && col != j && solvedPuzzle[row][col] == currentCell)
-                            fail();
-            }
-        }
+
     }
 }

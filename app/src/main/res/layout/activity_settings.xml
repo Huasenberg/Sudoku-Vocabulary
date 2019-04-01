@@ -9,31 +9,34 @@
         android:id="@+id/return_to_main_menu_2"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_margin="23dp"
         android:layout_gravity="start|top"
+        android:layout_margin="23dp"
         android:scaleType="centerInside"
-        android:src="@drawable/return_icon"/>
+        android:src="@drawable/return_icon" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="@string/settings"
-        android:textSize="23sp"/>
+        android:textSize="23sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginTop="80dp"
         android:gravity="center_horizontal"
-        android:padding="15dp"
-        android:layout_marginTop="80dp">
+        android:orientation="vertical"
+        android:padding="15dp">
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Sound Effects"
             android:textSize="20sp" />
+
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,14 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
-            android:textSize="18sp"
+            android:text="This page has not been developed yet."
             android:textColor="#E20505"
-            android:text="This page has not been developed yet." />
+            android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:text="All switches are unavailable."
             android:textColor="#E20505"
-            android:text="All switches are unavailable." />
+            android:textSize="18sp" />
     </LinearLayout>
 </FrameLayout>

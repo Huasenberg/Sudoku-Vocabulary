@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.controller;
+package ca.cmpt276theta.sudokuvocabulary.model;
 
 public class Word {
     private String english;
@@ -36,15 +36,15 @@ public class Word {
 
     @Override
     public String toString() {
-        if(String.valueOf(score).length() > 1)
-            return score + "   " + english + " -- " + french;
+        if (String.valueOf(score).length() > 1)
+            return score + "      " + english + " --- " + french;
         else
-            return score + "     " + english + " -- " + french;
+            return score + "        " + english + " --- " + french;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
+        if (obj == null)
             return false;
         return english.equals(((Word) obj).getEnglish()) && french.equals(((Word) obj).getFrench());
     }
