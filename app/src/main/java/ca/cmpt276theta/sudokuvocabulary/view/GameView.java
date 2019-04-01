@@ -17,6 +17,7 @@ import java.util.Locale;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -46,8 +47,21 @@ public class GameView extends View {
         mTouchPositionY = -1;
         mTTSHandler = new TTSHandler(context);
         gridSize = GameData.getGridSize();
-        subGridSizeHori = GameData.getSubGridSizeHori();
-        subGridSizeVerti = GameData.getSubGridSizeVerti();
+        if(GameDataGenerator.isFlipped())
+        {
+//            subGridSizeHori = GameData.getSubGridSizeVerti();
+//            subGridSizeVerti = GameData.getSubGridSizeHori();
+            subGridSizeHori = GameDataGenerator.getUNITY();
+            subGridSizeVerti = GameDataGenerator.getUNITX();
+            GameDataGenerator.setflipped(false);
+        }
+        else
+        {
+//            subGridSizeHori = GameData.getSubGridSizeHori();
+//            subGridSizeVerti = GameData.getSubGridSizeVerti();
+            subGridSizeHori = GameDataGenerator.getUNITX();
+            subGridSizeVerti = GameDataGenerator.getUNITY();
+        }
     }
 
 
@@ -285,6 +299,9 @@ public class GameView extends View {
         final Paint borderPaint = new Paint();
         borderPaint.setColor(getResources().getColor(R.color.border));
         borderPaint.setStrokeWidth(5);
+
+
+
         for(int i = 1; i < subGridSizeVerti; i++) {
             final float vertex = i * mGridWidth * subGridSizeHori;
             canvas.drawLine(vertex, 0, vertex, girdEdgeVertical, borderPaint);
