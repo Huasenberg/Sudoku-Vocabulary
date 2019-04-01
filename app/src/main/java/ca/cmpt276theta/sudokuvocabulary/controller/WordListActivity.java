@@ -51,8 +51,10 @@ public class WordListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
+        if(isDeletionMode)
+            finishDelButton.performClick();
         mLinearLayout_textViewList.removeAllViews();
     }
 
@@ -233,11 +235,12 @@ public class WordListActivity extends AppCompatActivity {
         final Drawable drawable = getResources().getDrawable(R.drawable.delete_word);
         final int[] attrs = new int[]{android.R.attr.selectableItemBackground};
         final TypedArray a = getTheme().obtainStyledAttributes(attrs);
-        drawable.setBounds(7, 5, 74, 72);
+        drawable.setBounds(0, 5, 68, 72);
         for (TextView textView : sTextViews) {
             textView.setBackground(a.getDrawable(0));
             textView.setCompoundDrawables(drawable, null, null, null);
             textView.setCompoundDrawablePadding(17);
+            //textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             mLinearLayout_textViewList.addView(textView);
         }
         setDeletionModeListener();
