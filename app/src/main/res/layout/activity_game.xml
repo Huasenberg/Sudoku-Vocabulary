@@ -118,7 +118,7 @@
 
         <LinearLayout
             android:id="@+id/button_bank1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
@@ -130,7 +130,7 @@
 
         <LinearLayout
             android:id="@+id/button_bank2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
@@ -142,7 +142,7 @@
 
         <LinearLayout
             android:id="@+id/button_bank3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
