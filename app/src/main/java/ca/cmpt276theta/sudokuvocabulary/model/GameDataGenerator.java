@@ -66,7 +66,7 @@ public class GameDataGenerator {
         return array;
     }
 
-    static boolean isPerfectSquare(double x)
+    public static boolean isPerfectSquare(double x)
     {
 
         // Find floating point value of

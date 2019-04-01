@@ -1,8 +1,10 @@
-package ca.cmpt276theta.sudokuvocabulary.model;
+package ca.cmpt276theta.sudokuvocabulary;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 
 import static org.junit.Assert.*;
 
