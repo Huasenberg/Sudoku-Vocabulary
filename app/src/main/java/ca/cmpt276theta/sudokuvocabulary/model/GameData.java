@@ -2,12 +2,12 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import ca.cmpt276theta.sudokuvocabulary.controller.Word;
 
 public class GameData implements Parcelable {
     private int mEmptyCellCounter;
@@ -22,34 +22,32 @@ public class GameData implements Parcelable {
     private static int sLanguageMode;
     private static boolean sIsListenMode = false;
     private static ArrayList<Word> wordlist;
-    private static int gridSize = 6;
+    private static int gridSize;
     private static int subGridSizeHori;
     private static int subGridSizeVerti;
 
     public GameData() {
+        gridSize = GameDataGenerator.getSIZE();
         mEmptyCellCounter = 0;
-        mGridContent = new String[9][9];
-        mPuzzle = new int[9][9];
-        mPuzzlePreFilled = new int[9][9];
+        mGridContent = new String[gridSize][gridSize];
+        mPuzzle = new int[gridSize][gridSize];
+        mPuzzlePreFilled = new int[gridSize][gridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
-        subGridSizeVerti = (int)Math.sqrt(gridSize);
-        if(gridSize == 4 || gridSize == 9)
-            subGridSizeHori = subGridSizeVerti;
-        else
-            subGridSizeHori = subGridSizeVerti + 1;
+        subGridSizeHori = GameDataGenerator.getUNITX();
+        subGridSizeVerti = GameDataGenerator.getUNITY();
 
         // Pairing the words with numbers
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach"};
-        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche"};
-        int random_word[] = new int[9];
+        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach", "grapes", "banana", "pineapple"};
+        String[] wordBank2 ={"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche", "raisins", "banane", "ananas"};
+        int random_word[] = new int[gridSize];
         int iCount;
         if (!wordlist.isEmpty()) {
-            for (iCount = 0; iCount < wordBank1.length; iCount++) {
+            for (iCount = 0; iCount < gridSize; iCount++) {
                 random_word[iCount] = random_weighted_scores(wordlist);
                 //System.out.println("randomlist" + Arrays.toString(random_word));
             }
-                for (iCount = 0; iCount < wordBank1.length; iCount++) {
+                for (iCount = 0; iCount < gridSize; iCount++) {
                 wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
                 wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
                 //System.out.println("USING"+wordlist.get(iCount).getEnglish());
@@ -188,8 +186,8 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
                 if(random.nextInt(7) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];

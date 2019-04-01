@@ -13,10 +13,13 @@ import android.widget.Chronometer;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameController {
@@ -53,7 +56,7 @@ public class GameController {
     public void fillWord(Button button) {
         final int positionX = mGameView.getTouchPositionX();
         final int positionY = mGameView.getTouchPositionY();
-        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
+        if(positionX < 0 || positionX > (gridSize - 1) || positionY < 0 || positionY > (gridSize - 1))
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
             showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell");
@@ -71,10 +74,10 @@ public class GameController {
     }
 
     private void checkGameResult() {
-        for(int i = 0; i < (gridSize - 1); i++) {
-            for (int j = 0; j < (gridSize - 1); j++) {
+        for(int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
                 int currentCell = mGameData.getPuzzle()[i][j];
-                for (int k = 0; k < (gridSize - 1); k++) {
+                for (int k = 0; k < gridSize; k++) {
                     if (k != j && mGameData.getPuzzle()[i][k] == currentCell)
                         return;
                     if (k != i && mGameData.getPuzzle()[k][j] == currentCell)
