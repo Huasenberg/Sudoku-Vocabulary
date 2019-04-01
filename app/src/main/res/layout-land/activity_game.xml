@@ -75,12 +75,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/button_bank1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <!--<Button
                     android:id="@+id/button0"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
@@ -105,16 +105,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:tag="3"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false" />-->
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <!--<Button
                     android:id="@+id/button3"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
@@ -139,41 +139,41 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:tag="6"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false" />-->
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/button_bank3"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button6"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="7"
-                    android:textAllCaps="false" />
+                <!-- <Button
+                     android:id="@+id/button6"
+                     style="@style/Widget.AppCompat.Button"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:tag="7"
+                     android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/button7"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="8"
-                    android:textAllCaps="false" />
+                 <Button
+                     android:id="@+id/button7"
+                     style="@style/Widget.AppCompat.Button"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:tag="8"
+                     android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/button8"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:tag="9"
-                    android:textAllCaps="false" />
+                 <Button
+                     android:id="@+id/button8"
+                     style="@style/Widget.AppCompat.Button"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:tag="9"
+                     android:textAllCaps="false" />-->
             </LinearLayout>
         </LinearLayout>
 
