@@ -23,17 +23,19 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_weight="0.5">
+        android:padding="5dp"
+        android:layout_weight="0.5"
+        android:weightSum="12">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_gravity="end">
+            android:layout_gravity="end"
+            android:layout_weight="7">
             <TextView
                 android:id="@+id/mode"
                 android:layout_width="wrap_content"
@@ -70,15 +72,57 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="5">
+
+            <LinearLayout
+                android:id="@+id/button_bank4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <!--<Button
+                    android:id="@+id/button0"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:tag="1"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/button1"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:tag="2"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/button2"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:tag="3"
+                    android:textAllCaps="false" />-->
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/button_bank1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:gravity="center">
 
                 <!--<Button
                     android:id="@+id/button0"
@@ -111,8 +155,11 @@
             <LinearLayout
                 android:id="@+id/button_bank2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:gravity="center">
 
                 <!--<Button
                     android:id="@+id/button3"
@@ -145,8 +192,11 @@
             <LinearLayout
                 android:id="@+id/button_bank3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:gravity="center">
 
                 <!-- <Button
                      android:id="@+id/button6"
@@ -175,9 +225,10 @@
                      android:tag="9"
                      android:textAllCaps="false" />-->
             </LinearLayout>
+
         </LinearLayout>
 
-    </FrameLayout>
+    </LinearLayout>
 
 
 

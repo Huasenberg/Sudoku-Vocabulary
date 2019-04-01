@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.view;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
