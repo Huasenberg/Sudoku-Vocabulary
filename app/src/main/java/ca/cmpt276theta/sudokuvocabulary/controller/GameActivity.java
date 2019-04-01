@@ -102,19 +102,7 @@ public class GameActivity extends AppCompatActivity {
         final LinearLayout buttonBank2 = findViewById(R.id.button_bank2);
         final LinearLayout buttonBank3 = findViewById(R.id.button_bank3);
 
-        /*for(int i = 0; i < 4; i++) {
-            mButtons[i].setLayoutParams(lp);
-        }
-        mButtons[0] = findViewById(R.id.button0);
-        mButtons[1] = findViewById(R.id.button1);
-        mButtons[2] = findViewById(R.id.button2);
-        mButtons[3] = findViewById(R.id.button3);
-        *//*mButtons[4] = findViewById(R.id.button4);
-        mButtons[5] = findViewById(R.id.button5);
-        mButtons[6] = findViewById(R.id.button6);
-        mButtons[7] = findViewById(R.id.button7);
-        mButtons[8] = findViewById(R.id.button8);*/
-
+       
         final Drawable drawable = getResources().getDrawable(R.drawable.eraser);
         drawable.setBounds(0,0,68,68);
         final TextView erase = findViewById(R.id.removeOne);
