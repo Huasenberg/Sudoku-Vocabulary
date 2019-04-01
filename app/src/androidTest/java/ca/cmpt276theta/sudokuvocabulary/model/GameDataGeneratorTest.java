@@ -24,8 +24,8 @@ public class GameDataGeneratorTest {
     public void getUNITX() {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
-                myGDG.setSIZE(i, j);
-                assertEquals(myGDG.getUNITX(), i);
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getUNITX(), i);
             }
         }
     }
@@ -34,8 +34,8 @@ public class GameDataGeneratorTest {
     public void getUNITY() {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
-                myGDG.setSIZE(i, j);
-                assertEquals(myGDG.getUNITY(), j);
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getUNITY(), j);
             }
         }
     }
@@ -48,8 +48,8 @@ public class GameDataGeneratorTest {
     public void getSIZE() {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
-                myGDG.setSIZE(i, j);
-                assertEquals(myGDG.getSIZE(), i*j);
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getSIZE(), i*j);
             }
         }
     }
@@ -62,8 +62,8 @@ public class GameDataGeneratorTest {
     public void setSIZE() {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
-                myGDG.setSIZE(i, j);
-                assertEquals(myGDG.getSIZE(), i*j);
+                GameDataGenerator.setSIZE(i, j);
+                assertEquals(GameDataGenerator.getSIZE(), i*j);
             }
         }
     }
@@ -73,7 +73,7 @@ public class GameDataGeneratorTest {
         int square;
         for (int i = 0; i < 100; i++) {
             square = i * i;
-            assertTrue(myGDG.isPerfectSquare(square));
+            assertTrue(GameDataGenerator.isPerfectSquare(square));
         }
     }
 }
