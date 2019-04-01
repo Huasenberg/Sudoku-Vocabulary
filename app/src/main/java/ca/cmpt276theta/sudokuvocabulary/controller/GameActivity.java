@@ -153,29 +153,60 @@ public class GameActivity extends AppCompatActivity {
             });
         }
 
-        if(gridSize == 4)
-            for(int i = 0; i < 4; i++)
-                buttonBank3.addView(mButtons[i]);
-        else if(gridSize == 6) {
-            for (int i = 0; i < 3; i++) {
-                buttonBank2.addView(mButtons[i]);
-                buttonBank3.addView(mButtons[i + 3]);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if(gridSize == 4)
+                for(int i = 0; i < 4; i++)
+                    buttonBank3.addView(mButtons[i]);
+            else if(gridSize == 6) {
+                for (int i = 0; i < 3; i++) {
+                    buttonBank2.addView(mButtons[i]);
+                    buttonBank3.addView(mButtons[i + 3]);
+                }
             }
-        }
-        else if(gridSize == 9) {
-            buttonBank1.addView(mButtons[0]);
-            for (int i = 1; i < 5; i++) {
-                buttonBank2.addView(mButtons[i]);
-                buttonBank3.addView(mButtons[i + 4]);
+            else if(gridSize == 9) {
+                buttonBank1.addView(mButtons[0]);
+                for (int i = 1; i < 5; i++) {
+                    buttonBank2.addView(mButtons[i]);
+                    buttonBank3.addView(mButtons[i + 4]);
+                }
+            }
+            else {
+                for (int i = 0; i < 4; i++) {
+                    buttonBank1.addView(mButtons[i]);
+                    buttonBank2.addView(mButtons[i + 4]);
+                    buttonBank3.addView(mButtons[i + 8]);
+                }
             }
         }
         else {
-            for (int i = 0; i < 4; i++) {
-                buttonBank1.addView(mButtons[i]);
-                buttonBank2.addView(mButtons[i + 4]);
-                buttonBank3.addView(mButtons[i + 8]);
+            if (gridSize == 4) {
+                buttonBank2.addView(mButtons[0]);
+                for (int i = 1; i < 4; i++)
+                    buttonBank3.addView(mButtons[i]);
+            }
+            else if (gridSize == 6) {
+                for (int i = 0; i < 3; i++) {
+                    buttonBank2.addView(mButtons[i]);
+                    buttonBank3.addView(mButtons[i + 3]);
+                }
+            } else if (gridSize == 9) {
+                for (int i = 0; i < 3; i++) {
+                    buttonBank1.addView(mButtons[i]);
+                    buttonBank2.addView(mButtons[i+ 3]);
+                    buttonBank3.addView(mButtons[i + 6]);
+                }
+            } else {
+                final LinearLayout buttonBank4 = findViewById(R.id.button_bank4);
+                buttonBank4.setVisibility(View.VISIBLE);
+                for (int i = 0; i < 3; i++) {
+                    buttonBank1.addView(mButtons[i]);
+                    buttonBank2.addView(mButtons[i + 3]);
+                    buttonBank3.addView(mButtons[i + 6]);
+                    buttonBank4.addView(mButtons[i + 9]);
+                }
             }
         }
+
 
     }
 
