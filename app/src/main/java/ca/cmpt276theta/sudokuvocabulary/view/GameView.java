@@ -49,13 +49,18 @@ public class GameView extends View {
         gridSize = GameData.getGridSize();
         if(GameDataGenerator.isFlipped())
         {
-            subGridSizeHori = GameData.getSubGridSizeVerti();
-            subGridSizeVerti = GameData.getSubGridSizeHori();
+//            subGridSizeHori = GameData.getSubGridSizeVerti();
+//            subGridSizeVerti = GameData.getSubGridSizeHori();
+            subGridSizeHori = GameDataGenerator.getUNITY();
+            subGridSizeVerti = GameDataGenerator.getUNITX();
+            GameDataGenerator.setflipped(false);
         }
         else
         {
-            subGridSizeHori = GameData.getSubGridSizeHori();
-            subGridSizeVerti = GameData.getSubGridSizeVerti();
+//            subGridSizeHori = GameData.getSubGridSizeHori();
+//            subGridSizeVerti = GameData.getSubGridSizeVerti();
+            subGridSizeHori = GameDataGenerator.getUNITX();
+            subGridSizeVerti = GameDataGenerator.getUNITY();
         }
     }
 
