@@ -22,7 +22,7 @@ public class GameDataTest {
     @Before
     public void setUp() {
         GameDataGenerator.loadPuzzleData();
-        GameData.setWordlist(new ArrayList<Word>());
+
         mGameData = new GameData();
     }
 
