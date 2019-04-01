@@ -489,7 +489,29 @@
 
 ![56158213_2245117275527695_845553621767553024_n](/uploads/816cc6cec63222a52969542a43d4089f/56158213_2245117275527695_845553621767553024_n.png)
 
-## **FOR ITERATION 3**
+## 18. SCALABLE SUDOKU PUZZLES
+
+### Status: **Implemented**
+
+### `User Story`
+
+- As a teacher of elementary and junior high school children, I want scaled versions of Sudoku that use 4x4 and 6x6 grids. In the 6x6 grid version, the overall grid should be divided into rectangles of six cells each (2x3).
+
+- As a vocabulary learner who wants an extra challenging mode, I want a 12x12 version of Sudoku to play on my tablet. The overall grid should be divided into rectangles of 12 cells each (3x4).
+
+### `Test Driven Development`
+
+- When a user starts a new game, they will be prompted to select a sudoku board size, ranging from 4x4, 6x6, 9x9, and 12x12, that they would like to play with, then the game will create a board with the chosen size and start a normal sudoku game
+
+### `Scenario`
+
+### **Given**: The user wants to play a game of sudoku of size n x n (n is in {4, 6, 9, 12}), and is on the menu of ‘New Game.' The 12 x 12 is made for the tablet.
+
+### **When**: The user chooses a size n x n via the seek bar and presses ‘START’
+
+### **Then**: A n x n sudoku will appear on the screen with n buttons for the words, and it would be scaled to fit the entire phone/tablet screen
+
+## **FOR ITERATION 4**
 
 ## 18. NIGHT MODE
 
