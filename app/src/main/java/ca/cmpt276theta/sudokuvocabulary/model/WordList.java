@@ -2,7 +2,6 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -16,7 +15,6 @@ import java.util.Comparator;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.GameStartActivity;
-import ca.cmpt276theta.sudokuvocabulary.controller.MainMenuActivity;
 import ca.cmpt276theta.sudokuvocabulary.controller.WordListActivity;
 
 public class WordList {
@@ -45,18 +43,18 @@ public class WordList {
             // Step over headers
             reader.readLine();
             final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0,15,0,15);
+            lp.setMargins(0, 15, 0, 15);
             // If buffer is not empty
             while ((line = reader.readLine()) != null) {
-                Log.d("My Activity","Line: " + line);
+                Log.d("My Activity", "Line: " + line);
                 // use comma as separator columns of CSV
                 String[] tokens = line.split(",");
                 // Read the data
-                final Word sample = new Word(tokens[1],tokens[2]);
+                final Word sample = new Word(tokens[1], tokens[2]);
 
                 // Setters
                 sample.setScore(Integer.parseInt(tokens[3]));
-                if(sOriginalWordList.contains(sample))
+                if (sOriginalWordList.contains(sample))
                     continue;
                 // Adding object to a class
                 final CheckBox checkBox = new CheckBox(context);

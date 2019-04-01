@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
@@ -30,7 +28,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -58,7 +56,7 @@ public class LaunchActivity extends AppCompatActivity {
         }, 3200);
     }
 
-    private void loadGame (){
+    private void loadGame() {
         WordList.setOriginalWordList(new ArrayList<Word>());
         WordList.setSelectedWordList(new ArrayList<Word>());
         loadWordList(WordList.getOriginalWordList());
@@ -71,11 +69,11 @@ public class LaunchActivity extends AppCompatActivity {
         list.clear();
         int size = mSharedPreference1.getInt("Size", 0);
         final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0,15,0,15);
-        for(int i = 0; i < size; i++) {
+        lp.setMargins(0, 15, 0, 15);
+        for (int i = 0; i < size; i++) {
             final Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
             final CheckBox checkBox = new CheckBox(this);
-            word.setScore(mSharedPreference1.getInt("Score" + i,0));
+            word.setScore(mSharedPreference1.getInt("Score" + i, 0));
             list.add(word);
             checkBox.setText("   " + word.toString());
             checkBox.setTextColor(getResources().getColor(R.color.check_box));

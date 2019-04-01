@@ -43,6 +43,18 @@ public class GameController {
         subGridSizeVerti = GameDataGenerator.getUNITY();
     }
 
+    public static void showMessageToast(Context context, String message, int gravity) {
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        if (gravity != Gravity.NO_GRAVITY)
+            toast.setGravity(gravity, 0, 0);
+        View view = toast.getView();
+        view.getBackground().setTint(context.getResources().getColor(R.color.colorPrimary));
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextSize(18);
+        text.setTextColor(Color.WHITE);
+        toast.show();
+    }
+
     public GameData getGameData() {
         return mGameData;
     }
@@ -50,25 +62,25 @@ public class GameController {
     public void fillWord(Button button) {
         final int positionX = mGameView.getTouchPositionX();
         final int positionY = mGameView.getTouchPositionY();
-        if(positionX < 0 || positionX > (gridSize - 1) || positionY < 0 || positionY > (gridSize - 1))
+        if (positionX < 0 || positionX > (gridSize - 1) || positionY < 0 || positionY > (gridSize - 1))
             return;
-        if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
+        if (mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
             showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell", Gravity.CENTER);
             final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake_anim);
             button.startAnimation(shake);
             return;
         }
-        if(mGameData.getPuzzle()[positionY][positionX] == 0)
+        if (mGameData.getPuzzle()[positionY][positionX] == 0)
             mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
         mGameData.getPuzzle()[positionY][positionX] = Integer.valueOf(button.getTag().toString());
         mGameData.getGridContent()[positionY][positionX] = (String) button.getText();
         mGameView.invalidate();
-        if(mGameData.getEmptyCellCounter() == 0)
+        if (mGameData.getEmptyCellCounter() == 0)
             checkGameResult();
     }
 
     private void checkGameResult() {
-        for(int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 int currentCell = mGameData.getPuzzle()[i][j];
                 for (int k = 0; k < gridSize; k++) {
@@ -88,7 +100,7 @@ public class GameController {
         mTimer.stop();
         mPopupWindow.setAnimationStyle(R.style.pop_animation);
         showVicPopup();
-        if(mp != null)
+        if (mp != null)
             mp.start();
     }
 
@@ -98,17 +110,5 @@ public class GameController {
         mTime.setText(mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
 
-    }
-
-    public static void showMessageToast(Context context, String message, int gravity) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        if(gravity != Gravity.NO_GRAVITY)
-            toast.setGravity(gravity, 0,0);
-        View view = toast.getView();
-        view.getBackground().setTint(context.getResources().getColor(R.color.colorPrimary));
-        TextView text = view.findViewById(android.R.id.message);
-        text.setTextSize(18);
-        text.setTextColor(Color.WHITE);
-        toast.show();
     }
 }

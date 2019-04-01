@@ -1,12 +1,11 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.transition.Explode;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -34,31 +33,28 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class GameStartActivity extends AppCompatActivity {
-    private int mOption;
     private static List<CheckBox> sCheckBoxes;
+    private int mOption;
     private LinearLayout mLinearLayout;
     private int mNumOfWords;
-    private Button startButton;
-    private Spinner spinner;
-    private List<View> viewList;
-    private ViewPager viewPager;
-
-
-    public static void setCheckBoxes(List<CheckBox> checkBoxes) {
-        sCheckBoxes = checkBoxes;
-    }
+    private Button mStartButton;
+    private Spinner mSpinner;
+    private List<View> mViewList;
+    private ViewPager mViewPager;
 
     public static List<CheckBox> getCheckBoxes() {
         return sCheckBoxes;
     }
 
+    public static void setCheckBoxes(List<CheckBox> checkBoxes) {
+        sCheckBoxes = checkBoxes;
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mLinearLayout.removeAllViews();
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -73,7 +69,7 @@ public class GameStartActivity extends AppCompatActivity {
         getWindow().setExitTransition(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
-        spinner = findViewById(R.id.spinner);
+        mSpinner = findViewById(R.id.spinner);
         mLinearLayout = findViewById(R.id.checkboxs);
         mNumOfWords = 9;
         loadSpinner();
@@ -91,18 +87,17 @@ public class GameStartActivity extends AppCompatActivity {
                 GameData.setListenMode(true);
             }
         });
-        viewPager = findViewById(R.id.viewpager);
-        startButton = findViewById(R.id.button_start);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        mViewPager = findViewById(R.id.viewpager);
+        mStartButton = findViewById(R.id.button_start);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (startButton.getCurrentTextColor() == getResources().getColor(R.color.subgrid)) {
-                    startButton.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
+                if (mStartButton.getCurrentTextColor() == getResources().getColor(R.color.subgrid)) {
+                    mStartButton.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
                     GameController.showMessageToast(GameStartActivity.this, "Must Select " + mNumOfWords + " Pairs of Words", Gravity.CENTER);
-                }
-                else {
+                } else {
                     GameData.setDifficulty(seekBar.getProgress() + 1);
-                    switch (viewPager.getCurrentItem()) {
+                    switch (mViewPager.getCurrentItem()) {
                         case 0:
                             GameDataGenerator.setSIZE(2, 2);
                             break;
@@ -118,11 +113,12 @@ public class GameStartActivity extends AppCompatActivity {
                     GameData.setLanguageMode(mOption);
                     GameDataGenerator.loadPuzzleData();
                     startActivity(new Intent(GameStartActivity.this, GameActivity.class));
+                    finish();
                 }
             }
         });
         if (WordList.getSelectedWordList().size() < mNumOfWords)
-            startButton.setTextColor(getResources().getColor(R.color.subgrid));
+            mStartButton.setTextColor(getResources().getColor(R.color.subgrid));
         final TextView text = findViewById(R.id.textViewDif);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -151,15 +147,16 @@ public class GameStartActivity extends AppCompatActivity {
             public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
                 return view == o;
             }
+
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView(viewList.get(position));
+                container.removeView(mViewList.get(position));
             }
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                container.addView(viewList.get(position));
-                return viewList.get(position);
+                container.addView(mViewList.get(position));
+                return mViewList.get(position);
             }
         };
 
@@ -174,14 +171,14 @@ public class GameStartActivity extends AppCompatActivity {
                 view3.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
             }
         });
-        viewList = new ArrayList<>();
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
-        viewList.add(view4);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(2);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewList = new ArrayList<>();
+        mViewList.add(view1);
+        mViewList.add(view2);
+        mViewList.add(view3);
+        mViewList.add(view4);
+        mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setCurrentItem(2);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
@@ -216,12 +213,13 @@ public class GameStartActivity extends AppCompatActivity {
         GameData.loadLanguagesList();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown, GameData.getLanguagesList());
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 mOption = arg2;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -229,7 +227,7 @@ public class GameStartActivity extends AppCompatActivity {
     }
 
     private void loadCheckBoxes() {
-        if(WordList.getOriginalWordList().isEmpty())
+        if (WordList.getOriginalWordList().isEmpty())
             findViewById(R.id.empty_image).setVisibility(View.VISIBLE);
         else {
             final List<Word> wordList = WordList.getSelectedWordList();
@@ -244,14 +242,14 @@ public class GameStartActivity extends AppCompatActivity {
                         if (isChecked) {
                             wordList.add(WordList.getOriginalWordList().get(j));
                             if (wordList.size() == mNumOfWords) {
-                                startButton.setTextColor(getResources().getColor(R.color.background));
+                                mStartButton.setTextColor(getResources().getColor(R.color.background));
                                 for (int k = 0; k < sCheckBoxes.size(); k++)
                                     if (!sCheckBoxes.get(k).isChecked())
                                         sCheckBoxes.get(k).setEnabled(false);
                             }
                         } else {
                             wordList.remove(WordList.getOriginalWordList().get(j));
-                            startButton.setTextColor(getResources().getColor(R.color.subgrid));
+                            mStartButton.setTextColor(getResources().getColor(R.color.subgrid));
                             for (int k = 0; k < sCheckBoxes.size(); k++)
                                 sCheckBoxes.get(k).setEnabled(true);
                         }

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class WordTest {
 

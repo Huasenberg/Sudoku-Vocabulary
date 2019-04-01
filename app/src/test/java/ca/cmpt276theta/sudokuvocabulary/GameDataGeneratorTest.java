@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameDataGeneratorTest {
 
@@ -48,7 +49,7 @@ public class GameDataGeneratorTest {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
                 GameDataGenerator.setSIZE(i, j);
-                assertEquals(GameDataGenerator.getSIZE(), i*j);
+                assertEquals(GameDataGenerator.getSIZE(), i * j);
             }
         }
     }
@@ -62,7 +63,7 @@ public class GameDataGeneratorTest {
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < 100; j++) {
                 GameDataGenerator.setSIZE(i, j);
-                assertEquals(GameDataGenerator.getSIZE(), i*j);
+                assertEquals(GameDataGenerator.getSIZE(), i * j);
             }
         }
     }

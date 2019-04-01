@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.LaunchActivity">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +18,7 @@
             android:layout_marginBottom="90dp"
             android:scaleType="centerInside"
             android:src="@drawable/logo_part1" />
+
         <ImageView
             android:id="@+id/logo_2"
             android:layout_width="130dp"
@@ -31,9 +33,10 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="57.5dp"
             android:scaleType="centerInside"
-            android:src="@drawable/app_icon"
-            android:layout_marginBottom="57.5dp"/>
+            android:src="@drawable/app_icon" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -42,7 +45,7 @@
             android:layout_marginTop="47dp"
             android:textColor="@color/border"
             android:textSize="19sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

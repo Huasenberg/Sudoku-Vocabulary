@@ -12,4 +12,5 @@
     <color name="popUpBg">#B9000000</color>
     <color name="deleteAll">#FE3A21</color>
     <color name="check_box">#696969</color>
+    <color name="word_bank">#E6E6E6</color>
 </resources>

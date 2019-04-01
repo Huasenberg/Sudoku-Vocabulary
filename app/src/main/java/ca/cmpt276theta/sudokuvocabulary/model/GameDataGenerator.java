@@ -3,11 +3,11 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import java.util.Random;
 
 public class GameDataGenerator {
+    private static final int MAX_SHUFFLE = 20;
     //    private static final int UNIT = 3;
     private static int UNITX;
     private static int UNITY;
     private static int SIZE;
-    private static final int MAX_SHUFFLE = 20;
     private static int[][] sSolvedPuzzle;
 
     public static int getUNITX() {
@@ -48,7 +48,7 @@ public class GameDataGenerator {
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
-            if (!isPerfectSquare(SIZE)){
+            if (!isPerfectSquare(SIZE)) {
                 if (random.nextBoolean()) {
                     transpose(array);
                     //insert code on rotating grid AKA redraw the grid with x and y dimensions flipped
@@ -66,8 +66,7 @@ public class GameDataGenerator {
         return array;
     }
 
-    public static boolean isPerfectSquare(double x)
-    {
+    public static boolean isPerfectSquare(double x) {
 
         // Find floating point value of
         // square root of x.
@@ -83,7 +82,7 @@ public class GameDataGenerator {
      * @param array The array to be transposed.
      */
     private static void transpose(int[][] array) {
-        System.out.println("array.length = "+array.length);
+        System.out.println("array.length = " + array.length);
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
                 int temp = array[i][j];
@@ -93,6 +92,7 @@ public class GameDataGenerator {
         }
     }
 //
+
     /**
      * Shuffles square rows in their entirety, i.e. moves 3 rows at a time.
      *
@@ -107,6 +107,7 @@ public class GameDataGenerator {
     }
 
 //
+
     /**
      * Shuffles single rows within each square row.
      *
@@ -124,6 +125,7 @@ public class GameDataGenerator {
         }
     }
 //
+
     /**
      * Swaps two rows within a square.
      *

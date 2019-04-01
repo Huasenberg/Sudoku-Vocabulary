@@ -8,9 +8,9 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,29 +23,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class WordListActivity extends AppCompatActivity {
+    private static final int READ_REQUEST_CODE = 42;
+    private static List<TextView> sTextViews;
+    final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private Button finishDelButton;
     private boolean isDeletionMode;
-    private static List<TextView> sTextViews;
     private LinearLayout mLinearLayout_textViewList;
-    private static final int READ_REQUEST_CODE = 42;
-    final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-    public static void setTextViews(List<TextView> textViews) {
-        WordListActivity.sTextViews = textViews;
-    }
 
     public static List<TextView> getTextViews() {
         return sTextViews;
+    }
+
+    public static void setTextViews(List<TextView> textViews) {
+        WordListActivity.sTextViews = textViews;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class WordListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_list);
         mLinearLayout_textViewList = findViewById(R.id.text_view_list);
-        lp.setMargins(0,15,0,15);
+        lp.setMargins(0, 15, 0, 15);
         initWordList();
     }
 
@@ -86,11 +88,11 @@ public class WordListActivity extends AppCompatActivity {
                         .setItems(new String[]{"Sort by alphabetical order", "Sort by difficulty score"}, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if(i == 0)
+                                if (i == 0)
                                     WordList.sortWordDataByAlphbet();
                                 else
                                     WordList.sortWordDataByScore();
-                                for(int j = 0; j < WordList.getOriginalWordList().size(); j++)
+                                for (int j = 0; j < WordList.getOriginalWordList().size(); j++)
                                     sTextViews.get(j).setText(WordList.getOriginalWordList().get(j).toString());
                                 loadTextViews();
                                 saveArray();
@@ -114,7 +116,7 @@ public class WordListActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    finish();
+                finish();
             }
         });
 
@@ -156,13 +158,13 @@ public class WordListActivity extends AppCompatActivity {
                 deleteButton.startAnimation(exitAnim);
                 doneButton.setVisibility(View.GONE);
                 finishDelButton.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable(){
-                    public void run(){
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
                         sortButton.setVisibility(View.GONE);
                         importButton.setVisibility(View.GONE);
                         deleteButton.setVisibility(View.GONE);
                     }
-                },600);
+                }, 600);
 
                 deleteAllButton.setVisibility(View.VISIBLE);
                 deleteAllButton.startAnimation(enterAnim2);
@@ -186,7 +188,7 @@ public class WordListActivity extends AppCompatActivity {
                 sTextViews.clear();
                 mLinearLayout_textViewList.removeAllViews();
                 final int size = WordList.getOriginalWordList().size();
-                for(int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {
                     final TextView textView = new TextView(WordListActivity.this);
                     textView.setText(WordList.getOriginalWordList().get(i).toString());
                     textView.setLayoutParams(lp);
@@ -196,12 +198,12 @@ public class WordListActivity extends AppCompatActivity {
                 }
 
                 saveArray();
-                new Handler().postDelayed(new Runnable(){
-                    public void run(){
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
                         deleteAllButton.clearAnimation();
                         deleteAllButton.setVisibility(View.GONE);
                     }
-                },600);
+                }, 600);
             }
 
 
@@ -221,7 +223,7 @@ public class WordListActivity extends AppCompatActivity {
 
     private void loadTextViews() {
         mLinearLayout_textViewList.removeAllViews();
-        for(TextView textView : sTextViews)
+        for (TextView textView : sTextViews)
             mLinearLayout_textViewList.addView(textView);
     }
 
@@ -229,12 +231,12 @@ public class WordListActivity extends AppCompatActivity {
         isDeletionMode = true;
         mLinearLayout_textViewList.removeAllViews();
         final Drawable drawable = getResources().getDrawable(R.drawable.delete_word);
-        final int[] attrs = new int[] { android.R.attr.selectableItemBackground };
+        final int[] attrs = new int[]{android.R.attr.selectableItemBackground};
         final TypedArray a = getTheme().obtainStyledAttributes(attrs);
         drawable.setBounds(7, 5, 74, 72);
-        for(TextView textView : sTextViews) {
+        for (TextView textView : sTextViews) {
             textView.setBackground(a.getDrawable(0));
-            textView.setCompoundDrawables(drawable,null,null,null);
+            textView.setCompoundDrawables(drawable, null, null, null);
             textView.setCompoundDrawablePadding(17);
             mLinearLayout_textViewList.addView(textView);
         }
@@ -243,7 +245,7 @@ public class WordListActivity extends AppCompatActivity {
 
     private void setDeletionModeListener() {
         final List<CheckBox> checkBoxes = GameStartActivity.getCheckBoxes();
-        for(int i = 0; i < sTextViews.size(); i++) {
+        for (int i = 0; i < sTextViews.size(); i++) {
             final int j = i;
             final TextView textView = sTextViews.get(i);
             textView.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +275,7 @@ public class WordListActivity extends AppCompatActivity {
 
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
@@ -310,8 +313,8 @@ public class WordListActivity extends AppCompatActivity {
         final List<Word> list = WordList.getOriginalWordList();
         SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("Size",list.size());
-        for(int i = 0; i < list.size(); i++) {
+        editor.putInt("Size", list.size());
+        for (int i = 0; i < list.size(); i++) {
             editor.remove("English" + i);
             editor.putString("English" + i, list.get(i).getEnglish());
             editor.remove("French" + i);
@@ -325,7 +328,7 @@ public class WordListActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(isDeletionMode)
+            if (isDeletionMode)
                 finishDelButton.performClick();
             else
                 finish();
