@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary.view;
+package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

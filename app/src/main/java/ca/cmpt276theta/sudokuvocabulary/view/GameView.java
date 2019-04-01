@@ -211,6 +211,8 @@ public class GameView extends View {
                 wordPaint.setFakeBoldText(false);
                 if(word.length() < 7 && (!word.contains("m")) || word.length() < 5)
                     wordPaint.setTextSize(mGridWidth * 0.29f);
+                else if(word.length() > 8)
+                    wordPaint.setTextSize(mGridWidth * 0.21f);
                 else
                     wordPaint.setTextSize(mGridWidth * 0.25f);
                 if(mGameData.getPuzzlePreFilled()[i][j] != 0) {

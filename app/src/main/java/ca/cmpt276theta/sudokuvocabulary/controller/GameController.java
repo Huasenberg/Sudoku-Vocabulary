@@ -56,7 +56,7 @@ public class GameController {
     public void fillWord(Button button) {
         final int positionX = mGameView.getTouchPositionX();
         final int positionY = mGameView.getTouchPositionY();
-        if(positionX < 0 || positionX > 8 || positionY < 0 || positionY > 8)
+        if(positionX < 0 || positionX > (gridSize - 1) || positionY < 0 || positionY > (gridSize - 1))
             return;
         if(mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
             showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell");
