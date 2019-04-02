@@ -29,4 +29,5 @@
     <string name="empty_word_list">The word list is empty.</string>
     <string name="pause">Pause</string>
     <string name="restart">Restart</string>
+    <string name="dark_mode">Dark</string>
 </resources>

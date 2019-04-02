@@ -52,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK)
-            startActivity(new Intent(GameActivity.this, MainMenuActivity.class));
+            finish();
         return true;
     }
 
@@ -144,10 +144,21 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        final Drawable drawable3 = getResources().getDrawable(R.drawable.dark);
+        drawable3.setBounds(0, 0, 66, 66);
+        final TextView darkMode = findViewById(R.id.dark_mode);
+        darkMode.setCompoundDrawables(null, drawable3, null, null);
+        darkMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameController.showMessageToast(GameActivity.this, "Coming Soon!", Gravity.CENTER);
+            }
+        });
+
         final LinearLayout buttonBank1 = findViewById(R.id.button_bank1);
         final LinearLayout buttonBank2 = findViewById(R.id.button_bank2);
         final LinearLayout buttonBank3 = findViewById(R.id.button_bank3);
-        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
         final int gridSize = GameData.getGridSize();
         final Button[] mButtons = new Button[gridSize];
 

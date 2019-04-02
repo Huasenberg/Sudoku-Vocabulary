@@ -6,30 +6,33 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/game_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
             android:textColor="@color/background"
             android:textSize="22sp"
             android:textStyle="bold" />
     </FrameLayout>
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="62dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/pop_up_shape"
         android:elevation="7dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:gravity="center">
 
 
         <TextView
@@ -37,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="1dp"
+            android:layout_marginEnd="30dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:drawablePadding="-3dp"
             android:text="@string/restart"
@@ -50,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="78dp"
             android:layout_marginTop="1dp"
+            android:layout_marginEnd="30dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:drawablePadding="-3dp"
             android:text="@string/pause"
@@ -63,11 +66,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="136dp"
             android:layout_marginTop="1dp"
+            android:layout_marginEnd="30dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:drawablePadding="-3dp"
             android:text="@string/erase"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dark_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="30dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawablePadding="-3dp"
+            android:text="@string/dark_mode"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -76,8 +92,8 @@
             android:layout_width="1.5dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="65dp"
             android:alpha="0.9"
+            android:layout_marginEnd="10dp"
             android:background="@color/check_box" />
 
         <Chronometer
@@ -85,12 +101,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="14dp"
             android:textColor="@color/check_box"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,13 +114,12 @@
         android:layout_marginTop="85dp"
         android:orientation="vertical">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2.8dp"
             android:background="@color/border"
             android:padding="1.9dp">
-
             <FrameLayout
                 android:id="@+id/gameLayout"
                 android:layout_width="match_parent"
@@ -113,17 +127,16 @@
                 android:background="@color/background">
 
             </FrameLayout>
-
-        </FrameLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/button_bank1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:weightSum="4"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -135,8 +148,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:weightSum="4"
             android:orientation="horizontal">
-
 
         </LinearLayout>
 
@@ -147,6 +160,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
+            android:weightSum="4"
             android:orientation="horizontal">
 
         </LinearLayout>
