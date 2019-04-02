@@ -163,14 +163,14 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                if (random.nextInt(4) > sDifficulty) {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
+                if(random.nextInt(7) > sDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
-                if (mPuzzle[i][j] != 0)
-                    if (sIsListenMode)
+                if(mPuzzle[i][j] != 0)
+                    if(sIsListenMode)
                         mGridContent[i][j] = String.valueOf(mPuzzle[i][j]);
                     else
                         mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
