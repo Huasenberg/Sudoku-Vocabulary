@@ -1,5 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -16,13 +18,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Random;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
@@ -33,12 +34,17 @@ public class GameActivity extends AppCompatActivity {
     private Chronometer mTimer;
     private PopupWindow mPopupWindow;
     private GameView mGameView;
+    private long timeInterval;
+    private boolean isPause = false;
+    private AlertDialog mAlertDialog;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelable("gameData", mGameData);
-        long timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
+        if(!isPause)
+            timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
+
         savedInstanceState.putLong("timeInterval", timeInterval);
     }
 
@@ -47,6 +53,8 @@ public class GameActivity extends AppCompatActivity {
         super.onPause();
         if (mPopupWindow.isShowing())
             mPopupWindow.dismiss();
+        if(mAlertDialog.isShowing())
+            mAlertDialog.dismiss();
     }
 
     @Override
@@ -62,7 +70,20 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         final TextView textView = findViewById(R.id.game_title);
         textView.setText(GameData.getLanguageMode_String());
-        final FrameLayout gameLayout = findViewById(R.id.gameLayout);
+        final FrameLayout gameLayout = findViewById(R.id.game_layout);
+        final FrameLayout pauseScreen = new FrameLayout(this);
+        pauseScreen.setLayoutParams(new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        pauseScreen.setBackgroundColor(getResources().getColor(R.color.background));
+        pauseScreen.setClickable(true);
+        final ImageView resumeImage = new ImageView(this);
+        final FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(200, 200);
+        frameLayoutParams.gravity = Gravity.CENTER;
+        resumeImage.setLayoutParams(frameLayoutParams);
+        resumeImage.setBackgroundResource(R.drawable.round_shape);
+        resumeImage.setPadding(40,30,20,30);
+        resumeImage.setElevation(40);
+        resumeImage.setImageResource(R.drawable.resume);
+        pauseScreen.addView(resumeImage);
         mGameData = new GameData();
         mGameView = new GameView(this);
 
@@ -129,18 +150,61 @@ public class GameActivity extends AppCompatActivity {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameController.showMessageToast(GameActivity.this, "Coming Soon!", Gravity.CENTER);
+                findViewById(R.id.border).setBackgroundColor(getResources().getColor(R.color.background));
+                mGameView.setTouchPosition(-1, -1);
+                gameLayout.removeView(pauseScreen);
+                gameLayout.addView(pauseScreen);
+                pause.setClickable(false);
+                timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
+                mTimer.stop();
+                isPause = true;
             }
         });
+        resumeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.border).setBackgroundColor(getResources().getColor(R.color.border));
+                gameLayout.removeView(pauseScreen);
+                pause.setClickable(true);
+                mTimer.setBase(SystemClock.elapsedRealtime() - timeInterval);
+                mTimer.start();
+                isPause = false;
+            }
+        });
+
 
         final Drawable drawable2 = getResources().getDrawable(R.drawable.restart);
         drawable2.setBounds(0, 0, 66, 66);
         final TextView restart = findViewById(R.id.restart);
         restart.setCompoundDrawables(null, drawable2, null, null);
+        mAlertDialog = new AlertDialog.Builder(GameActivity.this)
+                .setTitle(R.string.restart)
+                .setMessage(R.string.restart_alert)
+                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mTimer.setBase(SystemClock.elapsedRealtime());
+                        mGameData.removeAllCells();
+                        mGameView.invalidate();
+                        timeInterval = 0;
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        mTimer.setBase(SystemClock.elapsedRealtime() - timeInterval);
+                        mTimer.start();
+                        isPause = false;
+                    }
+                }).create();
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameController.showMessageToast(GameActivity.this, "Coming Soon!", Gravity.CENTER);
+                isPause = true;
+                mAlertDialog.show();
+                mTimer.stop();
+                timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
             }
         });
 
@@ -244,5 +308,6 @@ public class GameActivity extends AppCompatActivity {
         super.onDestroy();
         mGameView.getTTSHandler().destroy();
     }
+
 
 }

@@ -75,6 +75,7 @@ public class GameStartActivity extends AppCompatActivity {
         loadSpinner();
         loadCheckBoxes();
         final SeekBar seekBar = findViewById(R.id.seekBar);
+        GameData.setListenMode(false);
         findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

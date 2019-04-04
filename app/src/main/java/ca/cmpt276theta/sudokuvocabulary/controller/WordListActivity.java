@@ -41,6 +41,8 @@ public class WordListActivity extends AppCompatActivity {
     private Button finishDelButton;
     private boolean isDeletionMode;
     private LinearLayout mLinearLayout_textViewList;
+    private AlertDialog mAlertDialog2;
+    private AlertDialog mAlertDialog;
 
     public static List<TextView> getTextViews() {
         return sTextViews;
@@ -48,6 +50,15 @@ public class WordListActivity extends AppCompatActivity {
 
     public static void setTextViews(List<TextView> textViews) {
         WordListActivity.sTextViews = textViews;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mAlertDialog.isShowing())
+            mAlertDialog.dismiss();
+        if(mAlertDialog2.isShowing())
+            mAlertDialog2.dismiss();
     }
 
     @Override
@@ -82,29 +93,27 @@ public class WordListActivity extends AppCompatActivity {
         final ImageView wordListLogo = findViewById(R.id.word_list_logo);
 
         final ImageButton sortButton = findViewById(R.id.button_sort);
+        mAlertDialog2 = new AlertDialog.Builder(WordListActivity.this)
+                .setTitle(R.string.select_sort_order)
+                .setItems(new String[]{"Sort by alphabetical order", "Sort by difficulty score"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (i == 0)
+                            WordList.sortWordDataByAlphbet();
+                        else
+                            WordList.sortWordDataByScore();
+                        for (int j = 0; j < WordList.getOriginalWordList().size(); j++)
+                            sTextViews.get(j).setText(WordList.getOriginalWordList().get(j).toString());
+                        loadTextViews();
+                        saveArray();
+                    }
+                }).create();
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog alertDialog2 = new AlertDialog.Builder(WordListActivity.this)
-                        .setTitle(R.string.select_sort_order)
-                        .setItems(new String[]{"Sort by alphabetical order", "Sort by difficulty score"}, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (i == 0)
-                                    WordList.sortWordDataByAlphbet();
-                                else
-                                    WordList.sortWordDataByScore();
-                                for (int j = 0; j < WordList.getOriginalWordList().size(); j++)
-                                    sTextViews.get(j).setText(WordList.getOriginalWordList().get(j).toString());
-                                loadTextViews();
-                                saveArray();
-                            }
-                        })
-                        .create();
-                alertDialog2.show();
+                mAlertDialog2.show();
             }
         });
-
         final ImageButton importButton = findViewById(R.id.button_import);
 
         importButton.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +131,7 @@ public class WordListActivity extends AppCompatActivity {
             }
         });
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(WordListActivity.this)
+        mAlertDialog = new AlertDialog.Builder(WordListActivity.this)
                 .setTitle(R.string.alert_title)
                 .setMessage(R.string.alert_content)
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
@@ -135,19 +144,15 @@ public class WordListActivity extends AppCompatActivity {
                         finishDelButton.performClick();
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                .setNegativeButton(R.string.cancel, null)
+                .create();
 
 
         final ImageButton deleteAllButton = findViewById(R.id.button_delete_all);
         deleteAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog.show();
+                mAlertDialog.show();
             }
         });
 

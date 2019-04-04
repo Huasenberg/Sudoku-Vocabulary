@@ -75,6 +75,13 @@ public class GameView extends View {
         return mTTSHandler;
     }
 
+    public void setTouchPosition(int x, int y) {
+        mTouchPositionX = x;
+        mTouchPositionY = y;
+    }
+
+
+
     public int getTouchPositionY() {
         return mTouchPositionY;
     }
