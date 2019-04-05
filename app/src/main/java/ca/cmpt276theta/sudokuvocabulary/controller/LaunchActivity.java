@@ -16,10 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
@@ -60,6 +65,7 @@ public class LaunchActivity extends AppCompatActivity {
         WordList.setOriginalWordList(new ArrayList<Word>());
         WordList.setSelectedWordList(new ArrayList<Word>());
         loadWordList(WordList.getOriginalWordList());
+        getGameData();
     }
 
     private void loadWordList(ArrayList<Word> list) {
@@ -87,5 +93,24 @@ public class LaunchActivity extends AppCompatActivity {
         }
         GameStartActivity.setCheckBoxes(checkBoxes);
         WordListActivity.setTextViews(textViewList);
+    }
+
+    public void getGameData() {
+        FileInputStream fileInputStream = null;
+        ObjectInputStream objectInputStream = null;
+        try {
+            fileInputStream = openFileInput("game_data");
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            GameDataList.setGameDataList((List<GameData>) objectInputStream.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileInputStream != null) fileInputStream.close();
+                if (objectInputStream != null) objectInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

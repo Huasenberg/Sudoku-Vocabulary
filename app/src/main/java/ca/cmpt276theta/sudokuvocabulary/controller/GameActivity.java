@@ -22,14 +22,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
+    private final List<GameData> gameDataList = GameDataList.getGameDataList();
     private GameData mGameData;
     private Chronometer mTimer;
     private PopupWindow mPopupWindow;
@@ -42,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelable("gameData", mGameData);
-        if(!isPause)
+        if (!isPause)
             timeInterval = SystemClock.elapsedRealtime() - mTimer.getBase();
 
         savedInstanceState.putLong("timeInterval", timeInterval);
@@ -53,8 +63,18 @@ public class GameActivity extends AppCompatActivity {
         super.onPause();
         if (mPopupWindow.isShowing())
             mPopupWindow.dismiss();
-        if(mAlertDialog.isShowing())
+        if (mAlertDialog.isShowing())
             mAlertDialog.dismiss();
+        if (mGameData.getEmptyCellCounter() != 0) {
+            gameDataList.remove(mGameData);
+            mGameData.setSavedTimeInterval(SystemClock.elapsedRealtime() - mTimer.getBase());
+            SimpleDateFormat formatter = new SimpleDateFormat("M/d/YYYY   HH:mm:ss");
+            Date curDate = new Date(System.currentTimeMillis());
+            mGameData.setSavedTime(formatter.format(curDate));
+            gameDataList.add(mGameData);
+            saveGameData();
+            GameController.showMessageToast(this, "Game Saved!", Gravity.NO_GRAVITY);
+        }
     }
 
     @Override
@@ -69,7 +89,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         final TextView textView = findViewById(R.id.game_title);
-        textView.setText(GameData.getLanguageMode_String());
         final FrameLayout gameLayout = findViewById(R.id.game_layout);
         final FrameLayout pauseScreen = new FrameLayout(this);
         pauseScreen.setLayoutParams(new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -80,17 +99,13 @@ public class GameActivity extends AppCompatActivity {
         frameLayoutParams.gravity = Gravity.CENTER;
         resumeImage.setLayoutParams(frameLayoutParams);
         resumeImage.setBackgroundResource(R.drawable.round_shape);
-        resumeImage.setPadding(40,30,20,30);
+        resumeImage.setPadding(40, 30, 20, 30);
         resumeImage.setElevation(40);
         resumeImage.setImageResource(R.drawable.resume);
         pauseScreen.addView(resumeImage);
-        mGameData = new GameData();
-        mGameView = new GameView(this);
 
         // Set Timer
         mTimer = findViewById(R.id.chronometer1);
-        mTimer.setBase(SystemClock.elapsedRealtime());
-
 
         // initialize Victory Pop-up Window
         final View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
@@ -116,9 +131,22 @@ public class GameActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
             mTimer.setBase(SystemClock.elapsedRealtime() - savedInstanceState.getLong("timeInterval"));
+        } else {
+            final Intent i = getIntent();
+            if (i.getIntExtra("savedGame", -1) != -1) {
+                mGameData = gameDataList.get(i.getIntExtra("savedGame", -1));
+                timeInterval = mGameData.getSavedTimeInterval();
+                mTimer.setBase(SystemClock.elapsedRealtime() - timeInterval);
+            } else {
+                mGameData = new GameData(i.getIntExtra("languageMode", 1), i.getBooleanExtra("isListenMode", false), i.getIntExtra("difficulty", 1));
+                mTimer.setBase(SystemClock.elapsedRealtime());
+            }
         }
+
+        textView.setText(mGameData.getLanguageMode_String());
+
+        mGameView = new GameView(this, mGameData);
         final GameController gameController = new GameController(mGameData, mGameView, mPopupWindow, mTimer, time);
-        mGameView.setGameData(mGameData);
         gameLayout.addView(mGameView);
 
         // Set Buttons Bank
@@ -223,7 +251,7 @@ public class GameActivity extends AppCompatActivity {
         final LinearLayout buttonBank2 = findViewById(R.id.button_bank2);
         final LinearLayout buttonBank3 = findViewById(R.id.button_bank3);
         final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-        final int gridSize = GameData.getGridSize();
+        final int gridSize = mGameData.getGridSize();
         final Button[] mButtons = new Button[gridSize];
 
         // Set Listeners and Buttons' Text
@@ -300,7 +328,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-
     }
 
     @Override
@@ -308,6 +335,48 @@ public class GameActivity extends AppCompatActivity {
         super.onDestroy();
         mGameView.getTTSHandler().destroy();
     }
+
+    public void saveGameData() {
+
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = openFileOutput("game_data", MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(gameDataList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+                if (fos != null) fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    /*public GameData getGameData(){
+        FileInputStream fileInputStream = null;
+        ObjectInputStream objectInputStream = null;
+        try {
+            fileInputStream = openFileInput("game_data");
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            return (GameData) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileInputStream != null) fileInputStream.close();
+                if (objectInputStream != null) objectInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }*/
 
 
 }

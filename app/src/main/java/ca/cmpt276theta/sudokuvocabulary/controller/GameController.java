@@ -37,7 +37,7 @@ public class GameController {
         mTimer.start();
         this.mTime = time;
         this.mPopupWindow = popupWindow;
-        gridSize = GameData.getGridSize();
+        gridSize = gameData.getGridSize();
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
         subGridSizeHori = GameDataGenerator.getUNITX();
         subGridSizeVerti = GameDataGenerator.getUNITY();
@@ -106,7 +106,7 @@ public class GameController {
 
     private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
-        difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), GameData.getDifficulty()));
+        difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), mGameData.getDifficulty()));
         mTime.setText(mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
 

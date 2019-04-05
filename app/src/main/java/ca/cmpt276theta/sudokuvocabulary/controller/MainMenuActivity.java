@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -27,7 +28,10 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.continue_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameController.showMessageToast(MainMenuActivity.this, "Coming soon!", Gravity.NO_GRAVITY);
+                if (GameDataList.getGameDataList().size() == 0)
+                    GameController.showMessageToast(MainMenuActivity.this, "No Saved Games", Gravity.NO_GRAVITY);
+                else
+                    startActivity(new Intent(MainMenuActivity.this, GameContinueActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
             }
         });
         final Button wordListButton = findViewById(R.id.import_word_list);
@@ -52,4 +56,6 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

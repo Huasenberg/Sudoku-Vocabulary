@@ -29,10 +29,10 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/pop_up_shape"
         android:elevation="7dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:gravity="center">
+        android:paddingEnd="14dp">
 
 
         <TextView
@@ -92,8 +92,8 @@
             android:layout_width="1.5dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical|end"
-            android:alpha="0.9"
             android:layout_marginEnd="10dp"
+            android:alpha="0.9"
             android:background="@color/check_box" />
 
         <Chronometer
@@ -121,6 +121,7 @@
             android:layout_margin="2.8dp"
             android:background="@color/border"
             android:padding="1.9dp">
+
             <FrameLayout
                 android:id="@+id/game_layout"
                 android:layout_width="match_parent"
@@ -137,8 +138,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:weightSum="4"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
         </LinearLayout>
 
@@ -149,8 +150,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:weightSum="4"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
         </LinearLayout>
 
@@ -162,8 +163,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp"
-            android:weightSum="4"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
         </LinearLayout>
     </LinearLayout>

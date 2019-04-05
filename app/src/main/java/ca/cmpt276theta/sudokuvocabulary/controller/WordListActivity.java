@@ -35,9 +35,9 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class WordListActivity extends AppCompatActivity {
-    private static final int READ_REQUEST_CODE = 42;
     private static List<TextView> sTextViews;
     final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private final int READ_REQUEST_CODE = 42;
     private Button finishDelButton;
     private boolean isDeletionMode;
     private LinearLayout mLinearLayout_textViewList;
@@ -55,16 +55,16 @@ public class WordListActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mAlertDialog.isShowing())
+        if (mAlertDialog.isShowing())
             mAlertDialog.dismiss();
-        if(mAlertDialog2.isShowing())
+        if (mAlertDialog2.isShowing())
             mAlertDialog2.dismiss();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(isDeletionMode)
+        if (isDeletionMode)
             finishDelButton.performClick();
         mLinearLayout_textViewList.removeAllViews();
     }

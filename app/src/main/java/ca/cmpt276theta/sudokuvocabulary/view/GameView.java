@@ -37,7 +37,7 @@ public class GameView extends View {
     private boolean isLongPress;
     private final Runnable longPressed = new Runnable() {
         public void run() {
-            if (GameData.isListenMode())
+            if (mGameData.isListenMode())
                 readWord();
             else {
                 isLongPress = true;
@@ -49,8 +49,9 @@ public class GameView extends View {
     private float tempX = 0;
     private float tempY = 0;
 
-    public GameView(Context context) {
+    public GameView(Context context, GameData gameData) {
         super(context);
+        mGameData = gameData;
         isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
         isLongPress = false;
         isVibrated = false;
@@ -58,14 +59,11 @@ public class GameView extends View {
         mTouchPositionX = -1;
         mTouchPositionY = -1;
         mTTSHandler = new TTSHandler(context);
-        gridSize = GameData.getGridSize();
-        subGridSizeHori = GameData.getSubGridSizeHori();
-        subGridSizeVerti = GameData.getSubGridSizeVerti();
+        gridSize = mGameData.getGridSize();
+        subGridSizeHori = mGameData.getSubGridSizeHori();
+        subGridSizeVerti = mGameData.getSubGridSizeVerti();
     }
 
-    public void setGameData(GameData gameData) {
-        this.mGameData = gameData;
-    }
 
     public int getTouchPositionX() {
         return mTouchPositionX;
@@ -79,7 +77,6 @@ public class GameView extends View {
         mTouchPositionX = x;
         mTouchPositionY = y;
     }
-
 
 
     public int getTouchPositionY() {
@@ -111,7 +108,7 @@ public class GameView extends View {
         drawConflict(canvas);
         drawGrid(canvas);
         drawWord(canvas);
-        if (isLongPress && !GameData.isListenMode())
+        if (isLongPress && !mGameData.isListenMode())
             drawHint(canvas);
     }
 
@@ -307,7 +304,7 @@ public class GameView extends View {
     private void readWord() {
         if (mTouchPositionX != -1 && mTouchPositionY != -1 && mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
             Locale locale = Locale.US;
-            if (GameData.getLanguageMode() == 1)
+            if (mGameData.getLanguageMode() == 1)
                 locale = Locale.FRENCH;
             mTTSHandler.speak(mGameData.getLanguageA()[mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1], locale);
             Toast toast = Toast.makeText(getContext(), "Reading...", Toast.LENGTH_SHORT);

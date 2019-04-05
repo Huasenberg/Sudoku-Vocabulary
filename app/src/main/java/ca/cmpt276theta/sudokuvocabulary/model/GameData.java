@@ -3,11 +3,12 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameData implements Parcelable {
+public class GameData implements Parcelable, Serializable {
     public static final Parcelable.Creator<GameData> CREATOR = new Parcelable.Creator<GameData>() {
         @Override
         public GameData createFromParcel(Parcel source) {
@@ -20,12 +21,12 @@ public class GameData implements Parcelable {
         }
     };
     private static List<String> sLanguagesList;
-    private static int sDifficulty;
-    private static int sLanguageMode;
-    private static boolean sIsListenMode = false;
-    private static int gridSize;
-    private static int subGridSizeHori;
-    private static int subGridSizeVerti;
+    private int mDifficulty;
+    private int mLanguageMode;
+    private boolean mIsListenMode;
+    private int mGridSize;
+    private int mSubGridSizeHori;
+    private int mSubGridSizeVerti;
     private int mEmptyCellCounter;
     private String[][] mGridContent;
     private String[] mLanguageA;
@@ -33,30 +34,34 @@ public class GameData implements Parcelable {
     private int[][] mPuzzle;
     private int[][] mPuzzleAnswer;
     private int[][] mPuzzlePreFilled;
+    private long savedTimeInterval;
+    private String savedTime;
 
-    public GameData() {
-        gridSize = GameDataGenerator.getSIZE();
-        subGridSizeHori = GameDataGenerator.getUNITX();
-        subGridSizeVerti = GameDataGenerator.getUNITY();
-        ArrayList<Word> wordlist = WordList.getSelectedWordList();
+    public GameData(int languageMode, boolean isListenMode, int difficulty) {
+        mLanguageMode = languageMode;
+        mIsListenMode = isListenMode;
+        mDifficulty = difficulty;
+        mGridSize = GameDataGenerator.getSIZE();
+        mSubGridSizeHori = GameDataGenerator.getUNITX();
+        mSubGridSizeVerti = GameDataGenerator.getUNITY();
+        List<Word> wordList = WordList.getSelectedWordList();
         mEmptyCellCounter = 0;
-        mGridContent = new String[gridSize][gridSize];
-        mPuzzle = new int[gridSize][gridSize];
-        mPuzzlePreFilled = new int[gridSize][gridSize];
+        mGridContent = new String[mGridSize][mGridSize];
+        mPuzzle = new int[mGridSize][mGridSize];
+        mPuzzlePreFilled = new int[mGridSize][mGridSize];
         // Puzzle with the answers
         mPuzzleAnswer = GameDataGenerator.getSolvedPuzzle();
 
-        String[] wordBank1 = {"mango", "cherry", "lemon", "kiwi", "orange", "pear", "apple", "plum", "peach", "1", "2", "3"};
-        String[] wordBank2 = {"mangue", "cerise", "citron", "kiwi", "orange", "poire", "pomme", "prune", "pêche", "1", "2", "3"};
+        String[] wordBank1 = new String[mGridSize];
+        String[] wordBank2 = new String[mGridSize];
 
         // Pairing the words with numbers
 
 
-        if (!wordlist.isEmpty())
-            for (int i = 0; i < gridSize; i++) {
-                wordBank1[i] = wordlist.get(i).getEnglish();
-                wordBank2[i] = wordlist.get(i).getFrench();
-            }
+        for (int i = 0; i < mGridSize; i++) {
+            wordBank1[i] = wordList.get(i).getEnglish();
+            wordBank2[i] = wordList.get(i).getFrench();
+        }
         mLanguageA = wordBank1;
         mLanguageB = wordBank2;
         if (getLanguageMode() == 1)
@@ -66,65 +71,80 @@ public class GameData implements Parcelable {
 
     private GameData(Parcel in) {
         this.mEmptyCellCounter = in.readInt();
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < mGridSize; i++) {
             in.readStringArray(this.mGridContent[i]);
             in.readIntArray(this.mPuzzle[i]);
             in.readIntArray(this.mPuzzlePreFilled[i]);
         }
     }
 
-    public static int getSubGridSizeHori() {
-        return subGridSizeHori;
-    }
-
-    public static int getSubGridSizeVerti() {
-        return subGridSizeVerti;
-    }
-
-    public static int getGridSize() {
-        return gridSize;
-    }
-
-    public static void setGridSize(int gridSize) {
-        GameData.gridSize = gridSize;
-    }
-
-    public static boolean isListenMode() {
-        return sIsListenMode;
-    }
-
-    public static void setListenMode(boolean isListenMode) {
-        sIsListenMode = isListenMode;
-    }
-
     public static List<String> getLanguagesList() {
         return sLanguagesList;
-    }
-
-    public static int getDifficulty() {
-        return sDifficulty;
-    }
-
-    public static void setDifficulty(int difficulty) {
-        sDifficulty = difficulty;
-    }
-
-    public static int getLanguageMode() {
-        return sLanguageMode;
-    }
-
-    public static void setLanguageMode(int languageMode) {
-        sLanguageMode = languageMode;
-    }
-
-    public static String getLanguageMode_String() {
-        return sLanguagesList.get(sLanguageMode);
     }
 
     public static void loadLanguagesList() {
         sLanguagesList = new ArrayList<>();
         sLanguagesList.add("English - Français");
         sLanguagesList.add("Français - English");
+    }
+
+    public String getSavedTime() {
+        return savedTime;
+    }
+
+    public void setSavedTime(String savedTime) {
+        this.savedTime = savedTime;
+    }
+
+    public long getSavedTimeInterval() {
+        return savedTimeInterval;
+    }
+
+    public void setSavedTimeInterval(long savedTimeInterval) {
+        this.savedTimeInterval = savedTimeInterval;
+    }
+
+    public int getSubGridSizeHori() {
+        return mSubGridSizeHori;
+    }
+
+    public int getSubGridSizeVerti() {
+        return mSubGridSizeVerti;
+    }
+
+    public int getGridSize() {
+        return mGridSize;
+    }
+
+    public boolean isListenMode() {
+        return mIsListenMode;
+    }
+
+    public void setListenMode(boolean isListenMode) {
+        mIsListenMode = isListenMode;
+    }
+
+    public int getDifficulty() {
+        return mDifficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        mDifficulty = difficulty;
+    }
+
+    public int getLanguageMode() {
+        return mLanguageMode;
+    }
+
+    public void setLanguageMode(int languageMode) {
+        mLanguageMode = languageMode;
+    }
+
+    public String getLanguageMode_String() {
+        if (mLanguageMode == 0)
+            return "English - Français";
+        else
+            return "Français - English";
     }
 
     public String[] getLanguageA() {
@@ -163,14 +183,14 @@ public class GameData implements Parcelable {
 
     public void generateIncompletePuzzle() {
         Random random = new Random();
-        for(int i = 0; i < gridSize; i++) {
-            for(int j = 0; j < gridSize; j++) {
-                if(random.nextInt(7) > sDifficulty) {
+        for (int i = 0; i < mGridSize; i++) {
+            for (int j = 0; j < mGridSize; j++) {
+                if (random.nextInt(7) > mDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
-                if(mPuzzle[i][j] != 0)
-                    if(sIsListenMode)
+                if (mPuzzle[i][j] != 0)
+                    if (mIsListenMode)
                         mGridContent[i][j] = String.valueOf(mPuzzle[i][j]);
                     else
                         mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];
@@ -190,7 +210,7 @@ public class GameData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.mEmptyCellCounter);
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < mGridSize; i++) {
             dest.writeStringArray(this.mGridContent[i]);
             dest.writeIntArray(this.mPuzzle[i]);
             dest.writeIntArray(this.mPuzzlePreFilled[i]);
@@ -199,8 +219,8 @@ public class GameData implements Parcelable {
 
     public void removeAllCells() {
         mEmptyCellCounter = 0;
-        for (int i = 0; i < gridSize; i++)
-            for (int j = 0; j < gridSize; j++) {
+        for (int i = 0; i < mGridSize; i++)
+            for (int j = 0; j < mGridSize; j++) {
                 mPuzzle[i][j] = mPuzzlePreFilled[i][j];
                 if (mPuzzle[i][j] != 0)
                     mGridContent[i][j] = mLanguageA[mPuzzle[i][j] - 1];

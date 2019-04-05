@@ -41,6 +41,7 @@ public class GameStartActivity extends AppCompatActivity {
     private Spinner mSpinner;
     private List<View> mViewList;
     private ViewPager mViewPager;
+    private boolean isListenMode;
 
     public static List<CheckBox> getCheckBoxes() {
         return sCheckBoxes;
@@ -69,23 +70,24 @@ public class GameStartActivity extends AppCompatActivity {
         getWindow().setExitTransition(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
+        final Intent i = new Intent(GameStartActivity.this, GameActivity.class);
         mSpinner = findViewById(R.id.spinner);
         mLinearLayout = findViewById(R.id.checkboxs);
         mNumOfWords = 9;
         loadSpinner();
         loadCheckBoxes();
+        isListenMode = false;
         final SeekBar seekBar = findViewById(R.id.seekBar);
-        GameData.setListenMode(false);
         findViewById(R.id.radioRead).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.setListenMode(false);
+                isListenMode = false;
             }
         });
         findViewById(R.id.radioListen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameData.setListenMode(true);
+                isListenMode = true;
             }
         });
         mViewPager = findViewById(R.id.viewpager);
@@ -97,7 +99,7 @@ public class GameStartActivity extends AppCompatActivity {
                     mStartButton.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
                     GameController.showMessageToast(GameStartActivity.this, "Must Select " + mNumOfWords + " Pairs of Words", Gravity.CENTER);
                 } else {
-                    GameData.setDifficulty(seekBar.getProgress() + 1);
+                    i.putExtra("difficulty", seekBar.getProgress() + 1);
                     switch (mViewPager.getCurrentItem()) {
                         case 0:
                             GameDataGenerator.setSIZE(2, 2);
@@ -111,9 +113,11 @@ public class GameStartActivity extends AppCompatActivity {
                         case 3:
                             GameDataGenerator.setSIZE(4, 3);
                     }
-                    GameData.setLanguageMode(mOption);
                     GameDataGenerator.loadPuzzleData();
-                    startActivity(new Intent(GameStartActivity.this, GameActivity.class));
+                    i.putExtra("languageMode", mOption);
+                    i.putExtra("isListenMode", isListenMode);
+
+                    startActivity(i);
                     finish();
                 }
             }
@@ -138,7 +142,7 @@ public class GameStartActivity extends AppCompatActivity {
             }
         });
 
-        PagerAdapter pagerAdapter = new PagerAdapter() {
+        final PagerAdapter pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {
                 return 4;

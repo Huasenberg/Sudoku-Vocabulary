@@ -154,13 +154,13 @@ public class GameDataGenerator {
         int jStart = j * UNITY;
         int iLimit = iStart + UNITY;
         int jLimit = jStart + UNITY;
-        System.out.println("i = " + i);
+        /*System.out.println("i = " + i);
         System.out.println("j = " + j);
 
         System.out.println("iStart = " + iStart);
         System.out.println("jStart = " + jStart);
         System.out.println("iLimit = " + iLimit);
-        System.out.println("jLimit = " + jLimit);
+        System.out.println("jLimit = " + jLimit);*/
         // copy to temp
         for (int k = iStart, l = 0; k < iLimit; k++, l++) {
             System.arraycopy(array[k], 0, temp[l], 0, SIZE);
