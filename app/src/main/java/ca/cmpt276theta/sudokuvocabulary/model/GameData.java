@@ -120,10 +120,6 @@ public class GameData implements Parcelable, Serializable {
         return mIsListenMode;
     }
 
-    public void setListenMode(boolean isListenMode) {
-        mIsListenMode = isListenMode;
-    }
-
     public int getDifficulty() {
         return mDifficulty;
     }

@@ -56,8 +56,8 @@ public class GameContinueActivity extends AppCompatActivity {
         viewList.add(view3);
         final FrameLayout[] frameLayouts = {view1.findViewById(R.id.thumbnail1), view2.findViewById(R.id.thumbnail2), view3.findViewById(R.id.thumbnail3)};
         final TextView[] textViews = {view1.findViewById(R.id.saved_time1), view2.findViewById(R.id.saved_time2), view3.findViewById(R.id.saved_time3)};
-        gameMode = gameDataList.get(selection).isListenMode() ? "Listening Mode" : "Reading Mode";
-        gameProperty.setText("Difficulty: " + String.valueOf(gameDataList.get(selection).getDifficulty()) + "   |   " + gameMode);
+        gameMode = gameDataList.get(selection).isListenMode() ? "   |   Listening Mode" : "    |    Reading Mode";
+        gameProperty.setText("Difficulty: " + String.valueOf(gameDataList.get(selection).getDifficulty()) + gameMode);
         for (int i = 0; i < size; i++) {
             GameThumbnailView gameThumbnailView = new GameThumbnailView(this, gameDataList.get(i));
             textViews[i].setText(gameDataList.get(i).getSavedTime());
@@ -97,8 +97,8 @@ public class GameContinueActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-                gameMode = gameDataList.get(selection).isListenMode() ? "Listening Mode" : "Reading Mode";
-                gameProperty.setText("Difficulty: " + String.valueOf(gameDataList.get(i).getDifficulty()) + "   |   " + gameMode);
+                gameMode = gameDataList.get(i).isListenMode() ? "   |   Listening Mode" : "    |    Reading Mode";
+                gameProperty.setText("Difficulty: " + String.valueOf(gameDataList.get(i).getDifficulty()) + gameMode);
                 selection = i;
             }
 

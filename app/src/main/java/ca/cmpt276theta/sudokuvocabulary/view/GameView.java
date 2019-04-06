@@ -17,6 +17,7 @@ import java.util.Locale;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -41,7 +42,9 @@ public class GameView extends View {
                 readWord();
             else {
                 isLongPress = true;
-                GameView.this.invalidate();
+                if(mGameData.getSavedTime() == null)
+                    WordList.getSelectedWordList().get(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1).addOneScore();
+                invalidate();
             }
         }
     };

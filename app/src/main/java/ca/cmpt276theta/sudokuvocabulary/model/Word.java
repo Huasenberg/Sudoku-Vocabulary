@@ -34,6 +34,10 @@ public class Word {
         this.score = score;
     }
 
+    public void addOneScore(){
+        score++;
+    }
+
     @Override
     public String toString() {
         if (String.valueOf(score).length() > 1)

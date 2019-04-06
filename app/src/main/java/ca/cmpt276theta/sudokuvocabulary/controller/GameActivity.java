@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -75,6 +76,8 @@ public class GameActivity extends AppCompatActivity {
             saveGameData();
             GameController.showMessageToast(this, "Game Saved!", Gravity.NO_GRAVITY);
         }
+        else
+            GameDataList.getGameDataList().remove(mGameData);
     }
 
     @Override
@@ -115,10 +118,17 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void dismiss() {
                 super.dismiss();
+                setActivityBackGroundAlpha(1);
                 startActivity(new Intent(GameActivity.this, MainMenuActivity.class));
             }
+            @Override
+            public void showAtLocation(View parent, int gravity, int x, int y) {
+                setAnimationStyle(R.style.pop_animation);
+                setActivityBackGroundAlpha(0.3f);
+                super.showAtLocation(parent, gravity, x, y);
+            }
         };
-        mPopupWindow.setClippingEnabled(false);
+
         mPopupWindow.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +136,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         final TextView time = mPopupWindow.getContentView().findViewById(R.id.time);
-
 
         if (savedInstanceState != null) {
             mGameData = savedInstanceState.getParcelable("gameData");
@@ -358,25 +367,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    /*public GameData getGameData(){
-        FileInputStream fileInputStream = null;
-        ObjectInputStream objectInputStream = null;
-        try {
-            fileInputStream = openFileInput("game_data");
-            objectInputStream = new ObjectInputStream(fileInputStream);
-            return (GameData) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileInputStream != null) fileInputStream.close();
-                if (objectInputStream != null) objectInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }*/
-
+    private void setActivityBackGroundAlpha(final float num) {
+        final WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.alpha = num;
+        getWindow().setAttributes(layoutParams);
+    }
 
 }

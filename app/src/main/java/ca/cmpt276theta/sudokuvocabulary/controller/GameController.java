@@ -98,7 +98,6 @@ public class GameController {
             }
         }
         mTimer.stop();
-        mPopupWindow.setAnimationStyle(R.style.pop_animation);
         showVicPopup();
         if (mp != null)
             mp.start();
@@ -107,8 +106,7 @@ public class GameController {
     private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
         difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), mGameData.getDifficulty()));
-        mTime.setText(mTimer.getText().toString());
+        mTime.setText("Time: " + mTimer.getText().toString());
         mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
-
     }
 }

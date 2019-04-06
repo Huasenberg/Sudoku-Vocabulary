@@ -2,6 +2,7 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,23 +12,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
@@ -35,22 +38,16 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class WordListActivity extends AppCompatActivity {
-    private static List<TextView> sTextViews;
+    private List<TextView> textViews;
     final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private final int READ_REQUEST_CODE = 42;
-    private Button finishDelButton;
+    private Button finishButton;
     private boolean isDeletionMode;
     private LinearLayout mLinearLayout_textViewList;
     private AlertDialog mAlertDialog2;
     private AlertDialog mAlertDialog;
-
-    public static List<TextView> getTextViews() {
-        return sTextViews;
-    }
-
-    public static void setTextViews(List<TextView> textViews) {
-        WordListActivity.sTextViews = textViews;
-    }
+    private AlertDialog mAlertDialog3;
+    private List<Word> mWordList = WordList.getOriginalWordList();
 
     @Override
     protected void onPause() {
@@ -59,13 +56,15 @@ public class WordListActivity extends AppCompatActivity {
             mAlertDialog.dismiss();
         if (mAlertDialog2.isShowing())
             mAlertDialog2.dismiss();
+        if(mAlertDialog3 != null && mAlertDialog3.isShowing())
+            mAlertDialog3.dismiss();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (isDeletionMode)
-            finishDelButton.performClick();
+            finishButton.performClick();
         mLinearLayout_textViewList.removeAllViews();
     }
 
@@ -73,6 +72,7 @@ public class WordListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_list);
+        textViews = new ArrayList<>();
         mLinearLayout_textViewList = findViewById(R.id.text_view_list);
         lp.setMargins(0, 15, 0, 15);
         initWordList();
@@ -82,15 +82,15 @@ public class WordListActivity extends AppCompatActivity {
         isDeletionMode = false;
         loadTextViews();
         final Button doneButton = findViewById(R.id.button_done);
-        finishDelButton = findViewById(R.id.button_finish_deletion);
+        finishButton = findViewById(R.id.button_finish_deletion);
         final Animation enterAnim1 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_enter_anim);
         final Animation enterAnim2 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_enter_anim);
-        enterAnim2.setStartOffset(250);
+        enterAnim2.setStartOffset(230);
         final Animation enterAnim3 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_enter_anim);
-        enterAnim3.setStartOffset(500);
-        final Animation enterAnim4 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_logo_enter_anim);
+        enterAnim3.setStartOffset(460);
+        final Animation enterAnim4 = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_enter_anim);
+        enterAnim4.setStartOffset(690);
         final Animation exitAnim = AnimationUtils.loadAnimation(WordListActivity.this, R.anim.word_list_side_button_exit_anim);
-        final ImageView wordListLogo = findViewById(R.id.word_list_logo);
 
         final ImageButton sortButton = findViewById(R.id.button_sort);
         mAlertDialog2 = new AlertDialog.Builder(WordListActivity.this)
@@ -102,12 +102,11 @@ public class WordListActivity extends AppCompatActivity {
                             WordList.sortWordDataByAlphbet();
                         else
                             WordList.sortWordDataByScore();
-                        for (int j = 0; j < WordList.getOriginalWordList().size(); j++)
-                            sTextViews.get(j).setText(WordList.getOriginalWordList().get(j).toString());
                         loadTextViews();
                         saveArray();
                     }
                 }).create();
+        mAlertDialog2.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_shape);
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,8 +121,29 @@ public class WordListActivity extends AppCompatActivity {
                 performFileSearch();
             }
         });
-
         final ImageButton deleteButton = findViewById(R.id.button_delete_words);
+        final ImageButton editButton = findViewById(R.id.button_set_words);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortButton.startAnimation(exitAnim);
+                importButton.startAnimation(exitAnim);
+                editButton.startAnimation(exitAnim);
+                deleteButton.startAnimation(exitAnim);
+                doneButton.setVisibility(View.GONE);
+                finishButton.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        sortButton.setVisibility(View.GONE);
+                        importButton.setVisibility(View.GONE);
+                        deleteButton.setVisibility(View.GONE);
+                        sortButton.setVisibility(View.GONE);
+                    }
+                }, 600);
+                enterSettingMode();
+            }
+        });
+
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,15 +157,13 @@ public class WordListActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sTextViews.clear();
-                        WordList.getOriginalWordList().clear();
-                        WordList.getSelectedWordList().clear();
-                        GameStartActivity.getCheckBoxes().clear();
-                        finishDelButton.performClick();
+                        mWordList.clear();
+                        finishButton.performClick();
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .create();
+        mAlertDialog.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_shape);
 
 
         final ImageButton deleteAllButton = findViewById(R.id.button_delete_all);
@@ -162,14 +180,16 @@ public class WordListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sortButton.startAnimation(exitAnim);
                 importButton.startAnimation(exitAnim);
+                editButton.startAnimation(exitAnim);
                 deleteButton.startAnimation(exitAnim);
                 doneButton.setVisibility(View.GONE);
-                finishDelButton.setVisibility(View.VISIBLE);
+                finishButton.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         sortButton.setVisibility(View.GONE);
                         importButton.setVisibility(View.GONE);
                         deleteButton.setVisibility(View.GONE);
+                        sortButton.setVisibility(View.GONE);
                     }
                 }, 600);
 
@@ -179,31 +199,23 @@ public class WordListActivity extends AppCompatActivity {
             }
         });
 
-        finishDelButton.setOnClickListener(new View.OnClickListener() {
+        finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isDeletionMode = false;
                 sortButton.setVisibility(View.VISIBLE);
                 importButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
                 sortButton.startAnimation(enterAnim1);
                 importButton.startAnimation(enterAnim2);
-                deleteButton.startAnimation(enterAnim3);
-                deleteAllButton.startAnimation(exitAnim);
-                finishDelButton.setVisibility(View.GONE);
+                editButton.startAnimation(enterAnim3);
+                deleteButton.startAnimation(enterAnim4);
+                if(deleteAllButton.getVisibility() == View.VISIBLE)
+                    deleteAllButton.startAnimation(exitAnim);
+                finishButton.setVisibility(View.GONE);
                 doneButton.setVisibility(View.VISIBLE);
-                sTextViews.clear();
-                mLinearLayout_textViewList.removeAllViews();
-                final int size = WordList.getOriginalWordList().size();
-                for (int i = 0; i < size; i++) {
-                    final TextView textView = new TextView(WordListActivity.this);
-                    textView.setText(WordList.getOriginalWordList().get(i).toString());
-                    textView.setLayoutParams(lp);
-                    textView.setTextSize(18);
-                    sTextViews.add(textView);
-                    mLinearLayout_textViewList.addView(textView);
-                }
-
+                loadTextViews();
                 saveArray();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
@@ -216,22 +228,31 @@ public class WordListActivity extends AppCompatActivity {
 
         });
 
-        final TextView title = findViewById(R.id.word_list_title);
-
+        final LinearLayout title = findViewById(R.id.word_list_title);
         sortButton.setVisibility(View.VISIBLE);
         importButton.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
         sortButton.startAnimation(enterAnim1);
         importButton.startAnimation(enterAnim2);
-        deleteButton.startAnimation(enterAnim3);
-        wordListLogo.startAnimation(enterAnim4);
+        editButton.startAnimation(enterAnim3);
+        deleteButton.startAnimation(enterAnim4);
         title.startAnimation(enterAnim1);
     }
 
     private void loadTextViews() {
         mLinearLayout_textViewList.removeAllViews();
-        for (TextView textView : sTextViews)
+        textViews.clear();
+        final int size = mWordList.size();
+        for (int i = 0; i < size; i++) {
+            final TextView textView = new TextView(this);
+            textView.setText(mWordList.get(i).toString());
+            textView.setTextSize(18);
+            textView.setLayoutParams(lp);
+            textViews.add(textView);
             mLinearLayout_textViewList.addView(textView);
+        }
+
     }
 
     private void enterDeletionMode() {
@@ -241,27 +262,24 @@ public class WordListActivity extends AppCompatActivity {
         final int[] attrs = new int[]{android.R.attr.selectableItemBackground};
         final TypedArray a = getTheme().obtainStyledAttributes(attrs);
         drawable.setBounds(0, 5, 68, 72);
-        for (TextView textView : sTextViews) {
+        for (TextView textView : textViews) {
             textView.setBackground(a.getDrawable(0));
             textView.setCompoundDrawables(drawable, null, null, null);
             textView.setCompoundDrawablePadding(17);
-            //textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             mLinearLayout_textViewList.addView(textView);
         }
         setDeletionModeListener();
     }
 
     private void setDeletionModeListener() {
-        final List<CheckBox> checkBoxes = GameStartActivity.getCheckBoxes();
-        for (int i = 0; i < sTextViews.size(); i++) {
+        for (int i = 0; i < textViews.size(); i++) {
             final int j = i;
-            final TextView textView = sTextViews.get(i);
+            final TextView textView = textViews.get(i);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mLinearLayout_textViewList.removeView(textView);
-                    sTextViews.remove(j);
-                    checkBoxes.remove(j);
+                    textViews.remove(j);
                     WordList.getOriginalWordList().remove(j);
                     setDeletionModeListener();
                 }
@@ -269,7 +287,55 @@ public class WordListActivity extends AppCompatActivity {
         }
     }
 
-    public void performFileSearch() {
+    private void enterSettingMode(){
+        mLinearLayout_textViewList.removeAllViews();
+        isDeletionMode = true;
+        final Drawable drawable = getResources().getDrawable(R.drawable.edit_word);
+        final int[] attrs = new int[]{android.R.attr.selectableItemBackground};
+        final TypedArray a = getTheme().obtainStyledAttributes(attrs);
+        drawable.setBounds(0, 0, 53, 53);
+        final int size = mWordList.size();
+        for (int i = 0; i < size; i++) {
+            final int j = i;
+            final TextView textView = textViews.get(i);
+            textView.setBackground(a.getDrawable(0));
+            textView.setCompoundDrawables(drawable, null, null, null);
+            textView.setCompoundDrawablePadding(17);
+            mLinearLayout_textViewList.addView(textView);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View textEntryView = LayoutInflater.from(WordListActivity.this).inflate(R.layout.edit_word_pair_popup, null);
+
+                    final Word word = mWordList.get(j);
+                    final EditText editScore = textEntryView.findViewById(R.id.edit_score);
+                    editScore.setText(String.valueOf(word.getScore()));
+                    editScore.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    final EditText editWord1 = textEntryView.findViewById(R.id.edit_word1);
+                    editWord1.setText(word.getEnglish());
+                    final EditText editWord2 = textEntryView.findViewById(R.id.edit_word2);
+                    editWord2.setText(word.getFrench());
+                    mAlertDialog3 = new AlertDialog.Builder(WordListActivity.this)
+                            .setTitle(R.string.edit_word_pair)
+                            .setView(textEntryView)
+                            .setPositiveButton(R.string.confirm,new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if(!editScore.getText().toString().equals(""))
+                                        word.setScore(Integer.parseInt(editScore.getText().toString()));
+                                    word.setEnglish(editWord1.getText().toString());
+                                    word.setFrench(editWord2.getText().toString());
+                                    textView.setText(mWordList.get(j).toString());
+                                }
+                            }).setNegativeButton(R.string.cancel,null).create();
+                    mAlertDialog3.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_shape);
+                    mAlertDialog3.show();
+                }
+            });
+        }
+    }
+
+    private void performFileSearch() {
 
         // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
         // browser.
@@ -311,16 +377,15 @@ public class WordListActivity extends AppCompatActivity {
     private void readTextFromUri(Uri uri) throws IOException {
         InputStream inputStream = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        WordList.writeToArrayList(this, reader);
-        Toast.makeText(this, "Words have been imported!", Toast.LENGTH_SHORT).show();
+        writeToArrayList(this, reader);
         saveArray();
         loadTextViews();
     }
 
-    public void saveArray() {
+    private void saveArray() {
         final List<Word> list = WordList.getOriginalWordList();
-        SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
+        final SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sp.edit();
         editor.putInt("Size", list.size());
         for (int i = 0; i < list.size(); i++) {
             editor.remove("English" + i);
@@ -337,10 +402,45 @@ public class WordListActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (isDeletionMode)
-                finishDelButton.performClick();
+                finishButton.performClick();
             else
                 finish();
         }
         return true;
+    }
+
+    private void writeToArrayList(Context context, BufferedReader reader) {
+        String line = "";
+        try {
+            // Step over headers
+            reader.readLine();
+            // If buffer is not empty
+            while ((line = reader.readLine()) != null) {
+                Log.d("My Activity", "Line: " + line);
+                // use comma as separator columns of CSV
+                String[] tokens = line.split(",");
+                // Read the data
+                final Word sample = new Word(tokens[1], tokens[2]);
+                // Setters
+                sample.setScore(Integer.parseInt(tokens[3]));
+                if (mWordList.contains(sample))
+                    continue;
+                // Adding object to a class
+                final TextView textView = new TextView(context);
+                textView.setText(sample.toString());
+                textView.setTextSize(18);
+                textView.setLayoutParams(lp);
+                textViews.add(textView);
+                mWordList.add(sample);
+                // Log the object
+                Log.d("My Activity", "Just created: " + sample);
+            }
+
+        } catch (IOException e) {
+            // Logs error with priority level
+            Log.d("My Activity", "Error reading data file on line" + line, e);
+            // Prints throwable details
+            e.printStackTrace();
+        }
     }
 }

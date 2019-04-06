@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
@@ -33,7 +34,7 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class GameStartActivity extends AppCompatActivity {
-    private static List<CheckBox> sCheckBoxes;
+    private List<CheckBox> checkBoxes;
     private int mOption;
     private LinearLayout mLinearLayout;
     private int mNumOfWords;
@@ -42,15 +43,7 @@ public class GameStartActivity extends AppCompatActivity {
     private List<View> mViewList;
     private ViewPager mViewPager;
     private boolean isListenMode;
-
-    public static List<CheckBox> getCheckBoxes() {
-        return sCheckBoxes;
-    }
-
-    public static void setCheckBoxes(List<CheckBox> checkBoxes) {
-        sCheckBoxes = checkBoxes;
-    }
-
+    private final int size = WordList.getOriginalWordList().size();
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -70,6 +63,7 @@ public class GameStartActivity extends AppCompatActivity {
         getWindow().setExitTransition(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
+        checkBoxes = new ArrayList<>();
         final Intent i = new Intent(GameStartActivity.this, GameActivity.class);
         mSpinner = findViewById(R.id.spinner);
         mLinearLayout = findViewById(R.id.checkboxs);
@@ -116,7 +110,6 @@ public class GameStartActivity extends AppCompatActivity {
                     GameDataGenerator.loadPuzzleData();
                     i.putExtra("languageMode", mOption);
                     i.putExtra("isListenMode", isListenMode);
-
                     startActivity(i);
                     finish();
                 }
@@ -204,7 +197,7 @@ public class GameStartActivity extends AppCompatActivity {
                     case 3:
                         mNumOfWords = 12;
                 }
-                loadCheckBoxes();
+                cancelAllchecked();
             }
 
             @Override
@@ -212,10 +205,26 @@ public class GameStartActivity extends AppCompatActivity {
 
             }
         });
+        findViewById(R.id.random_select).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < size; i++)
+                    checkBoxes.get(i).setChecked(false);
+                final Random random = new Random();
+                for(int i = 0; i < mNumOfWords; i++) {
+                    while(true) {
+                        final int randomInt = random.nextInt(size);
+                        if (!checkBoxes.get(randomInt).isChecked()) {
+                            checkBoxes.get(randomInt).setChecked(true);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void loadSpinner() {
-        GameData.loadLanguagesList();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown, GameData.getLanguagesList());
         adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         mSpinner.setAdapter(adapter);
@@ -232,35 +241,48 @@ public class GameStartActivity extends AppCompatActivity {
     }
 
     private void loadCheckBoxes() {
-        if (WordList.getOriginalWordList().isEmpty())
+        if (WordList.getOriginalWordList().isEmpty()) {
             findViewById(R.id.empty_image).setVisibility(View.VISIBLE);
+            findViewById(R.id.random_select).setVisibility(View.GONE);
+        }
         else {
-            final List<Word> wordList = WordList.getSelectedWordList();
-            for (int i = 0; i < sCheckBoxes.size(); i++) {
-                sCheckBoxes.get(i).setChecked(false);
-                mLinearLayout.removeView(sCheckBoxes.get(i));
-                mLinearLayout.addView(sCheckBoxes.get(i));
+            final List<Word> wordLists2 = WordList.getSelectedWordList();
+            final List<Word> wordLists = WordList.getOriginalWordList();
+            wordLists2.clear();
+            for (int i = 0; i < size; i++) {
+                final CheckBox checkBox = new CheckBox(this);
+                checkBox.setText("   " + wordLists.get(i).toString());
+                checkBox.setTextColor(getResources().getColor(R.color.check_box));
+                checkBox.setTextSize(17);
+                checkBoxes.add(checkBox);
+                checkBox.setChecked(false);
+                mLinearLayout.addView(checkBox);
                 final int j = i;
-                sCheckBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
-                            wordList.add(WordList.getOriginalWordList().get(j));
-                            if (wordList.size() == mNumOfWords) {
+                            wordLists2.add(WordList.getOriginalWordList().get(j));
+                            if (wordLists2.size() == mNumOfWords) {
                                 mStartButton.setTextColor(getResources().getColor(R.color.background));
-                                for (int k = 0; k < sCheckBoxes.size(); k++)
-                                    if (!sCheckBoxes.get(k).isChecked())
-                                        sCheckBoxes.get(k).setEnabled(false);
+                                for (int k = 0; k < size; k++)
+                                    if (!checkBoxes.get(k).isChecked())
+                                        checkBoxes.get(k).setEnabled(false);
                             }
                         } else {
-                            wordList.remove(WordList.getOriginalWordList().get(j));
+                            wordLists2.remove(WordList.getOriginalWordList().get(j));
                             mStartButton.setTextColor(getResources().getColor(R.color.subgrid));
-                            for (int k = 0; k < sCheckBoxes.size(); k++)
-                                sCheckBoxes.get(k).setEnabled(true);
+                            for (int k = 0; k < size; k++)
+                                checkBoxes.get(k).setEnabled(true);
                         }
                     }
                 });
             }
         }
+    }
+
+    private void cancelAllchecked(){
+        for(CheckBox checkBox : checkBoxes)
+            checkBox.setChecked(false);
     }
 }
