@@ -52,7 +52,7 @@ public class MainMenuActivity extends AppCompatActivity {
         findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
+                startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
             }
         });
     }

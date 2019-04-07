@@ -15,8 +15,10 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
+import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
 import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -36,6 +38,8 @@ public class GameView extends View {
     private int mTouchPositionY;
     private GameData mGameData;
     private boolean isLongPress;
+    private final boolean isVibraOpen = GameSettings.isIsVibraOpen();
+    private final boolean isDuplicHighli = GameSettings.isIsDuplicHighli();
     private final Runnable longPressed = new Runnable() {
         public void run() {
             if (mGameData.isListenMode())
@@ -108,7 +112,8 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawHighlight(canvas);
-        drawConflict(canvas);
+        if(isDuplicHighli)
+            drawConflict(canvas);
         drawGrid(canvas);
         drawWord(canvas);
         if (isLongPress && !mGameData.isListenMode())
@@ -214,7 +219,7 @@ public class GameView extends View {
 
     private void drawHint(Canvas canvas) {
         if (mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0)) {
-            if (!isVibrated) {
+            if (!isVibrated && isVibraOpen) {
                 mVibrator.vibrate(65);
                 isVibrated = true;
             }

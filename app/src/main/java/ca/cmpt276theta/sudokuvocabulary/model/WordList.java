@@ -3,12 +3,13 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class WordList {
-    private static ArrayList<Word> sOriginalWordList;
-    private static ArrayList<Word> sSelectedWordList;
+    private static List<Word> sOriginalWordList;
+    private static List<Word> sSelectedWordList;
 
-    public static ArrayList<Word> getSelectedWordList() {
+    public static List<Word> getSelectedWordList() {
         return sSelectedWordList;
     }
 
@@ -16,11 +17,11 @@ public class WordList {
         sSelectedWordList = selectedWordList;
     }
 
-    public static ArrayList<Word> getOriginalWordList() {
+    public static List<Word> getOriginalWordList() {
         return sOriginalWordList;
     }
 
-    public static void setOriginalWordList(ArrayList<Word> originalWordList) {
+    public static void setOriginalWordList(List<Word> originalWordList) {
         WordList.sOriginalWordList = originalWordList;
     }
 

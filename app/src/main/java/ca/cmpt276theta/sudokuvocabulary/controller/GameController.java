@@ -16,6 +16,7 @@ import android.widget.Toast;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
+import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameController {
@@ -99,7 +100,7 @@ public class GameController {
         }
         mTimer.stop();
         showVicPopup();
-        if (mp != null)
+        if (mp != null && GameSettings.isIsSoundOpen())
             mp.start();
     }
 

@@ -1,6 +1,8 @@
 package ca.cmpt276theta.sudokuvocabulary.model;
 
-public class Word {
+import java.io.Serializable;
+
+public class Word implements Serializable {
     private String english;
     private String french;
     private int score;

@@ -22,6 +22,7 @@ import java.util.List;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
+import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
@@ -62,23 +63,33 @@ public class LaunchActivity extends AppCompatActivity {
         GameData.loadLanguagesList();
         WordList.setOriginalWordList(new ArrayList<Word>());
         WordList.setSelectedWordList(new ArrayList<Word>());
-        loadWordList(WordList.getOriginalWordList());
-        getGameData();
+        loadWordList();
+        loadGameData();
+        loadGameSettings();
     }
 
-    private void loadWordList(ArrayList<Word> list) {
-        SharedPreferences mSharedPreference1 = this.getSharedPreferences("wordList", MODE_PRIVATE);
-        list.clear();
-        final int size = mSharedPreference1.getInt("Size", 0);
-        for (int i = 0; i < size; i++) {
-            final Word word = new Word(mSharedPreference1.getString("English" + i, null), mSharedPreference1.getString("French" + i, null));
-            word.setScore(mSharedPreference1.getInt("Score" + i, 0));
-            list.add(word);
+    private void loadWordList() {
 
+        FileInputStream fileInputStream = null;
+        ObjectInputStream objectInputStream = null;
+        try {
+            fileInputStream = openFileInput("word_list");
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            WordList.setOriginalWordList((List<Word>) objectInputStream.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileInputStream != null) fileInputStream.close();
+                if (objectInputStream != null) objectInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
-    public void getGameData() {
+    private void loadGameData() {
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
         try {
@@ -96,4 +107,14 @@ public class LaunchActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void loadGameSettings(){
+        SharedPreferences mSharedPreference1 = this.getSharedPreferences("game_settings", MODE_PRIVATE);
+        GameSettings.setIsSoundOpen(mSharedPreference1.getBoolean("sound", true));
+        GameSettings.setIsVibraOpen(mSharedPreference1.getBoolean("vibration", true));
+        GameSettings.setIsScreeOn(mSharedPreference1.getBoolean("screen_on", false));
+        GameSettings.setIsDuplicHighli(mSharedPreference1.getBoolean("highli_duplic", true));
+    }
+
+
 }

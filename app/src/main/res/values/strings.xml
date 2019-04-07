@@ -31,7 +31,7 @@
     <string name="restart">Restart</string>
     <string name="dark_mode">Dark</string>
     <string name="restart_alert">All the cells you fill in will be removed.</string>
-    <string name="random_select">Random Select</string>
+    <string name="random_select">Randomly Select</string>
     <string name="score_word">Score\t\t\t\t\t\t\tWord Pairs</string>
     <string name="edit_word_pair">Edit Word Pair</string>
     <string name="score">Score:</string>

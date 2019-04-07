@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -32,10 +31,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
+import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
@@ -91,6 +90,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        if(GameSettings.isIsScreeOn())
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final TextView textView = findViewById(R.id.game_title);
         final FrameLayout gameLayout = findViewById(R.id.game_layout);
         final FrameLayout pauseScreen = new FrameLayout(this);
@@ -346,7 +347,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void saveGameData() {
-
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
@@ -363,8 +363,6 @@ public class GameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     private void setActivityBackGroundAlpha(final float num) {

@@ -27,9 +27,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -383,19 +385,25 @@ public class WordListActivity extends AppCompatActivity {
     }
 
     private void saveArray() {
-        final List<Word> list = WordList.getOriginalWordList();
-        final SharedPreferences sp = this.getSharedPreferences("wordList", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("Size", list.size());
-        for (int i = 0; i < list.size(); i++) {
-            editor.remove("English" + i);
-            editor.putString("English" + i, list.get(i).getEnglish());
-            editor.remove("French" + i);
-            editor.putString("French" + i, list.get(i).getFrench());
-            editor.remove("Score" + i);
-            editor.putInt("Score" + i, list.get(i).getScore());
+
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = openFileOutput("word_list", MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(WordList.getOriginalWordList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+                if (fos != null) fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        editor.apply();
+
+
     }
 
     @Override

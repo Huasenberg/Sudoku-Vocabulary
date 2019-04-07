@@ -1,62 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.SettingsActivity">
-
-    <ImageView
-        android:id="@+id/return_to_main_menu_2"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_gravity="start|top"
-        android:layout_margin="23dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/return_icon" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context=".controller.SettingsActivity"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:background="@color/background"
+        android:elevation="5dp"
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/return_to_main_menu_2"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="23dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/return_icon"
+            android:tint="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textSize="23sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/settings"
-        android:textSize="23sp" />
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@color/background"
+        android:elevation="5dp">
+        <Switch
+            android:id="@+id/sound_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sound Effects"
+            android:textSize="18sp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/check_box" />
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:alpha="0.6"
+            android:background="@color/check_box" />-->
+        <Switch
+            android:id="@+id/vibration_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Vibration Effects"
+            android:textSize="18sp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/check_box"/>
+
+        <Switch
+            android:id="@+id/keep_screen_on_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Keep Screen On"
+            android:textSize="18sp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/check_box"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
-        android:padding="15dp">
-
+        android:padding="15dp"
+        android:background="@color/background"
+        android:elevation="5dp">
         <Switch
+            android:id="@+id/duplic_highli_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Sound Effects"
-            android:textSize="20sp" />
+            android:text="Highlight Duplicates"
+            android:textSize="18sp"
+            android:drawablePadding="8dp"
+            android:textColor="@color/check_box" />
 
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Vibration Effects"
-            android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="This page has not been developed yet."
-            android:textColor="#E20505"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All switches are unavailable."
-            android:textColor="#E20505"
-            android:textSize="18sp" />
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>
