@@ -15,7 +15,6 @@
             android:layout_height="wrap_content">
 
             <FrameLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@color/colorPrimary">
@@ -23,12 +22,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
+                    android:layout_marginStart="29dp"
                     android:layout_marginTop="60dp"
                     android:text="@string/new_game"
                     android:textColor="@color/background"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginEnd="30dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/box"/>
             </FrameLayout>
 
             <LinearLayout

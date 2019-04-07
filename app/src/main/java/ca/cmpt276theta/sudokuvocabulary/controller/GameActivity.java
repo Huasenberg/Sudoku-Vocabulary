@@ -265,11 +265,11 @@ public class GameActivity extends AppCompatActivity {
         final Button[] mButtons = new Button[gridSize];
 
         // Set Listeners and Buttons' Text
-        ArrayList<Integer> randIntList = new ArrayList<Integer>();
-        for (int i = 0; i < gridSize; i++) {
+        List<Integer> randIntList = new ArrayList<>();
+        for (int i = 0; i < gridSize; i++)
             randIntList.add(i);
-        }
-        Random rand = new Random();
+
+        final Random rand = new Random();
         // Set Listeners and Buttons' Text
         for (int i = 0; i < gridSize; i++) {
             final int j = i;

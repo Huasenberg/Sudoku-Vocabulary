@@ -8,8 +8,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:elevation="5dp"
+        android:background="@color/colorPrimary"
+        android:elevation="8dp"
         android:paddingBottom="13dp"
         android:paddingTop="13dp"
         android:layout_marginBottom="20dp">
@@ -22,7 +22,7 @@
             android:layout_marginStart="23dp"
             android:scaleType="centerInside"
             android:src="@drawable/return_icon"
-            android:tint="@color/colorPrimary" />
+            android:tint="@color/background" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:text="@string/settings"
             android:textSize="23sp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/background"/>
 
 
     </FrameLayout>
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="12dp"
         android:orientation="vertical"
         android:padding="15dp"
         android:background="@color/background"
@@ -47,7 +47,7 @@
             android:id="@+id/sound_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sound Effects"
+            android:text="@string/sound_effects"
             android:textSize="18sp"
             android:drawablePadding="8dp"
             android:textColor="@color/check_box" />
@@ -62,8 +62,8 @@
             android:id="@+id/vibration_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Vibration Effects"
+            android:layout_marginTop="25dp"
+            android:text="@string/vibration_effects"
             android:textSize="18sp"
             android:drawablePadding="8dp"
             android:textColor="@color/check_box"/>
@@ -72,8 +72,8 @@
             android:id="@+id/keep_screen_on_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Keep Screen On"
+            android:layout_marginTop="25dp"
+            android:text="@string/keep_screen_on"
             android:textSize="18sp"
             android:drawablePadding="8dp"
             android:textColor="@color/check_box"/>
@@ -83,8 +83,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:orientation="vertical"
         android:padding="15dp"
         android:background="@color/background"
@@ -93,11 +93,35 @@
             android:id="@+id/duplic_highli_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Highlight Duplicates"
+            android:text="@string/highlight_dup"
             android:textSize="18sp"
             android:drawablePadding="8dp"
             android:textColor="@color/check_box" />
-
-
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:background="@color/background"
+        android:elevation="5dp">
+
+        <Button
+            android:id="@+id/clear_all_data"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_data"
+            android:textColor="@color/deleteAll"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/data_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 </LinearLayout>

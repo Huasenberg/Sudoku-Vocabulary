@@ -37,5 +37,12 @@
     <string name="score">Score:</string>
     <string name="language1">English:</string>
     <string name="language2">Français:</string>
+    <string name="sound_effects">Sound Effects</string>
+    <string name="vibration_effects">Vibration Effects</string>
+    <string name="keep_screen_on">Keep Screen On</string>
+    <string name="highlight_dup">Highlight Duplicates</string>
+    <string name="clear_data">Clear Data And Cache</string>
+    <string name="clear_message">"All of this app's data will be deleted. This includes all word pairs and saved games."</string>
+
 
 </resources>

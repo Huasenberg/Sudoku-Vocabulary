@@ -6,12 +6,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +47,9 @@ public class GameContinueActivity extends AppCompatActivity {
         selection = size - 1;
         final Intent intent = new Intent(GameContinueActivity.this, GameActivity.class);
         final ViewPager viewPager = findViewById(R.id.viewpager2);
+        final DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(metrics.widthPixels, metrics.widthPixels));
         final List<View> viewList = new ArrayList<>();
         final LayoutInflater inflater = getLayoutInflater();
         final TextView gameProperty = findViewById(R.id.game_property);
