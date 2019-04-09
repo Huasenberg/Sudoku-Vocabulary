@@ -198,7 +198,6 @@
                         android:textAllCaps="false"
                         android:textSize="16sp"
                         android:layout_marginStart="-6dp"
-                        android:layout_marginBottom="-7dp"
                         android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:id="@+id/empty_image"

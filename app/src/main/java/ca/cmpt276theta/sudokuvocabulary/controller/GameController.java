@@ -17,13 +17,15 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
-import ca.cmpt276theta.sudokuvocabulary.view.GameView;
+import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
+import ca.cmpt276theta.sudokuvocabulary.view.WordView;
 
 public class GameController {
 
     private final MediaPlayer mp;
     private final GameData mGameData;
-    private final GameView mGameView;
+    private final HighlightView mHighlightViewView;
+    private final WordView mWordView;
     private final PopupWindow mPopupWindow;
     private final Chronometer mTimer;
     private final TextView mTime;
@@ -31,9 +33,10 @@ public class GameController {
     private final int subGridSizeHori;
     private final int subGridSizeVerti;
 
-    public GameController(GameData gameData, GameView view, PopupWindow popupWindow, Chronometer timer, TextView time) {
-        mGameView = view;
+    GameController(GameData gameData, HighlightView view, WordView wordView, PopupWindow popupWindow, Chronometer timer, TextView time) {
+        mHighlightViewView = view;
         mGameData = gameData;
+        mWordView = wordView;
         this.mTimer = timer;
         mTimer.start();
         this.mTime = time;
@@ -44,7 +47,7 @@ public class GameController {
         subGridSizeVerti = GameDataGenerator.getUNITY();
     }
 
-    public static void showMessageToast(Context context, String message, int gravity) {
+    static void showMessageToast(Context context, String message, int gravity) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         if (gravity != Gravity.NO_GRAVITY)
             toast.setGravity(gravity, 0, 0);
@@ -56,18 +59,18 @@ public class GameController {
         toast.show();
     }
 
-    public GameData getGameData() {
+    GameData getGameData() {
         return mGameData;
     }
 
-    public void fillWord(Button button) {
-        final int positionX = mGameView.getTouchPositionX();
-        final int positionY = mGameView.getTouchPositionY();
+    void fillWord(Button button) {
+        final int positionX = mHighlightViewView.getTouchPositionX();
+        final int positionY = mHighlightViewView.getTouchPositionY();
         if (positionX < 0 || positionX > (gridSize - 1) || positionY < 0 || positionY > (gridSize - 1))
             return;
         if (mGameData.getPuzzlePreFilled()[positionY][positionX] != 0) {
-            showMessageToast(mGameView.getContext(), "Can't fill in pre-filled cell", Gravity.CENTER);
-            final Animation shake = AnimationUtils.loadAnimation(mGameView.getContext(), R.anim.button_shake_anim);
+            showMessageToast(mHighlightViewView.getContext(), "Can't fill in pre-filled cell", Gravity.CENTER);
+            final Animation shake = AnimationUtils.loadAnimation(mHighlightViewView.getContext(), R.anim.button_shake_anim);
             button.startAnimation(shake);
             return;
         }
@@ -75,7 +78,8 @@ public class GameController {
             mGameData.setEmptyCellCounter(mGameData.getEmptyCellCounter() - 1);
         mGameData.getPuzzle()[positionY][positionX] = Integer.valueOf(button.getTag().toString());
         mGameData.getGridContent()[positionY][positionX] = (String) button.getText();
-        mGameView.invalidate();
+        mWordView.invalidate();
+        mHighlightViewView.invalidate();
         if (mGameData.getEmptyCellCounter() == 0)
             checkGameResult();
     }
@@ -106,8 +110,8 @@ public class GameController {
 
     private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
-        difficulty.setText(String.format(mGameView.getResources().getString(R.string.difficulty), mGameData.getDifficulty()));
+        difficulty.setText(String.format(mHighlightViewView.getResources().getString(R.string.difficulty), mGameData.getDifficulty()));
         mTime.setText("Time: " + mTimer.getText().toString());
-        mPopupWindow.showAtLocation(mGameView, Gravity.CENTER, 0, 0);
+        mPopupWindow.showAtLocation(mHighlightViewView, Gravity.CENTER, 0, 0);
     }
 }

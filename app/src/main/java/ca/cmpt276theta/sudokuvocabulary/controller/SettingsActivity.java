@@ -14,14 +14,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
-import ca.cmpt276theta.sudokuvocabulary.view.GameView;
 
 public class SettingsActivity extends AppCompatActivity {
     private AlertDialog ad;

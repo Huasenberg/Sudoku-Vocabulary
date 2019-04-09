@@ -35,7 +35,11 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
-import ca.cmpt276theta.sudokuvocabulary.view.GameView;
+import ca.cmpt276theta.sudokuvocabulary.view.HintView;
+import ca.cmpt276theta.sudokuvocabulary.view.GridView;
+import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
+import ca.cmpt276theta.sudokuvocabulary.view.WordView;
+
 
 public class GameActivity extends AppCompatActivity {
 
@@ -43,10 +47,10 @@ public class GameActivity extends AppCompatActivity {
     private GameData mGameData;
     private Chronometer mTimer;
     private PopupWindow mPopupWindow;
-    private GameView mGameView;
     private long timeInterval;
     private boolean isPause = false;
     private AlertDialog mAlertDialog;
+    private HighlightView mHighlightView;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -73,7 +77,6 @@ public class GameActivity extends AppCompatActivity {
             mGameData.setSavedTime(formatter.format(curDate));
             gameDataList.add(mGameData);
             saveGameData();
-            GameController.showMessageToast(this, "Game Saved!", Gravity.NO_GRAVITY);
         }
         else
             GameDataList.getGameDataList().remove(mGameData);
@@ -155,9 +158,19 @@ public class GameActivity extends AppCompatActivity {
 
         textView.setText(mGameData.getLanguageMode_String());
 
-        mGameView = new GameView(this, mGameData);
-        final GameController gameController = new GameController(mGameData, mGameView, mPopupWindow, mTimer, time);
-        gameLayout.addView(mGameView);
+
+
+        final WordView wordView = new WordView(this, mGameData);
+        final GridView gridView = new GridView(this, mGameData);
+        final HintView hintView = new HintView(this, mGameData);
+
+        mHighlightView = new HighlightView(this, hintView, mGameData);
+        final GameController gameController = new GameController(mGameData, mHighlightView, wordView, mPopupWindow, mTimer, time);
+
+        gameLayout.addView(mHighlightView);
+        gameLayout.addView(wordView);
+        gameLayout.addView(gridView);
+        gameLayout.addView(hintView);
 
         // Set Buttons Bank
 
@@ -168,11 +181,12 @@ public class GameActivity extends AppCompatActivity {
         erase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int touchPositionX = mGameView.getTouchPositionX();
-                final int touchPositionY = mGameView.getTouchPositionY();
+                final int touchPositionX = mHighlightView.getTouchPositionX();
+                final int touchPositionY = mHighlightView.getTouchPositionY();
                 if (touchPositionX != -1 && mGameData.getPuzzlePreFilled()[touchPositionY][touchPositionX] == 0) {
                     mGameData.removeOneCell(touchPositionX, touchPositionY);
-                    mGameView.invalidate();
+                    wordView.invalidate();
+                    mHighlightView.invalidate();
                 } else if (touchPositionX != -1) {
                     GameController.showMessageToast(GameActivity.this, "Can't erase a pre-filled cell", Gravity.CENTER);
                     final Animation shake = AnimationUtils.loadAnimation(GameActivity.this, R.anim.button_shake_anim);
@@ -189,7 +203,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.border).setBackgroundColor(getResources().getColor(R.color.background));
-                mGameView.setTouchPosition(-1, -1);
+                mHighlightView.setTouchPosition(-1, -1);
                 gameLayout.removeView(pauseScreen);
                 gameLayout.addView(pauseScreen);
                 pause.setClickable(false);
@@ -223,7 +237,9 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         mTimer.setBase(SystemClock.elapsedRealtime());
                         mGameData.removeAllCells();
-                        mGameView.invalidate();
+                        mHighlightView.setTouchPosition(-1,-1);
+                        wordView.invalidate();
+                        mHighlightView.invalidate();
                         timeInterval = 0;
                     }
                 })
@@ -343,7 +359,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mGameView.getTTSHandler().destroy();
+        mHighlightView.getTTSHandler().destroy();
     }
 
     public void saveGameData() {
