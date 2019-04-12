@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -165,7 +164,6 @@ public class WordListActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .create();
-        mAlertDialog.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_shape);
 
 
         final ImageButton deleteAllButton = findViewById(R.id.button_delete_all);
@@ -330,7 +328,6 @@ public class WordListActivity extends AppCompatActivity {
                                     textView.setText(mWordList.get(j).toString());
                                 }
                             }).setNegativeButton(R.string.cancel,null).create();
-                    mAlertDialog3.getWindow().setBackgroundDrawableResource(R.drawable.pop_up_shape);
                     mAlertDialog3.show();
                 }
             });

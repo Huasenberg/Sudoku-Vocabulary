@@ -14,12 +14,12 @@ public class GameDataGeneratorTest {
     private GameDataGenerator myGDG;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         myGDG = new GameDataGenerator();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         myGDG = null;
     }
 

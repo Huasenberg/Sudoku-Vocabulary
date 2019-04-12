@@ -99,25 +99,22 @@
             android:textColor="@color/check_box" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/clear_all_data"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        android:padding="1dp"
         android:background="@color/background"
-        android:elevation="5dp">
+        android:elevation="4dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:text="@string/clear_data"
+        android:textColor="@color/deleteAll"
+        android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/clear_all_data"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/clear_data"
-            android:textColor="@color/deleteAll"
-            android:textSize="15dp" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/data_size"

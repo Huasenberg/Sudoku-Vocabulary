@@ -110,7 +110,10 @@ public class GameController {
 
     private void showVicPopup() {
         final TextView difficulty = mPopupWindow.getContentView().findViewById(R.id.difficulty);
+        final TextView langMode = mPopupWindow.getContentView().findViewById(R.id.game_mode);
         difficulty.setText(String.format(mHighlightViewView.getResources().getString(R.string.difficulty), mGameData.getDifficulty()));
+        final String string = mGameData.isListenMode() ? "Listening" : "Reading";
+        langMode.setText("Game Mode: " + string);
         mTime.setText("Time: " + mTimer.getText().toString());
         mPopupWindow.showAtLocation(mHighlightViewView, Gravity.CENTER, 0, 0);
     }

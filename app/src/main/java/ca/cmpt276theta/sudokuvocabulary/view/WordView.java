@@ -61,13 +61,13 @@ public class WordView extends View {
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 final String word = mGameData.getGridContent()[i][j];
-                wordPaint.setColor(getResources().getColor(R.color.colorPrimary));
+                wordPaint.setColor(getResources().getColor(R.color.border));
                 if (word.length() < 7 && (!word.contains("m")) || word.length() < 5)
                     wordPaint.setTextSize(mGridWidth * 0.29f);
                 else
                     wordPaint.setTextSize(mGridWidth * 0.25f);
                 if (mGameData.getPuzzlePreFilled()[i][j] != 0) {
-                    wordPaint.setColor(getResources().getColor(R.color.game_border));
+                    wordPaint.setColor(getResources().getColor(R.color.colorPrimary));
                     //canvas.drawRect(j * mGridWidth, i * mGridHeight, (j + 1) * mGridWidth, (i + 1) * mGridHeight, preFilledPaint);
                 }
 

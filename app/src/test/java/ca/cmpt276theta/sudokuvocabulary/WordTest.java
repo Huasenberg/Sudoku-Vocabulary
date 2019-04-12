@@ -13,12 +13,12 @@ public class WordTest {
     private Word myWord;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         myWord = new Word("1", "2");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         myWord = null;
     }
 

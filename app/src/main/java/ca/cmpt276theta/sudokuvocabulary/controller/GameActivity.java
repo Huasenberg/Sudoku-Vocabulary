@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -31,13 +32,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
-import ca.cmpt276theta.sudokuvocabulary.view.HintView;
 import ca.cmpt276theta.sudokuvocabulary.view.GridView;
 import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
+import ca.cmpt276theta.sudokuvocabulary.view.HintView;
 import ca.cmpt276theta.sudokuvocabulary.view.WordView;
 
 
@@ -123,7 +125,7 @@ public class GameActivity extends AppCompatActivity {
             public void dismiss() {
                 super.dismiss();
                 setActivityBackGroundAlpha(1);
-                startActivity(new Intent(GameActivity.this, MainMenuActivity.class));
+                finish();
             }
             @Override
             public void showAtLocation(View parent, int gravity, int x, int y) {
@@ -157,8 +159,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
         textView.setText(mGameData.getLanguageMode_String());
-
-
 
         final WordView wordView = new WordView(this, mGameData);
         final GridView gridView = new GridView(this, mGameData);

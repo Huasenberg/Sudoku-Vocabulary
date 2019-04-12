@@ -41,7 +41,7 @@ public class GameContinueActivity extends AppCompatActivity {
         getWindow().setEnterTransition(new Explode().setDuration(400));
         getWindow().setExitTransition(null);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_continued_game_start);
+        setContentView(R.layout.activity_continue_game);
         final List<GameData> gameDataList = GameDataList.getGameDataList();
         final int size = gameDataList.size();
         selection = size - 1;

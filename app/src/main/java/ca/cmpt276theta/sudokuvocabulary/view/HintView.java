@@ -5,21 +5,12 @@ import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Handler;
 import android.os.Vibrator;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
-
-import java.util.Locale;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
-import ca.cmpt276theta.sudokuvocabulary.controller.GameController;
-import ca.cmpt276theta.sudokuvocabulary.controller.TTSHandler;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
-import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
