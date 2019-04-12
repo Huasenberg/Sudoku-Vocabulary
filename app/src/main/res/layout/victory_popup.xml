@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="260dp"
-        android:layout_height="373dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -23,7 +24,9 @@
                 android:text="@string/congratulations"
                 android:textColor="@color/background"
                 android:textSize="27sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:windowSoftInputMode="adjustResize"
+                />
 
             <ImageView
                 android:layout_width="52dp"
@@ -35,7 +38,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/pop_up_shape"
             android:orientation="vertical">
 
@@ -97,8 +100,8 @@
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
-                        android:layout_marginEnd="2dp"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
                         android:src="@drawable/difficulty" />
 
                     <TextView
@@ -122,8 +125,8 @@
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
-                        android:layout_marginEnd="2dp"
                         android:layout_gravity="center"
+                        android:layout_marginEnd="2dp"
                         android:src="@drawable/game_mode" />
 
                     <TextView
@@ -136,6 +139,47 @@
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/leaderboardContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/textName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:editable="true"
+                        android:ems="10"
+                        android:enabled="true"
+                        android:inputType="textPersonName"
+                        android:text="Name" />
+
+                    <Button
+                        android:id="@+id/buttonAddName"
+                        android:layout_width="99dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/add_score"
+                        tools:text="@string/add_score" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

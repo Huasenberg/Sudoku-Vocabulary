@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
+import ca.cmpt276theta.sudokuvocabulary.model.LeaderboardDatabase;
 import ca.cmpt276theta.sudokuvocabulary.view.GridView;
 import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
 import ca.cmpt276theta.sudokuvocabulary.view.HintView;
@@ -118,6 +120,7 @@ public class GameActivity extends AppCompatActivity {
 
         // initialize Victory Pop-up Window
         final View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
+        setLeaderboard(popUpView);
         final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         mPopupWindow = new PopupWindow(popUpView, size.x, size.y, false) {
@@ -354,6 +357,38 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void setLeaderboard(final View popUpView) {
+        final LinearLayout board = popUpView.findViewById(R.id.leaderboardContainer);
+        final Button addName = popUpView.findViewById(R.id.buttonAddName);
+        addName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                EditText text = popUpView.findViewById(R.id.textName);
+                board.removeView(addName);
+                board.removeView(text);
+                String name = text.getText().toString();
+                long time = mTimer.getBase();
+                LeaderboardDatabase.insert(name, time);
+            }
+        });
+        ArrayList<Object[]> entries = LeaderboardDatabase.getLeaderboard();
+        for(int i = 0; i < Math.min(entries.size(), 3); i++)
+        {
+            LinearLayout layout = new LinearLayout(this);
+            TextView name = new TextView(this);
+            name.setWidth(board.getWidth()/2);
+            name.setText(String.valueOf(entries.get(i)[0]));
+            long time = (Long)entries.get(i)[1];
+            long minutes = time/60;
+            long seconds = time%60;
+            TextView timeView = new TextView(this);
+            timeView.setText("      "+minutes + ":" + seconds);
+            layout.addView(name);
+            layout.addView(timeView);
+            board.addView(layout);
+        }
     }
 
     @Override
