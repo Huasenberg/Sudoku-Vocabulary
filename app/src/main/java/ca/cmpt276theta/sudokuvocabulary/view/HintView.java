@@ -20,22 +20,14 @@ public class HintView extends View {
     private final boolean isLandscapeMode;
 
     private final int gridSize;
+    private final boolean isVibraOpen = GameSettings.isIsVibraOpen();
     private float mGridWidth;
     private float mGridHeight;
     private int mTouchPositionX;
     private int mTouchPositionY;
     private GameData mGameData;
     private boolean isLongPress;
-    private final boolean isVibraOpen = GameSettings.isIsVibraOpen();
     private boolean isVibrated;
-
-    public void setLongPress(boolean longPress) {
-        isLongPress = longPress;
-    }
-
-    public void setVibrated(boolean vibrated) {
-        isVibrated = vibrated;
-    }
 
     public HintView(Context context, GameData gameData) {
         super(context);
@@ -49,6 +41,13 @@ public class HintView extends View {
         gridSize = mGameData.getGridSize();
     }
 
+    public void setLongPress(boolean longPress) {
+        isLongPress = longPress;
+    }
+
+    public void setVibrated(boolean vibrated) {
+        isVibrated = vibrated;
+    }
 
     public void setTouchPosition(int x, int y) {
         mTouchPositionX = x;
@@ -80,6 +79,7 @@ public class HintView extends View {
         if (isLongPress && mTouchPositionX != -1 && !(mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] == 0))
             drawHint(canvas);
     }
+
     private void drawHint(Canvas canvas) {
         if (!isVibrated && isVibraOpen) {
             mVibrator.vibrate(65);

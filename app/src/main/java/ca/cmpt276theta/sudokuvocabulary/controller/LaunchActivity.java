@@ -108,7 +108,7 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
-    private void loadGameSettings(){
+    private void loadGameSettings() {
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("game_settings", MODE_PRIVATE);
         GameSettings.setIsSoundOpen(mSharedPreference1.getBoolean("sound", true));
         GameSettings.setIsVibraOpen(mSharedPreference1.getBoolean("vibration", true));

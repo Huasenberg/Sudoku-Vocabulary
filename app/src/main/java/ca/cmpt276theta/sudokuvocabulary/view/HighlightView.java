@@ -19,10 +19,6 @@ import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class HighlightView extends View {
-    private float mGridWidth;
-    private float mGridHeight;
-    private int mTouchPositionX;
-    private int mTouchPositionY;
     private final boolean isLandscapeMode;
     private final int gridSize;
     private final GameData mGameData;
@@ -31,10 +27,11 @@ public class HighlightView extends View {
     private final int subGridSizeVerti;
     private final boolean isDuplicHighli = GameSettings.isIsDuplicHighli();
     private final Handler handler = new Handler();
-    private float tempX = 0;
-    private float tempY = 0;
     private final HintView mHintView;
-
+    private float mGridWidth;
+    private float mGridHeight;
+    private int mTouchPositionX;
+    private int mTouchPositionY;
     private final Runnable longPressed = new Runnable() {
         public void run() {
             if (mGameData.isListenMode())
@@ -43,12 +40,27 @@ public class HighlightView extends View {
                 mHintView.setTouchPosition(mTouchPositionX, mTouchPositionY);
                 mHintView.setLongPress(true);
                 final int index = mGameData.getPuzzle()[mTouchPositionY][mTouchPositionX] - 1;
-                if(mGameData.getSavedTime() == null && index != -1)
+                if (mGameData.getSavedTime() == null && index != -1)
                     WordList.getSelectedWordList().get(index).addOneScore();
                 mHintView.invalidate();
             }
         }
     };
+    private float tempX = 0;
+    private float tempY = 0;
+
+    public HighlightView(Context context, HintView hintView, GameData gameData) {
+        super(context);
+        mHintView = hintView;
+        mGameData = gameData;
+        gridSize = gameData.getGridSize();
+        mTouchPositionX = -1;
+        mTouchPositionY = -1;
+        mTTSHandler = new TTSHandler(context);
+        subGridSizeHori = mGameData.getSubGridSizeHori();
+        subGridSizeVerti = mGameData.getSubGridSizeVerti();
+        isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
+    }
 
     public int getTouchPositionX() {
         return mTouchPositionX;
@@ -61,21 +73,10 @@ public class HighlightView extends View {
     public int getTouchPositionY() {
         return mTouchPositionY;
     }
+
     public void setTouchPosition(int x, int y) {
         mTouchPositionX = x;
         mTouchPositionY = y;
-    }
-    public HighlightView(Context context, HintView hintView, GameData gameData) {
-        super(context);
-        mHintView = hintView;
-        mGameData = gameData;
-        gridSize = gameData.getGridSize();
-        mTouchPositionX = -1;
-        mTouchPositionY = -1;
-        mTTSHandler = new TTSHandler(context);
-        subGridSizeHori = mGameData.getSubGridSizeHori();
-        subGridSizeVerti = mGameData.getSubGridSizeVerti();
-        isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class HighlightView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawHighlight(canvas);
-        if(isDuplicHighli)
+        if (isDuplicHighli)
             drawConflict(canvas);
     }
 
@@ -179,6 +180,7 @@ public class HighlightView extends View {
 
         }
     }
+
     private void readWord() {
         if (mTouchPositionX != -1 && mTouchPositionY != -1 && mGameData.getPuzzlePreFilled()[mTouchPositionY][mTouchPositionX] != 0) {
             Locale locale = Locale.US;

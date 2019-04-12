@@ -118,9 +118,9 @@
             android:id="@+id/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="1.9dp"
             android:layout_margin="2.8dp"
-            android:background="@color/border">
+            android:background="@color/border"
+            android:padding="1.9dp">
 
             <FrameLayout
                 android:id="@+id/game_layout"

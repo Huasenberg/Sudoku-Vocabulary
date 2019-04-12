@@ -34,6 +34,7 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class GameStartActivity extends AppCompatActivity {
+    private final int size = WordList.getOriginalWordList().size();
     private List<CheckBox> checkBoxes;
     private int mOption;
     private LinearLayout mLinearLayout;
@@ -43,7 +44,7 @@ public class GameStartActivity extends AppCompatActivity {
     private List<View> mViewList;
     private ViewPager mViewPager;
     private boolean isListenMode;
-    private final int size = WordList.getOriginalWordList().size();
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -208,11 +209,11 @@ public class GameStartActivity extends AppCompatActivity {
         findViewById(R.id.random_select).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < size; i++)
+                for (int i = 0; i < size; i++)
                     checkBoxes.get(i).setChecked(false);
                 final Random random = new Random();
-                for(int i = 0; i < mNumOfWords; i++) {
-                    while(true) {
+                for (int i = 0; i < mNumOfWords; i++) {
+                    while (true) {
                         final int randomInt = random.nextInt(size);
                         if (!checkBoxes.get(randomInt).isChecked()) {
                             checkBoxes.get(randomInt).setChecked(true);
@@ -244,8 +245,7 @@ public class GameStartActivity extends AppCompatActivity {
         if (WordList.getOriginalWordList().isEmpty()) {
             findViewById(R.id.empty_image).setVisibility(View.VISIBLE);
             findViewById(R.id.random_select).setVisibility(View.GONE);
-        }
-        else {
+        } else {
             final List<Word> wordLists2 = WordList.getSelectedWordList();
             final List<Word> wordLists = WordList.getOriginalWordList();
             wordLists2.clear();
@@ -281,8 +281,8 @@ public class GameStartActivity extends AppCompatActivity {
         }
     }
 
-    private void cancelAllchecked(){
-        for(CheckBox checkBox : checkBoxes)
+    private void cancelAllchecked() {
+        for (CheckBox checkBox : checkBoxes)
             checkBox.setChecked(false);
     }
 }

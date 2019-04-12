@@ -11,12 +11,12 @@ import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class GridView extends View {
 
-    private float mGridWidth;
-    private float mGridHeight;
     private final int subGridSizeHori;
     private final int subGridSizeVerti;
     private final int gridSize;
     private final boolean isLandscapeMode;
+    private float mGridWidth;
+    private float mGridHeight;
 
     public GridView(Context context, GameData gameData) {
         super(context);

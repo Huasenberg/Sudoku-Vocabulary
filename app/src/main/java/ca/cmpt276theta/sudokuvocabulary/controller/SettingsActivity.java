@@ -23,6 +23,7 @@ import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class SettingsActivity extends AppCompatActivity {
     private AlertDialog ad;
+
     @Override
     public void onBackPressed() {
         finish();
@@ -38,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putBoolean("screen_on", GameSettings.isIsScreeOn());
         editor.putBoolean("highli_duplic", GameSettings.isIsDuplicHighli());
         editor.apply();
-        if(ad.isShowing())
+        if (ad.isShowing())
             ad.dismiss();
     }
 
@@ -114,7 +115,7 @@ public class SettingsActivity extends AppCompatActivity {
                         GameDataList.getGameDataList().clear();
                         dataSize.setText("Total: 0 B");
                     }
-                }).setNegativeButton(R.string.cancel,null).create();
+                }).setNegativeButton(R.string.cancel, null).create();
 
         clearData.setOnClickListener(new View.OnClickListener() {
             @Override

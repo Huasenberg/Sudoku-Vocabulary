@@ -26,7 +26,6 @@ public class WordList {
     }
 
 
-
     public static void sortWordDataByScore() {
         Collections.sort(WordList.getOriginalWordList(), new Comparator<Word>() {
             @Override

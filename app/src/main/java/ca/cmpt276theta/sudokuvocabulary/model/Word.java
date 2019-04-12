@@ -36,7 +36,7 @@ public class Word implements Serializable {
         this.score = score;
     }
 
-    public void addOneScore(){
+    public void addOneScore() {
         score++;
     }
 

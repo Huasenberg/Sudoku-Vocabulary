@@ -39,9 +39,9 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class WordListActivity extends AppCompatActivity {
-    private List<TextView> textViews;
     final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private final int READ_REQUEST_CODE = 42;
+    private List<TextView> textViews;
     private Button finishButton;
     private boolean isDeletionMode;
     private LinearLayout mLinearLayout_textViewList;
@@ -57,7 +57,7 @@ public class WordListActivity extends AppCompatActivity {
             mAlertDialog.dismiss();
         if (mAlertDialog2.isShowing())
             mAlertDialog2.dismiss();
-        if(mAlertDialog3 != null && mAlertDialog3.isShowing())
+        if (mAlertDialog3 != null && mAlertDialog3.isShowing())
             mAlertDialog3.dismiss();
     }
 
@@ -211,7 +211,7 @@ public class WordListActivity extends AppCompatActivity {
                 importButton.startAnimation(enterAnim2);
                 editButton.startAnimation(enterAnim3);
                 deleteButton.startAnimation(enterAnim4);
-                if(deleteAllButton.getVisibility() == View.VISIBLE)
+                if (deleteAllButton.getVisibility() == View.VISIBLE)
                     deleteAllButton.startAnimation(exitAnim);
                 finishButton.setVisibility(View.GONE);
                 doneButton.setVisibility(View.VISIBLE);
@@ -287,7 +287,7 @@ public class WordListActivity extends AppCompatActivity {
         }
     }
 
-    private void enterSettingMode(){
+    private void enterSettingMode() {
         mLinearLayout_textViewList.removeAllViews();
         isDeletionMode = true;
         final Drawable drawable = getResources().getDrawable(R.drawable.edit_word);
@@ -318,16 +318,16 @@ public class WordListActivity extends AppCompatActivity {
                     mAlertDialog3 = new AlertDialog.Builder(WordListActivity.this)
                             .setTitle(R.string.edit_word_pair)
                             .setView(textEntryView)
-                            .setPositiveButton(R.string.confirm,new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(!editScore.getText().toString().equals(""))
+                                    if (!editScore.getText().toString().equals(""))
                                         word.setScore(Integer.parseInt(editScore.getText().toString()));
                                     word.setEnglish(editWord1.getText().toString());
                                     word.setFrench(editWord2.getText().toString());
                                     textView.setText(mWordList.get(j).toString());
                                 }
-                            }).setNegativeButton(R.string.cancel,null).create();
+                            }).setNegativeButton(R.string.cancel, null).create();
                     mAlertDialog3.show();
                 }
             });
