@@ -7,7 +7,7 @@ public class GameDataGenerator {
     private static int UNITX;
     private static int UNITY;
     private static int SIZE;
-    private static final int MAX_SHUFFLE = 20;
+    private static final int MAX_SHUFFLE = 200;
     private static int[][] sSolvedPuzzle;
     private static boolean flipped = false;
 
@@ -42,13 +42,11 @@ public class GameDataGenerator {
     }
 
     private static int[][] generateSolved() {
-//        flipped = false;
         int[][] array = new int[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++)
-            for (int j = 0; j < SIZE; j++) //}
-                //array[i][j] = (i * UNITY + i / UNITX + j) % SIZE + 1;  //this is for rows of 2 and columns of 3
+            for (int j = 0; j < SIZE; j++) {
                 array[i][j] = (i * UNITX + i / UNITY + j) % SIZE + 1; // this is for rows of 3 and columns of 2
-//            }
+            }
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
@@ -64,16 +62,6 @@ public class GameDataGenerator {
             }
         }
         return array;
-    }
-
-    public static boolean isPerfectSquare(double x)
-    {
-        // Find floating point value of
-        // square root of x.
-        double sr = Math.sqrt(x);
-
-        // If square root is an integer
-        return ((sr - Math.floor(sr)) == 0);
     }
 
     /**
@@ -103,29 +91,15 @@ public class GameDataGenerator {
         for (int i = 0; i < width - 1; i++) {
             int j = 1 + i + random.nextInt(width - 1 - i);
             swapSquareRows(array, i, j, height);
-//        for (int i = 0; i < UNITX - 1; i++) {
-//            int j = 1 + i + random.nextInt(UNITX - 1 - i);
-//            swapSquareRows(array, i, j);
         }
     }
 
-//
     /**
      * Shuffles single rows within each square row.
      *
      * @param array The array to be transformed.
      */
-//    private static void shuffleSingleRows(int[][] array, int x, int y) {
-//        Random random = new Random();
-//        for (int i = 0; i < UNITX; i++) {
-//            int start = i * UNITY;
-//            int limit = start + UNITY - 1;
-//            for (int j = start; j < limit; j++) {
-//                int k = start + 1 + random.nextInt(limit - j);
-//                swapSingleRows(array, j, k);
-//            }
-//        }
-//    }
+
     private static void shuffleSingleRows(int[][] array, int x, int y) {
         Random random = new Random();
         for (int i = 0; i < x; i++) {
@@ -137,7 +111,7 @@ public class GameDataGenerator {
             }
         }
     }
-//
+
     /**
      * Swaps two rows within a square.
      *
@@ -161,11 +135,6 @@ public class GameDataGenerator {
      */
     private static void swapSquareRows(int[][] array, int i, int j, int height) {
         //if (i == j) return;
-//        int[][] temp = new int[UNITY][SIZE];
-//        int iStart = i * UNITY;
-//        int jStart = j * UNITY;
-//        int iLimit = iStart + UNITY;
-//        int jLimit = jStart + UNITY;
         int[][] temp = new int[height][SIZE];
         int iStart = i * height;
         int jStart = j * height;
