@@ -43,8 +43,8 @@ public class GameController {
         this.mPopupWindow = popupWindow;
         gridSize = gameData.getGridSize();
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
-        subGridSizeHori = GameDataGenerator.getUNITX();
-        subGridSizeVerti = GameDataGenerator.getUNITY();
+        subGridSizeHori = gameData.getSubGridSizeHori();
+        subGridSizeVerti = gameData.getSubGridSizeVerti();
     }
 
     static void showMessageToast(Context context, String message, int gravity) {
