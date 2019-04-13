@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.view;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
@@ -28,7 +29,10 @@ public class GameThumbnailView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
+        if(getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT)
+            setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
+        /*else
+            setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);*/
     }
 
     @Override
