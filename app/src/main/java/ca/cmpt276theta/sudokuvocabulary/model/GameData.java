@@ -188,7 +188,7 @@ public class GameData implements Parcelable, Serializable {
         Random random = new Random();
         for (int i = 0; i < mGridSize; i++) {
             for (int j = 0; j < mGridSize; j++) {
-                if (random.nextInt(100) > mDifficulty) {
+                if (random.nextInt(7) > mDifficulty) {
                     mPuzzle[i][j] = mPuzzleAnswer[i][j];
                     mPuzzlePreFilled[i][j] = mPuzzle[i][j];
                 }
