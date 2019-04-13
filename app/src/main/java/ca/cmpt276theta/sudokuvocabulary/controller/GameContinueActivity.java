@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -49,7 +50,10 @@ public class GameContinueActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.viewpager2);
         final DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        viewPager.setLayoutParams(new LinearLayout.LayoutParams(metrics.widthPixels, metrics.widthPixels));
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            viewPager.setLayoutParams(new LinearLayout.LayoutParams(metrics.widthPixels, metrics.widthPixels));
+        else
+            viewPager.setLayoutParams(new LinearLayout.LayoutParams(metrics.heightPixels, metrics.heightPixels));
         final List<View> viewList = new ArrayList<>();
         final LayoutInflater inflater = getLayoutInflater();
         final TextView gameProperty = findViewById(R.id.game_property);

@@ -75,6 +75,7 @@
             android:layout_gravity="end"
             android:layout_margin="10dp"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/help"
                 android:layout_width="23dp"

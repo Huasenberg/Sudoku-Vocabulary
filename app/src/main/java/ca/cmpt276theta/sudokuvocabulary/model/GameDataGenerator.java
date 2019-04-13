@@ -3,11 +3,11 @@ package ca.cmpt276theta.sudokuvocabulary.model;
 import java.util.Random;
 
 public class GameDataGenerator {
+    private static final int MAX_SHUFFLE = 200;
     //    private static final int UNIT = 3;
     private static int UNITX;
     private static int UNITY;
     private static int SIZE;
-    private static final int MAX_SHUFFLE = 200;
     private static int[][] sSolvedPuzzle;
     private static boolean flipped = false;
 
@@ -55,8 +55,7 @@ public class GameDataGenerator {
             if (flipped) {
                 if (random.nextBoolean()) shuffleSquareRows(array, UNITY, UNITX);
                 if (random.nextBoolean()) shuffleSingleRows(array, UNITY, UNITX);
-            }
-            else {
+            } else {
                 if (random.nextBoolean()) shuffleSquareRows(array, UNITX, UNITY);
                 if (random.nextBoolean()) shuffleSingleRows(array, UNITX, UNITY);
             }
@@ -80,6 +79,7 @@ public class GameDataGenerator {
         }
     }
 //
+
     /**
      * Shuffles square rows in their entirety, i.e. moves 3 rows at a time.
      *
@@ -154,6 +154,7 @@ public class GameDataGenerator {
             System.arraycopy(temp[l], 0, array[k], 0, SIZE);
         }
     }
+
     static boolean isFlipped() {
         return flipped;
     }

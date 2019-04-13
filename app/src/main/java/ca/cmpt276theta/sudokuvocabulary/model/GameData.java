@@ -42,12 +42,11 @@ public class GameData implements Parcelable, Serializable {
         mIsListenMode = isListenMode;
         mDifficulty = difficulty;
         mGridSize = GameDataGenerator.getSIZE();
-        if(GameDataGenerator.isFlipped()) {
+        if (GameDataGenerator.isFlipped()) {
             mSubGridSizeHori = GameDataGenerator.getUNITY();
             mSubGridSizeVerti = GameDataGenerator.getUNITX();
             GameDataGenerator.setflipped(false);
-        }
-        else {
+        } else {
             mSubGridSizeHori = GameDataGenerator.getUNITX();
             mSubGridSizeVerti = GameDataGenerator.getUNITY();
         }

@@ -15,12 +15,11 @@ import android.widget.Toast;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
 import ca.cmpt276theta.sudokuvocabulary.view.WordView;
 
-public class GameController {
+class GameController {
 
     private final MediaPlayer mp;
     private final GameData mGameData;

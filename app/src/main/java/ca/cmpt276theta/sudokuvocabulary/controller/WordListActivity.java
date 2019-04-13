@@ -125,7 +125,7 @@ public class WordListActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                for(Word word : mWordList)
+                                for (Word word : mWordList)
                                     word.setScore(1);
                                 finishButton.performClick();
                             }
@@ -198,8 +198,6 @@ public class WordListActivity extends AppCompatActivity {
         });
 
 
-
-
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +228,7 @@ public class WordListActivity extends AppCompatActivity {
                 isDeletionMode = false;
                 if (deleteAllButton.getVisibility() == View.VISIBLE)
                     deleteAllButton.startAnimation(exitAnim);
-                if(resetAllButton.getVisibility() == View.VISIBLE)
+                if (resetAllButton.getVisibility() == View.VISIBLE)
                     resetAllButton.startAnimation(exitAnim);
                 sortButton.setVisibility(View.VISIBLE);
                 importButton.setVisibility(View.VISIBLE);

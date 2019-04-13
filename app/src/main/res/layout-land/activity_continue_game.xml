@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
     tools:context=".controller.GameContinueActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="63dp"
-            android:text="@string/continue_game"
-            android:textColor="@color/background"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/continue_game"
+                android:textColor="@color/background"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
+            android:layout_margin="20dp"
             android:background="@drawable/pop_up_shape"
             android:elevation="7dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="14dp"
             android:paddingEnd="14dp">
-
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="5dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/difficulty" />
 
             <TextView
                 android:id="@+id/game_property"
@@ -57,23 +48,29 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/button_start2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button"
+            android:text="@string/start"
+            android:textColor="@color/background"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/button_start2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/button"
-            android:text="@string/start"
-            android:textColor="@color/background"
-            android:textStyle="bold" />
 
     </LinearLayout>
 
-
-</FrameLayout>
+</LinearLayout>
