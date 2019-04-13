@@ -114,6 +114,26 @@ public class WordListActivity extends AppCompatActivity {
                 mAlertDialog2.show();
             }
         });
+
+        final ImageButton resetAllButton = findViewById(R.id.button_reset_all);
+        resetAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog3 = new AlertDialog.Builder(WordListActivity.this)
+                        .setTitle(R.string.reset_all)
+                        .setMessage(R.string.reset_all_message)
+                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                for(Word word : mWordList)
+                                    word.setScore(1);
+                                finishButton.performClick();
+                            }
+                        }).setNegativeButton(R.string.cancel, null).create();
+                mAlertDialog3.show();
+            }
+        });
+
         final ImageButton importButton = findViewById(R.id.button_import);
 
         importButton.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +151,7 @@ public class WordListActivity extends AppCompatActivity {
                 importButton.startAnimation(exitAnim);
                 editButton.startAnimation(exitAnim);
                 deleteButton.startAnimation(exitAnim);
+
                 doneButton.setVisibility(View.GONE);
                 finishButton.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
@@ -141,6 +162,8 @@ public class WordListActivity extends AppCompatActivity {
                         sortButton.setVisibility(View.GONE);
                     }
                 }, 600);
+                resetAllButton.setVisibility(View.VISIBLE);
+                resetAllButton.startAnimation(enterAnim2);
                 enterSettingMode();
             }
         });
@@ -175,6 +198,8 @@ public class WordListActivity extends AppCompatActivity {
         });
 
 
+
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +228,10 @@ public class WordListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isDeletionMode = false;
+                if (deleteAllButton.getVisibility() == View.VISIBLE)
+                    deleteAllButton.startAnimation(exitAnim);
+                if(resetAllButton.getVisibility() == View.VISIBLE)
+                    resetAllButton.startAnimation(exitAnim);
                 sortButton.setVisibility(View.VISIBLE);
                 importButton.setVisibility(View.VISIBLE);
                 editButton.setVisibility(View.VISIBLE);
@@ -211,8 +240,6 @@ public class WordListActivity extends AppCompatActivity {
                 importButton.startAnimation(enterAnim2);
                 editButton.startAnimation(enterAnim3);
                 deleteButton.startAnimation(enterAnim4);
-                if (deleteAllButton.getVisibility() == View.VISIBLE)
-                    deleteAllButton.startAnimation(exitAnim);
                 finishButton.setVisibility(View.GONE);
                 doneButton.setVisibility(View.VISIBLE);
                 loadTextViews();
@@ -221,6 +248,8 @@ public class WordListActivity extends AppCompatActivity {
                     public void run() {
                         deleteAllButton.clearAnimation();
                         deleteAllButton.setVisibility(View.GONE);
+                        resetAllButton.clearAnimation();
+                        resetAllButton.setVisibility(View.GONE);
                     }
                 }, 600);
             }
@@ -306,7 +335,6 @@ public class WordListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     final View textEntryView = LayoutInflater.from(WordListActivity.this).inflate(R.layout.edit_word_pair_popup, null);
-
                     final Word word = mWordList.get(j);
                     final EditText editScore = textEntryView.findViewById(R.id.edit_score);
                     editScore.setText(String.valueOf(word.getScore()));

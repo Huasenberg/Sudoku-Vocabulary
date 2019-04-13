@@ -130,6 +130,20 @@
                 android:visibility="gone" />
 
             <ImageButton
+                android:id="@+id/button_reset_all"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/round_rectangle_right"
+                android:elevation="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/reset_all"
+                android:visibility="gone" />
+
+            <ImageButton
                 android:id="@+id/button_import"
                 android:layout_width="50dp"
                 android:layout_height="48dp"

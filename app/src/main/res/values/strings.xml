@@ -58,6 +58,8 @@
         - Next is to make sure the CSV is on your phone and that you can find it using the file navigation that pops up when you want to import.</string>
     <string name="how_to_play">How to play</string>
     <string name="sudoku_intro">This game operates on the same basis as a regular Japanese Sudoku puzzle.</string>
+    <string name="reset_all">Reset All Scores</string>
+    <string name="reset_all_message">All scores will be reset to one</string>
 
 
 </resources>
