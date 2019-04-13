@@ -1,5 +1,6 @@
 package ca.cmpt276theta.sudokuvocabulary.model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +23,12 @@ public class LeaderboardDatabase {
     {
         if(db != null) {
             String query = "INSERT INTO Leaderboard VALUES(?,?)";
-            db.rawQuery(query, new String[]{name, String.valueOf(time)});
+            ContentValues values = new ContentValues();
+            values.put("Name", name);
+            values.put("Time", time);
+            db.insert("Leaderboard", null, values);
+            //db.rawQuery(query, new String[]{name, String.valueOf(time)}).close();
+            System.out.println("Added into database: " + name + "   " + time);
         }
     }
     public static ArrayList<Object[]> getLeaderboard()
@@ -38,6 +44,7 @@ public class LeaderboardDatabase {
                 objList.add(new Object[]{name, i});
                 cursor.moveToNext();
             }
+            cursor.close();
             return objList;
         }
         return null;

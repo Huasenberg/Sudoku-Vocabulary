@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -135,9 +137,12 @@ public class GameActivity extends AppCompatActivity {
                 setAnimationStyle(R.style.pop_animation);
                 setActivityBackGroundAlpha(0.3f);
                 super.showAtLocation(parent, gravity, x, y);
+                setFocusable(true);
+                update();
             }
         };
-
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.update();
         mPopupWindow.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,15 +367,16 @@ public class GameActivity extends AppCompatActivity {
     private void setLeaderboard(final View popUpView) {
         final LinearLayout board = popUpView.findViewById(R.id.leaderboardContainer);
         final Button addName = popUpView.findViewById(R.id.buttonAddName);
+        final EditText text = popUpView.findViewById(R.id.textName);
         addName.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                EditText text = popUpView.findViewById(R.id.textName);
-                board.removeView(addName);
-                board.removeView(text);
+
                 String name = text.getText().toString();
-                long time = mTimer.getBase();
-                LeaderboardDatabase.insert(name, time);
+                long elapsedMillis = mGameData.getTimeEnd();
+                System.out.println(mTimer.getText());
+                LeaderboardDatabase.insert(name, elapsedMillis/1000);
+                ((View)text.getParent()).setVisibility(View.GONE);
             }
         });
         ArrayList<Object[]> entries = LeaderboardDatabase.getLeaderboard();
