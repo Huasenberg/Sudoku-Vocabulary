@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -384,17 +385,22 @@ public class GameActivity extends AppCompatActivity {
         {
             LinearLayout layout = new LinearLayout(this);
             TextView name = new TextView(this);
-            name.setWidth(board.getWidth()/2);
+            name.setWidth((int)convertDpToPixel(111, this));
             name.setText(String.valueOf(entries.get(i)[0]));
             long time = (Long)entries.get(i)[1];
             long minutes = time/60;
             long seconds = time%60;
             TextView timeView = new TextView(this);
-            timeView.setText("      "+minutes + ":" + seconds);
+            timeView.setWidth((int)convertDpToPixel(111, this));
+            timeView.setText(minutes + ":" + seconds);
             layout.addView(name);
             layout.addView(timeView);
             board.addView(layout);
         }
+    }
+
+    public static float convertDpToPixel(float dp, Context context) {
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     @Override
