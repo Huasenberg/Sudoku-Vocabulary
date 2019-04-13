@@ -167,7 +167,7 @@ public class GameStartActivity extends AppCompatActivity {
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view3.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
+                GameController.showMessageToast(GameStartActivity.this, "Swipe left or right to select other grid sizes", Gravity.CENTER);
             }
         });
         mViewList = new ArrayList<>();
