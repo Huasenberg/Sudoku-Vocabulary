@@ -8,6 +8,7 @@ import android.view.View;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
+import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 
 public class GridView extends View {
 
@@ -21,9 +22,19 @@ public class GridView extends View {
     public GridView(Context context, GameData gameData) {
         super(context);
         gridSize = gameData.getGridSize();
-        subGridSizeHori = gameData.getSubGridSizeHori();
-        subGridSizeVerti = gameData.getSubGridSizeVerti();
+        if(GameDataGenerator.isFlipped())
+        {
+            subGridSizeHori = gameData.getSubGridSizeHori();
+            subGridSizeVerti = gameData.getSubGridSizeVerti();
+            GameDataGenerator.setflipped(false);
+        }
+        else
+        {
+            subGridSizeHori = gameData.getSubGridSizeVerti();
+            subGridSizeVerti = gameData.getSubGridSizeHori();
+        }
         isLandscapeMode = getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
+
     }
 
     @Override
