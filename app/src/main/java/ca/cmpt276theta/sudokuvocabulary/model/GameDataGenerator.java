@@ -19,11 +19,11 @@ public class GameDataGenerator {
         return UNITY;
     }
 
-    public static void setflipped(final boolean flip) {
+    static void setflipped(final boolean flip) {
         GameDataGenerator.flipped = flip;
     }
 
-    public static int[][] getSolvedPuzzle() {
+    static int[][] getSolvedPuzzle() {
         return sSolvedPuzzle;
     }
 
@@ -52,17 +52,15 @@ public class GameDataGenerator {
         Random random = new Random();
         int limit = random.nextInt(MAX_SHUFFLE);
         for (int i = 0; i < limit; i++) {
-            if (random.nextBoolean()) {
+            if (random.nextBoolean())
                 transpose(array);
-            }
-            if (!flipped) {
-                if (random.nextBoolean()) shuffleSquareRows(array, UNITX, UNITY);
-                if (random.nextBoolean()) shuffleSingleRows(array, UNITX, UNITY);
-            }
-
             if (flipped) {
                 if (random.nextBoolean()) shuffleSquareRows(array, UNITY, UNITX);
                 if (random.nextBoolean()) shuffleSingleRows(array, UNITY, UNITX);
+            }
+            else {
+                if (random.nextBoolean()) shuffleSquareRows(array, UNITX, UNITY);
+                if (random.nextBoolean()) shuffleSingleRows(array, UNITX, UNITY);
             }
         }
         return array;
@@ -187,9 +185,7 @@ public class GameDataGenerator {
             System.arraycopy(temp[l], 0, array[k], 0, SIZE);
         }
     }
-    public static boolean isFlipped()
-    {
-        System.out.println("finalflipped = " + flipped);
+    static boolean isFlipped() {
         return flipped;
     }
 }
