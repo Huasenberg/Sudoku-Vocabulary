@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -374,6 +375,11 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String name = text.getText().toString();
+                if(name.trim().length() <= 0)
+                {
+                    Toast.makeText(GameActivity.this, "You need a name!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 long elapsedMillis = mGameData.getTimeEnd();
                 System.out.println(mTimer.getText());
                 LeaderboardDatabase.insert(name, elapsedMillis/1000);
@@ -392,7 +398,7 @@ public class GameActivity extends AppCompatActivity {
             long seconds = time%60;
             TextView timeView = new TextView(this);
             timeView.setWidth((int)convertDpToPixel(111, this));
-            timeView.setText(minutes + ":" + seconds);
+            timeView.setText(String.format("%d:%02d", minutes, seconds));
             layout.addView(name);
             layout.addView(timeView);
             board.addView(layout);

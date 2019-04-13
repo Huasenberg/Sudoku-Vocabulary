@@ -44,6 +44,7 @@
     <string name="clear_data">Clear Data And Cache</string>
     <string name="clear_message">"All of this app's data will be deleted. This includes all word pairs and saved games."</string>
     <string name="add_score">Add</string>
+    <string name="name_leaderboard">Your Name</string>
 
 
 </resources>

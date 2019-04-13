@@ -164,11 +164,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:contentDescription="@string/name_leaderboard"
                         android:editable="true"
                         android:ems="10"
                         android:enabled="true"
-                        android:inputType="textShortMessage|textPersonName"
-                        android:text="Name" />
+                        android:hint="@string/name_leaderboard"
+                        android:inputType="textShortMessage|textPersonName" />
 
                     <Button
                         android:id="@+id/buttonAddName"
