@@ -34,10 +34,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onPause();
         final SharedPreferences sp = this.getSharedPreferences("game_settings", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("sound", GameSettings.isIsSoundOpen());
-        editor.putBoolean("vibration", GameSettings.isIsVibraOpen());
-        editor.putBoolean("screen_on", GameSettings.isIsScreeOn());
-        editor.putBoolean("highli_duplic", GameSettings.isIsDuplicHighli());
+        editor.putBoolean("sound", GameSettings.isSoundOpen());
+        editor.putBoolean("vibration", GameSettings.isVibraOpen());
+        editor.putBoolean("screen_on", GameSettings.isScreeOn());
+        editor.putBoolean("highli_duplic", GameSettings.isDuplicHighli());
         editor.apply();
         if (ad.isShowing())
             ad.dismiss();
@@ -58,44 +58,44 @@ public class SettingsActivity extends AppCompatActivity {
         final Drawable drawable1 = getResources().getDrawable(R.drawable.sound);
         drawable1.setBounds(2, 2, 66, 66);
         soundSwitch.setCompoundDrawables(drawable1, null, null, null);
-        soundSwitch.setChecked(GameSettings.isIsSoundOpen());
+        soundSwitch.setChecked(GameSettings.isSoundOpen());
         soundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                GameSettings.setIsSoundOpen(isChecked);
+                GameSettings.setSoundOpen(isChecked);
             }
         });
         final Switch vibrationSwitch = findViewById(R.id.vibration_switch);
         final Drawable drawable2 = getResources().getDrawable(R.drawable.vibration);
         drawable2.setBounds(2, 2, 66, 66);
         vibrationSwitch.setCompoundDrawables(drawable2, null, null, null);
-        vibrationSwitch.setChecked(GameSettings.isIsVibraOpen());
+        vibrationSwitch.setChecked(GameSettings.isVibraOpen());
         vibrationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                GameSettings.setIsVibraOpen(isChecked);
+                GameSettings.setVibraOpen(isChecked);
             }
         });
         final Switch keepScreOn = findViewById(R.id.keep_screen_on_switch);
         final Drawable drawable3 = getResources().getDrawable(R.drawable.screen_on);
         drawable3.setBounds(2, 2, 66, 66);
         keepScreOn.setCompoundDrawables(drawable3, null, null, null);
-        keepScreOn.setChecked(GameSettings.isIsScreeOn());
+        keepScreOn.setChecked(GameSettings.isScreeOn());
         keepScreOn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                GameSettings.setIsScreeOn(isChecked);
+                GameSettings.setScreeOn(isChecked);
             }
         });
         final Switch highliDuplic = findViewById(R.id.duplic_highli_switch);
         final Drawable drawable4 = getResources().getDrawable(R.drawable.highlight);
         drawable4.setBounds(2, 2, 66, 66);
         highliDuplic.setCompoundDrawables(drawable4, null, null, null);
-        highliDuplic.setChecked(GameSettings.isIsDuplicHighli());
+        highliDuplic.setChecked(GameSettings.isDuplicHighli());
         highliDuplic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                GameSettings.setIsDuplicHighli(isChecked);
+                GameSettings.setDuplicHighli(isChecked);
             }
         });
 

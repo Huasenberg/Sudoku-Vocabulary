@@ -94,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        if (GameSettings.isIsScreeOn())
+        if (GameSettings.isScreeOn())
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final TextView textView = findViewById(R.id.game_title);
         final FrameLayout gameLayout = findViewById(R.id.game_layout);

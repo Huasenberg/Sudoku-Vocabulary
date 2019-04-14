@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+/*package ca.cmpt276theta.sudokuvocabulary;
 
 import org.junit.After;
 import org.junit.Before;
@@ -81,4 +81,4 @@ public class GameDataGeneratorTest {
     public void getSolvedPuzzle() {
 
     }
-}
+}*/

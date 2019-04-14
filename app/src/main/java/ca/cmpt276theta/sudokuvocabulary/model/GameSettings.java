@@ -7,35 +7,35 @@ public class GameSettings {
     private static boolean isScreeOn;
     private static boolean isDuplicHighli;
 
-    public static boolean isIsSoundOpen() {
+    public static boolean isSoundOpen() {
         return isSoundOpen;
     }
 
-    public static void setIsSoundOpen(boolean isSoundOpen) {
+    public static void setSoundOpen(boolean isSoundOpen) {
         GameSettings.isSoundOpen = isSoundOpen;
     }
 
-    public static boolean isIsVibraOpen() {
+    public static boolean isVibraOpen() {
         return isVibraOpen;
     }
 
-    public static void setIsVibraOpen(boolean isVibraOpen) {
+    public static void setVibraOpen(boolean isVibraOpen) {
         GameSettings.isVibraOpen = isVibraOpen;
     }
 
-    public static boolean isIsScreeOn() {
+    public static boolean isScreeOn() {
         return isScreeOn;
     }
 
-    public static void setIsScreeOn(boolean isScreeOn) {
+    public static void setScreeOn(boolean isScreeOn) {
         GameSettings.isScreeOn = isScreeOn;
     }
 
-    public static boolean isIsDuplicHighli() {
+    public static boolean isDuplicHighli() {
         return isDuplicHighli;
     }
 
-    public static void setIsDuplicHighli(boolean isDuplicHighli) {
+    public static void setDuplicHighli(boolean isDuplicHighli) {
         GameSettings.isDuplicHighli = isDuplicHighli;
     }
 

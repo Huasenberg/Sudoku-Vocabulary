@@ -20,7 +20,7 @@ public class HintView extends View {
     private final boolean isLandscapeMode;
 
     private final int gridSize;
-    private final boolean isVibraOpen = GameSettings.isIsVibraOpen();
+    private final boolean isVibraOpen = GameSettings.isVibraOpen();
     private float mGridWidth;
     private float mGridHeight;
     private int mTouchPositionX;

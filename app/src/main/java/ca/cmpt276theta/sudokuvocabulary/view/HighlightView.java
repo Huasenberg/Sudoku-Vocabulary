@@ -25,7 +25,7 @@ public class HighlightView extends View {
     private final int subGridSizeHori;
     private final TTSHandler mTTSHandler;
     private final int subGridSizeVerti;
-    private final boolean isDuplicHighli = GameSettings.isIsDuplicHighli();
+    private final boolean isDuplicHighli = GameSettings.isDuplicHighli();
     private final Handler handler = new Handler();
     private final HintView mHintView;
     private float mGridWidth;

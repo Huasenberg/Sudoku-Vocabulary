@@ -104,7 +104,7 @@ class GameController {
         }
         mTimer.stop();
         showVicPopup();
-        if (mp != null && GameSettings.isIsSoundOpen())
+        if (mp != null && GameSettings.isSoundOpen())
             mp.start();
     }
 

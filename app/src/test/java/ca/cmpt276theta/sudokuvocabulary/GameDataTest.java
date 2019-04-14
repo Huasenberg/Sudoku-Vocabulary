@@ -1,4 +1,4 @@
-package ca.cmpt276theta.sudokuvocabulary;
+/*package ca.cmpt276theta.sudokuvocabulary;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -169,4 +169,4 @@ public class GameDataTest {
         Assert.assertTrue(not_empty2);
         assertNotEquals(81, counter2);
     }
-}
+}*/

@@ -1,6 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +12,7 @@ public class WordList {
         return sSelectedWordList;
     }
 
-    public static void setSelectedWordList(ArrayList<Word> selectedWordList) {
+    public static void setSelectedWordList(List<Word> selectedWordList) {
         sSelectedWordList = selectedWordList;
     }
 

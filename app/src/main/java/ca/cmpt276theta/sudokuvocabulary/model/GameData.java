@@ -72,8 +72,66 @@ public class GameData implements Parcelable, Serializable {
         mLanguageB = wordBank2;
         if (getLanguageMode() == 1)
             switchLanguage();
+
+
+        /*int random_word[] = new int[gridSize];
+        int iCount;
+        if (!wordlist.isEmpty()) {
+            for (iCount = 0; iCount < gridSize; iCount++) {
+                random_word[iCount] = random_weighted_scores(wordlist);
+                //System.out.println("randomlist" + Arrays.toString(random_word));
+            }
+            for (iCount = 0; iCount < gridSize; iCount++) {
+                wordBank1[iCount] = wordlist.get(random_word[iCount]).getEnglish();
+                wordBank2[iCount] = wordlist.get(random_word[iCount]).getFrench();
+                //System.out.println("USING"+wordlist.get(iCount).getEnglish());
+            }
+        }
+        mLanguageA = wordBank1;
+        mLanguageB = wordBank2;
+        if(getLanguageMode() == 1)
+            switchLanguage();*/
         generateIncompletePuzzle();
     }
+
+    /*private ArrayList<Integer> usedIndex = new ArrayList<>();
+    private int random_weighted_scores(ArrayList<Word> wordlist) {
+        int iCount;
+        final int min = 1;
+        final int max_score = max_score(wordlist);
+        //System.out.println("MAX" + max_score);
+        int target = new Random().nextInt((max_score - min) + 1) + min;
+        //System.out.println("RANDOM" + target);
+        int random_word = 0;
+
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if (target <= wordlist.get(iCount).getScore() && !usedIndex.contains(iCount)) {
+                //System.out.println("choosing"+wordlist.get(iCount).getScore());
+                random_word = iCount;
+                usedIndex.add(iCount);
+                //System.out.println("1RANDOM_WORD"+random_word);
+                return random_word;
+            } else {
+                target -= wordlist.get(iCount).getScore();
+            }
+        }
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            if(!usedIndex.contains(iCount)) {
+                return iCount;
+            }
+        }
+        //System.out.println("2RANDOM_WORD"+random_word);
+        return random_word;
+    }
+
+    private int max_score(ArrayList<Word> wordlist) {
+        int max_score = 0;
+        int iCount;
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            max_score += wordlist.get(iCount).getScore();
+        }
+        return max_score;
+    }*/
 
     private GameData(Parcel in) {
         this.mEmptyCellCounter = in.readInt();
