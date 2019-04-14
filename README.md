@@ -705,9 +705,9 @@
 
 ### **Given**: The user wants to learn different languages other than french and english
 
-### **When**: The user imports a CSV with words from other languages
+### **When**: The user imports a CSV with words from other languages or uses the drop down menu to choose another language
 
-### **Then**: _____
+### **Then**: The board will operate as normally but using the user specified language
 
 ## 26. JSON SUPPORT
 
