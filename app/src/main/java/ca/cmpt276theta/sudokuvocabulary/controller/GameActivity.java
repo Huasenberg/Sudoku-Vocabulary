@@ -89,12 +89,14 @@ public class GameActivity extends AppCompatActivity {
             saveGameData();
         } else
             GameDataList.getGameDataList().remove(mGameData);
-        findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background));
-        findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background));
-        findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background));
-        findViewById(R.id.game_top1).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        for (Button button : mButtons)
-            button.getBackground().setTint(getResources().getColor(R.color.word_bank));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background));
+            findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background));
+            findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background));
+            findViewById(R.id.game_top1).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            for (Button button : mButtons)
+                button.getBackground().setTint(getResources().getColor(R.color.word_bank));
+        }
     }
 
     @Override
@@ -287,7 +289,7 @@ public class GameActivity extends AppCompatActivity {
         darkMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isDark) {
+                if(!isDark && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background_dark));
                     findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background_dark));
                     findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background_top_dark));
@@ -301,7 +303,7 @@ public class GameActivity extends AppCompatActivity {
                     isDark = true;
                     darkMode.setText("Bright");
                 }
-                else {
+                else if(isDark && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
                     findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background));
                     findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background));
                     findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background));
