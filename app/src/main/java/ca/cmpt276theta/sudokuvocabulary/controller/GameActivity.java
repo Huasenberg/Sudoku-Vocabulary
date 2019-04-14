@@ -59,6 +59,8 @@ public class GameActivity extends AppCompatActivity {
     private boolean isPause = false;
     private AlertDialog mAlertDialog;
     private HighlightView mHighlightView;
+    private Button[] mButtons;
+    private boolean isDark = false;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -279,7 +281,35 @@ public class GameActivity extends AppCompatActivity {
         darkMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameController.showMessageToast(GameActivity.this, "Coming Soon!", Gravity.CENTER);
+                if(!isDark) {
+                    findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background_dark));
+                    findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background_dark));
+                    findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background_top_dark));
+                    findViewById(R.id.game_top1).setBackgroundColor(getResources().getColor(R.color.background_top_dark));
+                    for (Button button : mButtons)
+                        button.getBackground().setTint(getResources().getColor(R.color.background_top_dark));
+                    restart.setTextColor(getResources().getColor(R.color.word_dark));
+                    pause.setTextColor(getResources().getColor(R.color.word_dark));
+                    erase.setTextColor(getResources().getColor(R.color.word_dark));
+                    darkMode.setTextColor(getResources().getColor(R.color.word_dark));
+                    isDark = true;
+                    darkMode.setText("Bright");
+                }
+                else {
+                    findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background));
+                    findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background));
+                    findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background));
+                    findViewById(R.id.game_top1).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    for (Button button : mButtons)
+                        button.getBackground().setTint(getResources().getColor(R.color.word_bank));
+                    restart.setTextColor(getResources().getColor(R.color.word_dark));
+                    pause.setTextColor(getResources().getColor(R.color.word_dark));
+                    erase.setTextColor(getResources().getColor(R.color.word_dark));
+                    darkMode.setTextColor(getResources().getColor(R.color.word_dark));
+                    isDark = false;
+                    darkMode.setText("Dark");
+                }
+
             }
         });
 
@@ -288,7 +318,7 @@ public class GameActivity extends AppCompatActivity {
         final LinearLayout buttonBank3 = findViewById(R.id.button_bank3);
         final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
         final int gridSize = mGameData.getGridSize();
-        final Button[] mButtons = new Button[gridSize];
+        mButtons = new Button[gridSize];
 
         // Set Listeners and Buttons' Text
         List<Integer> randIntList = new ArrayList<>();

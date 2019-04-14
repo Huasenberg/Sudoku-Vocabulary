@@ -16,4 +16,8 @@
     <color name="help_color">#4CAF50</color>
     <color name="help_color1">#FF9800</color>
     <color name="help_color2">#F44336</color>
+    <color name="background_dark">#303030</color>
+    <color name="background_top_dark">#424242</color>
+    <color name="word_dark">#707070</color>
+
 </resources>
