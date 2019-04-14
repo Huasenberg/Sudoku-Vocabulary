@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
+import ca.cmpt276theta.sudokuvocabulary.model.LeaderboardDatabase;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -113,6 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                         WordList.getOriginalWordList().clear();
                         WordList.getSelectedWordList().clear();
                         GameDataList.getGameDataList().clear();
+                        LeaderboardDatabase.clear();
                         dataSize.setText("Total: 0 B");
                     }
                 }).setNegativeButton(R.string.cancel, null).create();

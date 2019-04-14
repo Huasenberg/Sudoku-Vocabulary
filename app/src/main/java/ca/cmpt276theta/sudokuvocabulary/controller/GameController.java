@@ -3,6 +3,7 @@ package ca.cmpt276theta.sudokuvocabulary.controller;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -115,6 +116,7 @@ class GameController {
         final String string = mGameData.isListenMode() ? "Listening" : "Reading";
         langMode.setText("Game Mode: " + string);
         mTime.setText("Time: " + mTimer.getText().toString());
+        mGameData.setTimeEnd(SystemClock.elapsedRealtime()-mTimer.getBase());
         mPopupWindow.showAtLocation(mHighlightViewView, Gravity.CENTER, 0, 0);
     }
 }

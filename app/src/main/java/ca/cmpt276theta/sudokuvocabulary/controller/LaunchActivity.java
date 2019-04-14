@@ -23,6 +23,7 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
+import ca.cmpt276theta.sudokuvocabulary.model.LeaderboardDatabase;
 import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
@@ -57,6 +58,7 @@ public class LaunchActivity extends AppCompatActivity {
                 finish();
             }
         }, 3200);
+        LeaderboardDatabase.init(this);
     }
 
     private void loadGame() {

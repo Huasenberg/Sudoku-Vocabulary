@@ -43,6 +43,8 @@
     <string name="highlight_dup">Highlight Duplicates</string>
     <string name="clear_data">Clear Data And Cache</string>
     <string name="clear_message">"All of this app's data will be deleted. This includes all word pairs and saved games."</string>
+    <string name="add_score">Add</string>
+    <string name="name_leaderboard">Your Name</string>
     <string name="reading_mode">\t\tReading Mode</string>
     <string name="reading_mode_cont">- The twist is that instead of numbers, you will be playing with pairs of words instead.\n
         - You may press and hold any cell that contains a word to see the translation of the word as a hint.\n
@@ -60,6 +62,7 @@
     <string name="sudoku_intro">This game operates on the same basis as a regular Japanese Sudoku puzzle.</string>
     <string name="reset_all">Reset All Scores</string>
     <string name="reset_all_message">All scores will be reset to one</string>
+>>>>>>> app/src/main/res/values/strings.xml
 
 
 </resources>
