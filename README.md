@@ -513,29 +513,9 @@
 
 ## **FOR ITERATION 4**
 
-## 18. NIGHT MODE
-
-### Status: **Not Started**
-
-### `User Story`
-
-- As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
-
-### `Test Driven Development`
-
-- When a user clicks the night mode button, the colours of the app will change to a darker scheme
- 
-### `Scenario`
-
-### **Given**: The user is playing the game in the dark or just wants to use a dark colour scheme
-
-### **When**: The user clicks the "moon" icon on the menu of the app or in the game or in the settings
-
-### **Then**: The app will get a dark colour scheme to the app that is easier on the eyes when in a dark room
-
 ## 19. PAUSE
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -553,25 +533,27 @@
 
 ### **Then**: A pause screen will appear over the app and the timer will be paused so that the user can't also cheat to solve the game.
 
-## 20. BACK (TO MENU) BUTTON
+## 20. SAVED BOARDS
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
 - As a user, I want to be able to go back to the menu screen, so that I can go back to the menu to choose other options
 
+- As a user, I want to be able to turn off the game but still have the current board saved, so that I can resume the same puzzle at a later time
+
 ### `Test Driven Development`
 
-- When a user clicks a "back" button, the game they are currently on should be saved or prompted that progress will be lost and then returned to the menu screen
+- When a user clicks a "back" button or exits the game, the game they are currently on will be saved up to 3 recently boards are saved
 
 ### `Scenario`
 
-### **Given**:
+### **Given**: The user accidentally clicks "back" or closes the game.
 
-### **When**:
+### **When**: The user clicks "Continue Game"
 
-### **Then**:
+### **Then**: The game will prompt the user with the 3 most recent boards that are started by the user and not completed 
 
 ## 21. HOW-TO-PLAY BUTTON
 
@@ -593,25 +575,27 @@
 
 ### **Then**: The user will be prompted with a screen that explains the rules of the game and the features of the game to help the user solve the puzzle
 
-## 22. SAVED BOARDS
+## 22. ERASE STORED DATA
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
-- As a user, I want to be able to save my progress for the current puzzle for the future and when I return to the main menu
+- As a user, I want to be able to easily delete my settings preferences, saved puzzles, and imported wordlists, and not have to delete the entire app so that I can have more storage
 
 ### `Test Driven Development`
 
-- When a user decided to exit the current board, the user will be prompted with a message if they want to save the board or not. There will be an option in the main menu for users who want to return to a saved board.
+- When a user decides to press the "Clear Data and Cache" button from the settings menu, they will eb prompted with a confirmation screen. Then the settings preferences, saved puzzles, and imported wordlists will be deleted but the app will remain.
+
+- When the user goes to the "import word list" page, they may also manually delete the words that are currently stored on the app without having to delete other settings
 
 ### `Scenario`
 
-### **Given**:
+### **Given**: The user wants to easily delete their settings preferences, stored puzzles, and imported wordlists
 
-### **When**:
+### **When**: The user clicks on the "Clear Data and Cache" button from the settings menu
 
-### **Then**:
+### **Then**: The wordlists in the app will be cleared, the settings preferences will be restored to default settings, and the stored puzzles will be cleared
 
 ## 23. RESET WORDLIST SCORE DATABASE
 
@@ -635,23 +619,53 @@
 
 ## 24. UI WORDLIST DATABASE
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
-- - As a user, I want to be able to view what words are in the database to see what I am learning. 
+- As a user, I want to be able to view what words are in the database to see what I am learning
+
+- As a user, I want to be able to sort the words alphabetically or by its score
+
+- As a user, I want to be able to edit the words or the scores
+
+- As a user, I want to be able to remove the words
 
 ### `Test Driven Development`
 
-- When a user decides to press the "list of words" button, the user will be taken to another screen showing the list of words and the score of the words
+- When a user decides to press the "Import Word List" button, the user will be prompted with a screen that shows the list of words and the score of the words
 
 ### `Scenario`
 
-### **Given**: The user wants to see what words are contained in the database
+### **Given**: The user wants to see what words are contained in the database, edit the words or scores of the words, delete the words, and sort the words
 
-### **When**: The user clicks on the ____ button
+### **When**: The user clicks on the "Import Word List" button
 
-### **Then**: The user is prompted with another screen that shows all the words that are in the database and its score
+### **Then**: The user will be prompted with a user interface of database for the word list and will be able to edit the word pairs and its score, delete the word pair, and sort the word pairs
+
+## 25. LOCAL LEADERBOARD
+
+### Status: **Implemented**
+
+### `User Story`
+
+- As a user, I want to be able to keep track of my finishing times
+
+- As a user, I want to be able to see if my friend is able to beat my finishing times and label that someone else did better than me
+
+### `Test Driven Development`
+
+- When a user completes a game, they may enter in their name to be added to a leaderboard
+
+### `Scenario`
+
+### **Given**: The user wants to keep track of their fast times
+
+### **When**: The user finishes a puzzle, they may type in their name to add to the leaderboard
+
+### **Then**: Their name and time will be added to the leaderboard. THe leaderboard may be viewed upon game completion
+
+## **FUTURE IDEAS**
 
 ## 25. DIFFERENT LANGUAGES
 
@@ -695,6 +709,25 @@
 
 ### **Then**: The app will read the JSON file accordingly
 
+## 18. NIGHT MODE
+
+### Status: **Not Started**
+
+### `User Story`
+
+- As a user, I want to be able to play in the dark, so that I don't have to strain my eyes while playing the game
+
+### `Test Driven Development`
+
+- When a user clicks the night mode button, the colours of the app will change to a darker scheme
+ 
+### `Scenario`
+
+### **Given**: The user is playing the game in the dark or just wants to use a dark colour scheme
+
+### **When**: The user clicks the "moon" icon on the menu of the app or in the game or in the settings
+
+### **Then**: The app will get a dark colour scheme to the app that is easier on the eyes when in a dark room
 ## **REFERENCES**
 
 - Code from https://github.com/Subh0m0y/Sudoku/blob/master/src/core/Generator.java by Subh0m0y was referenced when implementing feature three (Unique Puzzles)
