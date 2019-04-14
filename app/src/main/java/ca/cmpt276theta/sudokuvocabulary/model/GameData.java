@@ -188,16 +188,8 @@ public class GameData implements Parcelable, Serializable {
         return mDifficulty;
     }
 
-    public void setDifficulty(int difficulty) {
-        mDifficulty = difficulty;
-    }
-
     public int getLanguageMode() {
         return mLanguageMode;
-    }
-
-    public void setLanguageMode(int languageMode) {
-        mLanguageMode = languageMode;
     }
 
     public String getLanguageMode_String() {
@@ -241,7 +233,7 @@ public class GameData implements Parcelable, Serializable {
         mLanguageB = temp;
     }
 
-    public void generateIncompletePuzzle() {
+    private void generateIncompletePuzzle() {
         Random random = new Random();
         for (int i = 0; i < mGridSize; i++) {
             for (int j = 0; j < mGridSize; j++) {
