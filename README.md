@@ -667,7 +667,7 @@
 
 ## 24. NIGHT MODE
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
