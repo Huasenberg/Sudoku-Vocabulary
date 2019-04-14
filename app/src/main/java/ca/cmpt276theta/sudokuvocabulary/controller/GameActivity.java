@@ -1,6 +1,7 @@
 package ca.cmpt276theta.sudokuvocabulary.controller;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -9,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,13 +18,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,6 +42,7 @@ import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 import ca.cmpt276theta.sudokuvocabulary.model.GameDataList;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
+import ca.cmpt276theta.sudokuvocabulary.model.LeaderboardDatabase;
 import ca.cmpt276theta.sudokuvocabulary.view.GridView;
 import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
 import ca.cmpt276theta.sudokuvocabulary.view.HintView;
@@ -117,6 +123,7 @@ public class GameActivity extends AppCompatActivity {
 
         // initialize Victory Pop-up Window
         final View popUpView = LayoutInflater.from(this).inflate(R.layout.victory_popup, null);
+        setLeaderboard(popUpView);
         final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         mPopupWindow = new PopupWindow(popUpView, size.x, size.y, false) {
@@ -132,9 +139,12 @@ public class GameActivity extends AppCompatActivity {
                 setAnimationStyle(R.style.pop_animation);
                 setActivityBackGroundAlpha(0.3f);
                 super.showAtLocation(parent, gravity, x, y);
+                setFocusable(true);
+                update();
             }
         };
-
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.update();
         mPopupWindow.getContentView().findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -354,6 +364,49 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void setLeaderboard(final View popUpView) {
+        final LinearLayout board = popUpView.findViewById(R.id.leaderboardContainer);
+        final Button addName = popUpView.findViewById(R.id.buttonAddName);
+        final EditText text = popUpView.findViewById(R.id.textName);
+        addName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                String name = text.getText().toString();
+                if(name.trim().length() <= 0)
+                {
+                    Toast.makeText(GameActivity.this, "You need a name!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long elapsedMillis = mGameData.getTimeEnd();
+                System.out.println(mTimer.getText());
+                LeaderboardDatabase.insert(name, elapsedMillis/1000);
+                ((View)text.getParent()).setVisibility(View.GONE);
+            }
+        });
+        ArrayList<Object[]> entries = LeaderboardDatabase.getLeaderboard();
+        for(int i = 0; i < Math.min(entries.size(), 3); i++)
+        {
+            LinearLayout layout = new LinearLayout(this);
+            TextView name = new TextView(this);
+            name.setWidth((int)convertDpToPixel(111, this));
+            name.setText(String.valueOf(entries.get(i)[0]));
+            long time = (Long)entries.get(i)[1];
+            long minutes = time/60;
+            long seconds = time%60;
+            TextView timeView = new TextView(this);
+            timeView.setWidth((int)convertDpToPixel(111, this));
+            timeView.setText(String.format("%d:%02d", minutes, seconds));
+            layout.addView(name);
+            layout.addView(timeView);
+            board.addView(layout);
+        }
+    }
+
+    public static float convertDpToPixel(float dp, Context context) {
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     @Override

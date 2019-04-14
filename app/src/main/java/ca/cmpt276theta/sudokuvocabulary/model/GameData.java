@@ -36,7 +36,7 @@ public class GameData implements Parcelable, Serializable {
     private int[][] mPuzzlePreFilled;
     private long savedTimeInterval;
     private String savedTime;
-
+    long endTime = 0;
     public GameData(int languageMode, boolean isListenMode, int difficulty) {
         mLanguageMode = languageMode;
         mIsListenMode = isListenMode;
@@ -295,5 +295,12 @@ public class GameData implements Parcelable, Serializable {
         mPuzzle[positionY][positionX] = 0;
         mGridContent[positionY][positionX] = " ";
         mEmptyCellCounter++;
+    }
+
+    public void setTimeEnd(long l) {
+        endTime = l;
+    }
+    public long getTimeEnd() {
+        return endTime;
     }
 }
