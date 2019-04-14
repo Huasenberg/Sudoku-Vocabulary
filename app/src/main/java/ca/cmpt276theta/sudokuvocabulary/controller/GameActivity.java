@@ -89,6 +89,12 @@ public class GameActivity extends AppCompatActivity {
             saveGameData();
         } else
             GameDataList.getGameDataList().remove(mGameData);
+        findViewById(R.id.game_bg).setBackgroundColor(getResources().getColor(R.color.background));
+        findViewById(R.id.game_layout).setBackgroundColor(getResources().getColor(R.color.background));
+        findViewById(R.id.game_top).getBackground().setTint(getResources().getColor(R.color.background));
+        findViewById(R.id.game_top1).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        for (Button button : mButtons)
+            button.getBackground().setTint(getResources().getColor(R.color.word_bank));
     }
 
     @Override
