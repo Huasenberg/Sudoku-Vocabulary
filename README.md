@@ -665,11 +665,9 @@
 
 ### **Then**: Their name and time will be added to the leaderboard. THe leaderboard may be viewed upon game completion
 
-## **FUTURE IDEAS**
-
 ## 24. NIGHT MODE
 
-### Status: **Not Started**
+### Status: **Implemented**
 
 ### `User Story`
 
@@ -686,6 +684,8 @@
 ### **When**: The user clicks the "moon" icon on the menu of the app or in the game or in the settings
 
 ### **Then**: The app will get a dark colour scheme to the app that is easier on the eyes when in a dark room
+
+## **FUTURE IDEAS**
 
 ## 25. DIFFERENT LANGUAGES
 
