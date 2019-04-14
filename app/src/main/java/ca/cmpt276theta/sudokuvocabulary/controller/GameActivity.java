@@ -85,8 +85,7 @@ public class GameActivity extends AppCompatActivity {
             mGameData.setSavedTime(formatter.format(curDate));
             gameDataList.add(mGameData);
             saveGameData();
-        }
-        else
+        } else
             GameDataList.getGameDataList().remove(mGameData);
     }
 
@@ -101,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        if(GameSettings.isIsScreeOn())
+        if (GameSettings.isScreeOn())
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final TextView textView = findViewById(R.id.game_title);
         final FrameLayout gameLayout = findViewById(R.id.game_layout);
@@ -134,6 +133,7 @@ public class GameActivity extends AppCompatActivity {
                 setActivityBackGroundAlpha(1);
                 finish();
             }
+
             @Override
             public void showAtLocation(View parent, int gravity, int x, int y) {
                 setAnimationStyle(R.style.pop_animation);
@@ -247,7 +247,7 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         mTimer.setBase(SystemClock.elapsedRealtime());
                         mGameData.removeAllCells();
-                        mHighlightView.setTouchPosition(-1,-1);
+                        mHighlightView.setTouchPosition(-1, -1);
                         wordView.invalidate();
                         mHighlightView.invalidate();
                         timeInterval = 0;

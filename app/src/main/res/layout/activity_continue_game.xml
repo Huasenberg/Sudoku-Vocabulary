@@ -19,14 +19,7 @@
             android:textColor="@color/background"
             android:textSize="28sp"
             android:textStyle="bold" />
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="58dp"
-            android:layout_marginEnd="28dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/saved_icon"/>
+
     </FrameLayout>
 
     <LinearLayout
@@ -47,13 +40,15 @@
             android:orientation="horizontal"
             android:paddingStart="14dp"
             android:paddingEnd="14dp">
+
             <ImageView
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:src="@drawable/difficulty"
-                android:scaleType="centerInside"
                 android:layout_gravity="center"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/difficulty" />
+
             <TextView
                 android:id="@+id/game_property"
                 android:layout_width="wrap_content"
@@ -71,8 +66,8 @@
             android:id="@+id/button_start2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:background="@drawable/button"
             android:text="@string/start"
             android:textColor="@color/background"

@@ -39,9 +39,9 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class WordListActivity extends AppCompatActivity {
-    private List<TextView> textViews;
     final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private final int READ_REQUEST_CODE = 42;
+    private List<TextView> textViews;
     private Button finishButton;
     private boolean isDeletionMode;
     private LinearLayout mLinearLayout_textViewList;
@@ -57,7 +57,7 @@ public class WordListActivity extends AppCompatActivity {
             mAlertDialog.dismiss();
         if (mAlertDialog2.isShowing())
             mAlertDialog2.dismiss();
-        if(mAlertDialog3 != null && mAlertDialog3.isShowing())
+        if (mAlertDialog3 != null && mAlertDialog3.isShowing())
             mAlertDialog3.dismiss();
     }
 
@@ -114,6 +114,26 @@ public class WordListActivity extends AppCompatActivity {
                 mAlertDialog2.show();
             }
         });
+
+        final ImageButton resetAllButton = findViewById(R.id.button_reset_all);
+        resetAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog3 = new AlertDialog.Builder(WordListActivity.this)
+                        .setTitle(R.string.reset_all)
+                        .setMessage(R.string.reset_all_message)
+                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                for (Word word : mWordList)
+                                    word.setScore(1);
+                                finishButton.performClick();
+                            }
+                        }).setNegativeButton(R.string.cancel, null).create();
+                mAlertDialog3.show();
+            }
+        });
+
         final ImageButton importButton = findViewById(R.id.button_import);
 
         importButton.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +151,7 @@ public class WordListActivity extends AppCompatActivity {
                 importButton.startAnimation(exitAnim);
                 editButton.startAnimation(exitAnim);
                 deleteButton.startAnimation(exitAnim);
+
                 doneButton.setVisibility(View.GONE);
                 finishButton.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
@@ -141,6 +162,8 @@ public class WordListActivity extends AppCompatActivity {
                         sortButton.setVisibility(View.GONE);
                     }
                 }, 600);
+                resetAllButton.setVisibility(View.VISIBLE);
+                resetAllButton.startAnimation(enterAnim2);
                 enterSettingMode();
             }
         });
@@ -203,6 +226,10 @@ public class WordListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isDeletionMode = false;
+                if (deleteAllButton.getVisibility() == View.VISIBLE)
+                    deleteAllButton.startAnimation(exitAnim);
+                if (resetAllButton.getVisibility() == View.VISIBLE)
+                    resetAllButton.startAnimation(exitAnim);
                 sortButton.setVisibility(View.VISIBLE);
                 importButton.setVisibility(View.VISIBLE);
                 editButton.setVisibility(View.VISIBLE);
@@ -211,8 +238,6 @@ public class WordListActivity extends AppCompatActivity {
                 importButton.startAnimation(enterAnim2);
                 editButton.startAnimation(enterAnim3);
                 deleteButton.startAnimation(enterAnim4);
-                if(deleteAllButton.getVisibility() == View.VISIBLE)
-                    deleteAllButton.startAnimation(exitAnim);
                 finishButton.setVisibility(View.GONE);
                 doneButton.setVisibility(View.VISIBLE);
                 loadTextViews();
@@ -221,6 +246,8 @@ public class WordListActivity extends AppCompatActivity {
                     public void run() {
                         deleteAllButton.clearAnimation();
                         deleteAllButton.setVisibility(View.GONE);
+                        resetAllButton.clearAnimation();
+                        resetAllButton.setVisibility(View.GONE);
                     }
                 }, 600);
             }
@@ -287,7 +314,7 @@ public class WordListActivity extends AppCompatActivity {
         }
     }
 
-    private void enterSettingMode(){
+    private void enterSettingMode() {
         mLinearLayout_textViewList.removeAllViews();
         isDeletionMode = true;
         final Drawable drawable = getResources().getDrawable(R.drawable.edit_word);
@@ -306,7 +333,6 @@ public class WordListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     final View textEntryView = LayoutInflater.from(WordListActivity.this).inflate(R.layout.edit_word_pair_popup, null);
-
                     final Word word = mWordList.get(j);
                     final EditText editScore = textEntryView.findViewById(R.id.edit_score);
                     editScore.setText(String.valueOf(word.getScore()));
@@ -318,16 +344,16 @@ public class WordListActivity extends AppCompatActivity {
                     mAlertDialog3 = new AlertDialog.Builder(WordListActivity.this)
                             .setTitle(R.string.edit_word_pair)
                             .setView(textEntryView)
-                            .setPositiveButton(R.string.confirm,new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(!editScore.getText().toString().equals(""))
+                                    if (!editScore.getText().toString().equals(""))
                                         word.setScore(Integer.parseInt(editScore.getText().toString()));
                                     word.setEnglish(editWord1.getText().toString());
                                     word.setFrench(editWord2.getText().toString());
                                     textView.setText(mWordList.get(j).toString());
                                 }
-                            }).setNegativeButton(R.string.cancel,null).create();
+                            }).setNegativeButton(R.string.cancel, null).create();
                     mAlertDialog3.show();
                 }
             });

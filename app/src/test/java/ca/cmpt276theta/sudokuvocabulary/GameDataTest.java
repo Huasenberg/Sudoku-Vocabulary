@@ -1,3 +1,4 @@
+/*
 package ca.cmpt276theta.sudokuvocabulary;
 
 import org.junit.After;
@@ -170,3 +171,4 @@ public class GameDataTest {
         assertNotEquals(81, counter2);
     }
 }
+*/

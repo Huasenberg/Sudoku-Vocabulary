@@ -34,6 +34,7 @@ import ca.cmpt276theta.sudokuvocabulary.model.Word;
 import ca.cmpt276theta.sudokuvocabulary.model.WordList;
 
 public class GameStartActivity extends AppCompatActivity {
+    private final int size = WordList.getOriginalWordList().size();
     private List<CheckBox> checkBoxes;
     private int mOption;
     private LinearLayout mLinearLayout;
@@ -43,7 +44,7 @@ public class GameStartActivity extends AppCompatActivity {
     private List<View> mViewList;
     private ViewPager mViewPager;
     private boolean isListenMode;
-    private final int size = WordList.getOriginalWordList().size();
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -166,7 +167,7 @@ public class GameStartActivity extends AppCompatActivity {
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view3.startAnimation(AnimationUtils.loadAnimation(GameStartActivity.this, R.anim.button_shake_anim));
+                GameController.showMessageToast(GameStartActivity.this, "Swipe left or right to select other grid sizes", Gravity.CENTER);
             }
         });
         mViewList = new ArrayList<>();
@@ -208,21 +209,80 @@ public class GameStartActivity extends AppCompatActivity {
         findViewById(R.id.random_select).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < size; i++)
+
+                final List<Word> wordLists = WordList.getOriginalWordList();
+                //System.out.println("SIZE" + size);
+                //size = size of the database
+
+                for (int i = 0; i < size; i++) {
                     checkBoxes.get(i).setChecked(false);
-                final Random random = new Random();
-                for(int i = 0; i < mNumOfWords; i++) {
-                    while(true) {
-                        final int randomInt = random.nextInt(size);
-                        if (!checkBoxes.get(randomInt).isChecked()) {
-                            checkBoxes.get(randomInt).setChecked(true);
+                    //System.out.println("CHECKBOX "+wordLists.get(i).getEnglish()+wordLists.get(i).getScore());
+                }
+
+                int random_word[] = new int[mNumOfWords];
+                for (int i = 0; i < mNumOfWords; i++) {
+                    while (true) {
+                        int j = random_weighted_scores(wordLists);
+                        if (!checkBoxes.get(j).isChecked()) {
+                            checkBoxes.get(j).setChecked(true);
                             break;
                         }
                     }
                 }
+
+//                final Random random = new Random();
+//                for (int i = 0; i < mNumOfWords; i++) {
+//                    while (true) {
+//                        final int randomInt = random.nextInt(size);
+//                        if (!checkBoxes.get(randomInt).isChecked()) {
+//                            checkBoxes.get(randomInt).setChecked(true);
+//                            break;
+//                        }
+//                    }
+//                }
             }
         });
     }
+    //private ArrayList<Integer> usedIndex = new ArrayList<>();
+    private int random_weighted_scores(List<Word> wordlist) {
+
+        final int min = 0;
+        final int max = max_score(wordlist);
+        //System.out.println("MAX" + max);
+        int target = new Random().nextInt((max - min) + 1) + min;
+        //System.out.println("RANDOM" + target);
+        int random_word = 0;
+
+        for (int i = 0; i < wordlist.size(); i++) {
+            if (target <= wordlist.get(i).getScore() /*&& !usedIndex.contains(iCount)*/) {
+                //System.out.println("choosing"+wordlist.get(i).getScore());
+                random_word = i;
+                //usedIndex.add(i);
+                //System.out.println("RANDOM_WORD"+wordlist.get(i).getScore()+wordlist.get(i).getEnglish());
+                return i;
+            } else {
+                target -= wordlist.get(i).getScore();
+            }
+        }
+//        for (int i = 0; i < wordlist.size(); i++) {
+//            if(!usedIndex.contains(i)) {
+//                return iCount;
+//            }
+//        }
+        //System.out.println("2RANDOM_WORD"+random_word);
+        //usedIndex.clear();
+        return random_word;
+    }
+
+    private int max_score(List<Word> wordlist) {
+        int max_score = 0;
+        int iCount;
+        for (iCount = 0; iCount < wordlist.size(); iCount++) {
+            max_score += wordlist.get(iCount).getScore();
+        }
+        return max_score;
+    }
+
 
     private void loadSpinner() {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_dropdown, GameData.getLanguagesList());
@@ -244,8 +304,7 @@ public class GameStartActivity extends AppCompatActivity {
         if (WordList.getOriginalWordList().isEmpty()) {
             findViewById(R.id.empty_image).setVisibility(View.VISIBLE);
             findViewById(R.id.random_select).setVisibility(View.GONE);
-        }
-        else {
+        } else {
             final List<Word> wordLists2 = WordList.getSelectedWordList();
             final List<Word> wordLists = WordList.getOriginalWordList();
             wordLists2.clear();
@@ -281,8 +340,8 @@ public class GameStartActivity extends AppCompatActivity {
         }
     }
 
-    private void cancelAllchecked(){
-        for(CheckBox checkBox : checkBoxes)
+    private void cancelAllchecked() {
+        for (CheckBox checkBox : checkBoxes)
             checkBox.setChecked(false);
     }
 }

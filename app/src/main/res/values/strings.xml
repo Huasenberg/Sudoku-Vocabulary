@@ -45,6 +45,24 @@
     <string name="clear_message">"All of this app's data will be deleted. This includes all word pairs and saved games."</string>
     <string name="add_score">Add</string>
     <string name="name_leaderboard">Your Name</string>
+    <string name="reading_mode">\t\tReading Mode</string>
+    <string name="reading_mode_cont">- The twist is that instead of numbers, you will be playing with pairs of words instead.\n
+        - You may press and hold any cell that contains a word to see the translation of the word as a hint.\n
+        - Be warned that in doing so, the game will keep track of how often you use a hint and interpret that as you having difficulty with that particular word.</string>
+    <string name="listening_mode">\t\tListening Mode</string>
+    <string name="listening_mode_cont">- The board will appear as a regular Japanese Sudoku puzzle, however, you will be filling in the cells with word instead of the usual numbers.\n
+        - To determine which numbers correspond to which word, press and hold a number and an audio will be played in another language to instruct you which word should be placed here.</string>
+    <string name="word_score">\t\tWord Score</string>
+    <string name="word_score_cont">- Similar to golf\'s scoring system, the higher the score, the more the game thinks you have difficulty with this word pair.</string>
+    <string name="import_csv">\t\tImport Your Own CSV</string>
+    <string name="import_csv_cont">- Make sure your textfile is saved in this format as a CSV file "wordID,english,french,score".\n
+        - For the score column, 1 should be default\n For example: 1,hello,bonjour,1\n
+        - Next is to make sure the CSV is on your phone and that you can find it using the file navigation that pops up when you want to import.</string>
+    <string name="how_to_play">How to play</string>
+    <string name="sudoku_intro">This game operates on the same basis as a regular Japanese Sudoku puzzle.</string>
+    <string name="reset_all">Reset All Scores</string>
+    <string name="reset_all_message">All scores will be reset to one</string>
+>>>>>>> app/src/main/res/values/strings.xml
 
 
 </resources>

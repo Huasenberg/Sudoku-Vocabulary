@@ -42,6 +42,12 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.help).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainMenuActivity.this, HelperActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
+            }
+        });
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

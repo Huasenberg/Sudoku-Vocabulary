@@ -110,12 +110,12 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
-    private void loadGameSettings(){
+    private void loadGameSettings() {
         SharedPreferences mSharedPreference1 = this.getSharedPreferences("game_settings", MODE_PRIVATE);
-        GameSettings.setIsSoundOpen(mSharedPreference1.getBoolean("sound", true));
-        GameSettings.setIsVibraOpen(mSharedPreference1.getBoolean("vibration", true));
-        GameSettings.setIsScreeOn(mSharedPreference1.getBoolean("screen_on", false));
-        GameSettings.setIsDuplicHighli(mSharedPreference1.getBoolean("highli_duplic", true));
+        GameSettings.setSoundOpen(mSharedPreference1.getBoolean("sound", true));
+        GameSettings.setVibraOpen(mSharedPreference1.getBoolean("vibration", true));
+        GameSettings.setScreeOn(mSharedPreference1.getBoolean("screen_on", false));
+        GameSettings.setDuplicHighli(mSharedPreference1.getBoolean("highli_duplic", true));
     }
 
 

@@ -11,11 +11,11 @@ import ca.cmpt276theta.sudokuvocabulary.model.GameData;
 
 public class WordView extends View {
 
+    private final int gridSize;
+    private final GameData mGameData;
     private float mGridWidth;
     private float mGridHeight;
     private boolean isLandscapeMode;
-    private final int gridSize;
-    private final GameData mGameData;
 
 
     public WordView(Context context, GameData gameData) {

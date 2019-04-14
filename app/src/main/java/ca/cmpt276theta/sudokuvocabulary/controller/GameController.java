@@ -16,12 +16,11 @@ import android.widget.Toast;
 
 import ca.cmpt276theta.sudokuvocabulary.R;
 import ca.cmpt276theta.sudokuvocabulary.model.GameData;
-import ca.cmpt276theta.sudokuvocabulary.model.GameDataGenerator;
 import ca.cmpt276theta.sudokuvocabulary.model.GameSettings;
 import ca.cmpt276theta.sudokuvocabulary.view.HighlightView;
 import ca.cmpt276theta.sudokuvocabulary.view.WordView;
 
-public class GameController {
+class GameController {
 
     private final MediaPlayer mp;
     private final GameData mGameData;
@@ -44,8 +43,8 @@ public class GameController {
         this.mPopupWindow = popupWindow;
         gridSize = gameData.getGridSize();
         mp = MediaPlayer.create(view.getContext(), R.raw.tada);
-        subGridSizeHori = GameDataGenerator.getUNITX();
-        subGridSizeVerti = GameDataGenerator.getUNITY();
+        subGridSizeHori = gameData.getSubGridSizeHori();
+        subGridSizeVerti = gameData.getSubGridSizeVerti();
     }
 
     static void showMessageToast(Context context, String message, int gravity) {
@@ -95,17 +94,18 @@ public class GameController {
                     if (k != i && mGameData.getPuzzle()[k][j] == currentCell)
                         return;
                 }
-                int tempRow = i / subGridSizeHori * subGridSizeHori;
-                int tempCol = j / subGridSizeVerti * subGridSizeVerti;
-                for (int row = tempRow; row < tempRow + subGridSizeHori; row++)
-                    for (int col = tempCol; col < tempCol + subGridSizeVerti; col++)
+
+                int tempRow = i / subGridSizeVerti * subGridSizeVerti;
+                int tempCol = j / subGridSizeHori * subGridSizeHori;
+                for (int row = tempRow; row < tempRow + subGridSizeVerti; row++)
+                    for (int col = tempCol; col < tempCol + subGridSizeHori; col++)
                         if (row != i && col != j && mGameData.getPuzzle()[row][col] == currentCell)
                             return;
             }
         }
         mTimer.stop();
         showVicPopup();
-        if (mp != null && GameSettings.isIsSoundOpen())
+        if (mp != null && GameSettings.isSoundOpen())
             mp.start();
     }
 
