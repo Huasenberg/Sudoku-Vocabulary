@@ -1,6 +1,5 @@
 package ca.cmpt276theta.sudokuvocabulary.model;
 
-import android.support.annotation.NonNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,71 +8,66 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WordTest {
-    private Word word;
+    private Word mWord;
     @Before
     public void setUp() throws Exception {
-        word = new Word("mango", "mangue");
+        mWord = new Word("mango", "mangue");
     }
 
     @After
     public void tearDown() throws Exception {
-        word = null;
+        mWord = null;
     }
 
     @Test
     public void getEnglish() {
-        assertEquals("mango", word.getEnglish());
+        assertEquals("mango", mWord.getEnglish());
     }
 
     @Test
     public void setEnglish() {
-        word.setEnglish("hello");
-        assertEquals("hello", word.getEnglish());
+        mWord.setEnglish("hello");
+        assertEquals("hello", mWord.getEnglish());
     }
 
     @Test
     public void getFrench() {
-        assertEquals("mangue", word.getFrench());
+        assertEquals("mangue", mWord.getFrench());
     }
 
     @Test
     public void setFrench() {
-        word.setFrench("bonjour");
-        assertEquals("bonjour", word.getFrench());
+        mWord.setFrench("bonjour");
+        assertEquals("bonjour", mWord.getFrench());
     }
 
     @Test
     public void getScore() {
-        assertEquals(0, word.getScore());
+        assertEquals(0, mWord.getScore());
     }
 
     @Test
     public void setScore() {
-        word.setScore(20);
-        assertEquals(20, word.getScore());
+        mWord.setScore(20);
+        assertEquals(20, mWord.getScore());
     }
 
     @Test
     public void addOneScore() {
-        word.addOneScore();
-        assertEquals(1, word.getScore());
+        mWord.addOneScore();
+        assertEquals(1, mWord.getScore());
     }
 
-    @NonNull
-    @Test
-    public String toString() {
-        assertEquals(word.getScore() + "        " + word.getEnglish() + " --- " + word.getFrench(), word.toString());
-        word.setScore(20);
-        assertEquals(word.getScore() + "      " + word.getEnglish() + " --- " + word.getFrench(), word.toString());
-        return null;
-    }
 
     @Test
     public void equals() {
         Word newWord = new Word("mango", "mangue");
-        assertEquals(word, newWord);
+        assertEquals(mWord, newWord);
         Word newWord2 = new Word("hello", "mangue");
-        assertNotEquals(word, newWord2);
-        assertNotEquals(word, null);
+        assertNotEquals(mWord, newWord2);
+        assertNotEquals(mWord, null);
+        assertEquals(mWord.getScore() + "        " + mWord.getEnglish() + " --- " + mWord.getFrench(), mWord.toString());
+        mWord.setScore(20);
+        assertEquals(mWord.getScore() + "      " + mWord.getEnglish() + " --- " + mWord.getFrench(), mWord.toString());
     }
 }
